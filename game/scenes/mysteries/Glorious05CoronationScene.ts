@@ -25,6 +25,12 @@ export class Glorious05CoronationScene extends InteractiveScene {
   private ringFilled = false;
   private crowned = false;
   private done = false;
+  private father!: Phaser.GameObjects.Sprite;
+  private jesus!: Phaser.GameObjects.Sprite;
+  private mary!: Phaser.GameObjects.Sprite;
+  private dove!: Phaser.GameObjects.Sprite;
+  private doveGlow!: Phaser.GameObjects.Image;
+  private maryHint!: Phaser.GameObjects.Image;
 
   constructor() {
     super("Glorious05CoronationScene");
@@ -80,12 +86,12 @@ export class Glorious05CoronationScene extends InteractiveScene {
       this.block(x, y - 4, 14, 8);
       return s;
     };
-    person("god_father", FATHER_AT);
-    person("jesus_risen", JESUS_AT);
-    person("mary_glory", MARY_AT);
-    const dove = this.add.sprite(SPIRIT_AT[0], SPIRIT_AT[1], "holy_spirit_dove").setDepth(DEPTH.FX).play("spirit_flap");
-    this.tweens.add({ targets: dove, y: SPIRIT_AT[1] - 4, duration: 800, yoyo: true, repeat: -1, ease: "Stepped", easeParams: [3] });
-    this.add.image(SPIRIT_AT[0], SPIRIT_AT[1], "glow_gold").setDepth(DEPTH.FX - 1).setAlpha(0.5);
+    this.father = person("god_father", FATHER_AT);
+    this.jesus = person("jesus_risen", JESUS_AT);
+    this.mary = person("mary_glory", MARY_AT);
+    const dove = (this.dove = this.add.sprite(SPIRIT_AT[0], SPIRIT_AT[1], "holy_spirit_dove").setDepth(DEPTH.FX).play("spirit_flap"));
+    this.tweens.add({ targets: dove, originY: 0.5 + 4 / 32, duration: 800, yoyo: true, repeat: -1, ease: "Stepped", easeParams: [3] });
+    this.doveGlow = this.add.image(SPIRIT_AT[0], SPIRIT_AT[1], "glow_gold").setDepth(DEPTH.FX - 1).setAlpha(0.5);
     // angel choir and saints
     [[130, 250], [510, 250], [150, 420], [490, 420], [100, 150], [540, 150]].forEach(([x, y], i) => {
       const a = this.add.sprite(x, y, "archangel_gabriel").setOrigin(0.5, 1).setDepth(y).play("angel_flap");
@@ -94,7 +100,7 @@ export class Glorious05CoronationScene extends InteractiveScene {
     [["peter", 170, 360], ["andrew", 470, 360], ["moses", 130, 330], ["elijah", 510, 330]].forEach(([k, x, y]) => {
       this.add.sprite(x as number, y as number, k as string).setOrigin(0.5, 1).setDepth(y as number);
     });
-    this.hint(MARY_AT[0], MARY_AT[1] - 38);
+    this.maryHint = this.hint(MARY_AT[0], MARY_AT[1] - 38);
   }
 
   private defineInteractables() {
@@ -115,7 +121,7 @@ export class Glorious05CoronationScene extends InteractiveScene {
         act: () => this.takeLoot("bead20"),
       },
       {
-        at: () => MARY_AT,
+        at: () => [this.mary.x, this.mary.y],
         r: 46,
         label: () => "[A] Đức Mẹ Maria",
         active: () => !this.done,
@@ -126,7 +132,7 @@ export class Glorious05CoronationScene extends InteractiveScene {
           ]),
       },
       {
-        at: () => FATHER_AT,
+        at: () => [this.father.x, this.father.y],
         r: 46,
         label: () => "[A] Chúa Cha",
         active: () => !this.done,
@@ -150,7 +156,7 @@ export class Glorious05CoronationScene extends InteractiveScene {
     this.dropItem();
     const [x, y] = slot(0);
     this.placeBead(0, x, y, "bead_gold", 0);
-    this.time.delayedCall(700, () => this.crown());
+    this.time.delayedCall(700, () => this.stage());
   }
 
   private placeBead(i: number, x: number, y: number, key: string, delay: number) {
@@ -175,18 +181,58 @@ export class Glorious05CoronationScene extends InteractiveScene {
     );
   }
 
+  /** Player steps down; the Holy Trinity court and Mary gather in the middle of the view. */
+  private stage() {
+    const p = this.player;
+    p.setMovementLock(true);
+    p.play(`player-walk-${p.x > 320 ? "left" : "right"}`, true);
+    this.tweens.add({ targets: p, x: 320, y: 470, duration: 700, onComplete: () => p.play("player-idle-up", true) });
+    const cam = this.cameras.main;
+    cam.fadeOut(400, 255, 255, 255);
+    cam.once("camerafadeoutcomplete", () => {
+      this.maryHint.destroy();
+      this.mary.setPosition(320, 412).setDepth(412);
+      this.father.setPosition(250, 404);
+      this.jesus.setPosition(390, 404);
+      this.dove.setPosition(320, 350);
+      this.doveGlow.setPosition(320, 350);
+      cam.fadeIn(400, 255, 255, 255);
+      this.time.delayedCall(900, () => this.crown());
+    });
+  }
+
+  /** The Father and the Son step up to Mary and set the crown on her head. */
   private crown() {
+    this.walkers.push(this.father, this.jesus);
+    const y = this.mary.y - 6;
+    this.walk(this.father, [[this.mary.x - 30, y]]);
+    this.walk(this.jesus, [[this.mary.x + 30, y]], () => {
+      const crown = this.add.image(this.mary.x, y - 52, "crown_small").setOrigin(0.5, 1).setDepth(DEPTH.FX).setAlpha(0);
+      this.tweens.add({ targets: crown, alpha: 1, duration: 500 });
+      this.tweens.add({
+        targets: crown,
+        y: this.mary.y - 30,
+        duration: 900,
+        delay: 700,
+        ease: "Stepped",
+        easeParams: [6],
+        onComplete: () => this.glorify(),
+      });
+    });
+  }
+
+  private glorify() {
     const cam = this.cameras.main;
     cam.flash(900, 255, 255, 220);
     // twelve stars above Mary's head, the moon at her feet, the sun around her
-    const sun = this.add.image(MARY_AT[0], MARY_AT[1] - 20, "glow_gold").setDepth(MARY_AT[1] - 1).setAlpha(0).setTint(0xfef08a);
+    const sun = this.add.image(this.mary.x, this.mary.y - 20, "glow_gold").setDepth(this.mary.y - 1).setAlpha(0).setTint(0xfef08a);
     this.tweens.add({ targets: sun, alpha: 1, duration: 1400 });
-    const moon = this.add.image(MARY_AT[0], MARY_AT[1] + 2, "icon_west").setDepth(MARY_AT[1] + 1).setAlpha(0);
+    const moon = this.add.image(this.mary.x, this.mary.y + 2, "icon_west").setDepth(this.mary.y + 1).setAlpha(0);
     this.tweens.add({ targets: moon, alpha: 1, duration: 1400 });
     for (let i = 0; i < 12; i++) {
       const a = Math.PI + (i / 11) * Math.PI;
-      const x = Math.round(MARY_AT[0] + Math.cos(a) * 20);
-      const y = Math.round(MARY_AT[1] - 40 + Math.sin(a) * 14);
+      const x = Math.round(this.mary.x + Math.cos(a) * 20);
+      const y = Math.round(this.mary.y - 40 + Math.sin(a) * 14);
       const s = this.add.image(x, y, i % 3 === 0 ? "star_m" : "star_s").setDepth(DEPTH.FX).setAlpha(0);
       this.tweens.add({ targets: s, alpha: 1, duration: 400, delay: 500 + i * 140 });
       this.tweens.add({ targets: s, alpha: 0.5, duration: 700, yoyo: true, repeat: -1, delay: 2200 + i * 90 });
@@ -206,21 +252,11 @@ export class Glorious05CoronationScene extends InteractiveScene {
 
   private jesusSpeaks() {
     this.done = true;
-    const jesus = this.children.list.find((o) => o instanceof Phaser.GameObjects.Sprite && o.texture.key === "jesus_risen") as Phaser.GameObjects.Sprite;
+    const jesus = this.jesus;
     // player and Jesus stand side by side in front of the crown to talk
     const p = this.player;
-    p.setMovementLock(true);
-    const FOOT_Y = 440;
-    const px = 304;
-    p.play(`player-walk-${p.x > px ? "left" : "right"}`, true);
-    this.tweens.add({
-      targets: p,
-      x: px,
-      y: FOOT_Y - 16, // player.y is the body centre; its feet sit 16px lower
-      duration: 700,
-      onComplete: () => p.play("player-idle-up", true),
-    });
-    this.walk(jesus, [[372, 300], [372, FOOT_Y], [px + 32, FOOT_Y]], () => this.blessPlayer());
+    const footY = p.y + 16; // player.y is the body centre
+    this.walk(jesus, [[jesus.x, footY], [p.x + 32, footY]], () => this.blessPlayer());
   }
 
   private blessPlayer() {

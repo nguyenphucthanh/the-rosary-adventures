@@ -10,7 +10,7 @@ const W = 640;
 const H = 640;
 const LAKE_H = 112;
 const ROCK: [number, number] = [320, 220];
-const JESUS_AT: [number, number] = [320, 192];
+const JESUS_AT: [number, number] = [320, 181]; // on top of the rock (top edge y=176)
 
 const NEEDY = [
   {
@@ -105,7 +105,7 @@ export class Luminous03BeatitudesScene extends InteractiveScene {
 
   private buildCharacters() {
     const person = (key: string, x: number, y: number) => this.add.sprite(x, y, key).setOrigin(0.5, 1).setDepth(y);
-    person("jesus_adult", ...JESUS_AT);
+    person("jesus_adult", ...JESUS_AT).setDepth(ROCK[1] + 1);
     this.hint(JESUS_AT[0], JESUS_AT[1] - 38);
     person("peter", 262, 246);
     person("andrew", 378, 246);

@@ -19,6 +19,9 @@ export class Joyful04PresentationScene extends InteractiveScene {
   private dove!: Phaser.GameObjects.Sprite;
   private doveGlow!: Phaser.GameObjects.Image;
   private baby!: Phaser.GameObjects.Image;
+  private joseph!: Phaser.GameObjects.Sprite;
+  private mary!: Phaser.GameObjects.Sprite;
+  private anna!: Phaser.GameObjects.Sprite;
 
   private perch = 0;
   private flees = 0;
@@ -105,9 +108,9 @@ export class Joyful04PresentationScene extends InteractiveScene {
 
   private buildCharacters() {
     this.add.sprite(...SIMEON_AT, "simeon").setOrigin(0.5, 1).setDepth(SIMEON_AT[1]);
-    this.add.sprite(...ANNA_AT, "anna").setOrigin(0.5, 1).setDepth(ANNA_AT[1]);
-    this.add.sprite(...JOSEPH_AT, "joseph").setOrigin(0.5, 1).setDepth(JOSEPH_AT[1]);
-    this.add.sprite(...MARY_AT, "mary_praying").setOrigin(0.5, 1).setDepth(MARY_AT[1]);
+    this.anna = this.add.sprite(...ANNA_AT, "anna").setOrigin(0.5, 1).setDepth(ANNA_AT[1]);
+    this.joseph = this.add.sprite(...JOSEPH_AT, "joseph").setOrigin(0.5, 1).setDepth(JOSEPH_AT[1]);
+    this.mary = this.add.sprite(...MARY_AT, "mary_praying").setOrigin(0.5, 1).setDepth(MARY_AT[1]);
     this.add.image(JOSEPH_AT[0] + 26, JOSEPH_AT[1], "bird_cage").setOrigin(0.5, 1).setDepth(JOSEPH_AT[1]);
     this.hint(SIMEON_AT[0], SIMEON_AT[1] - 36);
     this.hint(JOSEPH_AT[0], JOSEPH_AT[1] - 36);
@@ -255,6 +258,14 @@ export class Joyful04PresentationScene extends InteractiveScene {
     this.hasBaby = false;
     this.baby.setPosition(SIMEON_AT[0] + 10, SIMEON_AT[1] - 12).setDepth(SIMEON_AT[1] + 1);
     this.sparkleBurst(SIMEON_AT[0], SIMEON_AT[1] - 20);
+    // Mary, Joseph and Anna gather round Simeon and the baby; dialogue starts once Mary arrives
+    this.walkers.push(this.joseph, this.mary, this.anna);
+    this.walk(this.joseph, [[SIMEON_AT[0] + 40, SIMEON_AT[1] + 34]]);
+    this.walk(this.anna, [[SIMEON_AT[0] + 56, SIMEON_AT[1] + 6]]);
+    this.walk(this.mary, [[SIMEON_AT[0] - 34, SIMEON_AT[1] + 34]], () => this.simeonSpeaks());
+  }
+
+  private simeonSpeaks() {
     this.talk(
       "Cụ Simêon",
       "👴",

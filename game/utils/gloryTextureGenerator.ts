@@ -164,6 +164,16 @@ function crownRing() {
   return canvas;
 }
 
+/** Small gold royal crown held over Mary's head: 3 points on a band. */
+function crownSmall() {
+  const { canvas, ctx } = makeCanvas(14, 8);
+  rect(ctx, 1, 4, 12, 4, PAL.y); rect(ctx, 1, 7, 12, 1, PAL.Y);
+  for (const x of [1, 6, 11]) rect(ctx, x, 1, 2, 3, PAL.y);
+  for (const x of [1, 6, 11]) rect(ctx, x, 0, 2, 1, PAL.l);
+  rect(ctx, 6, 5, 2, 2, PAL.w);
+  return canvas;
+}
+
 function pedestal() {
   const { canvas, ctx } = makeCanvas(40, 30);
   rect(ctx, 2, 26, 36, 3, PAL.z);
@@ -246,6 +256,7 @@ export function registerGloryTextures(scene: Phaser.Scene) {
   add("bead_gold", () => bead(PAL.y, PAL.Y));
   add("bead_white", () => bead(PAL.w, PAL.W));
   add("crown_ring", crownRing);
+  add("crown_small", crownSmall);
   add("pedestal", pedestal);
   add("empty_tomb", emptyTomb);
   add("cloud_tile", cloudTile);

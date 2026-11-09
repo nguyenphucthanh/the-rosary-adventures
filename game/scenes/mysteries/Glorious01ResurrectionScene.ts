@@ -12,7 +12,9 @@ const DOOR_IN: [number, number] = [320, 214]; // in front of the tomb opening
 const CHAMBER_IN: [number, number] = [320, 790]; // where the player lands inside
 const EXIT_AT: [number, number] = [320, 806];
 const BENCH_AT: [number, number] = [320, 660];
-const JESUS_AT: [number, number] = [320, 400];
+const OUT_AT: [number, number] = [DOOR_IN[0], DOOR_IN[1] + 30]; // player stands at the tomb door
+const JESUS_AT: [number, number] = [OUT_AT[0] + 46, OUT_AT[1] + 8];
+const MAGDALENE_NEAR: [number, number] = [OUT_AT[0] - 46, OUT_AT[1] + 8];
 const MAGDALENE_AT: [number, number] = [170, 330];
 
 /** The grave-cloths scattered in the tomb; each goes to the tidy corner on the bench. */
@@ -26,7 +28,9 @@ export class Glorious01ResurrectionScene extends InteractiveScene {
   private tidy = new Set<string>();
   private tidied = false;
   private met = false;
+  private exiting = false;
   private shade!: Phaser.GameObjects.Rectangle;
+  private magdalene!: Phaser.GameObjects.Sprite;
 
   constructor() {
     super("Glorious01ResurrectionScene");
@@ -39,7 +43,7 @@ export class Glorious01ResurrectionScene extends InteractiveScene {
     this.resetCarry();
     this.walkers = [];
     this.tidy = new Set();
-    this.tidied = this.met = false;
+    this.tidied = this.met = this.exiting = false;
 
     this.physics.world.setBounds(0, 0, W, H);
     this.obstacles = this.physics.add.staticGroup();
@@ -103,6 +107,15 @@ export class Glorious01ResurrectionScene extends InteractiveScene {
     for (const c of CLOTHS) this.spawnLoot(c.id, c.at[0], c.at[1], c.key);
   }
 
+  update() {
+    super.update();
+    // after the folding, hold the player at the tomb door until the scene ends
+    if (this.exiting && this.player) {
+      this.player.setPosition(OUT_AT[0], OUT_AT[1]);
+      (this.player.body as Phaser.Physics.Arcade.Body | null)?.setVelocity(0, 0);
+    }
+  }
+
   private teleport(to: [number, number]) {
     const cam = this.cameras.main;
     cam.fadeOut(250, 0, 0, 0);
@@ -127,7 +140,8 @@ export class Glorious01ResurrectionScene extends InteractiveScene {
         label: () => "[A] Ra khỏi mộ",
         active: () => true,
         act: () => {
-          this.teleport([DOOR_IN[0], DOOR_IN[1] + 30]);
+          this.teleport(OUT_AT);
+          if (this.tidied && !this.met) this.time.delayedCall(260, () => (this.exiting = true));
           if (this.tidied && !this.met) this.time.delayedCall(700, () => this.jesusAppears());
         },
       },
@@ -157,7 +171,7 @@ export class Glorious01ResurrectionScene extends InteractiveScene {
       },
     ];
     this.hint(MAGDALENE_AT[0], MAGDALENE_AT[1] - 38);
-    this.add.sprite(MAGDALENE_AT[0], MAGDALENE_AT[1], "magdalene").setOrigin(0.5, 1).setDepth(MAGDALENE_AT[1]);
+    this.magdalene = this.add.sprite(MAGDALENE_AT[0], MAGDALENE_AT[1], "magdalene").setOrigin(0.5, 1).setDepth(MAGDALENE_AT[1]);
     this.block(MAGDALENE_AT[0], MAGDALENE_AT[1] - 4, 14, 8);
   }
 
@@ -192,6 +206,9 @@ export class Glorious01ResurrectionScene extends InteractiveScene {
   private jesusAppears() {
     this.met = true;
     this.shade.setAlpha(0);
+    // Magdalene hurries over to the tomb door; the player stays put there
+    this.walkers.push(this.magdalene);
+    this.walk(this.magdalene, [MAGDALENE_NEAR]);
     const j = this.add.sprite(JESUS_AT[0], JESUS_AT[1], "jesus_risen").setOrigin(0.5, 1).setDepth(JESUS_AT[1]).setAlpha(0);
     this.add.image(JESUS_AT[0] + 24, JESUS_AT[1], "banner").setOrigin(0.5, 1).setDepth(JESUS_AT[1]);
     const glow = this.add.image(JESUS_AT[0], JESUS_AT[1] - 16, "glow_gold").setDepth(DEPTH.LIGHT).setAlpha(0);
