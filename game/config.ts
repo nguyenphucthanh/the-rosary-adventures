@@ -25,6 +25,15 @@ import { Joyful02VisitationScene } from "./scenes/mysteries/Joyful02VisitationSc
 import { Joyful03NativityScene } from "./scenes/mysteries/Joyful03NativityScene";
 import { Joyful04PresentationScene } from "./scenes/mysteries/Joyful04PresentationScene";
 import { Joyful05FindingScene } from "./scenes/mysteries/Joyful05FindingScene";
+import { InterludeB1ThreeKingsScene } from "./scenes/mysteries/InterludeB1ThreeKingsScene";
+import { InterludeA1WorkshopScene } from "./scenes/mysteries/InterludeA1WorkshopScene";
+import { InterludeB2MiraculousCatchScene } from "./scenes/mysteries/InterludeB2MiraculousCatchScene";
+import { InterludeB3CalmingStormScene } from "./scenes/mysteries/InterludeB3CalmingStormScene";
+import { InterludeA2KidronValleyScene } from "./scenes/mysteries/InterludeA2KidronValleyScene";
+import { InterludeB4CarryCrossScene } from "./scenes/mysteries/InterludeB4CarryCrossScene";
+import { InterludeA3DawnRollStoneScene } from "./scenes/mysteries/InterludeA3DawnRollStoneScene";
+import { InterludeB5EmmausRoadScene } from "./scenes/mysteries/InterludeB5EmmausRoadScene";
+import { InterludeB6BeautifulGateScene } from "./scenes/mysteries/InterludeB6BeautifulGateScene";
 import { PrologueScene } from "./scenes/mysteries/PrologueScene";
 import { EpilogueScene } from "./scenes/mysteries/EpilogueScene";
 
@@ -57,21 +66,30 @@ export const createGameConfig = (
     Joyful01AnnunciationScene,
     Joyful02VisitationScene,
     Joyful03NativityScene,
+    InterludeB1ThreeKingsScene,
     Joyful04PresentationScene,
     Joyful05FindingScene,
+    InterludeA1WorkshopScene,
     Luminous01BaptismScene,
+    InterludeB2MiraculousCatchScene,
     Luminous02CanaScene,
     Luminous03BeatitudesScene,
+    InterludeB3CalmingStormScene,
     Luminous04TransfigurationScene,
     Luminous05EucharistScene,
+    InterludeA2KidronValleyScene,
     Sorrowful01GardenScene,
     Sorrowful02PraetoriumScene,
     Sorrowful03ThornsScene,
+    InterludeB4CarryCrossScene,
     Sorrowful04CrossScene,
     Sorrowful05CalvaryScene,
+    InterludeA3DawnRollStoneScene,
     Glorious01ResurrectionScene,
+    InterludeB5EmmausRoadScene,
     Glorious02AscensionScene,
     Glorious03PentecostScene,
+    InterludeB6BeautifulGateScene,
     Glorious04AssumptionScene,
     Glorious05CoronationScene,
     BaseMysteryScene,

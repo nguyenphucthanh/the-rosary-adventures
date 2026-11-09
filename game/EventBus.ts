@@ -1,9 +1,22 @@
 import mitt, { Emitter } from "mitt";
 
+export interface InterludeQuestProgress {
+  id: string;
+  emoji: string;
+  label: string;
+  current: number;
+  total: number;
+  suffix?: string;
+  color?: "amber" | "sky" | "emerald" | "rose";
+}
+
 export type GameEvents = {
   // Scene lifecycle
   "scene-ready": { sceneKey: string };
   "scene-change-request": { targetSceneKey: string; mysteryKey?: string };
+
+  // Action Mid-Stage / Bridge side vertical progress bars
+  "interlude-progress": { quests: InterludeQuestProgress[] };
 
   // Dialogue & Interaction
   "dialogue-open": {

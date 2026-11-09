@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { MYSTERIES_DATA, SEASONS, ExtendedMysteryInfo } from "@/data/mysteries";
+import { MYSTERIES_DATA, INTERLUDES_DATA, SEASONS } from "@/data/mysteries";
 import { SaveData, MysterySeason } from "@/types/game";
 import { EPILOGUE_SCENE, PROLOGUE_SCENE, STAGE_SCENES } from "@/data/stages";
 import EventBus from "@/game/EventBus";
@@ -13,27 +13,25 @@ interface RosaryHUDProps {
 export default function RosaryHUD({ saveData }: RosaryHUDProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSeason, setSelectedSeason] = useState<MysterySeason>("joyful");
-  const [litBeadsCount, setLitBeadsCount] = useState(0);
+  const [extraLit, setExtraLit] = useState(0);
 
-  // Calculate lit beads whenever saveData updates
-  useEffect(() => {
-    if (!saveData) return;
-    const count = Object.values(saveData.mysteriesProgress).filter(
-      (p) => p.beadLit || p.completed
-    ).length;
-    setLitBeadsCount(count);
-  }, [saveData]);
+  const savedLitCount = saveData
+    ? MYSTERIES_DATA.filter(
+        (m) => saveData.mysteriesProgress[m.key]?.beadLit || saveData.mysteriesProgress[m.key]?.completed
+      ).length
+    : 0;
+  const litBeadsCount = Math.min(20, Math.max(savedLitCount, extraLit));
 
   // Listen to bead-lit event for instant visual feedback
   useEffect(() => {
     const handleBeadLit = () => {
-      setLitBeadsCount((prev) => Math.min(20, prev + 1));
+      setExtraLit((prev) => Math.min(20, Math.max(prev, savedLitCount) + 1));
     };
     EventBus.on("bead-lit", handleBeadLit);
     return () => {
       EventBus.off("bead-lit", handleBeadLit);
     };
-  }, []);
+  }, [savedLitCount]);
 
   // Esc (desktop) and virtual button B (mobile) toggle the menu, as the control hint and plan promise.
   useEffect(() => {
@@ -205,78 +203,124 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
               {currentSeasonMysteries.map((item) => {
                 const isCompleted = !!progress[item.key]?.completed;
                 const isLit = !!progress[item.key]?.beadLit;
+                const interlude = INTERLUDES_DATA.find((it) => it.afterMysteryKey === item.key);
+                const interludeDone = interlude ? !!progress[interlude.key]?.completed : false;
 
                 return (
-                  <div
-                    key={item.key}
-                    className={`p-3.5 border-2 transition-all ${
-                      isLit
-                        ? "bg-amber-950/40 border-amber-500/90 shadow-[0_0_8px_rgba(245,158,11,0.2)]"
-                        : "bg-slate-900/60 border-slate-800 opacity-80"
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      {/* Left: Bead Status & Title */}
-                      <div className="flex items-start gap-3">
-                        {/* Lit Bead Icon */}
-                        <div
-                          className={`mt-0.5 w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-sm border-2 ${
-                            isLit
-                              ? "bg-amber-400 border-amber-200 text-slate-950 shadow-[0_0_10px_#f59e0b] animate-pulse"
-                              : "bg-slate-800 border-slate-600 text-slate-500"
-                          }`}
-                        >
-                          {isLit ? "✨" : item.seasonIndex + 1}
-                        </div>
-
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <span className="font-pixel text-xs text-amber-400">
-                              {item.decadeNameVi}
-                            </span>
-                            <span className="text-[11px] font-mono px-1.5 py-0.2 bg-slate-800 text-amber-200 rounded">
-                              {item.scriptureVi}
-                            </span>
-                          </div>
-
-                          <h3 className="font-retro text-lg sm:text-xl text-amber-100 font-bold mt-0.5">
-                            {item.titleVi}
-                          </h3>
-
-                          {/* Spiritual Fruit (Hoa trái suy niệm) */}
-                          <div className="mt-1.5 font-retro text-sm sm:text-base text-amber-200/90 flex items-center gap-1.5">
-                            <span className="text-amber-400 font-pixel text-[11px]">
-                              HOA TRÁI:
-                            </span>
-                            <span>{item.fruitVi}</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Right: Badge */}
-                      <div className="shrink-0 text-right">
-                        {isLit ? (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-amber-500/20 border border-amber-400 text-amber-300 font-pixel text-[11px] rounded">
-                            <span>ĐÃ SÁNG</span>
-                            <span>★</span>
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-slate-800 border border-slate-700 text-slate-400 font-pixel text-[10px] rounded">
-                            CHƯA SÁNG
-                          </span>
-                        )}
-                        {isCompleted && STAGE_SCENES[item.key] && (
-                          <button
-                            type="button"
-                            onClick={() => replay(item.key)}
-                            className="mt-1.5 block ml-auto retro-btn-gold px-2.5 py-1 font-pixel text-[11px] text-amber-100 active:translate-y-0.5"
+                  <React.Fragment key={item.key}>
+                    <div
+                      className={`p-3.5 border-2 transition-all ${
+                        isLit
+                          ? "bg-amber-950/40 border-amber-500/90 shadow-[0_0_8px_rgba(245,158,11,0.2)]"
+                          : "bg-slate-900/60 border-slate-800 opacity-80"
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        {/* Left: Bead Status & Title */}
+                        <div className="flex items-start gap-3">
+                          {/* Lit Bead Icon */}
+                          <div
+                            className={`mt-0.5 w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-sm border-2 ${
+                              isLit
+                                ? "bg-amber-400 border-amber-200 text-slate-950 shadow-[0_0_10px_#f59e0b] animate-pulse"
+                                : "bg-slate-800 border-slate-600 text-slate-500"
+                            }`}
                           >
-                            ▶ CHƠI LẠI
-                          </button>
-                        )}
+                            {isLit ? "✨" : item.seasonIndex + 1}
+                          </div>
+
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="font-pixel text-xs text-amber-400">
+                                {item.decadeNameVi}
+                              </span>
+                              <span className="text-[11px] font-mono px-1.5 py-0.2 bg-slate-800 text-amber-200 rounded">
+                                {item.scriptureVi}
+                              </span>
+                            </div>
+
+                            <h3 className="font-retro text-lg sm:text-xl text-amber-100 font-bold mt-0.5">
+                              {item.titleVi}
+                            </h3>
+
+                            {/* Spiritual Fruit (Hoa trái suy niệm) */}
+                            <div className="mt-1.5 font-retro text-sm sm:text-base text-amber-200/90 flex items-center gap-1.5">
+                              <span className="text-amber-400 font-pixel text-[11px]">
+                                HOA TRÁI:
+                              </span>
+                              <span>{item.fruitVi}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Right: Badge */}
+                        <div className="shrink-0 text-right">
+                          {isLit ? (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-amber-500/20 border border-amber-400 text-amber-300 font-pixel text-[11px] rounded">
+                              <span>ĐÃ SÁNG</span>
+                              <span>★</span>
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-slate-800 border border-slate-700 text-slate-400 font-pixel text-[10px] rounded">
+                              CHƯA SÁNG
+                            </span>
+                          )}
+                          {isCompleted && STAGE_SCENES[item.key] && (
+                            <button
+                              type="button"
+                              onClick={() => replay(item.key)}
+                              className="mt-1.5 block ml-auto retro-btn-gold px-2.5 py-1 font-pixel text-[11px] text-amber-100 active:translate-y-0.5"
+                            >
+                              ▶ CHƠI LẠI
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
+
+                    {/* Action Mid-Stage or Season Bridge right after this Mystery */}
+                    {interlude && STAGE_SCENES[interlude.key] && (
+                      <div
+                        className={`ml-4 sm:ml-6 p-2.5 border-2 border-dashed transition-all flex items-center justify-between gap-2 ${
+                          interlude.kind === "bridge"
+                            ? "bg-sky-950/35 border-sky-500/70"
+                            : "bg-emerald-950/35 border-emerald-500/70"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-lg">{interlude.emoji}</span>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span
+                                className={`font-pixel text-[10px] ${
+                                  interlude.kind === "bridge" ? "text-sky-300" : "text-emerald-300"
+                                }`}
+                              >
+                                {interlude.badgeVi}
+                              </span>
+                              <span className="text-[10px] font-mono px-1.5 bg-slate-800 text-amber-200 rounded">
+                                {interlude.scriptureVi}
+                              </span>
+                              {interludeDone && (
+                                <span className="font-pixel text-[10px] text-amber-300">✓ ĐÃ QUA</span>
+                              )}
+                            </div>
+                            <div className="font-retro text-base text-amber-100 font-bold">
+                              {interlude.titleVi}
+                            </div>
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => replay(interlude.key)}
+                          className="shrink-0 retro-btn-gold px-2.5 py-1 font-pixel text-[11px] text-amber-100 active:translate-y-0.5"
+                        >
+                          ⚡ CHƠI NGAY
+                        </button>
+                      </div>
+                    )}
+                  </React.Fragment>
                 );
               })}
             </div>

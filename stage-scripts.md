@@ -72,6 +72,17 @@
 
 ---
 
+### ⚡ Chặng Đệm Hành Động B1 (Sau Chặng 3): Hành Trình Ba Vua Theo Ánh Sao (Mt 2, 1-12)
+* **Bối cảnh:** Con đường cát sa mạc đêm đầy sao dẫn về thành Bethlehem; Ngôi Sao Lạ tỏa sáng dẫn lối phía trước, hai bên là cồn cát, ốc đảo cây chà là và những chú lạc đà đang nằm nghỉ.
+* **Nhân vật:** Ba Vua (Ba Nhà Đạo Sĩ phương Đông: Melchior, Caspar, Balthazar), Lữ khách nhỏ tuổi, Chim Bồ Câu Chúa Thánh Thần.
+* **Cơ chế gameplay Hành Động (Star-Guided Desert Dash - Dễ cho thiếu nhi):**
+  * Ngôi Sao Bethlehem di chuyển dẫn đường và thả xuống những hạt ánh sao cùng 3 lễ vật quý (**Vàng, Nhũ Hương, Mộc Dược**).
+  * Người chơi điều khiển nhân vật chạy trên đường cát, hứng **8 vật phẩm ánh sao & lễ vật** trước khi chúng chạm đất biến mất, đồng thời khéo léo lách qua các chú lạc đà đang ngủ và bụi xương rồng nhỏ (nếu chạm vào chỉ bị nảy nhẹ, không bao giờ thua).
+  * Nếu sau 20 giây bé chưa thu thập đủ, Chim Bồ Câu Thánh Thần sẽ bay qua thả thêm các ngôi sao lớn di chuyển chậm để bé dễ dàng hoàn thành.
+* **Bài học chuyển tiếp:** Như Ba Vua kiên trì đi theo ánh sao tìm gặp Chúa, chúng ta luôn dõi theo ánh sáng Lời Chúa mỗi ngày.
+
+---
+
 ### Chặng 4: Đức Bà Dâng Đức Chúa Giêsu Vào Đền Thánh (Lc 2, 22-40)
 * **Bối cảnh:** Quảng trường và gian cung thánh uy nghiêm của Đền Thờ Giê-ru-sa-lem.
 * **Nhân vật:** Hài Nhi Giêsu, Đức Mẹ, Thánh Giuse mang lồng chim câu, Cụ già Simêon, Nữ ngôn sứ Anna.
@@ -95,6 +106,17 @@
 
 ---
 
+### 🌟 Chặng Cầu Nối Mùa A1 (Giữa Mùa Vui & Mùa Sáng): Xưởng Mộc Nazareth (Lc 2, 51-52)
+* **Bối cảnh:** Xưởng mộc ấm cúng của Thánh Giuse tại Nazareth tràn ngập nắng sớm, kệ gỗ, bàn bào, cưa gỗ và khu vườn nhỏ bên ngoài nơi Đức Mẹ đang khâu áo.
+* **Nhân vật:** Chúa Giêsu thiếu niên/thanh niên, Thánh Giuse thợ mộc, Đức Mẹ Maria, Lữ khách nhỏ tuổi.
+* **Cơ chế gameplay Hành Động Nhịp Điệu (Rhythm / Timing Workshop - Dễ cho thiếu nhi):**
+  * Cầu nối thời gian 18 năm sống ẩn dật tại Nazareth trước khi Chúa bước ra rao giảng (*"Chúa Giêsu ngày càng thêm khôn ngoan, thêm cao lớn và thêm ân nghĩa"* - Lc 2, 52).
+  * Người chơi đứng bên bàn mộc dài cùng Chúa Giêsu và Thánh Giuse. Những thanh gỗ trượt dọc theo mặt bàn qua **Vùng Dấu Vàng Phát Sáng**: bé nhấn phím `A` (hoặc `Space`) đúng nhịp khi thanh gỗ đi vào vùng sáng để đóng ghép **5 món đồ gỗ** giúp dân làng.
+  * Nếu bấm sớm hoặc trễ, Thánh Giuse mỉm cười khích lệ *"Không sao đâu con, cứ bình tĩnh thử lại nhé!"* và thanh gỗ mới lại trượt tới.
+* **Bài học chuyển tiếp:** Thánh hóa công việc nhỏ bé hằng ngày bằng tình yêu, sự chăm chỉ và vâng lời cha mẹ.
+
+---
+
 # PHẦN 2: NĂM SỰ SÁNG (RAO TRUYỀN NƯỚC THIÊN CHÚA)
 
 ---
@@ -107,6 +129,17 @@
   * *Thử thách "Mở lối qua sông":* Dòng nước sông Gio-đan chảy xiết làm trôi mất những bậc đá bước qua. Người chơi phải đẩy các tảng đá (Sokoban puzzle) để tạo lối đi an toàn từ bờ vào giữa lòng sông nơi Gioan Tẩy Giả đang đứng.
   * *Tương tác:* Chúa Giêsu cúi mình xuống nước. Trời mở ra, hình chim bồ câu đậu xuống đầu Ngài, kèm tiếng sấm vang dội: *"Đây là Con yêu dấu của Ta, Ta hài lòng về Người"*.
 * **Hoa trái suy niệm:** Nhận biết ơn gọi làm con Thiên Chúa và sống xứng đáng với Bí tích Rửa Tội.
+
+---
+
+### ⚡ Chặng Đệm Hành Động B2 (Sau Chặng 6): Mẻ Cá Lạ Trên Hồ Galilê (Lc 5, 1-11)
+* **Bối cảnh:** Mặt hồ Gênêsarét (Biển Hồ Galilê) xanh biếc lấp lánh nắng mai; chiếc thuyền gỗ lớn của Simon Phêrô đậu gần bờ cát.
+* **Nhân vật:** Chúa Giêsu đứng trên mũi thuyền giảng dạy, Thánh Phêrô, Anrê, Giacôbê và Gioan.
+* **Cơ chế gameplay Hành Động (Arcade Net Catching - Dễ cho thiếu nhi):**
+  * Chúa Giêsu bảo Simon: *"Hãy chèo ra chỗ nước sâu mà thả lưới bắt cá"*.
+  * Người chơi di chuyển qua lại trên boong thuyền rộng rãi và nhấn phím `A` để quăng lưới tròn xuống vùng nước phía trước khi các đàn cá bạc/cá vàng bơi ngang qua.
+  * Kéo đủ **8 chú cá** lên thuyền để hoàn thành mẻ lưới kỳ diệu. Lưới rộng và tự động thu về nhanh, cá bơi chậm rãi theo từng đàn nên trẻ em bấm rất vui tay.
+* **Bài học chuyển tiếp:** Tin tưởng vâng lời Chúa Giêsu thì điều tưởng chừng không thể cũng trở thành phép lạ dồi dào; sẵn sàng đi theo Chúa làm "kẻ lưới người".
 
 ---
 
@@ -133,6 +166,16 @@
 
 ---
 
+### ⚡ Chặng Đệm Hành Động B3 (Sau Chặng 8): Chúa Dẹp Yên Bão Tố (Mc 4, 35-41)
+* **Bối cảnh:** Biển Hồ Galilê lúc chiều tối nổi cơn giông gió lớn; sóng nước cuộn trào quanh chiếc thuyền của các môn đệ.
+* **Nhân vật:** Chúa Giêsu đang ở phía lái thuyền, Các môn đệ hoảng sợ chèo chống, Chim Bồ Câu Thánh Thần.
+* **Cơ chế gameplay Hành Động (Wave Dodging & Faith Anchors - Dễ cho thiếu nhi):**
+  * Những làn sóng trắng và cơn gió lốc trôi ngang mặt hồ. Người chơi điều khiển nhân vật di chuyển thu thập **6 Mỏ Neo Đức Tin / Ngôi Sao Bình An** tỏa sáng trên mặt hồ để giữ vững con thuyền, đồng thời lách tránh các xoáy nước (chạm vào chỉ làm nhân vật trượt nhẹ một chút).
+  * Khi thu thập đủ 6 ngôi sao bình an, người chơi chạy đến đánh thức Chúa Giêsu. Ngài đứng dậy truyền lệnh: *"Im đi! Câm đi!"* — gió liền tắt và biển lặng như tờ.
+* **Bài học chuyển tiếp:** Có Chúa Giêsu ở cùng trên con thuyền cuộc đời, chúng ta không sợ hãi trước bất kỳ sóng gió nào.
+
+---
+
 ### Chặng 9: Đức Chúa Giêsu Biến Hình Trên Núi Tabor (Mt 17, 1-8)
 * **Bối cảnh:** Đỉnh núi Tabor lộng gió lúc hoàng hôn chuyển sang ánh sáng thiêng liêng rực rỡ.
 * **Nhân vật:** Chúa Giêsu Biến Dung, Ông Môsê (cầm bia đá), Ông Êlia (ngọn lửa), Ba môn đệ (Phêrô, Giacôbê, Gioan) đang sấp mình sợ hãi.
@@ -154,6 +197,16 @@
   * *Thử thách "Bánh và Rượu":* Người chơi sắp xếp các bông lúa miến và chùm nho lên bàn tiệc vào đúng vị trí đĩa bánh và chén thánh.
   * *Khoảnh khắc thiêng liêng:* Chúa Giêsu bẻ bánh trao cho các môn đệ: *"Này là Mình Thầy hiến tế vì anh em... Hãy làm việc này mà nhớ đến Thầy"*.
 * **Hoa trái suy niệm:** Lòng yêu mến Bí tích Thánh Thể và sống tinh thần phục vụ hiến thân.
+
+---
+
+### 🌟 Chặng Cầu Nối Mùa A2 (Giữa Mùa Sáng & Mùa Thương): Đêm Vượt Suối Kidron (Ga 18, 1)
+* **Bối cảnh:** Thung lũng và dòng suối Kidron trong đêm tối tĩnh mịch dưới chân thành Giê-ru-sa-lem, nối từ Phòng Tiệc Ly sang Vườn Cây Dầu Giếtsêmani.
+* **Nhân vật:** Chúa Giêsu, Các Tông đồ đi theo sau, Lữ khách cầm đèn dầu dẫn đường.
+* **Cơ chế gameplay Hành Động Ánh Sáng (Lantern Light & Clear Path - Dễ cho thiếu nhi):**
+  * Vòng sáng của chiếc đèn dầu trên tay người chơi nhỏ dần theo thời gian. Người chơi di chuyển quanh lối mòn thung lũng để bắt **các đom đóm sáng / giọt dầu vàng** giúp ngọn đèn luôn rực sáng, đồng thời bước qua nhấn `A` (hoặc chạm vào) **5 bụi gai đêm** để dọn sạch lối cho Chúa Giêsu và các môn đệ bước qua cầu đá suối Kidron.
+  * Nếu đèn yếu đi, Chim Bồ Câu Thánh Thần lập tức thả một giọt sáng ngay cạnh người chơi.
+* **Bài học chuyển tiếp:** Giữ ngọn đèn đức tin và lòng yêu mến luôn cháy sáng để đồng hành với Chúa trong những giờ phút thử thách.
 
 ---
 
@@ -194,6 +247,16 @@
 
 ---
 
+### ⚡ Chặng Đệm Hành Động B4 (Sau Chặng 13 $\rightarrow$ Trước Chặng 14): Vác Thập Giá Nhỏ Theo Chúa (Lc 9, 23)
+* **Bối cảnh:** Dốc đá khởi đầu đường Thánh Giá dưới bóng chiều Giê-ru-sa-lem; có Chúa Giêsu vác Thập Giá dẫn đầu cùng Mẹ Maria và ông Simon.
+* **Nhân vật:** Chúa Giêsu, Đức Mẹ Sầu Bi, Ông Simon Kyrênê, Lữ khách nhỏ tuổi cầm cây Thập Giá Nhỏ trên vai.
+* **Cơ chế gameplay Hành Động Kết Hợp (Step-in-Footsteps & Transform Thorns into Flowers):**
+  1. *Theo Dấu Chân Chúa (`👣 0/6 BƯỚC CHÂN`):* Người chơi vác cây Thập Giá Nhỏ bước lên đúng **6 Dấu Chân Vàng Phát Sáng** của Chúa Giêsu dọc theo con dốc đá.
+  2. *Hóa Gai Nhọn Thành Hoa Hy Sinh (`🌸 0/4 HY SINH`):* Dọc đường có **4 bụi gai/đá lăn** chắn ngang cùng những cơn gió ngược. Khi tiến lại gần và bấm **[A]**, người chơi giơ cao cây Thập Giá Nhỏ làm khiên yêu thương, biến mỗi bụi gai nhọn thành một **Bông Hoa Hy Sinh** nở rộ.
+* **Bài học chuyển tiếp:** Mỗi việc tốt nhỏ bé, mỗi lời vâng phục cha mẹ và mỗi hy sinh âm thầm hằng ngày của thiếu nhi đều là những bông hoa làm nhẹ bớt Thập Giá của Chúa Giêsu.
+
+---
+
 ### Chặng 14: Đức Chúa Giêsu Vác Thập Giá Lên Đồi Can-vê (Lc 23, 26-32)
 * **Bối cảnh:** Con đường đá gồ ghề dốc đứng Via Dolorosa (Đường Thánh Giá) bụi mù dẫn lên đồi Canvê.
 * **Nhân vật:** Chúa Giêsu ngã quỵ dưới sức nặng thập giá, Ông Simon người Kyrênê, Bà Veronica, Mẹ Maria đau đớn dõi theo.
@@ -218,6 +281,16 @@
 
 ---
 
+### 🌟 Chặng Cầu Nối Mùa A3 (Giữa Mùa Thương & Mùa Mừng): Ánh Bình Minh Phục Sinh (Mt 28, 2)
+* **Bối cảnh:** Khu vườn mộ đá lúc rạng đông tinh sương; bóng đêm Thứ Sáu Tuần Thánh đang tan dần trước ánh bình minh ngày Chúa Nhật Phục Sinh.
+* **Nhân vật:** Thiên Thần Chúa mặc áo trắng như tuyết, Quân lính canh mộ, Lữ khách nhỏ tuổi.
+* **Cơ chế gameplay Hành Động Ánh Sáng (Dawn Light Catcher - Dễ cho thiếu nhi):**
+  * Từ bầu trời rạng đông, những **Tia Sáng Bình Minh Vàng** rơi xuống khu vườn cùng vài đám mây mù xám trôi ngang.
+  * Người chơi chạy quanh khu vườn trước cửa mộ đá để hứng **8 Tia Sáng Hy Vọng** làm đầy thanh Bình Minh, đẩy lùi bóng tối và cùng Thiên Thần Chúa lăn tảng đá lớn ra khỏi cửa mộ!
+* **Bài học chuyển tiếp:** Sau đêm tối khổ đau của Thập Giá là ánh bình minh rạng ngời của Chúa Phục Sinh; niềm hy vọng Kitô giáo không bao giờ tắt.
+
+---
+
 # PHẦN 4: NĂM SỰ MỪNG (VINH HIỂN NƯỚC TRỜI ĐỜI ĐỜI)
 
 ---
@@ -230,6 +303,16 @@
   * *Thử thách "Khăn liệm gấp gọn":* Bước vào bên trong ngôi mộ đá trống. Người chơi giải một câu đố xếp hình nhẹ để thu gom dải băng vải và gấp gọn chiếc khăn che đầu Chúa để sang một góc riêng (như chi tiết Kinh Thánh thuật lại trong Ga 20, 7).
   * *Gặp gỡ Chúa Phục Sinh:* Bước ra vườn, gặp Đức Kitô Phục Sinh. Ngài gọi tên bà Maria Mađalêna và dặn dò người chơi: *"Đừng sợ! Hãy đi báo tin vui cho anh em Thầy"*.
 * **Hoa trái suy niệm:** Niềm tin vững vàng vào sự phục sinh và niềm hy vọng bất diệt vượt qua sự chết.
+
+---
+
+### ⚡ Chặng Đệm Hành Động B5 (Sau Chặng 16 $\rightarrow$ Trước Chặng 17): Hành Trình Emmau — Trái Tim Bừng Cháy (Lc 24, 13-35)
+* **Bối cảnh:** Con đường quê rực ánh hoàng hôn dẫn về quán trọ làng Emmau với bàn tiệc nhỏ ấm cúng.
+* **Nhân vật:** Chúa Giêsu Phục Sinh đồng hành cùng hai môn đệ Cleopas, Lữ khách nhỏ tuổi.
+* **Cơ chế gameplay Hành Động (Burning Hearts & Breaking Bread):**
+  1. *Hứng Lửa Lời Chúa (`❤️‍🔥 0/6 LỜI CHÚA`):* Lách qua những Đám Mây Buồn Bã/Nghi Ngờ trôi ngang đường để thu thập **6 Ngọn Lửa Lời Chúa** làm bừng cháy trái tim hai môn đệ.
+  2. *Góp Bánh Emmau (`🍞 0/3 BẺ BÁNH`):* Nhặt đủ **3 Tấm Bánh Emmau** dọc đường rồi tiến đến bàn tiệc bấm **[A]** để Chúa Giêsu chúc tụng và bẻ bánh mở mắt cho hai môn đệ nhận ra Người.
+* **Bài học chuyển tiếp:** Chúng ta luôn gặp được Chúa Giêsu Phục Sinh khi lắng nghe Lời Chúa và hiệp thông trong Thánh Lễ Bẻ Bánh.
 
 ---
 
@@ -253,6 +336,16 @@
   * *Thử thách "Thổi bùng ngọn lửa Thần Khí":* Phòng Tiệc Ly ban đầu tối tăm và u buồn. Người chơi phải thắp sáng 7 cây nến tượng trưng cho 7 ơn Chúa Thánh Thần (Khôn ngoan, Hiểu biết, Thông minh, Dũng cảm...).
   * *Cao trào:* Tiếng gió lộng ào ạt thổi vào phòng, những lưỡi lửa xuất hiện đậu trên đầu Đức Mẹ và từng Tông đồ. Cửa phòng mở tung, các Tông đồ bước ra ngoài mạnh dạn nói mọi thứ tiếng cho muôn dân hiểu.
 * **Hoa trái suy niệm:** Xin ơn Chúa Thánh Thần soi sáng và can đảm sống chứng nhân cho đức tin.
+
+---
+
+### ⚡ Chặng Đệm Hành Động B6 (Sau Chặng 18 $\rightarrow$ Trước Chặng 19): Phép Lạ Cửa Đẹp & Chứng Nhân Tin Mừng (Cv 3, 1-10)
+* **Bối cảnh:** Tiền sảnh Cửa Đẹp nguy nga trước Đền Thờ Giê-ru-sa-lem rộn ràng sau ngày Lễ Ngũ Tuần; Chim Bồ Câu Chúa Thánh Thần bay lượn trên cao.
+* **Nhân vật:** Thánh Phê-rô và Thánh Gio-an, Người què ở Cửa Đẹp cùng những người dân đang mong đợi ơn lành.
+* **Cơ chế gameplay Hành Động Truyền Giáo (Collect Grace & Heal Witnesses):**
+  1. *Đón Ơn Thánh Thần (`🕊️ 0/6 ƠN THÁNH`):* Di chuyển quanh sân Đền Thờ thu thập **6 Chim Bồ Câu / Lưỡi Lửa Ơn Thánh**.
+  2. *Chữa Lành & Làm Chứng Nhân (`🙌 0/3 CHỨNG NHÂN`):* Mang Ơn Thánh (2 ơn cho mỗi người) đến bấm **[A]** chia sẻ cho **3 người dân đang mong chờ** để họ đứng phắt dậy nhảy mừng ca tụng Thiên Chúa!
+* **Bài học chuyển tiếp:** Đầy tràn Chúa Thánh Thần, mỗi thiếu nhi đều có thể trao ban niềm vui, lời động viên và tình thương của Chúa Giêsu cho mọi người xung quanh.
 
 ---
 

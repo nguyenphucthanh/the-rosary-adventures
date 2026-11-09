@@ -1,0 +1,206 @@
+{
+  "version": "1.0.0",
+  "timestamp": 0,
+  "currentMysteryKey": "mung_05_doi_trieu_thien",
+  "currentMysteryIndex": 19,
+  "player": {
+    "x": 100,
+    "y": 100,
+    "direction": "down",
+    "customization": {
+      "name": "Lữ Khách",
+      "gender": "boy",
+      "skinTone": "#f5d0a9",
+      "hairStyle": "short",
+      "hairColor": "#3d2314",
+      "outfitColor": "#2b5c8f",
+      "accessory": "rosary_beads",
+      "spriteKey": "player_boy_default"
+    }
+  },
+  "mysteriesProgress": {
+    "vui_01_truyen_tin": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "vui_02_vieng_ba": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "vui_03_sinh_chua": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "mid_b1_ba_vua": {
+      "completed": true,
+      "beadLit": false,
+      "questsCompleted": [
+        "interlude_clear"
+      ]
+    },
+    "vui_04_dang_chua": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "vui_05_tim_chua": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "bridge_a1_xuong_moc": {
+      "completed": true,
+      "beadLit": false,
+      "questsCompleted": [
+        "interlude_clear"
+      ]
+    },
+    "sang_01_phep_rua": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "mid_b2_me_ca_la": {
+      "completed": true,
+      "beadLit": false,
+      "questsCompleted": [
+        "interlude_clear"
+      ]
+    },
+    "sang_02_tiec_cuoi_cana": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "sang_03_rao_giang": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "mid_b3_dep_yen_bao_to": {
+      "completed": true,
+      "beadLit": false,
+      "questsCompleted": [
+        "interlude_clear"
+      ]
+    },
+    "sang_04_bien_hinh": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "sang_05_thanh_the": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "bridge_a2_suoi_kidron": {
+      "completed": true,
+      "beadLit": false,
+      "questsCompleted": [
+        "interlude_clear"
+      ]
+    },
+    "thuong_01_vuon_cay_dau": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "thuong_02_danh_don": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "thuong_03_doi_mao_gai": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "thuong_04_vac_thap_gia": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "thuong_05_chiu_chet": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "bridge_a3_binh_minh": {
+      "completed": true,
+      "beadLit": false,
+      "questsCompleted": [
+        "interlude_clear"
+      ]
+    },
+    "mung_01_phuc_sinh": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "mung_02_len_troi": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "mung_03_thanh_than_hien_xuong": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "mung_04_duc_me_len_troi": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    },
+    "mung_05_doi_trieu_thien": {
+      "completed": true,
+      "beadLit": true,
+      "questsCompleted": [
+        "dev_cheat"
+      ]
+    }
+  },
+  "inventory": []
+}

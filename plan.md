@@ -171,27 +171,36 @@ export interface SaveData {
 * [x] **Chặng 1:** Thiên Thần Truyền Tin (Lc 1, 26-38) – *Nhà Nazareth, 3 cuộn kinh thánh, lời chào Gabriel* ([Chi tiết](./stage-scripts.md#chặng-1-thiên-thần-truyền-tin-cho-đức-bà-lc-1-26-38)).
 * [x] **Chặng 2:** Đi Viếng Bà Thánh Isave (Lc 1, 39-56) – *Đường đồi Giu-đê, suối nước, kinh Magnificat* ([Chi tiết](./stage-scripts.md#chặng-2-đức-bà-đi-viếng-bà-thánh-isave-lc-1-39-56)).
 * [x] **Chặng 3:** Sinh Chúa Nơi Hang Đá (Lc 2, 1-20) – *Hang đá Bethlehem, đá lửa, hướng dẫn mục đồng* ([Chi tiết](./stage-scripts.md#chặng-3-đức-bà-sinh-đức-chúa-giêsu-nơi-hang-đá-lc-2-1-20)).
+* [x] ⚡ **Chặng Đệm B1 (Sau Chặng 3):** Hành Trình Ba Vua Theo Ánh Sao (Mt 2, 1-12) – *Action hứng ánh sao & lễ vật Ba Vua trên sa mạc Bethlehem*.
 * [x] **Chặng 4:** Dâng Chúa Vào Đền Thánh (Lc 2, 22-40) – *Đền Thờ Giê-ru-sa-lem, đôi bồ câu non, cụ Simêon & tiên tri Anna* ([Chi tiết](./stage-scripts.md#chặng-4-đức-bà-dâng-đức-chúa-giêsu-vào-đền-thánh-lc-2-22-40)).
 * [x] **Chặng 5:** Tìm Thấy Chúa Trong Đền Thờ (Lc 2, 41-52) – *Phố xá Giê-ru-sa-lem, câu hỏi luật học, đàm đạo với các kinh sư* ([Chi tiết](./stage-scripts.md#chặng-5-đức-bà-tìm-được-đức-chúa-giêsu-trong-đền-thờ-lc-2-41-52)).
+* [x] 🌟 **Chặng Cầu Nối A1 (Vui $\rightarrow$ Sáng):** Xưởng Mộc Nazareth (Lc 2, 51-52) – *Action canh nhịp bấm A đóng đồ mộc cùng Chúa Giêsu & Thánh Giuse*.
 
 #### 💡 Mùa Sáng (Năm Sự Sáng - Rao Truyền Nước Thiên Chúa)
 * [x] **Chặng 6:** Chịu Phép Rửa Tại Sông Gio-đan (Mt 3, 13-17) – *Sông Gio-đan, Sokoban đẩy đá qua sông, chim bồ câu Thần Khí* ([Chi tiết](./stage-scripts.md#chặng-6-đức-chúa-giêsu-chịu-phép-rửa-tại-sông-gio-đan-mt-3-13-17)).
+* [x] ⚡ **Chặng Đệm B2 (Sau Chặng 6):** Mẻ Cá Lạ Trên Hồ Galilê (Lc 5, 1-11) – *Action quăng lưới bắt cá trên thuyền Simon Phêrô*.
 * [x] **Chặng 7:** Dự Tiệc Cưới Cana (Ga 2, 1-11) – *Tiệc làng Cana, múc nước đổ đầy 6 chum đá, nước hóa rượu* ([Chi tiết](./stage-scripts.md#chặng-7-đức-chúa-giêsu-dự-tiệc-cưới-cana-ga-2-1-11)).
 * [x] **Chặng 8:** Rao Giảng Nước Trời & Kêu Gọi Sám Hối (Mc 1, 14-15; Mt 5–7) – *Đồi Bát Phúc, trao biểu tượng an ủi người sầu khổ* ([Chi tiết](./stage-scripts.md#chặng-8-đức-chúa-giêsu-rao-giảng-nước-trời-và-kêu-gọi-sám-hối-mc-1-14-15-mt-57)).
+* [x] ⚡ **Chặng Đệm B3 (Sau Chặng 8):** Chúa Dẹp Yên Bão Tố (Mc 4, 35-41) – *Action vượt sóng thu thập mỏ neo đức tin trên biển hồ*.
 * [x] **Chặng 9:** Biến Hình Trên Núi Tabor (Mt 17, 1-8) – *Đỉnh Tabor, đuốc xua sương mù, 3 lều tạm Môsê & Êlia* ([Chi tiết](./stage-scripts.md#chặng-9-đức-chúa-giêsu-biến-hình-trên-núi-tabor-mt-17-1-8)).
 * [x] **Chặng 10:** Lập Bí Tích Thánh Thể (Lc 22, 14-20) – *Phòng Tiệc Ly, thau nước rửa chân, sắp xếp lúa miến & chùm nho* ([Chi tiết](./stage-scripts.md#chặng-10-đức-chúa-giêsu-lập-bí-tích-thánh-thể-lc-22-14-20)).
+* [x] 🌟 **Chặng Cầu Nối A2 (Sáng $\rightarrow$ Thương):** Đêm Vượt Suối Kidron (Ga 18, 1) – *Action giữ sáng đèn dầu bằng đom đóm & dọn bụi gai đêm*.
 
 #### ✝️ Mùa Thương (Năm Sự Thương - Cùng Chúa Đi Con Đường Thập Giá)
 * [x] **Chặng 11:** Cầu Nguyện Trong Vườn Cây Dầu (Lc 22, 39-46) – *Vườn Giếtsêmani, rung chuông tỉnh thức 3 môn đệ, chén vâng phục* ([Chi tiết](./stage-scripts.md#chặng-11-đức-chúa-giêsu-cầu-nguyện-trong-vườn-cây-dầu-lc-22-39-46)).
 * [x] **Chặng 12:** Chịu Đánh Đòn (Ga 19, 1) – *Dinh Philatô, lén tránh tầm nhìn lính La Mã lấy vải sạch, cầu nguyện đồng cảm* ([Chi tiết](./stage-scripts.md#chặng-12-đức-chúa-giêsu-chịu-đánh-đòn-ga-19-1)).
 * [x] **Chặng 13:** Chịu Đội Mão Gai (Mt 27, 27-31) – *Trại lính, thu dọn bẫy gai nhọn, gấp lại áo choàng tím tôn vinh Vua Tình Yêu* ([Chi tiết](./stage-scripts.md#chặng-13-đức-chúa-giêsu-chịu-đội-mão-gai-mt-27-27-31)).
+* [x] ⚡ **Chặng Đệm B4 (Sau Chặng 13):** Vác Thập Giá Nhỏ Theo Chúa (Lc 9, 23) – *Action vác thập giá nhỏ bước theo 6 dấu chân vàng & hóa 4 bụi gai thành hoa hy sinh*.
 * [x] **Chặng 14:** Vác Thập Giá Lên Đồi Can-vê (Lc 23, 26-32) – *Đường Via Dolorosa, tìm Simon Kyrênê vác đỡ, khăn lau Veronica* ([Chi tiết](./stage-scripts.md#chặng-14-đức-chúa-giêsu-vác-thập-giá-lên-đồi-can-vê-lc-23-26-32)).
 * [x] **Chặng 15:** Chịu Chết Trên Cây Thập Tự (Lc 23, 33-46) – *Đồi Can-vê nhật thực, thắp 3 ngọn nến tha thứ/phó thác/Mẹ Maria* ([Chi tiết](./stage-scripts.md#chặng-15-đức-chúa-giêsu-chịu-chết-trên-cây-thập-tự-lc-23-33-46)).
+* [x] 🌟 **Chặng Cầu Nối A3 (Thương $\rightarrow$ Mừng):** Ánh Bình Minh Phục Sinh (Mt 28, 2) – *Action hứng tia sáng rạng đông lăn tảng đá cửa mộ*.
 
 #### 👑 Mùa Mừng (Năm Sự Mừng - Vinh Hiển Nước Trời Đời Đời)
 * [x] **Chặng 16:** Sống Lại Từ Cõi Chết (Mt 28, 1-10) – *Vườn mộ đá trống, xếp khăn liệm gọn gàng, gặp Chúa Phục Sinh* ([Chi tiết](./stage-scripts.md#chặng-16-đức-chúa-giêsu-sống-lại-từ-cõi-chết-mt-28-1-10)).
+* [x] ⚡ **Chặng Đệm B5 (Sau Chặng 16):** Hành Trình Emmau — Trái Tim Bừng Cháy (Lc 24, 13-35) – *Action hứng 6 ngọn lửa Lời Chúa & 3 tấm bánh Emmau trên đường hoàng hôn*.
 * [x] **Chặng 17:** Lên Trời Vinh Hiển (Cv 1, 6-11) – *Núi Cây Dầu, trao 4 biểu tượng sứ mạng cho các Tông đồ đi 4 phương trời* ([Chi tiết](./stage-scripts.md#chặng-17-đức-chúa-giêsu-lên-trời-vinh-hiển-cv-1-6-11)).
 * [x] **Chặng 18:** Thánh Thần Hiện Xuống (Cv 2, 1-13) – *Phòng Tiệc Ly, thắp 7 ngọn nến 7 ơn Thần Khí, lưỡi lửa bừng sáng* ([Chi tiết](./stage-scripts.md#chặng-18-đức-chúa-thánh-thần-hiện-xuống-trên-các-tông-đồ-cv-2-1-13)).
+* [x] ⚡ **Chặng Đệm B6 (Sau Chặng 18):** Phép Lạ Cửa Đẹp & Chứng Nhân Tin Mừng (Cv 3, 1-10) – *Action thu thập 6 ơn Thánh Thần & chữa lành 3 chứng nhân tại Cửa Đẹp*.
 * [x] **Chặng 19:** Đức Mẹ Lên Trời (Kh 12, 1) – *Thu nhặt hoa huệ trắng, cầu vồng ánh sáng thiên quốc, Chúa đón Mẹ lên ngai* ([Chi tiết](./stage-scripts.md#chặng-19-đức-đức-chúa-trời-cho-đức-bà-lên-trời-kh-12-1)).
 * [x] **Chặng 20:** Đức Mẹ Đội Triều Thiên (Kh 12, 1-2) – *Thiên quốc uy nghi, đặt hạt thứ 20 hoàn tất Chuỗi Mân Côi Cứu Độ, lời Chúa dặn dò chuyển tiếp* ([Chi tiết](./stage-scripts.md#chặng-20-đức-chúa-trời-thưởng-đức-mẹ-trên-trời-kh-12-1-2)).
 

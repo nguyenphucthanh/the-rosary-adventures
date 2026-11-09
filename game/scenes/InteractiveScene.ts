@@ -1,7 +1,7 @@
 import * as Phaser from "phaser";
 import { BaseMysteryScene, DEPTH } from "./BaseMysteryScene";
 import audio from "../audio/AudioManager";
-import EventBus from "../EventBus";
+import EventBus, { InterludeQuestProgress } from "../EventBus";
 import type { DialogueOption } from "@/components/game/DialogueBox";
 
 export interface Interactable {
@@ -171,6 +171,30 @@ export abstract class InteractiveScene extends BaseMysteryScene {
         `CHÚC MỪNG BẠN ĐÃ THẮP SÁNG HẠT MÂN CÔI SỐ ${n}!`,
         `Mầu Nhiệm Thứ ${ordinal} ${season}: ${title}.`,
         `Hoa trái suy niệm: ${fruit}`,
+        moral,
+      ],
+      () => this.goToNextStage()
+    );
+  }
+
+  /** Push vertical side progress bar state for action mid-stages / bridges. */
+  protected emitInterludeProgress(quests: InterludeQuestProgress[]) {
+    EventBus.emit("interlude-progress", { quests });
+  }
+
+  /** Save an action interlude / season bridge without incrementing the 20 Rosary beads. */
+  protected completeInterlude(badge: string, title: string, lesson: string, moral: string) {
+    const key = this.mysteryKey;
+    this.autosave((s) => {
+      s.mysteriesProgress[key] = { completed: true, beadLit: false, questsCompleted: ["interlude_clear"] };
+    });
+    EventBus.emit("mystery-completed", { mysteryKey: key, mysteryIndex: -1 });
+    this.talk(
+      `🌟 HOÀN THÀNH ${badge} 🌟`,
+      "✨",
+      [
+        `TUYỆT VỜI! Bạn đã vượt qua chặng hành động: ${title}.`,
+        `Bài học suy niệm: ${lesson}`,
         moral,
       ],
       () => this.goToNextStage()

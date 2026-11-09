@@ -1,6 +1,6 @@
 import * as Phaser from "phaser";
 import EventBus from "../EventBus";
-import { MYSTERIES_DATA, SEASONS } from "@/data/mysteries";
+import { INTERLUDES_DATA, MYSTERIES_DATA, SEASONS } from "@/data/mysteries";
 import { STAGE_SCENES } from "@/data/stages";
 import { loadGame } from "@/utils/saveManager";
 import { registerAnnunciationTextures } from "../utils/npcTextureGenerator";
@@ -30,17 +30,18 @@ export class StageTransitionScene extends Phaser.Scene {
     registerAnnunciationTextures(this); // sparkle texture
 
     const info = MYSTERIES_DATA.find((m) => m.key === this.toKey);
+    const interlude = INTERLUDES_DATA.find((it) => it.key === this.toKey);
     // first mystery of a new group of five: the Holy Spirit carries the player there first
     if (info && info.seasonIndex === 0 && info.index > 0 && !this.warped) {
       this.scene.start("SeasonWarpScene", { toKey: this.toKey });
       return;
     }
     const sceneKey = STAGE_SCENES[this.toKey];
-    if (!info) {
+    if (!info && !interlude) {
       this.scene.start("TitleScene");
       return;
     }
-    const season = SEASONS[info.season];
+    const season = SEASONS[(info ?? interlude)!.season];
     const progress = loadGame()?.mysteriesProgress ?? {};
 
     this.add.rectangle(-200, -200, 720, 580, 0x0b1030).setOrigin(0);
@@ -73,23 +74,33 @@ export class StageTransitionScene extends Phaser.Scene {
         })
         .setOrigin(0.5);
 
-    text(22, `${season.labelVi} · CHẶNG ${info.seasonIndex + 1}`, 8, season.color);
+    if (info) {
+      text(22, `${season.labelVi} · CHẶNG ${info.seasonIndex + 1}`, 8, season.color);
 
-    // The decade: five beads, lit = done, pulsing = this one
-    const five = MYSTERIES_DATA.filter((m) => m.season === info.season);
-    five.forEach((m, i) => {
-      const x = CX - 32 + i * 16;
-      const done = progress[m.key]?.completed;
-      const current = m.key === this.toKey;
-      const color = done ? 0xfef08a : current ? 0xfbbf24 : 0x334155;
-      const bead = this.add.container(x, 44, [
-        this.add.rectangle(0, 0, 8, 8, color),
-        this.add.rectangle(-2, -2, 2, 2, 0xf8fafc, done || current ? 1 : 0.3),
-      ]);
-      if (current) this.tweens.add({ targets: bead, alpha: 0.4, duration: 450, yoyo: true, repeat: -1 });
-    });
+      // The decade: five beads, lit = done, pulsing = this one
+      const five = MYSTERIES_DATA.filter((m) => m.season === info.season);
+      five.forEach((m, i) => {
+        const x = CX - 32 + i * 16;
+        const done = progress[m.key]?.completed;
+        const current = m.key === this.toKey;
+        const color = done ? 0xfef08a : current ? 0xfbbf24 : 0x334155;
+        const bead = this.add.container(x, 44, [
+          this.add.rectangle(0, 0, 8, 8, color),
+          this.add.rectangle(-2, -2, 2, 2, 0xf8fafc, done || current ? 1 : 0.3),
+        ]);
+        if (current) this.tweens.add({ targets: bead, alpha: 0.4, duration: 450, yoyo: true, repeat: -1 });
+      });
+    } else if (interlude) {
+      text(22, interlude.badgeVi, 8, interlude.kind === "bridge" ? "#38bdf8" : "#4ade80");
+      // 3 action stars pulsing in place of beads
+      [-18, 0, 18].forEach((dx, i) => {
+        const st = this.add.image(CX + dx, 44, "sparkle");
+        this.tweens.add({ targets: st, alpha: 0.35, duration: 380 + i * 90, yoyo: true, repeat: -1 });
+      });
+    }
 
-    const title = text(60, info.titleVi.toUpperCase(), 12, "#fde68a").setOrigin(0.5, 0);
+    const activeItem = (info ?? interlude)!;
+    const title = text(60, activeItem.titleVi.toUpperCase(), 12, "#fde68a").setOrigin(0.5, 0);
     title.setAlpha(0).y -= 6;
     this.tweens.add({ targets: title, alpha: 1, y: title.y + 6, duration: 500, delay: 250, ease: "Stepped" });
 
@@ -99,8 +110,13 @@ export class StageTransitionScene extends Phaser.Scene {
       const t = text(y, str, 8, color).setOrigin(0.5, 0);
       y += t.height + 8;
     };
-    stack(info.scriptureVi, "#e0e7ff");
-    stack(sceneKey ? `Hoa trái: ${info.fruitVi}` : "Chặng này sắp ra mắt. Hẹn gặp lại bạn nhé!", "#fbbf24");
+    stack(activeItem.scriptureVi, "#e0e7ff");
+    stack(
+      sceneKey
+        ? `${interlude ? "Bài học" : "Hoa trái"}: ${activeItem.fruitVi}`
+        : "Chặng này sắp ra mắt. Hẹn gặp lại bạn nhé!",
+      "#fbbf24"
+    );
 
     const prompt = text(y + 6, "CHẠM HOẶC NHẤN SPACE", 8, "#fef08a");
     this.time.addEvent({ delay: 600, loop: true, callback: () => prompt.setVisible(!prompt.visible) });

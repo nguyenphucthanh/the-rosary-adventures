@@ -2,7 +2,7 @@ import * as Phaser from "phaser";
 import { Player } from "../entities/Player";
 import { CharacterCustomization, DEFAULT_CHARACTER, MYSTERY_KEYS, MysteryProgress, SaveData } from "@/types/game";
 import { loadGame, updateSave } from "@/utils/saveManager";
-import { EPILOGUE_SCENE, nextMysteryKey } from "@/data/stages";
+import { EPILOGUE_SCENE, nextMysteryKey, nextStageKey } from "@/data/stages";
 import EventBus from "../EventBus";
 
 /** Depth layers. World objects between RUG and WALL use their foot y (y-sorting). */
@@ -223,12 +223,15 @@ export class BaseMysteryScene extends Phaser.Scene {
   /** Call first thing in create(): remembers this stage as "where to resume". */
   protected beginStage(key: string) {
     this.mysteryKey = key;
+    if (!key) return; // Prologue / Epilogue: not a stage to resume
     const idx = (MYSTERY_KEYS as readonly string[]).indexOf(key);
-    if (idx < 0) return; // Prologue / Epilogue: not a mystery, nothing to resume
     this.autosave((s) => {
-      if (idx >= s.currentMysteryIndex) {
+      if (idx >= 0 && idx >= s.currentMysteryIndex) {
         s.currentMysteryKey = key;
         s.currentMysteryIndex = idx;
+      } else if (idx < 0) {
+        // Interlude stage: remember its key so Continue lands right on it
+        s.currentMysteryKey = key;
       }
     });
   }
@@ -254,7 +257,7 @@ export class BaseMysteryScene extends Phaser.Scene {
 
   /** Fade out and show the next stage's intro card. */
   protected goToNextStage() {
-    const next = nextMysteryKey(this.mysteryKey);
+    const next = nextStageKey(this.mysteryKey);
     const cam = this.cameras.main;
     cam.fadeOut(600, 0, 0, 0);
     cam.once("camerafadeoutcomplete", () =>

@@ -85,10 +85,16 @@ export const TRACKS: Record<string, Track> = {
 /** Scene key -> track id. undefined = keep whatever is playing (transitions, loading). */
 export function trackForScene(key: string): string | undefined {
   if (key === "TitleScene" || key === "PrologueScene" || key === "EpilogueScene") return "lullaby";
-  if (key.startsWith("Joyful")) return "joyful";
-  if (key.startsWith("Luminous")) return "luminous";
-  if (key.startsWith("Sorrowful")) return "sorrowful";
-  if (key.startsWith("Glorious")) return "glorious";
+  if (key.startsWith("Joyful") || key === "InterludeB1ThreeKingsScene" || key === "InterludeA1WorkshopScene") return "joyful";
+  if (key.startsWith("Luminous") || key === "InterludeB2MiraculousCatchScene" || key === "InterludeB3CalmingStormScene") return "luminous";
+  if (key.startsWith("Sorrowful") || key === "InterludeA2KidronValleyScene" || key === "InterludeB4CarryCrossScene") return "sorrowful";
+  if (
+    key.startsWith("Glorious") ||
+    key === "InterludeA3DawnRollStoneScene" ||
+    key === "InterludeB5EmmausRoadScene" ||
+    key === "InterludeB6BeautifulGateScene"
+  )
+    return "glorious";
   return undefined;
 }
 
@@ -97,19 +103,28 @@ export type Ambient = "birds" | "crickets" | "wind" | "crowd" | "fire";
 const AMBIENT: Record<string, Ambient[]> = {
   Joyful02VisitationScene: ["birds"],
   Joyful03NativityScene: ["crickets"],
+  InterludeB1ThreeKingsScene: ["crickets", "wind"],
   Joyful05FindingScene: ["crowd"],
+  InterludeA1WorkshopScene: ["birds"],
   Luminous01BaptismScene: ["birds", "wind"],
+  InterludeB2MiraculousCatchScene: ["birds", "wind"],
   Luminous02CanaScene: ["crowd"],
   Luminous03BeatitudesScene: ["birds", "wind"],
+  InterludeB3CalmingStormScene: ["wind"],
   Luminous04TransfigurationScene: ["wind"],
+  InterludeA2KidronValleyScene: ["crickets", "wind"],
   Sorrowful01GardenScene: ["crickets"],
   Sorrowful02PraetoriumScene: ["crowd"],
   Sorrowful03ThornsScene: ["crowd"],
+  InterludeB4CarryCrossScene: ["wind"],
   Sorrowful04CrossScene: ["crowd"],
   Sorrowful05CalvaryScene: ["wind"],
+  InterludeA3DawnRollStoneScene: ["birds", "wind"],
   Glorious01ResurrectionScene: ["birds"],
+  InterludeB5EmmausRoadScene: ["birds", "wind"],
   Glorious02AscensionScene: ["wind"],
   Glorious03PentecostScene: ["fire"],
+  InterludeB6BeautifulGateScene: ["crowd", "birds"],
   Glorious04AssumptionScene: ["birds"],
   PrologueScene: ["crickets"],
   EpilogueScene: ["crickets"],
@@ -126,15 +141,24 @@ export type Surface = "grass" | "stone" | "wood" | "sand";
 const SURFACE: Record<string, Surface> = {
   Joyful02VisitationScene: "grass",
   Joyful03NativityScene: "sand", // straw and dirt
+  InterludeB1ThreeKingsScene: "sand",
+  InterludeA1WorkshopScene: "wood",
   Luminous01BaptismScene: "grass",
+  InterludeB2MiraculousCatchScene: "wood",
   Luminous03BeatitudesScene: "grass",
+  InterludeB3CalmingStormScene: "sand",
   Luminous05EucharistScene: "wood",
-  Sorrowful01GardenScene: "grass",
+  InterludeA2KidronValleyScene: "grass",
+  Sorrowful01GardenScene: ["grass"][0] as Surface,
+  InterludeB4CarryCrossScene: "stone",
   Sorrowful04CrossScene: "sand",
   Sorrowful05CalvaryScene: "sand",
+  InterludeA3DawnRollStoneScene: "grass",
   Glorious01ResurrectionScene: "grass",
+  InterludeB5EmmausRoadScene: "grass",
   Glorious02AscensionScene: "grass",
   Glorious03PentecostScene: "wood",
+  InterludeB6BeautifulGateScene: "stone",
   Glorious04AssumptionScene: "grass",
   Glorious05CoronationScene: "grass",
   PrologueScene: "wood",

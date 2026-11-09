@@ -10,6 +10,7 @@ import CharacterCreationModal from "@/components/game/CharacterCreationModal";
 import CharacterPreview from "@/components/game/CharacterPreview";
 import DialogueBox from "@/components/game/DialogueBox";
 import RosaryHUD from "@/components/game/RosaryHUD";
+import InterludeProgressHUD from "@/components/game/InterludeProgressHUD";
 import EndingCongrats from "@/components/game/EndingCongrats";
 import EventBus from "@/game/EventBus";
 import audio from "@/game/audio/AudioManager";
@@ -167,6 +168,9 @@ export default function Home() {
 
       {/* Rosary Beads HUD Ribbon & Modal */}
       {!onTitle && <RosaryHUD saveData={saveInfo} />}
+
+      {/* Side Vertical Progress Bars for Action Mid-Stages & Season Bridges */}
+      {!onTitle && <InterludeProgressHUD />}
 
       {/* 3. Bottom Controls Area */}
       {onTitle ? null : isTouchDevice ? (

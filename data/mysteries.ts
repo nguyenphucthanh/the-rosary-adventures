@@ -6,6 +6,140 @@ export interface ExtendedMysteryInfo extends MysteryInfo {
   emoji: string;
 }
 
+export interface InterludeInfo {
+  key: string;
+  kind: "mid" | "bridge"; // B = mid-stage inside a season, A = season bridge between two seasons
+  season: MysterySeason;
+  afterMysteryKey: string;
+  nextStageKey: string;
+  badgeVi: string;
+  titleVi: string;
+  titleEn: string;
+  scriptureVi: string;
+  fruitVi: string;
+  emoji: string;
+}
+
+export const INTERLUDES_DATA: InterludeInfo[] = [
+  {
+    key: "mid_b1_ba_vua",
+    kind: "mid",
+    season: "joyful",
+    afterMysteryKey: "vui_03_sinh_chua",
+    nextStageKey: "vui_04_dang_chua",
+    badgeVi: "CHẶNG ĐỆM B1 · HÀNH ĐỘNG",
+    titleVi: "Hành Trình Ba Vua Theo Ánh Sao",
+    titleEn: "Journey of the Three Kings",
+    scriptureVi: "Mt 2, 1-12",
+    fruitVi: "Kiên trì bước theo ánh sáng Lời Chúa mỗi ngày",
+    emoji: "🐪",
+  },
+  {
+    key: "bridge_a1_xuong_moc",
+    kind: "bridge",
+    season: "joyful",
+    afterMysteryKey: "vui_05_tim_chua",
+    nextStageKey: "sang_01_phep_rua",
+    badgeVi: "CẦU NỐI MÙA A1 · VUI → SÁNG",
+    titleVi: "Xưởng Mộc Nazareth",
+    titleEn: "The Carpenter's Workshop at Nazareth",
+    scriptureVi: "Lc 2, 51-52",
+    fruitVi: "Thánh hóa việc nhỏ hằng ngày bằng tình yêu và sự chăm chỉ",
+    emoji: "🪚",
+  },
+  {
+    key: "mid_b2_me_ca_la",
+    kind: "mid",
+    season: "luminous",
+    afterMysteryKey: "sang_01_phep_rua",
+    nextStageKey: "sang_02_tiec_cuoi_cana",
+    badgeVi: "CHẶNG ĐỆM B2 · HÀNH ĐỘNG",
+    titleVi: "Mẻ Cá Lạ Trên Hồ Galilê",
+    titleEn: "The Miraculous Catch of Fish",
+    scriptureVi: "Lc 5, 1-11",
+    fruitVi: "Tin tưởng vâng lời Chúa và nhiệt thành loan báo Tin Mừng",
+    emoji: "🐟",
+  },
+  {
+    key: "mid_b3_dep_yen_bao_to",
+    kind: "mid",
+    season: "luminous",
+    afterMysteryKey: "sang_03_rao_giang",
+    nextStageKey: "sang_04_bien_hinh",
+    badgeVi: "CHẶNG ĐỆM B3 · HÀNH ĐỘNG",
+    titleVi: "Chúa Dẹp Yên Bão Tố",
+    titleEn: "Calming the Storm on the Lake",
+    scriptureVi: "Mc 4, 35-41",
+    fruitVi: "Vững lòng cậy trông vào Chúa giữa sóng gió cuộc đời",
+    emoji: "⛵",
+  },
+  {
+    key: "bridge_a2_suoi_kidron",
+    kind: "bridge",
+    season: "luminous",
+    afterMysteryKey: "sang_05_thanh_the",
+    nextStageKey: "thuong_01_vuon_cay_dau",
+    badgeVi: "CẦU NỐI MÙA A2 · SÁNG → THƯƠNG",
+    titleVi: "Đêm Vượt Suối Kidron",
+    titleEn: "Night Crossing of the Kidron Valley",
+    scriptureVi: "Ga 18, 1",
+    fruitVi: "Giữ ngọn đèn đức tin cháy sáng và đồng hành cùng Chúa",
+    emoji: "🏮",
+  },
+  {
+    key: "mid_b4_vac_thap_gia_nho",
+    kind: "mid",
+    season: "sorrowful",
+    afterMysteryKey: "thuong_03_doi_mao_gai",
+    nextStageKey: "thuong_04_vac_thap_gia",
+    badgeVi: "CHẶNG ĐỆM B4 · HÀNH ĐỘNG",
+    titleVi: "Vác Thập Giá Nhỏ Theo Chúa",
+    titleEn: "Carrying Our Little Cross with Jesus",
+    scriptureVi: "Lc 9, 23",
+    fruitVi: "Biến những hy sinh nhỏ bé hằng ngày thành hoa yêu thương dâng Chúa",
+    emoji: "✝️",
+  },
+  {
+    key: "bridge_a3_binh_minh",
+    kind: "bridge",
+    season: "sorrowful",
+    afterMysteryKey: "thuong_05_chiu_chet",
+    nextStageKey: "mung_01_phuc_sinh",
+    badgeVi: "CẦU NỐI MÙA A3 · THƯƠNG → MỪNG",
+    titleVi: "Ánh Bình Minh Phục Sinh",
+    titleEn: "Dawn of the Resurrection",
+    scriptureVi: "Mt 28, 2",
+    fruitVi: "Niềm hy vọng Phục Sinh chiến thắng mọi bóng tối",
+    emoji: "🌅",
+  },
+  {
+    key: "mid_b5_duong_emmau",
+    kind: "mid",
+    season: "glorious",
+    afterMysteryKey: "mung_01_phuc_sinh",
+    nextStageKey: "mung_02_len_troi",
+    badgeVi: "CHẶNG ĐỆM B5 · HÀNH ĐỘNG",
+    titleVi: "Hành Trình Emmau — Trái Tim Bừng Cháy",
+    titleEn: "Road to Emmaus — Burning Hearts",
+    scriptureVi: "Lc 24, 13-35",
+    fruitVi: "Nhận ra Chúa Giêsu Phục Sinh qua Lời Chúa và Tiệc Bẻ Bánh",
+    emoji: "❤️‍🔥",
+  },
+  {
+    key: "mid_b6_cua_dep",
+    kind: "mid",
+    season: "glorious",
+    afterMysteryKey: "mung_03_thanh_than_hien_xuong",
+    nextStageKey: "mung_04_duc_me_len_troi",
+    badgeVi: "CHẶNG ĐỆM B6 · HÀNH ĐỘNG",
+    titleVi: "Phép Lạ Cửa Đẹp & Chứng Nhân Tin Mừng",
+    titleEn: "Miracle at the Beautiful Gate",
+    scriptureVi: "Cv 3, 1-10",
+    fruitVi: "Can đảm chia sẻ niềm vui và ơn Chúa cho mọi người xung quanh",
+    emoji: "🕊️",
+  },
+];
+
 export const SEASONS: Record<
   MysterySeason,
   { labelVi: string; color: string; emoji: string }
