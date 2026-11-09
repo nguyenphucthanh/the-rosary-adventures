@@ -1,16 +1,128 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import EventBus from "@/game/EventBus";
 
 export interface VirtualControllerProps {
   className?: string;
 }
 
+const BASE = 144; // px, joystick base diameter
+const KNOB = 60; // px, thumb knob diameter
+const RADIUS = (BASE - KNOB) / 2; // max knob travel from centre
+const DEAD_ZONE = 0.18; // fraction of RADIUS ignored so a resting thumb does not move the player
+
+function Joystick() {
+  const baseRef = useRef<HTMLDivElement>(null);
+  const pointerId = useRef<number | null>(null);
+  const [knob, setKnob] = useState({ x: 0, y: 0 });
+  const [active, setActive] = useState(false);
+
+  const emit = (x: number, y: number) => EventBus.emit("input-move", { x, y });
+
+  const update = (e: React.PointerEvent) => {
+    const el = baseRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    let dx = e.clientX - (r.left + r.width / 2);
+    let dy = e.clientY - (r.top + r.height / 2);
+    const dist = Math.hypot(dx, dy);
+    if (dist > RADIUS) {
+      dx = (dx / dist) * RADIUS;
+      dy = (dy / dist) * RADIUS;
+    }
+    setKnob({ x: dx, y: dy });
+    const mag = Math.min(dist / RADIUS, 1);
+    if (mag < DEAD_ZONE) return emit(0, 0);
+    // speed ramps from 0 at the dead-zone edge to 1 at the rim; direction stays exact
+    const speed = (mag - DEAD_ZONE) / (1 - DEAD_ZONE);
+    const len = Math.hypot(dx, dy) || 1;
+    emit((dx / len) * speed, (dy / len) * speed);
+  };
+
+  const release = () => {
+    pointerId.current = null;
+    setActive(false);
+    setKnob({ x: 0, y: 0 });
+    emit(0, 0);
+  };
+
+  // Never leave the player walking if the HUD unmounts mid-drag.
+  useEffect(() => () => EventBus.emit("input-move", { x: 0, y: 0 }), []);
+
+  // Stop the browser from treating a drag on the stick as scroll / swipe-back.
+  useEffect(() => {
+    const block = (e: TouchEvent) => e.cancelable && e.preventDefault();
+    const el = baseRef.current;
+    el?.addEventListener("touchstart", block, { passive: false });
+    el?.addEventListener("touchmove", block, { passive: false });
+    return () => {
+      el?.removeEventListener("touchstart", block);
+      el?.removeEventListener("touchmove", block);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={baseRef}
+      role="application"
+      aria-label="Cần điều khiển di chuyển"
+      onPointerDown={(e) => {
+        if (pointerId.current !== null) return;
+        pointerId.current = e.pointerId;
+        e.currentTarget.setPointerCapture(e.pointerId);
+        setActive(true);
+        if (navigator.vibrate) navigator.vibrate(10);
+        update(e);
+      }}
+      onPointerMove={(e) => e.pointerId === pointerId.current && update(e)}
+      onPointerUp={(e) => e.pointerId === pointerId.current && release()}
+      onPointerCancel={(e) => e.pointerId === pointerId.current && release()}
+      onLostPointerCapture={() => pointerId.current !== null && release()}
+      className="pointer-events-auto relative touch-none shrink-0 ml-[max(1.5rem,env(safe-area-inset-left))] sm:ml-0"
+      style={{ width: BASE, height: BASE }}
+    >
+      <div
+        className={`absolute inset-0 rounded-full border-4 border-black shadow-2xl ${
+          active ? "bg-slate-900/90" : "bg-slate-950/80"
+        }`}
+      />
+      <div className="absolute inset-4 rounded-full border-2 border-slate-700/70" />
+      <span className="absolute left-1/2 top-1 -translate-x-1/2 font-pixel text-[20px] text-amber-300/60">▲</span>
+      <span className="absolute left-1/2 bottom-1 -translate-x-1/2 font-pixel text-[20px] text-amber-300/60">▼</span>
+      <span className="absolute top-1/2 left-1 -translate-y-1/2 font-pixel text-[20px] text-amber-300/60">◀</span>
+      <span className="absolute top-1/2 right-1 -translate-y-1/2 font-pixel text-[20px] text-amber-300/60">▶</span>
+      <div
+        className={`absolute rounded-full border-4 border-black ${
+          active ? "bg-amber-400" : "bg-amber-500/90"
+        }`}
+        style={{
+          width: KNOB,
+          height: KNOB,
+          left: (BASE - KNOB) / 2 + knob.x,
+          top: (BASE - KNOB) / 2 + knob.y,
+        }}
+      >
+        <div className="absolute left-2 top-2 w-3 h-3 bg-amber-200/80" />
+      </div>
+    </div>
+  );
+}
+
+function EdgeGuard() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    const block = (e: TouchEvent) => e.cancelable && e.preventDefault();
+    el?.addEventListener("touchstart", block, { passive: false });
+    return () => el?.removeEventListener("touchstart", block);
+  }, []);
+  return <div ref={ref} aria-hidden className="pointer-events-auto touch-none fixed left-0 top-0 bottom-0 w-5" />;
+}
+
 export default function VirtualController({
   className = "",
 }: VirtualControllerProps) {
-  const [activeDirection, setActiveDirection] = useState<string | null>(null);
   const [activeButton, setActiveButton] = useState<string | null>(null);
 
   const vibrate = () => {
@@ -18,20 +130,6 @@ export default function VirtualController({
       navigator.vibrate(10);
     }
   };
-
-  const handleDirectionPress = useCallback(
-    (dir: "up" | "down" | "left" | "right") => {
-      setActiveDirection(dir);
-      vibrate();
-      EventBus.emit("input-direction", { direction: dir });
-    },
-    []
-  );
-
-  const handleDirectionRelease = useCallback(() => {
-    setActiveDirection(null);
-    EventBus.emit("input-direction", { direction: "idle" });
-  }, []);
 
   const handleActionPress = useCallback((act: "A" | "B") => {
     setActiveButton(act);
@@ -47,80 +145,11 @@ export default function VirtualController({
     <div
       className={`pointer-events-none select-none touch-none fixed inset-x-0 bottom-0 z-40 flex items-end justify-between px-3 sm:px-8 pb-[max(1rem,env(safe-area-inset-bottom))] ${className}`}
     >
-      {/* Authentic 8-bit D-Pad (Bottom-Left) */}
-      <div className="pointer-events-auto relative w-38 h-38 flex items-center justify-center">
-        {/* Base Plate */}
-        <div className="absolute inset-2 rounded-full bg-slate-950/80 border-2 border-black shadow-2xl" />
+      {/* Left-edge guard: browsers start "swipe back" from the first ~24px; a thumb landing here is absorbed. */}
+      <EdgeGuard />
 
-        {/* Up Button */}
-        <button
-          type="button"
-          aria-label="Di chuyển lên"
-          onPointerDown={() => handleDirectionPress("up")}
-          onPointerUp={handleDirectionRelease}
-          onPointerCancel={handleDirectionRelease}
-          className={`absolute top-0 w-12 h-12 flex items-center justify-center font-pixel text-[32px] transition-all ${
-            activeDirection === "up"
-              ? "bg-amber-400 text-black border-2 border-black translate-y-1"
-              : "bg-slate-800 text-amber-300 border-t-2 border-l-2 border-slate-600 border-b-2 border-r-2 border-black"
-          }`}
-        >
-          ▲
-        </button>
-
-        {/* Left Button */}
-        <button
-          type="button"
-          aria-label="Di chuyển sang trái"
-          onPointerDown={() => handleDirectionPress("left")}
-          onPointerUp={handleDirectionRelease}
-          onPointerCancel={handleDirectionRelease}
-          className={`absolute left-0 w-12 h-12 flex items-center justify-center font-pixel text-[32px] transition-all ${
-            activeDirection === "left"
-              ? "bg-amber-400 text-black border-2 border-black translate-x-1"
-              : "bg-slate-800 text-amber-300 border-t-2 border-l-2 border-slate-600 border-b-2 border-r-2 border-black"
-          }`}
-        >
-          ◀
-        </button>
-
-        {/* Center Pivot */}
-        <div className="w-10 h-10 bg-slate-900 border-2 border-black flex items-center justify-center pointer-events-none">
-          <div className="w-3.5 h-3.5 rounded-full bg-slate-700 border border-black" />
-        </div>
-
-        {/* Right Button */}
-        <button
-          type="button"
-          aria-label="Di chuyển sang phải"
-          onPointerDown={() => handleDirectionPress("right")}
-          onPointerUp={handleDirectionRelease}
-          onPointerCancel={handleDirectionRelease}
-          className={`absolute right-0 w-12 h-12 flex items-center justify-center font-pixel text-[32px] transition-all ${
-            activeDirection === "right"
-              ? "bg-amber-400 text-black border-2 border-black -translate-x-1"
-              : "bg-slate-800 text-amber-300 border-t-2 border-l-2 border-slate-600 border-b-2 border-r-2 border-black"
-          }`}
-        >
-          ▶
-        </button>
-
-        {/* Down Button */}
-        <button
-          type="button"
-          aria-label="Di chuyển xuống"
-          onPointerDown={() => handleDirectionPress("down")}
-          onPointerUp={handleDirectionRelease}
-          onPointerCancel={handleDirectionRelease}
-          className={`absolute bottom-0 w-12 h-12 flex items-center justify-center font-pixel text-[32px] transition-all ${
-            activeDirection === "down"
-              ? "bg-amber-400 text-black border-2 border-black -translate-y-1"
-              : "bg-slate-800 text-amber-300 border-t-2 border-l-2 border-slate-600 border-b-2 border-r-2 border-black"
-          }`}
-        >
-          ▼
-        </button>
-      </div>
+      {/* Analog joystick (Bottom-Left): slide the thumb inside the circle */}
+      <Joystick />
 
       {/* Authentic 8-bit Action Buttons A & B (Bottom-Right) */}
       <div className="pointer-events-auto flex items-end gap-3 sm:gap-5 pb-2">
