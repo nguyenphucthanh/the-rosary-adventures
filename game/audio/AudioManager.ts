@@ -52,16 +52,23 @@ class AudioManager {
     this.listeners.forEach((f) => f());
 
     // Browsers (iOS especially) only allow sound after a user gesture.
+    // iOS Safari only counts touchend/click/keydown as activation (not pointerdown/touchstart),
+    // so listen to those and keep listening until the context is really running.
+    const events = ["touchend", "click", "keydown"] as const;
     const unlock = () => {
+      // iOS 17+: "playback" ignores the ring/silent switch (Web Audio is muted by it otherwise)
+      const session = (navigator as unknown as { audioSession?: { type: string } }).audioSession;
+      if (session) session.type = "playback";
       const ctx = this.ensureCtx();
       // resume() is async: only start music once the context is actually running
       void ctx?.resume().then(() => {
+        if (ctx.state !== "running") return;
+        events.forEach((e) => window.removeEventListener(e, unlock));
         if (this.wantedTrack !== undefined) this.playMusic(this.wantedTrack);
         this.playAmbient(this.wantedAmbient);
       });
     };
-    window.addEventListener("pointerdown", unlock, { once: true });
-    window.addEventListener("keydown", unlock, { once: true });
+    events.forEach((e) => window.addEventListener(e, unlock));
 
     EventBus.on("scene-ready", ({ sceneKey }) => {
       const id = trackForScene(sceneKey);
