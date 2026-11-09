@@ -18,6 +18,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   private stick = { x: 0, y: 0 };
   private virtualDirection: "up" | "down" | "left" | "right" | "idle" = "idle";
   private isMovementLocked = false;
+  private intent = { x: 0, y: 0 };
   private lastEmittedX = 0;
   private lastEmittedY = 0;
 
@@ -160,6 +161,11 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
+  /** Input direction (-1..1 per axis) from keyboard, d-pad or joystick; unaffected by collisions. */
+  public getMoveIntent(): { x: number; y: number } {
+    return this.isMovementLocked ? { x: 0, y: 0 } : this.intent;
+  }
+
   public getDirection(): "up" | "down" | "left" | "right" {
     return this.currentDirection;
   }
@@ -195,6 +201,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     this.setVelocity(vx * this.moveSpeed, vy * this.moveSpeed);
+    this.intent.x = vx;
+    this.intent.y = vy;
 
     // Determine animation and direction
     if (vx !== 0 || vy !== 0) {

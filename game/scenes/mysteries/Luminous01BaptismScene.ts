@@ -219,21 +219,30 @@ export class Luminous01BaptismScene extends InteractiveScene {
     super.update();
     if (this.finished || !this.player) return;
     const body = this.player.body as Phaser.Physics.Arcade.Body;
-    const { x: vx, y: vy } = body.velocity;
-    const dx = vy === 0 ? Math.sign(vx) : 0;
-    const dy = vx === 0 ? Math.sign(vy) : 0;
+    // Use the input intent (not body velocity): the analog joystick is rarely
+    // axis-aligned, and collisions zero the blocked axis of the velocity.
+    const { x: ix, y: iy } = this.player.getMoveIntent();
+    const DEAD = 0.35;
     const dt = this.game.loop.delta;
 
     for (const k of this.rocks) {
       if (k.moving) continue;
       const x0 = k.c * CELL;
       const y0 = k.r * CELL;
-      const touching =
-        (dx !== 0 || dy !== 0) &&
-        (dx !== 0
-          ? Math.abs((dx > 0 ? body.right : body.left) - (dx > 0 ? x0 : x0 + CELL)) <= 3 && body.bottom > y0 + 4 && body.top < y0 + CELL - 4
-          : Math.abs((dy > 0 ? body.bottom : body.top) - (dy > 0 ? y0 : y0 + CELL)) <= 3 && body.right > x0 + 4 && body.left < x0 + CELL - 4);
-      k.hold = touching ? k.hold + dt : 0;
+      const touchesX = (d: number) =>
+        Math.abs((d > 0 ? body.right : body.left) - (d > 0 ? x0 : x0 + CELL)) <= 3 && body.bottom > y0 + 4 && body.top < y0 + CELL - 4;
+      const touchesY = (d: number) =>
+        Math.abs((d > 0 ? body.bottom : body.top) - (d > 0 ? y0 : y0 + CELL)) <= 3 && body.right > x0 + 4 && body.left < x0 + CELL - 4;
+
+      let dx = 0;
+      let dy = 0;
+      const hx = Math.abs(ix) >= DEAD && touchesX(ix);
+      const hy = Math.abs(iy) >= DEAD && touchesY(iy);
+      // If pressing against the rock on both axes, prefer the stronger input.
+      if (hx && (!hy || Math.abs(ix) >= Math.abs(iy))) dx = Math.sign(ix);
+      else if (hy) dy = Math.sign(iy);
+
+      k.hold = dx !== 0 || dy !== 0 ? k.hold + dt : 0;
       if (k.hold >= PUSH_HOLD_MS) {
         k.hold = 0;
         this.push(k, dx, dy);
