@@ -16,6 +16,8 @@ export const PAL: Record<string, string> = {
   c: "#eea29a", // cheek blush
   m: "#e4766f", // mouth
   h: "#3d2314", // dark brown hair
+  d: "#7a4a22", // chestnut hair (Jesus)
+  R: "#991b1b", // red shade
   b: "#2563eb", // Marian blue
   B: "#1d4ed8", // blue shade
   n: "#1e3a8a", // navy

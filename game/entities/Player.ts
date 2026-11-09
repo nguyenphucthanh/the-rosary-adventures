@@ -47,9 +47,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
    */
   public static ensureTexture(
     scene: Phaser.Scene,
-    custom: CharacterCustomization
+    custom: CharacterCustomization,
+    suffix = ""
   ): string {
-    const key = `player_sprite_${custom.spriteKey || "default"}`;
+    const key = `player_sprite_${custom.spriteKey || "default"}${suffix}`;
     if (scene.textures.exists(key)) {
       scene.textures.remove(key);
     }
@@ -64,9 +65,15 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   public updateCustomization(custom: CharacterCustomization) {
-    const key = Player.ensureTexture(this.scene, custom);
+    // Fresh key: removing the texture a live sprite still uses nulls its frame.
+    const oldKey = this.texture.key;
+    const key = Player.ensureTexture(this.scene, custom, `_${Date.now()}`);
     this.setTexture(key);
     this.setupAnimations(key);
+    this.play(`player-idle-${this.currentDirection}`, true);
+    if (oldKey !== key && this.scene.textures.exists(oldKey)) {
+      this.scene.textures.remove(oldKey);
+    }
   }
 
   private setupAnimations(textureKey: string) {

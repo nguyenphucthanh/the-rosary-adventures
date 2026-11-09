@@ -54,7 +54,14 @@ export class StageTransitionScene extends Phaser.Scene {
       this.tweens.add({ targets: sp, alpha: 0, duration: 700 + i * 110, yoyo: true, repeat: -1, delay: i * 200 });
     }
 
-    const text = (y: number, str: string, size: number, color: string, wrap = 260) =>
+    // visible logical width at the integer zoom; wrap text inside it so narrow phones never clip
+    const zoomFor = () => {
+      const { width, height } = this.scale.gameSize;
+      return Math.max(1, Math.min(Math.floor(width / 160), Math.floor(height / 190), 3));
+    };
+    const safeW = Math.min(280, this.scale.gameSize.width / zoomFor() - 24);
+
+    const text = (y: number, str: string, size: number, color: string, wrap = safeW) =>
       this.add
         .text(CX, y, str, {
           fontFamily: "'Dearpix', monospace",
@@ -82,21 +89,26 @@ export class StageTransitionScene extends Phaser.Scene {
       if (current) this.tweens.add({ targets: bead, alpha: 0.4, duration: 450, yoyo: true, repeat: -1 });
     });
 
-    const title = text(86, info.titleVi.toUpperCase(), 12, "#fde68a", 280);
+    const title = text(60, info.titleVi.toUpperCase(), 12, "#fde68a").setOrigin(0.5, 0);
     title.setAlpha(0).y -= 6;
     this.tweens.add({ targets: title, alpha: 1, y: title.y + 6, duration: 500, delay: 250, ease: "Stepped" });
 
-    text(118, info.scriptureVi, 8, "#e0e7ff");
-    text(138, sceneKey ? `Hoa trái: ${info.fruitVi}` : "Chặng này sắp ra mắt. Hẹn gặp lại bạn nhé!", 8, "#fbbf24");
+    // stack below the (possibly multi-line) title
+    let y = 60 + title.height + 10;
+    const stack = (str: string, color: string) => {
+      const t = text(y, str, 8, color).setOrigin(0.5, 0);
+      y += t.height + 8;
+    };
+    stack(info.scriptureVi, "#e0e7ff");
+    stack(sceneKey ? `Hoa trái: ${info.fruitVi}` : "Chặng này sắp ra mắt. Hẹn gặp lại bạn nhé!", "#fbbf24");
 
-    const prompt = text(172, "CHẠM HOẶC NHẤN SPACE", 8, "#fef08a");
+    const prompt = text(y + 6, "CHẠM HOẶC NHẤN SPACE", 8, "#fef08a");
     this.time.addEvent({ delay: 600, loop: true, callback: () => prompt.setVisible(!prompt.visible) });
 
     // camera: integer zoom only
     const cam = this.cameras.main;
     const apply = () => {
-      const { width, height } = this.scale.gameSize;
-      cam.setZoom(Math.max(2, Math.min(Math.floor(width / 300), Math.floor(height / 190)) || 2));
+      cam.setZoom(zoomFor());
       cam.centerOn(CX, CY);
     };
     apply();

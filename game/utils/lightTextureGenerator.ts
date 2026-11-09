@@ -1,16 +1,79 @@
 import * as Phaser from "phaser";
-import { PAL, makeCanvas, rect } from "./pixelArt";
-import { MARY } from "./npcTextureGenerator";
-import { fromMap, recolor } from "./visitationTextureGenerator";
+import { PAL, type PixelMap, makeCanvas, rect } from "./pixelArt";
+import { fromMap } from "./visitationTextureGenerator";
 
 /** Pixel-art textures for the Mysteries of Light (stage 6 Jordan + the season warp). Integer rects + PixelMaps only. */
 
-/** John the Baptist: camel-hair tunic, wild beard, no halo. */
-const JOHN = recolor(MARY, { b: "u", B: "O", n: "O", w: "P", W: "u", y: "Y", h: "o" }).map((row, i) =>
-  i === 15 ? row.replace("ssssss", "oooooo") : row
-);
-/** Jesus as an adult: white robe, red mantle, halo ring. */
-const JESUS = recolor(MARY, { b: "w", B: "W", n: "r", w: "p", W: "P", y: "y" }, true);
+/** John the Baptist: dark curls + beard, bare shoulder, camel-hair wrap, rope belt, reed cross staff. No halo. */
+const JOHN: PixelMap = [
+  "................................",
+  ".........................o......",
+  ".......................ooooo....",
+  ".........................o......",
+  "...........hhhhhhhhhh....o......",
+  "..........hhhhhhhhhhhh...o......",
+  ".........hhhhhhhhhhhhhh..o......",
+  ".........hhhhhhhhhhhhhh..o......",
+  ".........hhhhsssssshhhh..o......",
+  ".........hhhsssssssshhh..o......",
+  ".........hhhsssssssshhh..o......",
+  ".........hhhsssssssshhh..o......",
+  ".........hhhseesseeshhh..o......",
+  ".........hhhsssssssshhh..o......",
+  ".........hhhhhhmmhhhhhh..o......",
+  ".........hhhhhhhhhhhhhh..o......",
+  "..........hhhhhhhhhhhh...o......",
+  "........sssssssssuuuuuss.o......",
+  "........ssssssSssuuuuuss.o......",
+  "........sssssssSsuuuusss.o......",
+  "........ssssssuuuuuuuuss.o......",
+  "........ssPPPPPPPPPPPPss.o......",
+  ".......sPPPPOOOOOOOOPPPPso......",
+  ".......uuuuuuPuuuPuuuuuuuo......",
+  ".......PuPuuuuPuuuuPuuPuPo......",
+  "............ssS..Sss.....o......",
+  "...........ssss..ssss....o......",
+  "........zzzzzzzzzzzzzzzz........",
+  "..........zzzzzzzzzzzz..........",
+  "................................",
+  "................................",
+  "................................",
+];
+/** Jesus as an adult: chestnut hair + beard, white robe, red sash, halo ring. */
+export const JESUS: PixelMap = [
+  "................................",
+  "................................",
+  "............yyyyyyyy............",
+  "..........yy........yy..........",
+  ".........y..dddddddd..y.........",
+  ".........yddddddddddddy.........",
+  ".........hddddddddddddh.........",
+  ".........hddhhhhhhhhddh.........",
+  ".........hddhsssssshddh.........",
+  ".........hddssssssssddh.........",
+  ".........hddssssssssddh.........",
+  ".........hddssssssssddh.........",
+  ".........hddseesseesddh.........",
+  ".........hddssssssssddh.........",
+  ".........hddchsmmshcddh.........",
+  ".........hdddhhhhhhdddh.........",
+  ".........hdddwhhhhwdddh.........",
+  "........hdddrrwwwwwwdddh........",
+  "........hdddRrrwwwwWdddh........",
+  "........WwwwwRrrwwwwwwwW........",
+  "........WwwwwwRrrwwwwwwW........",
+  "........sWwwwwwRrrwwwwWs........",
+  ".......sswwwwwwwRrrwwwwss.......",
+  ".......WwwwWwwwwwRRrwwwwW.......",
+  ".......WWwwWwwwwwwRRwwWWW.......",
+  ".......WWWWWWWWWWWWWWWWWW.......",
+  ".......WWWuuWWWWWWWWuuWWW.......",
+  "........zzzzzzzzzzzzzzzz........",
+  "..........zzzzzzzzzzzz..........",
+  "................................",
+  "................................",
+  "................................",
+];
 
 /** Flat stone slab with foam: a boulder that sank into a ford cell. */
 function fordStone() {

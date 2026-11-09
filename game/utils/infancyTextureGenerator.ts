@@ -2,6 +2,7 @@ import * as Phaser from "phaser";
 import { PAL, type PixelMap, makeCanvas, rect } from "./pixelArt";
 import { MARY } from "./npcTextureGenerator";
 import { fromMap, recolor } from "./visitationTextureGenerator";
+import { JESUS } from "./lightTextureGenerator";
 
 /** Pixel-art textures for stages 3-5 (Nativity, Presentation, Finding in the Temple). Integer rects + PixelMaps only. */
 
@@ -16,8 +17,10 @@ const ANNA = recolor(MARY, { b: "v", B: "V", n: "V", w: "p", W: "P", y: "Y", h: 
 const SCRIBE = beard(recolor(MARY, { b: "n", B: "e", n: "e", w: "v", W: "V", y: "y" }));
 const MERCHANT = recolor(MARY, { b: "r", B: "T", n: "T", w: "p", W: "P", y: "Y" });
 const SWEEPER = recolor(MARY, { b: "g", B: "G", n: "G", w: "P", W: "u", y: "Y" });
-/** Jesus at 12: white prayer shawl, keeps the halo ring. */
-const JESUS12 = recolor(MARY, { b: "w", B: "W", n: "W", y: "y" }, true);
+/** Jesus at 12: adult Jesus without beard, white shawl instead of red sash, halo ring. */
+const JESUS12 = recolor(JESUS, { r: "W", R: "W" }, true).map((row, i) =>
+  i === 14 ? row.replace("chsmmshc", "cssmmssc") : i === 15 ? row.replace("hhhhhh", "ssssss") : i === 16 ? row.replace("whhhhw", "wwwwww") : row
+);
 
 // ---------- small items ----------
 
