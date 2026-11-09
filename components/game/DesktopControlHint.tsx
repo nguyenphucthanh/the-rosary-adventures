@@ -1,0 +1,57 @@
+"use client";
+
+import React from "react";
+
+export default function DesktopControlHint() {
+  return (
+    <div className="pointer-events-auto select-none retro-frame px-5 py-2.5 flex flex-wrap items-center justify-center gap-2.5 sm:gap-5 text-slate-200">
+      {/* Movement instruction */}
+      <div className="flex items-center gap-2">
+        <span className="flex gap-1">
+          <span className="pixel-key px-2 py-0.5 text-[15px]">W</span>
+          <span className="pixel-key px-2 py-0.5 text-[15px]">A</span>
+          <span className="pixel-key px-2 py-0.5 text-[15px]">S</span>
+          <span className="pixel-key px-2 py-0.5 text-[15px]">D</span>
+        </span>
+        <span className="text-amber-400 font-pixel text-xs mx-0.5">/</span>
+        <span className="flex gap-1">
+          <span className="pixel-key px-2 py-0.5 text-[15px]">↑</span>
+          <span className="pixel-key px-2 py-0.5 text-[15px]">↓</span>
+          <span className="pixel-key px-2 py-0.5 text-[15px]">←</span>
+          <span className="pixel-key px-2 py-0.5 text-[15px]">→</span>
+        </span>
+        <span className="font-pixel text-[14px] text-amber-200 ml-1.5 tracking-wide">
+          DI CHUYỂN
+        </span>
+      </div>
+
+      <span className="hidden sm:inline text-amber-500/60 font-pixel text-sm">◆</span>
+
+      {/* Interact instruction */}
+      <div className="flex items-center gap-2">
+        <span className="pixel-key px-2.5 py-0.5 text-[15px] text-emerald-300">
+          SPACE
+        </span>
+        <span className="text-amber-400 font-pixel text-xs">/</span>
+        <span className="pixel-key px-2 py-0.5 text-[15px] text-emerald-300">
+          ENTER
+        </span>
+        <span className="font-pixel text-[14px] text-emerald-300 ml-1.5 tracking-wide">
+          TƯƠNG TÁC
+        </span>
+      </div>
+
+      <span className="hidden sm:inline text-amber-500/60 font-pixel text-sm">◆</span>
+
+      {/* Menu instruction */}
+      <div className="flex items-center gap-2">
+        <span className="pixel-key px-2 py-0.5 text-[15px] text-rose-300">
+          ESC
+        </span>
+        <span className="font-pixel text-[14px] text-rose-300 ml-1.5 tracking-wide">
+          MENU
+        </span>
+      </div>
+    </div>
+  );
+}

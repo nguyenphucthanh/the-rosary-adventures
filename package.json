@@ -9,7 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "mitt": "^3.0.1",
     "next": "16.4.5",
+    "phaser": "^3.90.0",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },

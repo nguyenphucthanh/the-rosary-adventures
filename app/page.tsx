@@ -1,69 +1,182 @@
-import Image from "next/image";
+"use client";
+
+import dynamic from "next/dynamic";
+import { useState, useEffect, useCallback } from "react";
+import { loadGame, saveGame } from "@/utils/saveManager";
+import { createInitialSaveData, SaveData, CharacterCustomization } from "@/types/game";
+import VirtualController from "@/components/game/VirtualController";
+import DesktopControlHint from "@/components/game/DesktopControlHint";
+import CharacterCreationModal from "@/components/game/CharacterCreationModal";
+import CharacterPreview from "@/components/game/CharacterPreview";
+import DialogueBox from "@/components/game/DialogueBox";
+import RosaryHUD from "@/components/game/RosaryHUD";
+import EventBus from "@/game/EventBus";
+
+const GameContainer = dynamic(() => import("@/components/game/GameContainer"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center w-full h-full bg-slate-950 text-amber-400 font-mono text-sm">
+      <div className="flex flex-col items-center gap-2">
+        <div className="w-8 h-8 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
+        <span>Đang nạp động cơ Phaser 3...</span>
+      </div>
+    </div>
+  ),
+});
 
 export default function Home() {
+  const [currentScene, setCurrentScene] = useState<string>("Đang khởi tạo...");
+  const [saveInfo, setSaveInfo] = useState<SaveData | null>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState<boolean>(false);
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [showCharacterModal, setShowCharacterModal] = useState<boolean>(false);
+  const [hasExistingSave, setHasExistingSave] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Tự động nhận diện thiết bị cảm ứng (con trỏ "thô" = ngón tay) và theo dõi khi đổi thiết bị
+    const coarse = window.matchMedia("(pointer: coarse)");
+    const syncTouch = () => setIsTouchDevice(coarse.matches);
+    syncTouch();
+    coarse.addEventListener("change", syncTouch);
+
+    // Kiểm tra save đã lưu
+    const existing = loadGame();
+    if (existing) {
+      setSaveInfo(existing);
+      setHasExistingSave(true);
+    } else {
+      // Nếu là người chơi mới: tự động bật màn hình tạo nhân vật
+      const initial = createInitialSaveData();
+      setSaveInfo(initial);
+      setHasExistingSave(false);
+      setShowCharacterModal(true);
+    }
+
+    // Lắng nghe thay đổi trạng thái fullscreen
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+    // Lắng nghe sự kiện hoàn thành mầu nhiệm để cập nhật dữ liệu save
+    const handleMysteryCompleted = () => {
+      const current = loadGame();
+      if (current) setSaveInfo(current);
+    };
+    EventBus.on("mystery-completed", handleMysteryCompleted);
+
+    return () => {
+      coarse.removeEventListener("change", syncTouch);
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      EventBus.off("mystery-completed", handleMysteryCompleted);
+    };
+  }, []);
+
+  const handleSaveCharacter = (customization: CharacterCustomization) => {
+    const baseSave = loadGame() ?? saveInfo ?? createInitialSaveData(); // re-read: stages auto-save behind this modal
+    const updatedSave: SaveData = {
+      ...baseSave,
+      player: {
+        ...baseSave.player,
+        customization,
+      },
+    };
+    saveGame(updatedSave);
+    setSaveInfo(updatedSave);
+    setHasExistingSave(true);
+    setShowCharacterModal(false);
+    EventBus.emit("character-updated", { customization });
+  };
+
+  const toggleFullscreen = async () => {
+    if (!document.fullscreenElement) {
+      try {
+        await document.documentElement.requestFullscreen();
+      } catch (err) {
+        console.warn("Fullscreen request error:", err);
+      }
+    } else {
+      if (document.exitFullscreen) {
+        await document.exitFullscreen();
+      }
+    }
+  };
+
+  const handleSceneReady = useCallback((sceneKey: string) => {
+    setCurrentScene(sceneKey);
+  }, []);
+
+  const onTitle = currentScene === "TitleScene" || currentScene === "StageTransitionScene";
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="fixed inset-0 w-screen h-dvh overflow-hidden bg-slate-950 select-none">
+      {/* 1. Fullscreen Phaser Game Canvas */}
+      <GameContainer onSceneReady={handleSceneReady} />
+
+      {/* 2. Top Floating HUD (Header Bar) */}
+      <header hidden={onTitle} className="pointer-events-none fixed top-0 inset-x-0 z-30 flex items-center justify-between p-2 sm:p-4">
+        {/* Pilgrim Profile Button */}
+        <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
+          {/* Character Quick Profile Badge (Click to open Customizer) */}
+          {saveInfo && (
+            <button
+              type="button"
+              onClick={() => setShowCharacterModal(true)}
+              title="Nhấn để đổi diện mạo hoặc tạo nhân vật mới"
+              className="retro-btn-gold px-3 py-1.5 flex items-center gap-2 active:translate-y-0.5"
+            >
+              <span className="text-base leading-none">
+                {saveInfo.player.customization.gender === "girl" ? "👧" : "👦"}
+              </span>
+              <span className="font-pixel text-[13px] sm:text-[14px] text-amber-100">
+                {saveInfo.player.customization.name}
+              </span>
+              <span className="text-xs text-amber-200">✏️</span>
+            </button>
+          )}
+        </div>
+
+        {/* Action Controls (Fullscreen) */}
+        <div className="pointer-events-auto flex items-center gap-2">
+          {/* Fullscreen Button */}
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            title={isFullscreen ? "Thoát toàn màn hình" : "Toàn màn hình"}
+            className="retro-btn px-3 py-1.5 text-[12px] sm:text-[13px] text-amber-300"
+          >
+            {isFullscreen ? "THOÁT" : "TOÀN MÀN HÌNH"}
+          </button>
+        </div>
+      </header>
+
+      {/* Rosary Beads HUD Ribbon & Modal */}
+      {!onTitle && <RosaryHUD saveData={saveInfo} />}
+
+      {/* 3. Bottom Controls Area */}
+      {onTitle ? null : isTouchDevice ? (
+        // Mobile / Touch: Virtual On-Screen Controller (D-Pad + A/B Buttons)
+        <VirtualController />
+      ) : (
+        // Desktop / Keyboard: Bottom Instruction Hint
+        <footer className="pointer-events-none fixed inset-x-0 bottom-4 z-30 flex justify-center px-4">
+          <DesktopControlHint />
+        </footer>
+      )}
+
+      {/* 4. Dialogue Box */}
+      <DialogueBox />
+
+      {/* 5. Character Customization Modal */}
+      {saveInfo && (
+        <CharacterCreationModal
+          isOpen={showCharacterModal && !onTitle}
+          initialData={saveInfo.player.customization}
+          canClose={hasExistingSave}
+          onClose={() => setShowCharacterModal(false)}
+          onSave={handleSaveCharacter}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      )}
+    </main>
   );
 }

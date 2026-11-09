@@ -1,26 +1,213 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Dearpix';
+  src: url('/fonts/dearpix-2-01.otf.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #020617;
+  --foreground: #f8fafc;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-dearpix), 'Dearpix', monospace;
+  --font-mono: var(--font-dearpix), 'Dearpix', monospace;
+  --font-pixel: var(--font-dearpix), 'Dearpix', monospace;
+  --font-retro: var(--font-dearpix), 'Dearpix', monospace;
+  --font-dearpix: var(--font-dearpix), 'Dearpix', monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-dearpix), 'Dearpix', monospace;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+input, textarea {
+  user-select: text;
+  -webkit-user-select: text;
+  font-family: var(--font-dearpix), 'Dearpix', monospace;
+}
+
+/* ========================================================
+   AUTHENTIC 8-BIT RETRO UI STYLE (HTML / CSS ELEMENTS)
+   ======================================================== */
+
+.font-pixel,
+.font-retro,
+.font-dearpix {
+  font-family: var(--font-dearpix), 'Dearpix', monospace !important;
+}
+
+/* Classic RPG Double-Border Window (Pokémon / Dragon Quest / Chrono Trigger) */
+.retro-frame {
+  background-color: #0b1120;
+  border: 4px solid #000000;
+  box-shadow:
+    inset 0 0 0 2px #d4af37,
+    inset 0 0 0 4px #000000,
+    0 4px 0 0 rgba(0, 0, 0, 0.7);
+}
+
+/* Retro Frame with Gold Border */
+.retro-frame-gold {
+  background-color: #0c1427;
+  border: 4px solid #f59e0b;
+  outline: 3px solid #000000;
+  box-shadow:
+    inset 0 0 0 2px #451a03,
+    inset 0 0 0 4px #1e293b,
+    0 4px 0 0 rgba(0, 0, 0, 0.7);
+}
+
+/* Retro Chunky 3D Button */
+.retro-btn {
+  font-family: var(--font-dearpix), 'Dearpix', monospace;
+  background-color: #1e293b;
+  border-top: 3px solid #475569;
+  border-left: 3px solid #475569;
+  border-bottom: 4px solid #020617;
+  border-right: 4px solid #020617;
+  outline: 2px solid #000000;
+  text-shadow: 1px 1px 0 #000000;
+  transition: all 0.05s ease-in-out;
+}
+
+.retro-btn:hover {
+  background-color: #334155;
+  border-top-color: #64748b;
+  border-left-color: #64748b;
+}
+
+.retro-btn:active {
+  transform: translateY(2px);
+  border-top: 3px solid #020617;
+  border-left: 3px solid #020617;
+  border-bottom: 2px solid #475569;
+  border-right: 2px solid #475569;
+}
+
+/* Gold Variant */
+.retro-btn-gold {
+  font-family: var(--font-dearpix), 'Dearpix', monospace;
+  background-color: #b45309;
+  border-top: 3px solid #fde047;
+  border-left: 3px solid #fde047;
+  border-bottom: 4px solid #451a03;
+  border-right: 4px solid #451a03;
+  outline: 2px solid #000000;
+  color: #fef08a;
+  text-shadow: 1px 1px 0 #000000;
+  transition: all 0.05s ease-in-out;
+}
+
+.retro-btn-gold:hover {
+  background-color: #d97706;
+}
+
+.retro-btn-gold:active {
+  transform: translateY(2px);
+  border-top: 3px solid #451a03;
+  border-left: 3px solid #451a03;
+  border-bottom: 2px solid #fde047;
+  border-right: 2px solid #fde047;
+}
+
+/* Green Variant (Action / Confirm) */
+.retro-btn-green {
+  font-family: var(--font-dearpix), 'Dearpix', monospace;
+  background-color: #047857;
+  border-top: 3px solid #6ee7b7;
+  border-left: 3px solid #6ee7b7;
+  border-bottom: 4px solid #022c22;
+  border-right: 4px solid #022c22;
+  outline: 2px solid #000000;
+  color: #ecfdf5;
+  text-shadow: 1px 1px 0 #000000;
+  transition: all 0.05s ease-in-out;
+}
+
+.retro-btn-green:hover {
+  background-color: #059669;
+}
+
+.retro-btn-green:active {
+  transform: translateY(2px);
+  border-top: 3px solid #022c22;
+  border-left: 3px solid #022c22;
+  border-bottom: 2px solid #6ee7b7;
+  border-right: 2px solid #6ee7b7;
+}
+
+/* Red Variant (Cancel / Menu) */
+.retro-btn-red {
+  font-family: var(--font-dearpix), 'Dearpix', monospace;
+  background-color: #991b1b;
+  border-top: 3px solid #fca5a5;
+  border-left: 3px solid #fca5a5;
+  border-bottom: 4px solid #450a0a;
+  border-right: 4px solid #450a0a;
+  outline: 2px solid #000000;
+  color: #fef2f2;
+  text-shadow: 1px 1px 0 #000000;
+  transition: all 0.05s ease-in-out;
+}
+
+.retro-btn-red:hover {
+  background-color: #b91c1c;
+}
+
+.retro-btn-red:active {
+  transform: translateY(2px);
+  border-top: 3px solid #450a0a;
+  border-left: 3px solid #450a0a;
+  border-bottom: 2px solid #fca5a5;
+  border-right: 2px solid #fca5a5;
+}
+
+/* Pixel Title Shadow */
+.pixel-title {
+  font-family: var(--font-dearpix), 'Dearpix', monospace;
+  color: #fbbf24;
+  text-shadow:
+    2px 2px 0 #000000,
+    -1px -1px 0 #000000,
+    1px -1px 0 #000000,
+    -1px 1px 0 #000000,
+    3px 3px 0 #78350f;
+}
+
+.pixel-text {
+  font-family: var(--font-dearpix), 'Dearpix', monospace;
+  text-shadow: 1px 1px 0 #000000;
+}
+
+/* 3D Pixel Keycap (For instructions) */
+.pixel-key {
+  font-family: var(--font-dearpix), 'Dearpix', monospace;
+  background-color: #334155;
+  border-top: 2px solid #94a3b8;
+  border-left: 2px solid #94a3b8;
+  border-bottom: 3px solid #0f172a;
+  border-right: 3px solid #0f172a;
+  outline: 1.5px solid #000000;
+  color: #fef08a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.5);
 }
