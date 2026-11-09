@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import { loadGame, saveGame } from "@/utils/saveManager";
 import { createInitialSaveData, SaveData, CharacterCustomization } from "@/types/game";
 import VirtualController from "@/components/game/VirtualController";
@@ -10,7 +10,9 @@ import CharacterCreationModal from "@/components/game/CharacterCreationModal";
 import CharacterPreview from "@/components/game/CharacterPreview";
 import DialogueBox from "@/components/game/DialogueBox";
 import RosaryHUD from "@/components/game/RosaryHUD";
+import EndingCongrats from "@/components/game/EndingCongrats";
 import EventBus from "@/game/EventBus";
+import audio from "@/game/audio/AudioManager";
 
 const GameContainer = dynamic(() => import("@/components/game/GameContainer"), {
   ssr: false,
@@ -31,6 +33,7 @@ export default function Home() {
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [showCharacterModal, setShowCharacterModal] = useState<boolean>(false);
   const [hasExistingSave, setHasExistingSave] = useState<boolean>(false);
+  const muted = useSyncExternalStore(audio.subscribe, () => audio.muted, () => false);
 
   useEffect(() => {
     // Tự động nhận diện thiết bị cảm ứng (con trỏ "thô" = ngón tay) và theo dõi khi đổi thiết bị
@@ -64,11 +67,13 @@ export default function Home() {
       if (current) setSaveInfo(current);
     };
     EventBus.on("mystery-completed", handleMysteryCompleted);
+    EventBus.on("game-restart", handleMysteryCompleted); // same refresh: re-read the (reset) save
 
     return () => {
       coarse.removeEventListener("change", syncTouch);
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
       EventBus.off("mystery-completed", handleMysteryCompleted);
+      EventBus.off("game-restart", handleMysteryCompleted);
     };
   }, []);
 
@@ -138,6 +143,16 @@ export default function Home() {
 
         {/* Action Controls (Fullscreen) */}
         <div className="pointer-events-auto flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              audio.setMuted(!muted);
+            }}
+            title={muted ? "Bật âm thanh" : "Tắt âm thanh"}
+            className="retro-btn px-3 py-1.5 text-[12px] sm:text-[13px] text-amber-300"
+          >
+            {muted ? "🔇" : "🔊"}
+          </button>
           {/* Fullscreen Button */}
           <button
             type="button"
@@ -166,6 +181,7 @@ export default function Home() {
 
       {/* 4. Dialogue Box */}
       <DialogueBox />
+      <EndingCongrats />
 
       {/* 5. Character Customization Modal */}
       {saveInfo && (

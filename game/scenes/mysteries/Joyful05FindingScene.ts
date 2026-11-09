@@ -1,4 +1,5 @@
 import * as Phaser from "phaser";
+import audio from "../../audio/AudioManager";
 import { DEPTH } from "../BaseMysteryScene";
 import { InteractiveScene } from "../InteractiveScene";
 import { registerAnnunciationTextures } from "../../utils/npcTextureGenerator";
@@ -231,6 +232,7 @@ export class Joyful05FindingScene extends InteractiveScene {
   }
 
   private wrongScroll() {
+    audio.sfx("wrong");
     this.talk(
       "Các Kinh Sư",
       "📜",

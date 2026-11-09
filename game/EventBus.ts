@@ -19,6 +19,8 @@ export type GameEvents = {
   // Progression & Save
   "mystery-completed": { mysteryKey: string; mysteryIndex: number };
   "bead-lit": { mysteryIndex: number };
+  "game-complete": void; // Epilogue finished: show congratulations
+  "game-restart": void; // progress already reset: go back to the title
   "trigger-save": void;
   "game-saved": { success: boolean; timestamp: number };
 

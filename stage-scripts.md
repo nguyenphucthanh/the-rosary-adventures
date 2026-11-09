@@ -1,11 +1,32 @@
 # KỊCH BẢN NỘI DUNG & GAMEPLAY DESIGN: 20 MẦU NHIỆM MÂN CÔI
 
-* **Vai trò người chơi:** Một lữ khách nhỏ tuổi (Người Tìm Kiếm Đức Tin) được đồng hành xuyên suốt dòng lịch sử cứu độ.
+* **Vai trò người chơi:** Một lữ khách nhỏ tuổi (Người Tìm Kiếm Đức Tin) bắt đầu từ giờ kinh tối trong căn phòng ngủ của mình, được Chúa Thánh Thần dẫn dắt đồng hành xuyên suốt dòng lịch sử cứu độ qua 20 Mầu Nhiệm và trở về đời thường với trái tim biến đổi.
 * **Cấu trúc mỗi chặng:** 
   1. *Dẫn nhập (Intro Cutscene):* Câu Lời Chúa chủ đề và bối cảnh.
-  2. *Bản đồ & Nhân vật xuất hiện:* Địa điểm, NPC, sự hiện diện của Chúa Giêsu.
+  2. *Bản đồ & Nhân vật xuất hiện:* Địa điểm, NPC, sự hiện diện của Chúa Giêsu / Chúa Thánh Thần.
   3. *Mục tiêu & Cơ chế giải đố (Quest / Puzzle):* Thử thách tương tác để hiểu ý nghĩa mầu nhiệm.
   4. *Khoảnh khắc Mầu nhiệm & Bài học suy niệm (Outro):* Thắp sáng 1 hạt Mân Côi.
+
+---
+
+# PHẦN 0: KHÚC DẠO ĐẦU (PROLOGUE) – GIỜ KINH TỐI & LỜI MỜI GỌI CỦA THẦN KHÍ
+
+---
+
+### Màn Mở Đầu: Chuỗi Hạt Nhỏ & Ngọn Gió Thần Khí (Rm 8, 26; Mt 18, 20)
+* **Dẫn nhập (Intro Cutscene):**
+  * *Câu Lời Chúa chủ đề:* *"Thần Khí cũng đến giúp đỡ sự yếu đuối của chúng ta, vì chúng ta không biết cầu nguyện thế nào cho phải."* (Rm 8, 26).
+  * *Bối cảnh mở màn:* Sau khi người chơi tạo nhân vật xong, màn hình mở ra tại căn phòng ngủ nhỏ vào buổi tối. Ngoài trời đêm tĩnh mịch. Căn phòng lúc này còn hơi bừa bộn sau một ngày đi học: sách vở còn mở trên bàn, cặp sách để dưới sàn, góc bàn thờ nhỏ chưa thắp nến, và chuỗi hạt Mân Côi lúc này chưa có hạt nào sáng (0/20 hạt).
+* **Bối cảnh:** Căn phòng ngủ nhỏ của thiếu nhi ở trạng thái *"trước khi cầu nguyện"* (ánh sáng đèn ngủ dịu nhẹ, góc bàn thờ chưa lung linh như lúc cuối game). Đóng vai trò là màn hướng dẫn điều khiển (Tutorial) tự nhiên cho trẻ em làm quen với D-pad và phím tương tác.
+* **Nhân vật:** Lữ khách nhỏ tuổi, Đức Chúa Thánh Thần.
+* **Sự hiện diện của Chúa:** Khi người chơi tìm thấy chuỗi hạt và thắp nến cầu xin, một làn gió nhẹ thổi qua khung cửa sổ, ánh sáng vàng ấm áp hiện ra cùng **Đức Chúa Thánh Thần dưới hình tượng Chim Bồ Câu trắng tỏa sáng**.
+* **Cơ chế gameplay & Giải đố:**
+  * *Thử thách "Chuẩn bị tâm hồn cầu nguyện" (Tutorial):*
+    1. *Bước 1 – Tìm lại Chuỗi Mân Côi:* Em muốn đọc kinh tối như lời Mẹ dặn nhưng quên mất mình để chuỗi hạt ở đâu. Người chơi điều khiển nhân vật đi tìm quanh phòng (kiểm tra bàn học, kệ sách, đầu giường) và nhặt lại **Chuỗi Mân Côi** (0/20 hạt sáng).
+    2. *Bước 2 – Thắp nến Góc Cầu Nguyện:* Mang chuỗi hạt đến trước **Bàn thờ nhỏ** trong phòng và thắp sáng ngọn nến cầu nguyện.
+    3. *Bước 3 – Lời cầu xin đơn sơ:* Đứng trước bàn thờ nhỏ, em thầm thĩ: *"Lạy Chúa, con muốn lần hạt Mân Côi mà nhiều khi con chẳng hình dung được các Mầu Nhiệm là gì..."* $\rightarrow$ Ngay lúc đó, khung cửa sổ bật sáng, **Chúa Thánh Thần (Chim Bồ Câu trắng)** bay vào phòng đậu bên bàn thờ.
+    4. *Bước 4 – Mở cổng hành trình:* Chúa Thánh Thần dịu dàng bảo: *"Đừng lo, con yêu dấu! Ta là Đấng Bảo Trợ. Hãy nắm lấy Chuỗi Mân Côi và bước vào luồng sáng này, Ta sẽ đưa con đi gặp Mẹ Maria và Chúa Giêsu qua từng biến cố cứu độ!"*. Người chơi làm dấu Thánh Giá (chọn lời nguyện mở đầu *"Nhân danh Cha và Con và Thánh Thần. Amen"*) rồi bước vào vòng sáng giữa phòng để dịch chuyển về thành Nazareth (Chặng 1).
+* **Hoa trái suy niệm:** Khiêm tốn mở lòng cầu xin Chúa Thánh Thần dạy dỗ và dẫn dắt trong giờ cầu nguyện.
 
 ---
 
@@ -253,6 +274,28 @@
 * **Cơ chế gameplay & Giải đố:**
   * *Thử thách cuối cùng "Hoàn tất Chuỗi Mân Côi Cứu Độ":* Người chơi mang theo toàn bộ 19 hạt mầu nhiệm đã thu thập qua suốt 19 chặng trước đặt vào vòng triều thiên thánh thiện tại trung tâm thiên đình.
   * *Hành động cuối cùng:* Đặt hạt thứ 20 vào đỉnh triều thiên. Vương miện bừng sáng 12 ngôi sao, mặt trời bao bọc Mẹ và mặt trăng dưới chân Mẹ.
-  * *Thông điệp kết thúc (Epilogue):* Chúa Giêsu bước đến bên người chơi mỉm cười xoa đầu: *"Con đã hoàn thành cuộc hành trình đức tin. Hãy giữ vững lời dạy này trong trái tim con và mang tình yêu thương ấy về trần gian mỗi ngày"*.
+  * *Thông điệp chuyển tiếp:* Chúa Giêsu bước đến bên người chơi mỉm cười xoa đầu: *"Con đã hoàn thành cuộc hành trình đức tin. Hãy giữ vững lời dạy này trong trái tim con và mang tình yêu thương ấy về trần gian mỗi ngày"*.
 * **Hoa trái suy niệm:** Trọn niềm cậy trông vào vinh phúc Nước Trời và tôn kính Mẹ là Nữ Vương Thiên Đàng.
+
+---
+
+# PHẦN 5: KHÚC VĨ THANH (EPILOGUE) – TRỞ VỀ ĐỜI THƯỜNG
+
+---
+
+### Màn Kết: Căn Phòng Nhỏ & Cuộc Trò Chuyện Với Chúa Thánh Thần (Ga 14, 26; Gl 5, 22-23)
+* **Dẫn nhập (Intro Cutscene):**
+  * *Câu Lời Chúa chủ đề:* *"Đấng Bảo Trợ là Thánh Thần Chúa Cha sẽ sai đến nhân danh Thầy, Đấng ấy sẽ dạy anh em mọi điều và làm cho anh em nhớ lại mọi điều Thầy đã nói với anh em."* (Ga 14, 26).
+  * *Chuyển cảnh:* Từ ánh sáng rực rỡ của Thiên Quốc ở Chặng 20, màn hình mờ dần (fade to white) rồi mở ra trong căn phòng ngủ nhỏ ấm cúng hiện đại của chính người chơi (Lữ khách nhỏ tuổi). Trên tay em vẫn đang cầm chuỗi Mân Côi vừa lần hạt xong. Toàn bộ cuộc hành trình 20 chặng vừa qua chính là một giờ cầu nguyện suy niệm sâu lắng trước khi đi ngủ.
+* **Bối cảnh:** Căn phòng ngủ nhỏ xinh xắn của thiếu nhi lúc đêm về. Cửa sổ mở hé nhìn ra bầu trời đêm đầy sao với ánh trăng dịu nhẹ chiếu xuống tấm thảm giữa phòng, kèm chiếc đèn ngủ ấm áp. Trong phòng có giường ngủ gọn gàng, bàn học, kệ sách, cặp sách đi học và một **Góc Cầu Nguyện (Bàn thờ nhỏ)** có tượng Chúa, Đức Mẹ cùng nến nhỏ.
+* **Nhân vật:** Lữ khách nhỏ tuổi, Đức Chúa Thánh Thần.
+* **Sự hiện diện của Chúa:** Đức Chúa Thánh Thần hiện diện dưới hình tượng **Chim Bồ Câu trắng tỏa hào quang vàng ấm áp** (kèm lưỡi lửa nhỏ dịu dàng và hạt sáng lấp lánh) đậu bên bệ cửa sổ / góc bàn cầu nguyện, trò chuyện trực tiếp với em như một người Bạn Thiêng Liêng, Đấng Bảo Trợ hiền hòa.
+* **Cơ chế gameplay & Giải đố:**
+  * *Thử thách "Đem Hoa Trái Mân Côi Vào Đời Sống":* Chúa Thánh Thần dạy em rằng đi qua 20 Mầu Nhiệm không chỉ để ngắm nhìn trong giờ suy niệm, nhưng là để mang tình yêu của Chúa Giêsu và Mẹ Maria vào chính ngày mai của em. Người chơi thực hiện 3 bài học thực hành tương ứng với các đồ vật phát sáng trong phòng:
+    1. *Tại Bàn Học (Bài học Vâng Phục & Tìm Kiếm Chúa – Mùa Vui & Sáng):* Thu xếp sách vở gọn gàng và mở cuốn Sổ Tay Đức Tin. Chúa Thánh Thần hỏi: *"Khi ngày mai đi học gặp bài khó hoặc việc vất vả, con nhớ gương ai ở Nazareth?"* $\rightarrow$ Chọn đáp án: *"Thưa Xin Vâng và chăm chỉ như Chúa Giêsu và Mẹ Maria"*.
+    2. *Tại Cặp Sách / Hộp Quà Nhỏ (Bài học Yêu Thương & Tha Thứ – Mùa Thương):* Chuẩn bị một tấm thiệp sẻ chia cho người bạn ở trường. Chúa Thánh Thần nhắc lại bài học dưới chân Thập Giá: *"Nếu ngày mai có bạn làm con buồn, con sẽ làm gì?"* $\rightarrow$ Chọn đáp án: *"Biết tha thứ, nhẫn nại và cầu nguyện cho bạn như Chúa trên Thập Giá"*.
+    3. *Tại Góc Cầu Nguyện (Bài học Hy Vọng & Chứng Nhân – Mùa Mừng):* Đặt chuỗi Mân Côi 20 hạt sáng lấp lánh lên bàn thờ nhỏ và thắp ngọn nến cầu nguyện cho gia đình (Cha Mẹ, ông bà).
+  * *Cao trào & Kết thúc:* Chúa Thánh Thần bay đến tỏa ánh sáng ấm áp bao quanh người chơi, trao tặng *"Hoa Trái Thánh Thần"* (Bác ái, Hoan lạc, Bình an - Gl 5, 22) và nhắn nhủ: *"Con yêu dấu, mỗi khi con lần hạt Mân Côi, Ta luôn ở đây để dẫn con đến với Chúa Giêsu và Mẹ Maria. Bây giờ, hãy ngủ thật ngon trong bình an của Chúa nhé!"*. Người chơi bước lại giường đi ngủ để khép lại cuộc hành trình (hoặc mở bảng Chiêm Ngắm 20 Mầu Nhiệm để chơi lại bất kỳ chặng nào).
+* **Hoa trái suy niệm:** Đem Lời Chúa và hoa trái Kinh Mân Côi thực hành vào đời sống hằng ngày dưới sự hướng dẫn của Chúa Thánh Thần.
+
 

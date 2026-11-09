@@ -176,6 +176,8 @@ export default function CharacterCreationModal({
                     setCharacter((prev) => ({ ...prev, name: e.target.value }));
                     if (error) setError("");
                   }}
+                  onKeyDown={(e) => e.stopPropagation()}
+                  onKeyUp={(e) => e.stopPropagation()}
                   placeholder="Ví dụ: Gioan, Maria..."
                   className="w-full px-3 py-2 bg-slate-950 border-2 border-black outline outline-2 outline-amber-600 text-amber-200 font-retro text-3xl focus:outline-amber-400"
                 />

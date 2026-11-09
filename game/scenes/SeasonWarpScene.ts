@@ -62,7 +62,7 @@ export class SeasonWarpScene extends Phaser.Scene {
     const key = Player.ensureTexture(this, custom);
     if (!this.anims.exists("dove_big_flap"))
       this.anims.create({ key: "dove_big_flap", frames: this.anims.generateFrameNumbers("dove_big", { frames: [0, 1] }), frameRate: 8, repeat: -1 });
-    const dove = this.add.sprite(0, -14, "dove_big").play("dove_big_flap");
+    const dove = this.add.sprite(0, -22, "dove_big").play("dove_big_flap");
     const kid = this.add.sprite(-2, 6, key, 8);
     const glow = this.add.image(0, -4, "glow_gold").setAlpha(0.7);
     this.rider = this.add.container(CX - 60, CY, [glow, kid, dove]).setDepth(10);

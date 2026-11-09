@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { MYSTERIES_DATA, SEASONS, ExtendedMysteryInfo } from "@/data/mysteries";
 import { SaveData, MysterySeason } from "@/types/game";
-import { STAGE_SCENES } from "@/data/stages";
+import { EPILOGUE_SCENE, PROLOGUE_SCENE, STAGE_SCENES } from "@/data/stages";
 import EventBus from "@/game/EventBus";
 
 interface RosaryHUDProps {
@@ -35,13 +35,33 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
     };
   }, []);
 
+  // Esc (desktop) and virtual button B (mobile) toggle the menu, as the control hint and plan promise.
+  useEffect(() => {
+    const toggle = () => setIsOpen((o) => !o);
+    const onKey = (e: KeyboardEvent) => e.code === "Escape" && toggle();
+    const onAction = (d: { action: "A" | "B" | "MENU" }) => d.action === "B" && toggle();
+    window.addEventListener("keydown", onKey);
+    EventBus.on("input-action", onAction);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      EventBus.off("input-action", onAction);
+    };
+  }, []);
+
   const replay = (mysteryKey: string) => {
     setIsOpen(false);
     EventBus.emit("dialogue-close"); // drop any open dialogue without running its onComplete
     EventBus.emit("scene-change-request", { targetSceneKey: STAGE_SCENES[mysteryKey], mysteryKey });
   };
 
+  const goTo = (targetSceneKey: string) => {
+    setIsOpen(false);
+    EventBus.emit("dialogue-close");
+    EventBus.emit("scene-change-request", { targetSceneKey });
+  };
+
   const progress = saveData?.mysteriesProgress || {};
+  const finished = !!progress["mung_05_doi_trieu_thien"]?.completed; // the ending is a spoiler until the journey is done
 
   // Current Season's 5 mysteries
   const currentSeasonMysteries = MYSTERIES_DATA.filter(
@@ -121,6 +141,26 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                 className="retro-btn-red px-3 py-1 text-xs font-pixel active:translate-y-0.5"
               >
                 ĐÓNG ✕
+              </button>
+            </div>
+
+            {/* Prologue / Epilogue shortcuts */}
+            <div className="grid grid-cols-2 gap-1.5 sm:gap-2 mt-3">
+              <button
+                type="button"
+                onClick={() => goTo(PROLOGUE_SCENE)}
+                className="retro-btn-gold px-2 py-2 font-pixel text-xs text-amber-100 active:translate-y-0.5"
+              >
+                🕯️ MÀN MỞ ĐẦU
+              </button>
+              <button
+                type="button"
+                disabled={!finished}
+                onClick={() => goTo(EPILOGUE_SCENE)}
+                title={finished ? undefined : "Hoàn thành Chặng 20 để mở khóa"}
+                className="retro-btn-gold px-2 py-2 font-pixel text-xs text-amber-100 active:translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none"
+              >
+                {finished ? "🏡 MÀN KẾT" : "🔒 MÀN KẾT"}
               </button>
             </div>
 

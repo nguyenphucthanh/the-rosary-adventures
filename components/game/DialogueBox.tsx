@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import EventBus from "@/game/EventBus";
+import audio from "@/game/audio/AudioManager";
 
 export interface DialogueOption {
   label: string;
@@ -35,6 +36,7 @@ export default function DialogueBox() {
     const interval = setInterval(() => {
       currentIndex++;
       setDisplayedText(fullText.slice(0, currentIndex));
+      if (fullText[currentIndex - 1] !== " ") audio.typeBlip(dialogue.speaker);
       if (currentIndex >= fullText.length) {
         setIsTyping(false);
         clearInterval(interval);
@@ -64,6 +66,7 @@ export default function DialogueBox() {
       return;
     }
 
+    audio.sfx("select");
     // Move to next line or close
     if (currentLineIndex < dialogue.lines.length - 1) {
       setCurrentLineIndex((prev) => prev + 1);
@@ -78,6 +81,7 @@ export default function DialogueBox() {
   }, [dialogue, isTyping, currentLineIndex, hasOptions]);
 
   const handleSelectOption = (option: DialogueOption) => {
+    audio.sfx("select");
     setDialogue(null);
     setCurrentLineIndex(0);
     EventBus.emit("dialogue-close");

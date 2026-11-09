@@ -43,6 +43,8 @@ export const PAL: Record<string, string> = {
   a: "#8b8f98", // stone
   A: "#6b6f78", // stone shade
   f: "#f97316", // flame orange
+  i: "#475569", // dark greyish blue
+  I: "#334155", // dark greyish blue shade
 };
 
 export function makeCanvas(w: number, h: number) {

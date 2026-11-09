@@ -78,6 +78,11 @@ export function updateSave(mutate: (save: SaveData) => void, slot: string = DEFA
   return saveGame(save, slot) ? save : null;
 }
 
+/** New game: wipe progress, keep the player's character. */
+export function resetProgress(slot: string = DEFAULT_SAVE_SLOT): boolean {
+  return saveGame(createInitialSaveData(loadGame(slot)?.player.customization), slot);
+}
+
 /**
  * Checks if a valid saved game exists in the specified slot.
  */

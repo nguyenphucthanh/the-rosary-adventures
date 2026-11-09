@@ -1,4 +1,5 @@
 import * as Phaser from "phaser";
+import audio from "../../audio/AudioManager";
 import { BaseMysteryScene, DEPTH } from "../BaseMysteryScene";
 import EventBus from "../../EventBus";
 import { registerAnnunciationTextures } from "../../utils/npcTextureGenerator";
@@ -491,6 +492,7 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
   private triggerGabrielAppearance() {
     if (this.gabrielAppeared) return;
     this.gabrielAppeared = true;
+    audio.sfx("angel");
 
     const gabrielX = this.worldWidth / 2 + 56;
     const gabrielY = ALTAR_Y + 34;

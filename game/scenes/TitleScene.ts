@@ -3,7 +3,7 @@ import EventBus from "../EventBus";
 import { PAL, PixelMap, makeCanvas, rect, drawMap } from "../utils/pixelArt";
 import { registerAnnunciationTextures } from "../utils/npcTextureGenerator";
 import { loadGame } from "@/utils/saveManager";
-import { resumeMysteryKey } from "@/data/stages";
+import { PROLOGUE_SCENE, resumeMysteryKey } from "@/data/stages";
 
 /**
  * Entrance screen. Drawn in a 320x180 virtual canvas centred on (CX, CY);
@@ -256,6 +256,11 @@ export class TitleScene extends Phaser.Scene {
     this.starting = true;
     const cam = this.cameras.main;
     cam.fadeOut(400, 0, 0, 0);
-    cam.once("camerafadeoutcomplete", () => this.scene.start("StageTransitionScene", { toKey: resumeMysteryKey(loadGame()?.currentMysteryKey) }));
+    const save = loadGame();
+    // brand-new game (nothing finished yet) opens with the bedroom prologue
+    const fresh = !save || (save.currentMysteryIndex === 0 && !Object.values(save.mysteriesProgress).some((p) => p.completed));
+    cam.once("camerafadeoutcomplete", () =>
+      fresh ? this.scene.start(PROLOGUE_SCENE) : this.scene.start("StageTransitionScene", { toKey: resumeMysteryKey(save.currentMysteryKey) })
+    );
   }
 }

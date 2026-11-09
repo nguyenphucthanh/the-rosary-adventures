@@ -1,5 +1,6 @@
 import * as Phaser from "phaser";
 import { BaseMysteryScene, DEPTH } from "./BaseMysteryScene";
+import audio from "../audio/AudioManager";
 import EventBus from "../EventBus";
 import type { DialogueOption } from "@/components/game/DialogueBox";
 
@@ -21,6 +22,9 @@ export abstract class InteractiveScene extends BaseMysteryScene {
   protected interactables: Interactable[] = [];
   /** Sprites that y-sort every frame (NPCs that move). */
   protected walkers: Phaser.GameObjects.Sprite[] = [];
+  /** One carried item at a time; its icon rides at the player's hip. */
+  protected held?: { id: string; sprite: Phaser.GameObjects.Image };
+  private loot = new Map<string, { x: number; y: number; key: string; pk?: Pickup }>();
   private prompt!: Phaser.GameObjects.Text;
 
   protected talk(
@@ -69,6 +73,42 @@ export abstract class InteractiveScene extends BaseMysteryScene {
     this.time.delayedCall(800, () => this.talk(intro.speaker, intro.emoji, intro.lines));
   }
 
+  protected holdItem(id: string, key = id) {
+    this.dropItem();
+    this.held = { id, sprite: this.add.image(0, 0, key).setDepth(DEPTH.FX) };
+  }
+
+  /** Clear carried item + loot; call at the top of create(). */
+  protected resetCarry() {
+    this.held = undefined;
+    this.loot.clear();
+  }
+
+  protected spawnLoot(id: string, x: number, y: number, key = id) {
+    this.loot.set(id, { x, y, key, pk: this.pickup(x, y, key) });
+  }
+
+  protected lootActive(id: string) {
+    return !!this.loot.get(id)?.pk;
+  }
+
+  /** Pick up `id`; whatever was held goes back to its spot. */
+  protected takeLoot(id: string) {
+    const l = this.loot.get(id);
+    if (!l?.pk) return;
+    const prev = this.held && this.loot.get(this.held.id);
+    if (prev && !prev.pk) prev.pk = this.pickup(prev.x, prev.y, prev.key);
+    audio.sfx("pickup");
+    this.vanish(l.pk);
+    l.pk = undefined;
+    this.holdItem(id, l.key);
+  }
+
+  protected dropItem() {
+    this.held?.sprite.destroy();
+    this.held = undefined;
+  }
+
   /** Bobbing sparkle marking someone to talk to. */
   protected hint(x: number, y: number) {
     const sp = this.add.image(x, y, "sparkle").setDepth(DEPTH.FX);
@@ -91,6 +131,7 @@ export abstract class InteractiveScene extends BaseMysteryScene {
   }
 
   protected sparkleBurst(cx: number, cy: number) {
+    audio.sfx("chime");
     for (let i = 0; i < 8; i++) {
       const a = (i / 8) * Math.PI * 2;
       const sp = this.add.image(cx, cy, "sparkle").setDepth(DEPTH.FX);
@@ -139,6 +180,12 @@ export abstract class InteractiveScene extends BaseMysteryScene {
   update() {
     super.update();
     for (const w of this.walkers) w.setDepth(w.y);
+    if (this.held && this.player) {
+      const dir = this.player.getDirection();
+      this.held.sprite
+        .setPosition(Math.round(this.player.x) + (dir === "left" ? -9 : dir === "right" ? 9 : 8), Math.round(this.player.y) + 4)
+        .setDepth(dir === "up" ? this.player.depth - 1 : this.player.depth + 1);
+    }
     if (!this.prompt) return;
     const hit = this.nearest();
     this.prompt.setVisible(!!hit);

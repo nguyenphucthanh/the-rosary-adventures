@@ -2,7 +2,7 @@ import * as Phaser from "phaser";
 import { Player } from "../entities/Player";
 import { CharacterCustomization, DEFAULT_CHARACTER, MYSTERY_KEYS, MysteryProgress, SaveData } from "@/types/game";
 import { loadGame, updateSave } from "@/utils/saveManager";
-import { nextMysteryKey } from "@/data/stages";
+import { EPILOGUE_SCENE, nextMysteryKey } from "@/data/stages";
 import EventBus from "../EventBus";
 
 /** Depth layers. World objects between RUG and WALL use their foot y (y-sorting). */
@@ -224,6 +224,7 @@ export class BaseMysteryScene extends Phaser.Scene {
   protected beginStage(key: string) {
     this.mysteryKey = key;
     const idx = (MYSTERY_KEYS as readonly string[]).indexOf(key);
+    if (idx < 0) return; // Prologue / Epilogue: not a mystery, nothing to resume
     this.autosave((s) => {
       if (idx >= s.currentMysteryIndex) {
         s.currentMysteryKey = key;
@@ -257,7 +258,7 @@ export class BaseMysteryScene extends Phaser.Scene {
     const cam = this.cameras.main;
     cam.fadeOut(600, 0, 0, 0);
     cam.once("camerafadeoutcomplete", () =>
-      next ? this.scene.start("StageTransitionScene", { toKey: next }) : this.scene.start("TitleScene")
+      next ? this.scene.start("StageTransitionScene", { toKey: next }) : this.scene.start(EPILOGUE_SCENE)
     );
   }
 

@@ -1,6 +1,7 @@
 import * as Phaser from "phaser";
 import { CharacterCustomization } from "@/types/game";
 import EventBus from "../EventBus";
+import audio from "../audio/AudioManager";
 import { generatePlayerSpriteCanvas } from "../utils/playerTextureGenerator";
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
@@ -190,6 +191,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.currentDirection = vy < 0 ? "up" : "down";
       }
       this.play(`player-walk-${this.currentDirection}`, true);
+      audio.footstep();
 
       // Throttled position update emit
       if (

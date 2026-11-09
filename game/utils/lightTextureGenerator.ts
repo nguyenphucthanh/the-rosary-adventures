@@ -97,29 +97,35 @@ function reed() {
   return canvas;
 }
 
-/** Big dove that carries the player between the Mysteries (2 flap frames, 40x24 each). */
+/** Big dove that carries the player between the Mysteries: front view, wings spread, symmetric (2 flap frames, 48x28 each). */
 function doveBigSheet() {
-  const { canvas, ctx } = makeCanvas(80, 24);
+  const FW = 48;
+  const { canvas, ctx } = makeCanvas(FW * 2, 28);
   for (let f = 0; f < 2; f++) {
-    const x = f * 40;
-    rect(ctx, x + 8, 13, 6, 3, PAL.W); // tail
-    rect(ctx, x + 6, 15, 5, 2, PAL.W);
-    rect(ctx, x + 14, 10, 14, 8, PAL.w); // body
-    rect(ctx, x + 12, 12, 18, 5, PAL.w);
-    rect(ctx, x + 14, 16, 14, 2, PAL.W);
-    rect(ctx, x + 28, 7, 6, 6, PAL.w); // head
-    rect(ctx, x + 34, 9, 3, 2, PAL.y);
-    rect(ctx, x + 31, 8, 1, 1, PAL.e);
-    rect(ctx, x + 18, 18, 2, 3, PAL.y); // claws
-    rect(ctx, x + 24, 18, 2, 3, PAL.y);
-    if (f === 0) {
-      rect(ctx, x + 14, 3, 10, 8, PAL.w); // wings up
-      rect(ctx, x + 18, 0, 8, 4, PAL.w);
-      rect(ctx, x + 14, 9, 10, 1, PAL.W);
-    } else {
-      rect(ctx, x + 12, 16, 12, 4, PAL.w); // wings down
-      rect(ctx, x + 16, 19, 10, 3, PAL.W);
+    const ox = f * FW;
+    // every rect is drawn twice, mirrored around the frame centre
+    const rr = (x: number, y: number, w: number, h: number, c: string) => {
+      rect(ctx, ox + x, y, w, h, c);
+      rect(ctx, ox + FW - x - w, y, w, h, c);
+    };
+    for (let i = 0; i < 9; i++) {
+      // wing: stepped diagonal of feathers, raised (f=0) or swept down (f=1)
+      const x = 18 - 2 * i;
+      const top = f === 0 ? 9 - i : 9 + i;
+      const h = 4 + Math.min(i, 3);
+      rr(x, top, 3, h, PAL.w);
+      rr(x, top + h - 1, 3, 1, PAL.W);
     }
+    rr(21, 19, 3, 3, PAL.w); // tail fan
+    rr(19, 22, 5, 2, PAL.w);
+    rr(17, 24, 7, 2, PAL.W);
+    rr(21, 24, 1, 2, PAL.w);
+    rr(19, 9, 5, 10, PAL.w); // body
+    rr(19, 17, 5, 2, PAL.W);
+    rr(20, 3, 4, 6, PAL.w); // head
+    rr(21, 2, 3, 1, PAL.w);
+    rr(21, 5, 1, 1, PAL.e); // eyes
+    rr(23, 7, 1, 2, PAL.y); // beak
   }
   return canvas;
 }
@@ -135,5 +141,5 @@ export function registerLightTextures(scene: Phaser.Scene) {
   add("ford_stone", fordStone);
   add("reed", reed);
   if (!tex.exists("dove_big"))
-    tex.addSpriteSheet("dove_big", doveBigSheet() as unknown as HTMLImageElement, { frameWidth: 40, frameHeight: 24 });
+    tex.addSpriteSheet("dove_big", doveBigSheet() as unknown as HTMLImageElement, { frameWidth: 48, frameHeight: 28 });
 }
