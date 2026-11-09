@@ -66,7 +66,7 @@ export class StageTransitionScene extends Phaser.Scene {
       this.add
         .text(CX, y, str, {
           fontFamily: "'Dearpix', monospace",
-          fontSize: `${size}px`,
+          fontSize: `${size * 2}px`,
           color,
           align: "center",
           wordWrap: { width: wrap },

@@ -84,7 +84,7 @@ export class Glorious02AscensionScene extends InteractiveScene {
         this.block(x, d.group[1] - 4, 14, 8);
       });
       this.add
-        .text(d.group[0], d.group[1] + 4, d.label, { fontFamily: "'Dearpix', monospace", fontSize: "10px", color: "#fef08a", resolution: 4 })
+        .text(d.group[0], d.group[1] + 4, d.label, { fontFamily: "'Dearpix', monospace", fontSize: "20px", color: "#fef08a", resolution: 4 })
         .setOrigin(0.5, 0)
         .setDepth(DEPTH.FX);
     }

@@ -105,7 +105,7 @@ export class Glorious03PentecostScene extends InteractiveScene {
     for (const [i, g] of GIFTS.entries()) {
       this.add.image(g.at[0], g.at[1], "candle_holder").setOrigin(0.5, 1).setDepth(g.at[1]);
       this.add
-        .text(g.at[0], g.at[1] + 4, g.name, { fontFamily: "'Dearpix', monospace", fontSize: "10px", color: "#fef08a", resolution: 4 })
+        .text(g.at[0], g.at[1] + 4, g.name, { fontFamily: "'Dearpix', monospace", fontSize: "20px", color: "#fef08a", resolution: 4 })
         .setOrigin(0.5, 0)
         .setDepth(DEPTH.FX);
       this.interactables.push({

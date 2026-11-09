@@ -202,7 +202,7 @@ export class TitleScene extends Phaser.Scene {
   private buildTexts() {
     const style = (size: number, color: string): Phaser.Types.GameObjects.Text.TextStyle => ({
       fontFamily: "'Dearpix', monospace",
-      fontSize: `${size}px`,
+      fontSize: `${size * 2}px`,
       color,
       align: "center",
       resolution: 4,
@@ -212,9 +212,9 @@ export class TitleScene extends Phaser.Scene {
       return this.add.text(x, y, text, style(size, color)).setOrigin(0.5).setDepth(10);
     };
 
-    const t1 = shadowed(CX, 22, "THE ROSARY", 16, "#fde68a", "#78350f");
-    const t2 = shadowed(CX, 38, "ADVENTURES", 16, "#fbbf24", "#78350f");
-    shadowed(CX, 53, "20 Mầu Nhiệm Mân Côi", 8, "#e0e7ff", "#1e1b4b");
+    const t1 = shadowed(CX, 17, "THE ROSARY", 16, "#fde68a", "#78350f");
+    const t2 = shadowed(CX, 41, "ADVENTURES", 16, "#fbbf24", "#78350f");
+    shadowed(CX, 62, "20 Mầu Nhiệm Mân Côi", 8, "#e0e7ff", "#1e1b4b");
 
     // title drops in by whole pixels
     [t1, t2].forEach((t, i) => {

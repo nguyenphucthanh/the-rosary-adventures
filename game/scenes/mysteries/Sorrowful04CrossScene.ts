@@ -78,7 +78,7 @@ export class Sorrowful04CrossScene extends InteractiveScene {
       this.add.image(W - SIDE + 6, y + 40, "house_front").setOrigin(0, 1).setDepth(y + 40).setFlipX(true);
     }
     this.add
-      .text(500, 120, "ĐỒI CAN-VÊ", { fontFamily: "'Dearpix', monospace", fontSize: "10px", color: "#fef08a", resolution: 4 })
+      .text(500, 120, "ĐỒI CAN-VÊ", { fontFamily: "'Dearpix', monospace", fontSize: "20px", color: "#fef08a", resolution: 4 })
       .setOrigin(0.5, 1)
       .setDepth(DEPTH.FX);
     this.prop(260, 130, "crucifix_thief", 14, 8).setTint(0x7a6a5c);

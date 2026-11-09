@@ -17,8 +17,8 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
 
   const savedLitCount = saveData
     ? MYSTERIES_DATA.filter(
-        (m) => saveData.mysteriesProgress[m.key]?.beadLit || saveData.mysteriesProgress[m.key]?.completed
-      ).length
+      (m) => saveData.mysteriesProgress[m.key]?.beadLit || saveData.mysteriesProgress[m.key]?.completed
+    ).length
     : 0;
   const litBeadsCount = Math.min(20, Math.max(savedLitCount, extraLit));
 
@@ -77,7 +77,7 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
           className="retro-frame px-3 py-1.5 bg-slate-950/90 flex items-center gap-2.5 transition-transform hover:scale-105 active:scale-95 group shadow-lg"
         >
           {/* Rosary Icon with gentle shine */}
-          <span className="text-lg leading-none filter drop-shadow">📿</span>
+          <span className="text-[18px] leading-none filter drop-shadow">📿</span>
 
           {/* Beads Miniature Counter */}
           <div className="flex flex-col items-start text-left">
@@ -92,11 +92,10 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                   return (
                     <span
                       key={idx}
-                      className={`w-2.5 h-2.5 rounded-full border transition-all ${
-                        isLit
-                          ? "bg-amber-400 border-amber-200 shadow-[0_0_6px_#f59e0b] animate-pulse"
-                          : "bg-slate-800 border-slate-600"
-                      }`}
+                      className={`w-2.5 h-2.5 rounded-full border transition-all ${isLit
+                        ? "bg-amber-400 border-amber-200 shadow-[0_0_6px_#f59e0b] animate-pulse"
+                        : "bg-slate-800 border-slate-600"
+                        }`}
                     />
                   );
                 })}
@@ -108,7 +107,7 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
           </div>
 
           {/* Quick View Tag */}
-          <span className="text-amber-400 font-pixel text-xs ml-1 group-hover:translate-x-0.5 transition-transform">
+          <span className="text-amber-400 font-pixel text-[12px] ml-1 group-hover:translate-x-0.5 transition-transform">
             ▶
           </span>
         </button>
@@ -121,12 +120,11 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-3 border-b-2 border-amber-600/60">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">📿</span>
                 <div>
-                  <h2 className="pixel-title text-base sm:text-lg text-amber-300">
+                  <h2 className="pixel-title text-[32px] sm:text-[36px] text-amber-300">
                     20 MẦU NHIỆM MÂN CÔI
                   </h2>
-                  <p className="font-pixel text-[11px] sm:text-xs text-amber-100/70">
+                  <p className="font-pixel text-[22px] sm:text-[24px] text-amber-100/70">
                     Đã thắp sáng: {litBeadsCount}/20 hạt mầu nhiệm
                   </p>
                 </div>
@@ -136,9 +134,10 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="retro-btn-red px-3 py-1 text-xs font-pixel active:translate-y-0.5"
+                aria-label="Đóng"
+                className="retro-btn-red px-3 py-1 text-[24px] font-pixel active:translate-y-0.5"
               >
-                ĐÓNG ✕
+                ✕
               </button>
             </div>
 
@@ -147,7 +146,7 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
               <button
                 type="button"
                 onClick={() => goTo(PROLOGUE_SCENE)}
-                className="retro-btn-gold px-2 py-2 font-pixel text-xs text-amber-100 active:translate-y-0.5"
+                className="retro-btn-gold px-2 py-2 font-pixel text-[24px] text-amber-100 active:translate-y-0.5"
               >
                 🕯️ MÀN MỞ ĐẦU
               </button>
@@ -156,14 +155,14 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                 disabled={!finished}
                 onClick={() => goTo(EPILOGUE_SCENE)}
                 title={finished ? undefined : "Hoàn thành Chặng 20 để mở khóa"}
-                className="retro-btn-gold px-2 py-2 font-pixel text-xs text-amber-100 active:translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none"
+                className="retro-btn-gold px-2 py-2 font-pixel text-[24px] text-amber-100 active:translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none"
               >
                 {finished ? "🏡 MÀN KẾT" : "🔒 MÀN KẾT"}
               </button>
             </div>
 
             {/* Season Tabs Selector (4 Mùa) */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 my-3">
+            <div className="grid grid-cols-4 sm:grid-cols-4 gap-1.5 sm:gap-2 my-3">
               {(Object.keys(SEASONS) as MysterySeason[]).map((seasonKey) => {
                 const s = SEASONS[seasonKey];
                 const isSelected = selectedSeason === seasonKey;
@@ -180,17 +179,15 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                     key={seasonKey}
                     type="button"
                     onClick={() => setSelectedSeason(seasonKey)}
-                    className={`px-2 py-2 text-center font-pixel text-xs border-2 transition-all flex flex-col items-center gap-1 ${
-                      isSelected
-                        ? "bg-amber-600 border-amber-300 text-white shadow-md -translate-y-0.5"
-                        : "bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500"
-                    }`}
+                    className={`px-2 py-2 text-center font-pixel text-[24px] border-2 transition-all flex flex-col items-center gap-0 ${isSelected
+                      ? "bg-amber-600 border-amber-300 text-white shadow-md -translate-y-0.5"
+                      : "bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500"
+                      }`}
                   >
                     <div className="flex items-center gap-1">
-                      <span>{s.emoji}</span>
                       <span className="font-bold">{s.labelVi}</span>
                     </div>
-                    <span className="text-[10px] opacity-80">
+                    <span className="text-[20px] opacity-80">
                       {seasonLitCount}/5 Hạt
                     </span>
                   </button>
@@ -209,29 +206,27 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                 return (
                   <React.Fragment key={item.key}>
                     <div
-                      className={`p-3.5 border-2 transition-all ${
-                        isLit
-                          ? "bg-amber-950/40 border-amber-500/90 shadow-[0_0_8px_rgba(245,158,11,0.2)]"
-                          : "bg-slate-900/60 border-slate-800 opacity-80"
-                      }`}
+                      className={`p-3.5 border-2 transition-all ${isLit
+                        ? "bg-amber-950/40 border-amber-500/90 shadow-[0_0_8px_rgba(245,158,11,0.2)]"
+                        : "bg-slate-900/60 border-slate-800 opacity-80"
+                        }`}
                     >
                       <div className="flex items-start justify-between gap-2">
                         {/* Left: Bead Status & Title */}
                         <div className="flex items-start gap-3">
                           {/* Lit Bead Icon */}
                           <div
-                            className={`mt-0.5 w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-sm border-2 ${
-                              isLit
-                                ? "bg-amber-400 border-amber-200 text-slate-950 shadow-[0_0_10px_#f59e0b] animate-pulse"
-                                : "bg-slate-800 border-slate-600 text-slate-500"
-                            }`}
+                            className={`mt-0.5 w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-[14px] border-2 ${isLit
+                              ? "bg-amber-400 border-amber-200 text-slate-950 shadow-[0_0_10px_#f59e0b] animate-pulse"
+                              : "bg-slate-800 border-slate-600 text-slate-500"
+                              }`}
                           >
                             {isLit ? "✨" : item.seasonIndex + 1}
                           </div>
 
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="font-pixel text-xs text-amber-400">
+                              <span className="font-pixel text-[12px] text-amber-400">
                                 {item.decadeNameVi}
                               </span>
                               <span className="text-[11px] font-mono px-1.5 py-0.2 bg-slate-800 text-amber-200 rounded">
@@ -239,15 +234,12 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                               </span>
                             </div>
 
-                            <h3 className="font-retro text-lg sm:text-xl text-amber-100 font-bold mt-0.5">
+                            <h3 className="font-retro text-[18px] sm:text-[20px] text-amber-100 font-bold mt-0.5">
                               {item.titleVi}
                             </h3>
 
                             {/* Spiritual Fruit (Hoa trái suy niệm) */}
-                            <div className="mt-1.5 font-retro text-sm sm:text-base text-amber-200/90 flex items-center gap-1.5">
-                              <span className="text-amber-400 font-pixel text-[11px]">
-                                HOA TRÁI:
-                              </span>
+                            <div className="mt-1.5 font-retro text-[18px] sm:text-[22px] text-amber-200/90 flex items-center gap-1.5">
                               <span>{item.fruitVi}</span>
                             </div>
                           </div>
@@ -281,20 +273,18 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                     {/* Action Mid-Stage or Season Bridge right after this Mystery */}
                     {interlude && STAGE_SCENES[interlude.key] && (
                       <div
-                        className={`ml-4 sm:ml-6 p-2.5 border-2 border-dashed transition-all flex items-center justify-between gap-2 ${
-                          interlude.kind === "bridge"
-                            ? "bg-sky-950/35 border-sky-500/70"
-                            : "bg-emerald-950/35 border-emerald-500/70"
-                        }`}
+                        className={`ml-4 sm:ml-6 p-2.5 border-2 border-dashed transition-all flex items-center justify-between gap-2 ${interlude.kind === "bridge"
+                          ? "bg-sky-950/35 border-sky-500/70"
+                          : "bg-emerald-950/35 border-emerald-500/70"
+                          }`}
                       >
                         <div className="flex items-center gap-2.5">
-                          <span className="text-lg">{interlude.emoji}</span>
+                          <span className="text-[18px]">{interlude.emoji}</span>
                           <div>
                             <div className="flex items-center gap-2">
                               <span
-                                className={`font-pixel text-[10px] ${
-                                  interlude.kind === "bridge" ? "text-sky-300" : "text-emerald-300"
-                                }`}
+                                className={`font-pixel text-[10px] ${interlude.kind === "bridge" ? "text-sky-300" : "text-emerald-300"
+                                  }`}
                               >
                                 {interlude.badgeVi}
                               </span>
@@ -305,7 +295,7 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                                 <span className="font-pixel text-[10px] text-amber-300">✓ ĐÃ QUA</span>
                               )}
                             </div>
-                            <div className="font-retro text-base text-amber-100 font-bold">
+                            <div className="font-retro text-[16px] text-amber-100 font-bold">
                               {interlude.titleVi}
                             </div>
                           </div>
@@ -326,9 +316,8 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
             </div>
 
             {/* Modal Footer Guidance */}
-            <div className="pt-3 border-t border-slate-800 flex items-center justify-between font-pixel text-[11px] sm:text-xs text-slate-400">
+            <div className="pt-3 border-t border-slate-800 flex items-center justify-between font-pixel text-[22px] sm:text-[24px] text-slate-400">
               <span>Mỗi chặng hoàn thành sẽ thắp sáng 1 hạt Mân Côi tương ứng</span>
-              <span className="text-amber-400 font-bold">20 Mầu Nhiệm Cứu Độ</span>
             </div>
           </div>
         </div>

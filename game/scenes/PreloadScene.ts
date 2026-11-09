@@ -19,14 +19,14 @@ export class PreloadScene extends Phaser.Scene {
     // Loading Text
     const loadingText = this.add.text(width / 2, height / 2 - 50, "Đang tải dữ liệu...", {
       fontFamily: "'Dearpix', monospace",
-      fontSize: "26px",
+      fontSize: "52px",
       color: "#ffffff",
     });
     loadingText.setOrigin(0.5, 0.5);
 
     const percentText = this.add.text(width / 2, height / 2, "0%", {
       fontFamily: "'Dearpix', monospace",
-      fontSize: "24px",
+      fontSize: "48px",
       color: "#ffd700",
     });
     percentText.setOrigin(0.5, 0.5);

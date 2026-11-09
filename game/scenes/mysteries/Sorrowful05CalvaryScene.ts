@@ -105,7 +105,7 @@ export class Sorrowful05CalvaryScene extends InteractiveScene {
     for (const c of CANDLES) {
       this.add.image(c.holder[0], c.holder[1], "candle_holder").setOrigin(0.5, 1).setDepth(c.holder[1]);
       this.add
-        .text(c.holder[0], c.holder[1] + 4, c.label, { fontFamily: "'Dearpix', monospace", fontSize: "10px", color: "#fef08a", resolution: 4 })
+        .text(c.holder[0], c.holder[1] + 4, c.label, { fontFamily: "'Dearpix', monospace", fontSize: "20px", color: "#fef08a", resolution: 4 })
         .setOrigin(0.5, 0)
         .setDepth(DEPTH.FX);
     }

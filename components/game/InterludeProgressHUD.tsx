@@ -74,7 +74,7 @@ export default function InterludeProgressHUD() {
             }`}
           >
             {/* Top Icon */}
-            <span className="text-base sm:text-lg leading-none filter drop-shadow">{q.emoji}</span>
+            <span className="text-[32px] sm:text-[36px] leading-none filter drop-shadow">{q.emoji}</span>
 
             {/* Vertical Progress Bar Track (fills bottom-to-top) */}
             <div className="relative w-3.5 sm:w-4 h-28 sm:h-36 bg-slate-900 border-2 border-black overflow-hidden flex flex-col justify-end p-0.5">
@@ -93,12 +93,12 @@ export default function InterludeProgressHUD() {
             </div>
 
             {/* n/x Counter */}
-            <span className={`font-pixel text-[10px] sm:text-[11px] font-bold tracking-tight ${theme.text}`}>
+            <span className={`font-pixel text-[20px] sm:text-[22px] font-bold tracking-tight ${theme.text}`}>
               {q.suffix ? `${q.current}${q.suffix}` : `${q.current}/${q.total}`}
             </span>
 
             {/* Short Label */}
-            <span className="font-pixel text-[9px] text-amber-100/80 uppercase tracking-wider text-center max-w-[46px] leading-tight">
+            <span className="font-pixel text-[18px] text-amber-100/80 uppercase tracking-wider text-center max-w-[46px] leading-tight">
               {done ? "XONG ✓" : q.label}
             </span>
           </div>

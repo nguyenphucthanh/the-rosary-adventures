@@ -18,7 +18,7 @@ import audio from "@/game/audio/AudioManager";
 const GameContainer = dynamic(() => import("@/components/game/GameContainer"), {
   ssr: false,
   loading: () => (
-    <div className="flex items-center justify-center w-full h-full bg-slate-950 text-amber-400 font-mono text-sm">
+    <div className="flex items-center justify-center w-full h-full bg-slate-950 text-amber-400 font-mono text-[28px]">
       <div className="flex flex-col items-center gap-2">
         <div className="w-8 h-8 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
         <span>Đang nạp động cơ Phaser 3...</span>
@@ -131,13 +131,13 @@ export default function Home() {
               title="Nhấn để đổi diện mạo hoặc tạo nhân vật mới"
               className="retro-btn-gold px-3 py-1.5 flex items-center gap-2 active:translate-y-0.5"
             >
-              <span className="text-base leading-none">
+              <span className="text-[16px] leading-none">
                 {saveInfo.player.customization.gender === "girl" ? "👧" : "👦"}
               </span>
               <span className="font-pixel text-[13px] sm:text-[14px] text-amber-100">
                 {saveInfo.player.customization.name}
               </span>
-              <span className="text-xs text-amber-200">✏️</span>
+              <span className="text-[12px] text-amber-200">✏️</span>
             </button>
           )}
         </div>

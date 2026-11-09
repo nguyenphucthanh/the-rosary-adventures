@@ -68,7 +68,7 @@ export class Joyful02VisitationScene extends BaseMysteryScene {
     this.prompt = this.add
       .text(0, 0, "", {
         fontFamily: "'Dearpix', monospace",
-        fontSize: "10px",
+        fontSize: "20px",
         color: "#fef08a",
         backgroundColor: "#1e1b4bee",
         padding: { x: 4, y: 2 },

@@ -26,17 +26,17 @@ export default function EndingCongrats() {
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-950/95 select-none">
       <div className="retro-frame-gold bg-slate-950 w-full max-w-lg p-6 sm:p-8 text-center flex flex-col items-center gap-4">
         <div className="text-5xl animate-pulse">🎉📿🎉</div>
-        <h1 className="pixel-title text-2xl sm:text-3xl text-amber-300">CHÚC MỪNG!</h1>
-        <p className="font-retro text-lg sm:text-xl text-amber-100">
+        <h1 className="pixel-title text-[48px] sm:text-3xl text-amber-300">CHÚC MỪNG!</h1>
+        <p className="font-retro text-[36px] sm:text-[40px] text-amber-100">
           Bạn đã hoàn thành hành trình 20 Mầu Nhiệm Mân Côi cùng Chúa Thánh Thần và Mẹ Maria.
         </p>
-        <p className="font-pixel text-xs sm:text-sm text-amber-200/80">
+        <p className="font-pixel text-[24px] sm:text-[28px] text-amber-200/80">
           Hoa Trái Thánh Thần: Bác ái · Hoan lạc · Bình an
         </p>
         <button
           type="button"
           onClick={restart}
-          className="retro-btn-gold w-full mt-2 py-5 sm:py-6 font-pixel text-lg sm:text-2xl text-amber-100 active:translate-y-0.5"
+          className="retro-btn-gold w-full mt-2 py-5 sm:py-6 font-pixel text-[36px] sm:text-[48px] text-amber-100 active:translate-y-0.5"
         >
           🔄 CHƠI LẠI TỪ ĐẦU
         </button>

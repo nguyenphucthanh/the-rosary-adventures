@@ -90,7 +90,7 @@ export class BaseMysteryScene extends Phaser.Scene {
     this.add
       .text(centerX, centerY - 8, "✝", {
         fontFamily: "serif",
-        fontSize: "32px",
+        fontSize: "64px",
         color: "#fbbf24",
       })
       .setOrigin(0.5, 0.5);
@@ -133,7 +133,7 @@ export class BaseMysteryScene extends Phaser.Scene {
         "🌿 VƯỜN CẦU NGUYỆN NAZARETH 🌿\n(Dùng phím mũi tên / D-pad cảm ứng để di chuyển)",
         {
           fontFamily: "'Dearpix', monospace",
-          fontSize: "26px",
+          fontSize: "52px",
           color: "#fbbf24",
           align: "center",
           backgroundColor: "#090d16ee",

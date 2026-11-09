@@ -111,7 +111,7 @@ export class Luminous04TransfigurationScene extends InteractiveScene {
     for (const s of SITES) {
       this.add.image(s.x, s.y, "tent_site").setDepth(DEPTH.RUG + 1);
       this.add
-        .text(s.x, s.y - 18, s.label, { fontFamily: "'Dearpix', monospace", fontSize: "10px", color: "#fef08a", resolution: 4 })
+        .text(s.x, s.y - 18, s.label, { fontFamily: "'Dearpix', monospace", fontSize: "20px", color: "#fef08a", resolution: 4 })
         .setOrigin(0.5, 1)
         .setDepth(DEPTH.FX);
     }

@@ -112,7 +112,7 @@ export class Sorrowful01GardenScene extends InteractiveScene {
       this.block(s.at[0], s.at[1] - 4, 14, 8);
       this.sleepers.push(sp);
       const z = this.add
-        .text(s.at[0] + 10, s.at[1] - 40, "z Z", { fontFamily: "'Dearpix', monospace", fontSize: "10px", color: "#bfdbfe", resolution: 4 })
+        .text(s.at[0] + 10, s.at[1] - 40, "z Z", { fontFamily: "'Dearpix', monospace", fontSize: "20px", color: "#bfdbfe", resolution: 4 })
         .setDepth(DEPTH.FX)
         .setVisible(false);
       this.tweens.add({ targets: z, y: z.y - 4, duration: 800, yoyo: true, repeat: -1, ease: "Stepped" });
@@ -190,7 +190,7 @@ export class Sorrowful01GardenScene extends InteractiveScene {
     const [x, y] = SLEEPERS[i].at;
     this.sparkleBurst(x, y - 20);
     const ring = this.add
-      .text(x, y - 44, "Ting!", { fontFamily: "'Dearpix', monospace", fontSize: "10px", color: "#fef08a", resolution: 4 })
+      .text(x, y - 44, "Ting!", { fontFamily: "'Dearpix', monospace", fontSize: "20px", color: "#fef08a", resolution: 4 })
       .setOrigin(0.5, 1)
       .setDepth(DEPTH.FX);
     this.tweens.add({ targets: ring, y: ring.y - 10, alpha: 0, duration: 900, onComplete: () => ring.destroy() });

@@ -123,12 +123,12 @@ export default function CharacterCreationModal({
         {/* Retro Header Plaque */}
         <div className="flex items-center justify-between px-4 py-3.5 border-b-4 border-black bg-slate-950">
           <div className="flex items-center gap-2.5">
-            <span className="text-amber-400 font-pixel text-base">✝</span>
+            <span className="text-amber-400 font-pixel text-[32px]">✝</span>
             <div>
-              <h2 className="pixel-title text-sm sm:text-base tracking-wide">
+              <h2 className="pixel-title text-[28px] sm:text-[32px] tracking-wide">
                 KHỞI TẠO LỮ KHÁCH NHỎ
               </h2>
-              <p className="font-retro text-2xl text-amber-200/90 -mt-1">
+              <p className="font-retro text-[48px] text-amber-200/90 -mt-1">
                 Tùy biến ngoại hình trước khi bước vào 20 Mầu Nhiệm
               </p>
             </div>
@@ -138,7 +138,7 @@ export default function CharacterCreationModal({
             <button
               type="button"
               onClick={onClose}
-              className="retro-btn w-8 h-8 flex items-center justify-center text-sm text-rose-300 hover:text-white"
+              className="retro-btn w-8 h-8 flex items-center justify-center text-[28px] text-rose-300 hover:text-white"
             >
               ✕
             </button>
@@ -155,7 +155,7 @@ export default function CharacterCreationModal({
               <button
                 type="button"
                 onClick={handleRandomize}
-                className="retro-btn-gold px-3 py-1 text-[12px] flex items-center gap-1.5 active:translate-y-0.5"
+                className="retro-btn-gold px-3 py-1 text-[24px] flex items-center gap-1.5 active:translate-y-0.5"
               >
                 <span>🎲</span>
                 <span>NGẪU NHIÊN</span>
@@ -165,7 +165,7 @@ export default function CharacterCreationModal({
             {/* Name & Gender */}
             <div className="flex-1 w-full space-y-3">
               <div>
-                <label className="block font-pixel text-[13px] text-amber-300 mb-1">
+                <label className="block font-pixel text-[26px] text-amber-300 mb-1">
                   TÊN LỮ KHÁCH:
                 </label>
                 <input
@@ -181,12 +181,12 @@ export default function CharacterCreationModal({
                   placeholder="Ví dụ: Gioan, Maria..."
                   className="w-full px-3 py-2 bg-slate-950 border-2 border-black outline outline-2 outline-amber-600 text-amber-200 font-retro text-3xl focus:outline-amber-400"
                 />
-                {error && <p className="font-pixel text-[12px] text-rose-400 mt-1">{error}</p>}
+                {error && <p className="font-pixel text-[24px] text-rose-400 mt-1">{error}</p>}
               </div>
 
               {/* Quick Names */}
               <div>
-                <span className="font-pixel text-[11px] text-slate-400 block mb-1">
+                <span className="font-pixel text-[22px] text-slate-400 block mb-1">
                   GỢI Ý TÊN THÁNH BẢO TRỢ:
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -195,7 +195,7 @@ export default function CharacterCreationModal({
                       key={name}
                       type="button"
                       onClick={() => setCharacter((prev) => ({ ...prev, name }))}
-                      className="retro-btn px-2.5 py-1 text-[12px] text-slate-300 hover:text-amber-300"
+                      className="retro-btn px-2.5 py-1 text-[24px] text-slate-300 hover:text-amber-300"
                     >
                       {name}
                     </button>
@@ -205,7 +205,7 @@ export default function CharacterCreationModal({
 
               {/* Gender / Base Model */}
               <div>
-                <span className="font-pixel text-[12px] text-amber-300 block mb-1">
+                <span className="font-pixel text-[24px] text-amber-300 block mb-1">
                   HÌNH MẪU:
                 </span>
                 <div className="grid grid-cols-2 gap-2">
@@ -218,7 +218,7 @@ export default function CharacterCreationModal({
                         hairStyle: prev.hairStyle === "ponytail" ? "short" : prev.hairStyle,
                       }))
                     }
-                    className={`py-2 px-2 text-[13px] flex items-center justify-center gap-2 font-pixel ${
+                    className={`py-2 px-2 text-[26px] flex items-center justify-center gap-2 font-pixel ${
                       character.gender === "boy"
                         ? "retro-btn-gold text-amber-100"
                         : "retro-btn text-slate-400"
@@ -237,7 +237,7 @@ export default function CharacterCreationModal({
                         hairStyle: prev.hairStyle === "short" ? "ponytail" : prev.hairStyle,
                       }))
                     }
-                    className={`py-2 px-2 text-[13px] flex items-center justify-center gap-2 font-pixel ${
+                    className={`py-2 px-2 text-[26px] flex items-center justify-center gap-2 font-pixel ${
                       character.gender === "girl"
                         ? "retro-btn-gold text-amber-100"
                         : "retro-btn text-slate-400"
@@ -255,7 +255,7 @@ export default function CharacterCreationModal({
           <div className="space-y-3.5">
             {/* Skin Tone */}
             <div>
-              <label className="block font-pixel text-[12px] text-amber-300 mb-1">
+              <label className="block font-pixel text-[24px] text-amber-300 mb-1">
                 MÀU DA:
               </label>
               <div className="grid grid-cols-4 gap-2">
@@ -276,7 +276,7 @@ export default function CharacterCreationModal({
                       className="w-5 h-5 border border-black"
                       style={{ backgroundColor: item.value }}
                     />
-                    <span className="font-pixel text-[11px] text-slate-300">{item.label}</span>
+                    <span className="font-pixel text-[22px] text-slate-300">{item.label}</span>
                   </button>
                 ))}
               </div>
@@ -284,7 +284,7 @@ export default function CharacterCreationModal({
 
             {/* Hair Style */}
             <div>
-              <label className="block font-pixel text-[12px] text-amber-300 mb-1">
+              <label className="block font-pixel text-[24px] text-amber-300 mb-1">
                 KIỂU TÓC:
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -295,7 +295,7 @@ export default function CharacterCreationModal({
                     onClick={() =>
                       setCharacter((prev) => ({ ...prev, hairStyle: style.value }))
                     }
-                    className={`py-2 px-1 font-pixel text-[12px] text-center ${
+                    className={`py-2 px-1 font-pixel text-[24px] text-center ${
                       character.hairStyle === style.value
                         ? "retro-btn-gold"
                         : "retro-btn text-slate-400"
@@ -309,7 +309,7 @@ export default function CharacterCreationModal({
 
             {/* Hair Color */}
             <div>
-              <label className="block font-pixel text-[12px] text-amber-300 mb-1">
+              <label className="block font-pixel text-[24px] text-amber-300 mb-1">
                 MÀU TÓC:
               </label>
               <div className="grid grid-cols-4 gap-2">
@@ -330,7 +330,7 @@ export default function CharacterCreationModal({
                       className="w-5 h-5 border border-black"
                       style={{ backgroundColor: item.value }}
                     />
-                    <span className="font-pixel text-[11px] text-slate-300">{item.label}</span>
+                    <span className="font-pixel text-[22px] text-slate-300">{item.label}</span>
                   </button>
                 ))}
               </div>
@@ -338,7 +338,7 @@ export default function CharacterCreationModal({
 
             {/* Outfit Color */}
             <div>
-              <label className="block font-pixel text-[12px] text-amber-300 mb-1">
+              <label className="block font-pixel text-[24px] text-amber-300 mb-1">
                 MÀU ÁO CHOÀNG LỮ KHÁCH:
               </label>
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
@@ -359,7 +359,7 @@ export default function CharacterCreationModal({
                       className="w-5 h-5 border border-black shadow-inner"
                       style={{ backgroundColor: item.value }}
                     />
-                    <span className="font-pixel text-[10px] text-slate-300 truncate w-full">
+                    <span className="font-pixel text-[20px] text-slate-300 truncate w-full">
                       {item.label}
                     </span>
                   </button>
@@ -369,7 +369,7 @@ export default function CharacterCreationModal({
 
             {/* Accessory */}
             <div>
-              <label className="block font-pixel text-[12px] text-amber-300 mb-1">
+              <label className="block font-pixel text-[24px] text-amber-300 mb-1">
                 PHỤ KIỆN ĐỒNG HÀNH:
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -380,7 +380,7 @@ export default function CharacterCreationModal({
                     onClick={() =>
                       setCharacter((prev) => ({ ...prev, accessory: item.value }))
                     }
-                    className={`py-2 px-1 font-pixel text-[11px] text-center ${
+                    className={`py-2 px-1 font-pixel text-[22px] text-center ${
                       character.accessory === item.value
                         ? "retro-btn-gold"
                         : "retro-btn text-slate-400"
@@ -397,7 +397,7 @@ export default function CharacterCreationModal({
           <div className="pt-2">
             <button
               type="submit"
-              className="w-full py-3.5 retro-btn-green font-pixel text-sm sm:text-base tracking-wider flex items-center justify-center gap-2.5"
+              className="w-full py-3.5 retro-btn-green font-pixel text-[28px] sm:text-[32px] tracking-wider flex items-center justify-center gap-2.5"
             >
               <span>🕊️</span>
               <span>BẮT ĐẦU HÀNH TRÌNH ĐỨC TIN</span>

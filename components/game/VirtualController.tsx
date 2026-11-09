@@ -59,7 +59,7 @@ export default function VirtualController({
           onPointerDown={() => handleDirectionPress("up")}
           onPointerUp={handleDirectionRelease}
           onPointerCancel={handleDirectionRelease}
-          className={`absolute top-0 w-12 h-12 flex items-center justify-center font-pixel text-base transition-all ${
+          className={`absolute top-0 w-12 h-12 flex items-center justify-center font-pixel text-[32px] transition-all ${
             activeDirection === "up"
               ? "bg-amber-400 text-black border-2 border-black translate-y-1"
               : "bg-slate-800 text-amber-300 border-t-2 border-l-2 border-slate-600 border-b-2 border-r-2 border-black"
@@ -75,7 +75,7 @@ export default function VirtualController({
           onPointerDown={() => handleDirectionPress("left")}
           onPointerUp={handleDirectionRelease}
           onPointerCancel={handleDirectionRelease}
-          className={`absolute left-0 w-12 h-12 flex items-center justify-center font-pixel text-base transition-all ${
+          className={`absolute left-0 w-12 h-12 flex items-center justify-center font-pixel text-[32px] transition-all ${
             activeDirection === "left"
               ? "bg-amber-400 text-black border-2 border-black translate-x-1"
               : "bg-slate-800 text-amber-300 border-t-2 border-l-2 border-slate-600 border-b-2 border-r-2 border-black"
@@ -96,7 +96,7 @@ export default function VirtualController({
           onPointerDown={() => handleDirectionPress("right")}
           onPointerUp={handleDirectionRelease}
           onPointerCancel={handleDirectionRelease}
-          className={`absolute right-0 w-12 h-12 flex items-center justify-center font-pixel text-base transition-all ${
+          className={`absolute right-0 w-12 h-12 flex items-center justify-center font-pixel text-[32px] transition-all ${
             activeDirection === "right"
               ? "bg-amber-400 text-black border-2 border-black -translate-x-1"
               : "bg-slate-800 text-amber-300 border-t-2 border-l-2 border-slate-600 border-b-2 border-r-2 border-black"
@@ -112,7 +112,7 @@ export default function VirtualController({
           onPointerDown={() => handleDirectionPress("down")}
           onPointerUp={handleDirectionRelease}
           onPointerCancel={handleDirectionRelease}
-          className={`absolute bottom-0 w-12 h-12 flex items-center justify-center font-pixel text-base transition-all ${
+          className={`absolute bottom-0 w-12 h-12 flex items-center justify-center font-pixel text-[32px] transition-all ${
             activeDirection === "down"
               ? "bg-amber-400 text-black border-2 border-black -translate-y-1"
               : "bg-slate-800 text-amber-300 border-t-2 border-l-2 border-slate-600 border-b-2 border-r-2 border-black"
@@ -132,13 +132,13 @@ export default function VirtualController({
             onPointerDown={() => handleActionPress("B")}
             onPointerUp={handleActionRelease}
             onPointerCancel={handleActionRelease}
-            className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full font-pixel text-xl flex items-center justify-center retro-btn-red shadow-xl ${
+            className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full font-pixel text-[40px] flex items-center justify-center retro-btn-red shadow-xl ${
               activeButton === "B" ? "translate-y-1 scale-95" : ""
             }`}
           >
             B
           </button>
-          <span className="font-pixel text-[12px] text-rose-300 mt-1 uppercase drop-shadow font-bold">
+          <span className="font-pixel text-[24px] text-rose-300 mt-1 uppercase drop-shadow font-bold">
             HỦY
           </span>
         </div>
@@ -151,13 +151,13 @@ export default function VirtualController({
             onPointerDown={() => handleActionPress("A")}
             onPointerUp={handleActionRelease}
             onPointerCancel={handleActionRelease}
-            className={`w-16 h-16 sm:w-18 sm:h-18 rounded-full font-pixel text-2xl flex items-center justify-center retro-btn-green shadow-2xl ${
+            className={`w-16 h-16 sm:w-18 sm:h-18 rounded-full font-pixel text-[48px] flex items-center justify-center retro-btn-green shadow-2xl ${
               activeButton === "A" ? "translate-y-1 scale-95" : ""
             }`}
           >
             A
           </button>
-          <span className="font-pixel text-[13px] text-emerald-300 mt-1 uppercase drop-shadow font-bold">
+          <span className="font-pixel text-[26px] text-emerald-300 mt-1 uppercase drop-shadow font-bold">
             CHỌN
           </span>
         </div>

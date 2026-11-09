@@ -116,7 +116,7 @@ export class Sorrowful02PraetoriumScene extends InteractiveScene {
     this.prop(WELL_AT[0], WELL_AT[1], "cana_well", 28, 10);
     this.add.image(MAT_AT[0], MAT_AT[1], "sleeping_mat").setDepth(DEPTH.RUG + 1);
     this.add
-      .text(MAT_AT[0], MAT_AT[1] - 18, "Chiếu cầu nguyện", { fontFamily: "'Dearpix', monospace", fontSize: "10px", color: "#fef08a", resolution: 4 })
+      .text(MAT_AT[0], MAT_AT[1] - 18, "Chiếu cầu nguyện", { fontFamily: "'Dearpix', monospace", fontSize: "20px", color: "#fef08a", resolution: 4 })
       .setOrigin(0.5, 1)
       .setDepth(DEPTH.FX);
     // cold, grey light over everything; lifts a little with every prayer
