@@ -15,6 +15,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     right: Phaser.Input.Keyboard.Key;
   };
 
+  private stick = { x: 0, y: 0 };
   private virtualDirection: "up" | "down" | "left" | "right" | "idle" = "idle";
   private isMovementLocked = false;
   private lastEmittedX = 0;
@@ -120,6 +121,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       this.virtualDirection = data.direction;
     };
 
+    const handleStickMove = (data: { x: number; y: number }) => {
+      this.stick = data;
+    };
+
     const handleCharacterUpdate = (data: { customization: CharacterCustomization }) => {
       this.updateCustomization(data.customization);
     };
@@ -133,12 +138,14 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     };
 
     EventBus.on("input-direction", handleVirtualDirection);
+    EventBus.on("input-move", handleStickMove);
     EventBus.on("character-updated", handleCharacterUpdate);
     EventBus.on("dialogue-open", handleDialogueOpen);
     EventBus.on("dialogue-close", handleDialogueClose);
 
     this.on("destroy", () => {
       EventBus.off("input-direction", handleVirtualDirection);
+      EventBus.off("input-move", handleStickMove);
       EventBus.off("character-updated", handleCharacterUpdate);
       EventBus.off("dialogue-open", handleDialogueOpen);
       EventBus.off("dialogue-close", handleDialogueClose);
@@ -179,6 +186,12 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     if (vx !== 0 && vy !== 0) {
       vx *= Math.SQRT1_2;
       vy *= Math.SQRT1_2;
+    }
+
+    // Analog joystick (mobile): overrides digital input while the thumb is on it
+    if (this.stick.x !== 0 || this.stick.y !== 0) {
+      vx = this.stick.x;
+      vy = this.stick.y;
     }
 
     this.setVelocity(vx * this.moveSpeed, vy * this.moveSpeed);

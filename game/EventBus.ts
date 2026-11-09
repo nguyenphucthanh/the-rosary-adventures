@@ -40,6 +40,7 @@ export type GameEvents = {
   // Player state & Mobile Virtual Controller inputs
   "character-updated": { customization: import("@/types/game").CharacterCustomization };
   "player-position-update": { x: number; y: number; direction: "up" | "down" | "left" | "right" };
+  "input-move": { x: number; y: number }; // analog joystick, each axis -1..1, length <= 1
   "input-direction": { direction: "up" | "down" | "left" | "right" | "idle" };
   "input-action": { action: "A" | "B" | "MENU" };
 };
