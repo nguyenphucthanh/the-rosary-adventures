@@ -128,7 +128,7 @@ export default function CharacterCreationModal({
               <h2 className="pixel-title text-[28px] sm:text-[32px] tracking-wide">
                 KHỞI TẠO LỮ KHÁCH NHỎ
               </h2>
-              <p className="font-retro text-[48px] text-amber-200/90 -mt-1">
+              <p className="font-retro text-[24px] text-amber-200/90 -mt-1">
                 Tùy biến ngoại hình trước khi bước vào 20 Mầu Nhiệm
               </p>
             </div>
@@ -218,11 +218,10 @@ export default function CharacterCreationModal({
                         hairStyle: prev.hairStyle === "ponytail" ? "short" : prev.hairStyle,
                       }))
                     }
-                    className={`py-2 px-2 text-[26px] flex items-center justify-center gap-2 font-pixel ${
-                      character.gender === "boy"
+                    className={`py-2 px-2 text-[26px] flex items-center justify-center gap-2 font-pixel ${character.gender === "boy"
                         ? "retro-btn-gold text-amber-100"
                         : "retro-btn text-slate-400"
-                    }`}
+                      }`}
                   >
                     <span>👦</span>
                     <span>BÉ TRAI</span>
@@ -237,11 +236,10 @@ export default function CharacterCreationModal({
                         hairStyle: prev.hairStyle === "short" ? "ponytail" : prev.hairStyle,
                       }))
                     }
-                    className={`py-2 px-2 text-[26px] flex items-center justify-center gap-2 font-pixel ${
-                      character.gender === "girl"
+                    className={`py-2 px-2 text-[26px] flex items-center justify-center gap-2 font-pixel ${character.gender === "girl"
                         ? "retro-btn-gold text-amber-100"
                         : "retro-btn text-slate-400"
-                    }`}
+                      }`}
                   >
                     <span>👧</span>
                     <span>BÉ GÁI</span>
@@ -266,11 +264,10 @@ export default function CharacterCreationModal({
                     onClick={() =>
                       setCharacter((prev) => ({ ...prev, skinTone: item.value }))
                     }
-                    className={`p-2 retro-btn text-center flex flex-col items-center gap-1 ${
-                      character.skinTone === item.value
+                    className={`p-2 retro-btn text-center flex flex-col items-center gap-1 ${character.skinTone === item.value
                         ? "border-amber-400 bg-amber-950/60 ring-2 ring-amber-400"
                         : ""
-                    }`}
+                      }`}
                   >
                     <span
                       className="w-5 h-5 border border-black"
@@ -295,11 +292,10 @@ export default function CharacterCreationModal({
                     onClick={() =>
                       setCharacter((prev) => ({ ...prev, hairStyle: style.value }))
                     }
-                    className={`py-2 px-1 font-pixel text-[24px] text-center ${
-                      character.hairStyle === style.value
+                    className={`py-2 px-1 font-pixel text-[24px] text-center ${character.hairStyle === style.value
                         ? "retro-btn-gold"
                         : "retro-btn text-slate-400"
-                    }`}
+                      }`}
                   >
                     {style.label}
                   </button>
@@ -320,11 +316,10 @@ export default function CharacterCreationModal({
                     onClick={() =>
                       setCharacter((prev) => ({ ...prev, hairColor: item.value }))
                     }
-                    className={`p-2 retro-btn text-center flex flex-col items-center gap-1 ${
-                      character.hairColor === item.value
+                    className={`p-2 retro-btn text-center flex flex-col items-center gap-1 ${character.hairColor === item.value
                         ? "border-amber-400 bg-amber-950/60 ring-2 ring-amber-400"
                         : ""
-                    }`}
+                      }`}
                   >
                     <span
                       className="w-5 h-5 border border-black"
@@ -349,11 +344,10 @@ export default function CharacterCreationModal({
                     onClick={() =>
                       setCharacter((prev) => ({ ...prev, outfitColor: item.value }))
                     }
-                    className={`p-2 retro-btn text-center flex flex-col items-center gap-1 ${
-                      character.outfitColor === item.value
+                    className={`p-2 retro-btn text-center flex flex-col items-center gap-1 ${character.outfitColor === item.value
                         ? "border-amber-400 bg-amber-950/60 ring-2 ring-amber-400"
                         : ""
-                    }`}
+                      }`}
                   >
                     <span
                       className="w-5 h-5 border border-black shadow-inner"
@@ -380,11 +374,10 @@ export default function CharacterCreationModal({
                     onClick={() =>
                       setCharacter((prev) => ({ ...prev, accessory: item.value }))
                     }
-                    className={`py-2 px-1 font-pixel text-[22px] text-center ${
-                      character.accessory === item.value
+                    className={`py-2 px-1 font-pixel text-[22px] text-center ${character.accessory === item.value
                         ? "retro-btn-gold"
                         : "retro-btn text-slate-400"
-                    }`}
+                      }`}
                   >
                     {item.label}
                   </button>
