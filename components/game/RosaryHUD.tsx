@@ -81,7 +81,7 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
 
           {/* Beads Miniature Counter */}
           <div className="flex flex-col items-start text-left">
-            <span className="font-pixel text-[11px] sm:text-[12px] text-amber-300 tracking-wider">
+            <span className="font-pixel text-[14px] sm:text-[16px] text-amber-300 tracking-wider">
               CHUỖI MÂN CÔI
             </span>
             <div className="flex items-center gap-1 mt-0.5">
@@ -100,7 +100,7 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                   );
                 })}
               </div>
-              <span className="font-pixel text-[11px] text-amber-100 font-bold">
+              <span className="font-pixel text-[14px] text-amber-100 font-bold">
                 {litBeadsCount}/20
               </span>
             </div>
