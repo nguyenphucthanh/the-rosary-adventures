@@ -6,8 +6,7 @@ import { GENESIS_STAGES, nextSceneAfter } from "@/modules/the-garden-of-eden/dat
 import { loadGame, updateSave } from "@/modules/the-garden-of-eden/utils/saveManager";
 import { INTRO_H, INTRO_W, ensureIntroTexture } from "@/modules/the-garden-of-eden/game/utils/introIllustrations";
 import { PAL } from "@/modules/shared/game/utils/pixelArt";
-import "@/modules/the-garden-of-eden/game/utils/stageIllustrations"; // registers the Stage 1-7 pictures
-import "@/modules/the-garden-of-eden/game/utils/edenIllustrations"; // registers the Stage 8-12 pictures
+import "@/modules/the-garden-of-eden/game/utils/storybookArt"; // registers every storybook picture
 import { tr, type L } from "@/modules/the-garden-of-eden/data/dialogues";
 import EventBus from "@/modules/shared/game/EventBus";
 import audio from "@/modules/shared/game/audio/AudioManager";
@@ -295,7 +294,7 @@ export class BaseGenesisScene extends Phaser.Scene {
   protected playIntro(intro: StageIntro) {
     this.introActive = true;
     this.player.setMovementLock(true);
-    const { key, sparkle } = ensureIntroTexture(this, intro.illustration);
+    const { key } = ensureIntroTexture(this, intro.illustration);
 
     const items: Phaser.GameObjects.GameObject[] = [];
     const add = <T extends Phaser.GameObjects.GameObject>(o: T) => (items.push(o), o);
@@ -304,7 +303,6 @@ export class BaseGenesisScene extends Phaser.Scene {
     const frame = add(this.add.graphics().setDepth(DEPTH.INTRO + 1));
     const pic = add(this.add.sprite(0, 0, key).setOrigin(0).setDepth(DEPTH.INTRO + 2)) as Phaser.GameObjects.Sprite;
     pic.play(key);
-    const dust = Array.from({ length: 14 }, (_, i) => add(this.add.rectangle(0, 0, 1, 1, Phaser.Display.Color.HexStringToColor(sparkle).color).setDepth(DEPTH.INTRO + 3).setData("i", i)) as Phaser.GameObjects.Rectangle);
 
     // Layout: picture in the upper area (dialogue box sits at the bottom). Integer scale only.
     const layout = () => {
@@ -318,12 +316,6 @@ export class BaseGenesisScene extends Phaser.Scene {
       const b = 3 * s;
       frame.fillStyle(Phaser.Display.Color.HexStringToColor(PAL.Y).color).fillRect(px - b, py - b, pw + 2 * b, ph + 2 * b);
       frame.fillStyle(Phaser.Display.Color.HexStringToColor(PAL.O).color).fillRect(px - b + s, py - b + s, pw + 2 * (b - s), ph + 2 * (b - s));
-      dust.forEach((d) => {
-        d.setSize(s * 2, s * 2).setDisplaySize(s * 2, s * 2);
-        d.setPosition(px + Math.floor(Phaser.Math.Between(4, INTRO_W - 4) * s), py + ph);
-        this.tweens.killTweensOf(d);
-        this.tweens.add({ targets: d, y: py, alpha: { from: 1, to: 0 }, duration: Phaser.Math.Between(2200, 4200), delay: d.getData("i") * 260, repeat: -1, ease: "Stepped", easeParams: [12] });
-      });
     };
     layout();
     this.scale.on("resize", layout);
