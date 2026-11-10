@@ -57,7 +57,7 @@ export abstract class InteractiveScene extends BaseMysteryScene {
     this.prompt = this.add
       .text(0, 0, "", {
         fontFamily: "'Dearpix', monospace",
-        fontSize: "20px",
+        fontSize: "12px",
         color: "#fef08a",
         backgroundColor: "#1e1b4bee",
         padding: { x: 4, y: 2 },

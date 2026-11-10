@@ -46,6 +46,7 @@ export class InterludeB5EmmausRoadScene extends InteractiveScene {
   private loafCount = 0;
   private finished = false;
   private nudgeCooldown = 0;
+  private slowTimer?: Phaser.Time.TimerEvent;
 
   constructor() {
     super("InterludeB5EmmausRoadScene");
@@ -72,6 +73,7 @@ export class InterludeB5EmmausRoadScene extends InteractiveScene {
     this.loafCount = 0;
     this.finished = false;
     this.nudgeCooldown = 0;
+    this.slowTimer = undefined;
 
     this.physics.world.setBounds(0, 0, W, H);
     this.obstacles = this.physics.add.staticGroup();
@@ -272,6 +274,17 @@ export class InterludeB5EmmausRoadScene extends InteractiveScene {
     );
   }
 
+  /** Sadness cloud: half speed for 3s (a new hit restarts the 3s). */
+  private slowPlayer() {
+    this.player.speedScale = 0.5;
+    this.player.setTint(0x94a3b8);
+    this.slowTimer?.remove();
+    this.slowTimer = this.time.delayedCall(3000, () => {
+      this.player.speedScale = 1;
+      this.player.clearTint();
+    });
+  }
+
   update() {
     super.update();
     if (this.finished || !this.player) return;
@@ -296,7 +309,7 @@ export class InterludeB5EmmausRoadScene extends InteractiveScene {
       ) {
         this.nudgeCooldown = 700;
         audio.sfx("blip", 0);
-        this.player.y = Math.min(H - 48, Math.round(this.player.y + 14));
+        this.slowPlayer();
       }
     }
 

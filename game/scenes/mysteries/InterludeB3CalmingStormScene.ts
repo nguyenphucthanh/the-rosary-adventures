@@ -67,13 +67,13 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
     this.buildCharactersAndAnchors();
     this.defineInteractables();
 
-    this.begin("mid_b3_dep_yen_bao_to", [320, 410], {
+    this.begin("mid_b3_dep_yen_bao_to", [320, 270], {
       speaker: "Biển Hồ Galilê Giữa Cơn Bão",
       emoji: "⛵",
       lines: [
         "Chặng Đệm Hành Động: Chúa Dẹp Yên Bão Tố (Mc 4, 35-41).",
         "Một cơn lốc lớn nổi lên, sóng ập vào thuyền! Các môn đệ hoảng sợ, còn Chúa Giêsu vẫn đang ở đằng lái.",
-        "Hãy di chuyển lách qua những con sóng trắng, thu thập đủ 6 Mỏ Neo Đức Tin phát sáng rồi đến đánh thức Chúa Giêsu nhé!",
+        "Hãy chạy trên boong thuyền, lách qua những con sóng trắng, thu thập đủ 6 Mỏ Neo Đức Tin phát sáng rồi ra đuôi thuyền đánh thức Chúa Giêsu đang ngủ nhé!",
       ],
     });
     this.syncProgress();
@@ -110,27 +110,14 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
       },
     });
 
-    // Walkable sandbar & wooden boat arena in the middle of the lake
-    this.add.tileSprite(88, 92, W - 176, H - 156, "dirt_tile").setOrigin(0).setDepth(DEPTH.RUG);
-    this.add.image(220, 140, "fishing_boat").setDepth(DEPTH.RUG + 1);
-    this.add.image(420, 140, "fishing_boat").setDepth(DEPTH.RUG + 1);
+    // One big fishing boat in the middle of the lake: the whole walkable deck
+    this.add.image(120, 50, "storm_boat").setOrigin(0).setDepth(DEPTH.RUG);
     this.edgeWalls(W, H);
-
-    // Keep player inside the lake arena
-    this.block(44, H / 2, 88, H);
-    this.block(W - 44, H / 2, 88, H);
-    this.block(W / 2, 46, W, 92);
-    this.block(W / 2, H - 32, W, 64);
-
-    // Rocks & reeds along the outer banks
-    for (const [x, y] of [
-      [48, 140],
-      [592, 140],
-      [48, 360],
-      [592, 360],
-    ]) {
-      this.prop(x, y, "boulder", 24, 10);
-    }
+    this.block(70, H / 2, 140, H); // hull sides + open water
+    this.block(W - 70, H / 2, 140, H);
+    this.block(W / 2, 60, W, 140); // bow
+    this.block(W / 2, H - 50, W, 90); // stern rail
+    this.prop(320, 205, "boat_mast", 10, 8);
 
     // Dark storm sky overlay (lifts when Jesus calms the storm!)
     this.stormOverlay = this.add
@@ -140,20 +127,20 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
   }
 
   private buildCharactersAndAnchors() {
-    // Jesus at the stern of the upper boat, Peter & James beside Him
-    this.add.sprite(320, 138, "jesus_adult").setOrigin(0.5, 1).setDepth(138);
-    this.hint(320, 104);
-    this.add.sprite(175, 142, "peter").setOrigin(0.5, 1).setDepth(142);
-    this.add.sprite(465, 142, "james").setOrigin(0.5, 1).setDepth(142);
+    // Jesus sleeps on the stern cushion, Peter & James hold the deck beside the mast
+    this.add.sprite(320, 392, "jesus_adult").setOrigin(0.5, 1).setDepth(392);
+    this.hint(320, 358);
+    this.add.sprite(190, 170, "peter").setOrigin(0.5, 1).setDepth(170);
+    this.add.sprite(450, 170, "james").setOrigin(0.5, 1).setDepth(170);
 
     // 6 Faith Anchors placed around the stormy causeway
     const spots: [number, number][] = [
-      [150, 210],
-      [490, 210],
-      [250, 285],
-      [390, 285],
-      [150, 365],
-      [490, 365],
+      [185, 240],
+      [455, 240],
+      [250, 290],
+      [390, 290],
+      [185, 340],
+      [455, 340],
     ];
     for (const [x, y] of spots) {
       const glow = this.add.image(x, y, "glow_small").setDepth(y - 1).setAlpha(0.55);
@@ -172,10 +159,10 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
 
     // 4 gentle rolling waves moving horizontally across lanes
     const lanes = [
-      { y: 205, vx: 65, x: 180 },
-      { y: 255, vx: -72, x: 440 },
+      { y: 215, vx: 65, x: 200 },
+      { y: 265, vx: -72, x: 440 },
       { y: 315, vx: 68, x: 260 },
-      { y: 365, vx: -62, x: 380 },
+      { y: 355, vx: -62, x: 380 },
     ];
     for (const l of lanes) {
       const sprite = this.add.image(l.x, l.y, "storm_wave").setDepth(DEPTH.FX - 2);
@@ -186,8 +173,8 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
   private defineInteractables() {
     this.interactables = [
       {
-        at: () => [320, 128],
-        r: 68,
+        at: () => [320, 380],
+        r: 56,
         label: () =>
           this.collectedCount >= GOAL
             ? "[A] Cầu xin Chúa Giêsu dẹp yên bão tố!"
@@ -213,7 +200,7 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
     this.waves = [];
     this.tweens.add({ targets: this.stormOverlay, alpha: 0, duration: 700 });
     audio.sfx("bless");
-    this.sparkleBurst(320, 130);
+    this.sparkleBurst(320, 380);
 
     this.talk(
       "Chúa Giêsu",
@@ -232,6 +219,20 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
     );
   }
 
+  private knockback(fromX: number, fromY: number) {
+    const base = Math.atan2(this.player.y - fromY, this.player.x - fromX);
+    const a = base + Phaser.Math.FloatBetween(-0.9, 0.9);
+    audio.sfx("blip", 0);
+    this.cameras.main.shake(250, 0.008);
+    this.player.setMovementLock(true);
+    this.player.setDrag(540, 540);
+    this.player.setVelocity(Math.cos(a) * 360, Math.sin(a) * 360);
+    this.time.delayedCall(650, () => {
+      this.player.setDrag(0, 0);
+      this.player.setMovementLock(false);
+    });
+  }
+
   update() {
     super.update();
     if (this.finished || !this.player) return;
@@ -242,22 +243,22 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
     // Move waves back and forth
     for (const w of this.waves) {
       w.sprite.x = Math.round(w.sprite.x + (w.vx * delta) / 1000);
-      if (w.sprite.x < 110) {
-        w.sprite.x = 110;
+      if (w.sprite.x < 185) {
+        w.sprite.x = 185;
         w.vx = Math.abs(w.vx);
-      } else if (w.sprite.x > W - 110) {
-        w.sprite.x = W - 110;
+      } else if (w.sprite.x > W - 185) {
+        w.sprite.x = W - 185;
         w.vx = -Math.abs(w.vx);
       }
 
-      // Gentle nudge if player touches a wave (no health loss!)
+      // Big wave hit: shove the player ~120px away in a random-ish direction
       if (
         this.knockCooldown <= 0 &&
-        Phaser.Math.Distance.Between(this.player.x, this.player.y, w.sprite.x, w.sprite.y) < 22
+        Math.abs(this.player.x - w.sprite.x) < 22 &&
+        Math.abs(this.player.y - w.sprite.y) < 14
       ) {
-        this.knockCooldown = 700;
-        audio.sfx("blip", 0);
-        this.player.y = Math.min(H - 64, Math.round(this.player.y + 18));
+        this.knockCooldown = 1200;
+        this.knockback(w.sprite.x, w.sprite.y);
       }
     }
 

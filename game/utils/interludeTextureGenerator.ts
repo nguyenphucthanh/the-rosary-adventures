@@ -100,6 +100,97 @@ function woodCraftItem() {
   return canvas;
 }
 
+/** Storage chest, closed or open (20x16). */
+function chest(open: boolean) {
+  const { canvas, ctx } = makeCanvas(20, 16);
+  rect(ctx, 0, 14, 20, 2, PAL.z);
+  if (open) {
+    rect(ctx, 2, 0, 16, 4, PAL.u); // raised lid
+    rect(ctx, 2, 0, 16, 1, "#c98a4b");
+    rect(ctx, 1, 5, 18, 9, PAL.o);
+    rect(ctx, 3, 5, 14, 3, PAL.O); // dark inside
+    rect(ctx, 3, 8, 2, 6, PAL.Y);
+    rect(ctx, 15, 8, 2, 6, PAL.Y);
+  } else {
+    rect(ctx, 1, 2, 18, 5, PAL.u); // lid
+    rect(ctx, 1, 2, 18, 1, "#c98a4b");
+    rect(ctx, 1, 7, 18, 7, PAL.o);
+    rect(ctx, 1, 7, 18, 1, PAL.O);
+    rect(ctx, 3, 2, 2, 12, PAL.Y);
+    rect(ctx, 15, 2, 2, 12, PAL.Y);
+    rect(ctx, 9, 6, 2, 3, PAL.y); // lock
+  }
+  rect(ctx, 1, 13, 18, 1, PAL.O);
+  return canvas;
+}
+
+/** Joseph's carpenter tools (16x16 icons). */
+const TOOLS: Record<string, (ctx: CanvasRenderingContext2D) => void> = {
+  tool_hammer: (c) => {
+    rect(c, 7, 5, 2, 10, PAL.o);
+    rect(c, 3, 2, 10, 4, PAL.a);
+    rect(c, 3, 2, 10, 1, PAL.w);
+    rect(c, 3, 5, 10, 1, PAL.A);
+  },
+  tool_saw: (c) => {
+    rect(c, 1, 5, 11, 4, PAL.W);
+    rect(c, 1, 5, 11, 1, PAL.w);
+    for (let x = 1; x < 12; x += 2) rect(c, x, 9, 1, 1, PAL.A);
+    rect(c, 12, 3, 3, 8, PAL.o);
+    rect(c, 13, 5, 1, 4, PAL.O);
+  },
+  tool_plane: (c) => {
+    rect(c, 1, 9, 14, 4, PAL.o);
+    rect(c, 1, 12, 14, 1, PAL.O);
+    rect(c, 10, 4, 4, 5, PAL.u);
+    rect(c, 5, 6, 2, 4, PAL.a);
+  },
+  tool_chisel: (c) => {
+    rect(c, 6, 1, 4, 6, PAL.o);
+    rect(c, 6, 7, 4, 1, PAL.Y);
+    rect(c, 7, 8, 2, 7, PAL.a);
+    rect(c, 7, 14, 2, 1, PAL.w);
+  },
+  tool_square: (c) => {
+    rect(c, 2, 2, 3, 12, PAL.o);
+    rect(c, 2, 11, 12, 3, PAL.o);
+    rect(c, 2, 2, 1, 12, "#c98a4b");
+    for (const [x, y] of [[5, 4], [5, 7], [8, 11], [11, 11]]) rect(c, x, y, 1, 1, PAL.O);
+  },
+};
+
+/** Big storm-tossed fishing boat seen from above, bow up, stern (cushion) down (400x380). */
+function stormBoat() {
+  const { canvas, ctx } = makeCanvas(400, 380);
+  const taper = (y: number) => (y < 80 ? Math.round(150 * ((80 - y) / 80) ** 2) : 0);
+  for (let y = 0; y < 372; y += 4) rect(ctx, taper(y), y, 400 - 2 * taper(y), 4, PAL.O); // hull
+  rect(ctx, 4, 372, 392, 8, PAL.O);
+  for (let y = 8; y < 368; y += 4) rect(ctx, taper(y) + 12, y, 376 - 2 * taper(y), 4, PAL.o); // deck
+  for (let y = 88; y < 364; y += 8) rect(ctx, 12, y, 376, 1, PAL.u); // plank seams
+  rect(ctx, 8, 80, 4, 284, "#c98a4b"); // rim highlights
+  rect(ctx, 388, 80, 4, 284, "#c98a4b");
+  rect(ctx, 150, 4, 100, 4, "#c98a4b");
+  rect(ctx, 130, 326, 140, 28, PAL.R); // stern cushion
+  rect(ctx, 132, 328, 136, 20, PAL.r);
+  rect(ctx, 150, 330, 40, 12, PAL.w); // pillow
+  rect(ctx, 150, 340, 40, 2, PAL.W);
+  return canvas;
+}
+
+/** Mast with furled-back sail (56x72). */
+function boatMast() {
+  const { canvas, ctx } = makeCanvas(56, 72);
+  rect(ctx, 14, 68, 28, 4, PAL.z);
+  rect(ctx, 20, 60, 16, 10, PAL.u); // base
+  rect(ctx, 26, 2, 4, 60, PAL.O); // pole
+  rect(ctx, 4, 6, 48, 4, PAL.O); // yard
+  rect(ctx, 6, 10, 44, 34, PAL.p); // sail
+  rect(ctx, 6, 38, 44, 6, PAL.P);
+  rect(ctx, 28, 10, 1, 34, PAL.P);
+  rect(ctx, 34, 18, 8, 8, PAL.t); // patch
+  return canvas;
+}
+
 /** Peter's fishing boat deck (160x56). */
 function fishingBoat() {
   const { canvas, ctx } = makeCanvas(160, 56);
@@ -306,7 +397,18 @@ export function registerInterludeTextures(scene: Phaser.Scene) {
   add("gift_myrrh", () => magiGift(PAL.g, PAL.y));
   add("carpenter_bench", carpenterBench);
   add("wood_craft", woodCraftItem);
+  add("chest_closed", () => chest(false));
+  add("chest_open", () => chest(true));
+  for (const [key, draw] of Object.entries(TOOLS)) {
+    add(key, () => {
+      const { canvas, ctx } = makeCanvas(16, 16);
+      draw(ctx);
+      return canvas;
+    });
+  }
   add("fishing_boat", fishingBoat);
+  add("storm_boat", stormBoat);
+  add("boat_mast", boatMast);
   add("fish_silver", () => fishSprite(false));
   add("fish_gold", () => fishSprite(true));
   add("fishing_net", fishingNet);

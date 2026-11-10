@@ -12,7 +12,7 @@ import { registerInterludeTextures } from "../../utils/interludeTextureGenerator
 
 const W = 640;
 const H = 520;
-const BRAMBLES_GOAL = 5;
+const BRAMBLES_GOAL = 10;
 
 interface Firefly {
   sprite: Phaser.GameObjects.Image;
@@ -36,7 +36,7 @@ interface BramblePatch {
  */
 export class InterludeA2KidronValleyScene extends InteractiveScene {
   private lanternAura!: Phaser.GameObjects.Image;
-  private lanternEnergy = 100; // 35..100 (never goes below 35 so kids can always see)
+  private lanternEnergy = 100; // 8..100 (starts dim, drains fast; fireflies refill it)
   private fireflies: Firefly[] = [];
   private brambles: BramblePatch[] = [];
   private clearedCount = 0;
@@ -63,7 +63,7 @@ export class InterludeA2KidronValleyScene extends InteractiveScene {
     this.brambles = [];
     this.walkers = [];
     this.clearedCount = 0;
-    this.lanternEnergy = 100;
+    this.lanternEnergy = 25;
     this.finished = false;
 
     this.physics.world.setBounds(0, 0, W, H);
@@ -79,7 +79,7 @@ export class InterludeA2KidronValleyScene extends InteractiveScene {
       lines: [
         "Cầu Nối Mùa Sáng → Mùa Thương: Đêm Vượt Suối Kidron (Ga 18, 1).",
         "“Nói xong những lời đó, Đức Giêsu đi ra cùng với các môn đệ, sang bên kia suối Kít-rôn; ở đó có một thửa vườn.”",
-        "Đêm tối lạnh lẽo, con hãy cầm chiếc đèn dầu đi trước, chạm vào các Đom Đóm Sáng để giữ đèn luôn rực rỡ và dọn sạch 5 Bụi Gai trên đường nhé!",
+        "Đêm tối lạnh lẽo, con hãy cầm chiếc đèn dầu đi trước, chạm vào các Đom Đóm Sáng để giữ đèn luôn rực rỡ và dọn sạch 10 Bụi Gai trên đường nhé!",
       ],
     });
     this.holdItem("kidron_lantern", "kidron_lantern");
@@ -151,15 +151,20 @@ export class InterludeA2KidronValleyScene extends InteractiveScene {
     this.add.sprite(380, 124, "john_apostle").setOrigin(0.5, 1).setDepth(124);
 
     // Player's warm lantern glow
-    this.lanternAura = this.add.image(320, 440, "glow_gold").setDepth(DEPTH.FX - 2).setAlpha(0.75);
+    this.lanternAura = this.add.image(320, 440, "glow_gold").setDepth(DEPTH.FX - 2).setAlpha(0.29);
 
-    // 5 thorny brambles blocking the valley path
+    // 10 thorny brambles blocking the valley path
     const brambleCoords: [number, number][] = [
-      [210, 380],
-      [430, 380],
-      [320, 310],
-      [200, 265],
-      [440, 265],
+      [170, 430],
+      [470, 430],
+      [250, 385],
+      [390, 385],
+      [130, 330],
+      [510, 330],
+      [320, 330],
+      [200, 275],
+      [440, 275],
+      [320, 250],
     ];
     for (const [x, y] of brambleCoords) {
       const glow = this.add.image(x, y - 8, "glow_small").setDepth(DEPTH.LIGHT).setAlpha(0.45);
@@ -167,9 +172,9 @@ export class InterludeA2KidronValleyScene extends InteractiveScene {
       this.brambles.push({ sprite, glow, cleared: false });
     }
 
-    // 5 floating fireflies drifting around the valley
-    for (let i = 0; i < 5; i++) {
-      this.spawnFirefly(140 + i * 85, 250 + (i % 2) * 110);
+    // 6 floating fireflies drifting around the valley
+    for (let i = 0; i < 6; i++) {
+      this.spawnFirefly(130 + i * 76, 250 + (i % 2) * 110);
     }
   }
 
@@ -224,11 +229,11 @@ export class InterludeA2KidronValleyScene extends InteractiveScene {
     if (this.finished || !this.player) return;
     const delta = this.game.loop.delta;
 
-    // Lantern glow follows player and gently dims (never below 40% so it stays kid-friendly)
-    this.lanternEnergy = Math.max(40, this.lanternEnergy - (delta / 1000) * 4);
+    // Lantern glow follows player and dims quickly (floor 8% so it never goes fully black)
+    this.lanternEnergy = Math.max(8, this.lanternEnergy - (delta / 1000) * 6);
     this.lanternAura
       .setPosition(Math.round(this.player.x), Math.round(this.player.y))
-      .setAlpha(0.3 + (this.lanternEnergy / 100) * 0.55);
+      .setAlpha(0.1 + (this.lanternEnergy / 100) * 0.75);
 
     // Move fireflies & collect on touch
     for (const f of this.fireflies) {

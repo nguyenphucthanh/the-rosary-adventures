@@ -13,21 +13,44 @@ const BENCH_X = 320;
 const BENCH_Y = 250;
 const GOAL = 5;
 
+const TOOLS = [
+  { key: "tool_hammer", name: "cái búa" },
+  { key: "tool_saw", name: "cái cưa" },
+  { key: "tool_plane", name: "cái bào" },
+  { key: "tool_chisel", name: "cái đục" },
+  { key: "tool_square", name: "cây thước vuông" },
+];
+
+/** Chests: foot position + how Jesus describes them. 5 of 8 hide a tool (random each play). */
+const CHESTS = [
+  { x: 64, y: 190, where: "ở góc trái, ngay dưới chậu ô-liu" },
+  { x: 576, y: 190, where: "ở góc phải, ngay dưới chậu ô-liu" },
+  { x: 120, y: 262, where: "cạnh đống củi bên trái" },
+  { x: 520, y: 262, where: "cạnh đống củi bên phải" },
+  { x: 130, y: 420, where: "cạnh mấy cái chum đất" },
+  { x: 500, y: 420, where: "gần bó rơm" },
+  { x: 400, y: 390, where: "phía dưới bàn mộc, hơi lệch bên phải" },
+  { x: 490, y: 112, where: "bên dưới cửa sổ phía phải" },
+];
+
+const WANDER: [number, number][] = [
+  [250, 295],
+  [390, 295],
+  [440, 215],
+  [200, 215],
+  [320, 300],
+];
+
 /**
  * Season Bridge A1 (Between Joyful 5 & Luminous 1): The Carpenter's Workshop at Nazareth (Lc 2, 51-52).
- * Kid-friendly Rhythm / Timing action: Wood planks slide across St. Joseph's workbench.
- * Press [A] / Space when the plank enters the glowing golden center zone (or tap anywhere near the bench)
- * to craft 5 wooden items for the villagers!
+ * Search game: St. Joseph wanders the workshop. Talk to young Jesus for a hint, then open chests
+ * to find 5 of Joseph's lost tools (the other chests are empty).
  */
 export class InterludeA1WorkshopScene extends InteractiveScene {
-  private slidingPlank!: Phaser.GameObjects.Image;
-  private plankGlow!: Phaser.GameObjects.Image;
-  private zoneRing!: Phaser.GameObjects.Rectangle;
-  private plankDir = 1;
-  private plankSpeed = 115; // gentle speed for kids
-  private crafted = 0;
+  private joseph!: Phaser.GameObjects.Sprite;
+  private chests: { img: Phaser.GameObjects.Image; opened: boolean; tool?: number }[] = [];
+  private found = 0;
   private finished = false;
-  private craftedIcons: Phaser.GameObjects.Image[] = [];
 
   constructor() {
     super("InterludeA1WorkshopScene");
@@ -41,27 +64,26 @@ export class InterludeA1WorkshopScene extends InteractiveScene {
     registerInfancyTextures(this);
     registerInterludeTextures(this);
 
-    this.crafted = 0;
+    this.found = 0;
     this.finished = false;
-    this.plankDir = 1;
-    this.plankSpeed = 115;
-    this.craftedIcons = [];
+    this.chests = [];
     this.walkers = [];
 
     this.physics.world.setBounds(0, 0, W, H);
     this.obstacles = this.physics.add.staticGroup();
 
     this.buildWorkshop();
-    this.buildCharactersAndBench();
+    this.buildCharactersAndChests();
     this.defineInteractables();
+    this.wander();
 
-    this.begin("bridge_a1_xuong_moc", [320, 340], {
+    this.begin("bridge_a1_xuong_moc", [320, 440], {
       speaker: "Xưởng Mộc Nazareth",
       emoji: "🪚",
       lines: [
         "Cầu Nối Mùa Vui → Mùa Sáng: Xưởng Mộc Nazareth (Lc 2, 51-52).",
         "“Chúa Giêsu xuống cùng với cha mẹ trở về Na-da-rét và hằng vâng phục các ngài... Người ngày càng thêm khôn ngoan, thêm cao lớn và thêm ân nghĩa.”",
-        "Hãy đứng gần Bàn Mộc ở giữa phòng và nhấn nút [A] (hoặc phím Space) đúng lúc thanh gỗ trượt vào Ô Sáng Vàng để đóng 5 món đồ giúp dân làng nhé!",
+        "Thánh Giuse làm mất 5 dụng cụ mộc rồi! Hãy đến hỏi Chúa Giêsu bé nhỏ để nghe gợi ý, rồi mở các rương [A] tìm giúp Ngài nhé. Có rương trống đó!",
       ],
     });
     this.syncProgress();
@@ -70,10 +92,10 @@ export class InterludeA1WorkshopScene extends InteractiveScene {
   private syncProgress() {
     this.emitInterludeProgress([
       {
-        id: "workshop_craft",
+        id: "workshop_tools",
         emoji: "🪚",
-        label: "ĐỒ MỘC",
-        current: this.crafted,
+        label: "DỤNG CỤ",
+        current: this.found,
         total: GOAL,
         color: "amber",
       },
@@ -135,35 +157,50 @@ export class InterludeA1WorkshopScene extends InteractiveScene {
     }
   }
 
-  private buildCharactersAndBench() {
-    // St. Joseph, young Jesus, and Mother Mary
-    this.add.sprite(BENCH_X - 48, BENCH_Y - 18, "joseph").setOrigin(0.5, 1).setDepth(BENCH_Y - 18);
-    this.add.sprite(BENCH_X + 48, BENCH_Y - 18, "jesus12").setOrigin(0.5, 1).setDepth(BENCH_Y - 18);
+  private buildCharactersAndChests() {
+    this.joseph = this.add.sprite(250, 295, "joseph").setOrigin(0.5, 1);
+    this.walkers.push(this.joseph);
+    this.add.sprite(320, 345, "jesus12").setOrigin(0.5, 1).setDepth(345);
+    this.hint(320, 316);
     this.add.sprite(120, 150, "mary_praying").setOrigin(0.5, 1).setDepth(150);
     this.hint(120, 114);
 
-    // Carpenter's Workbench
     this.prop(BENCH_X, BENCH_Y, "carpenter_bench", 136, 16);
 
-    // Target strike zone indicator
-    this.zoneRing = this.add
-      .rectangle(BENCH_X, BENCH_Y - 20, 36, 16, 0xfef08a, 0.28)
-      .setStrokeStyle(2, 0xfbbf24)
-      .setDepth(BENCH_Y + 1);
+    const toolChests = Phaser.Utils.Array.Shuffle(CHESTS.map((_, i) => i)).slice(0, GOAL);
+    this.chests = CHESTS.map((c, i) => ({
+      img: this.prop(c.x, c.y, "chest_closed", 18, 8),
+      opened: false,
+      tool: toolChests.indexOf(i) >= 0 ? toolChests.indexOf(i) : undefined,
+    }));
+  }
 
-    // Sliding wood plank on top of the bench
-    this.plankGlow = this.add.image(BENCH_X - 50, BENCH_Y - 20, "glow_small").setDepth(BENCH_Y + 1).setAlpha(0.6);
-    this.slidingPlank = this.add.image(BENCH_X - 50, BENCH_Y - 20, "wood_plank").setDepth(BENCH_Y + 2);
+  /** Joseph strolls between random spots, pausing between walks. */
+  private wander() {
+    if (this.finished) return;
+    const pts = Phaser.Utils.Array.Shuffle(WANDER.slice()).slice(0, 2);
+    this.walk(this.joseph, pts, () => this.time.delayedCall(900, () => this.wander()));
   }
 
   private defineInteractables() {
     this.interactables = [
       {
-        at: () => [BENCH_X, BENCH_Y + 48],
-        r: 95,
-        label: () => "[A] Đóng ghép gỗ đúng nhịp!",
+        at: () => [320, 330],
+        r: 36,
+        label: () => "[A] Hỏi Chúa Giêsu",
         active: () => !this.finished,
-        act: () => this.tryStrikePlank(),
+        act: () => this.askJesus(),
+      },
+      {
+        at: () => [this.joseph.x, this.joseph.y - 12],
+        r: 34,
+        label: () => "[A] Trò chuyện với Thánh Giuse",
+        active: () => !this.finished,
+        act: () =>
+          this.talk("Thánh Giuse", "🪚", [
+            "Ôi, bác tìm mãi mà chưa thấy đủ dụng cụ! Con hỏi Giêsu giúp bác nhé.",
+            `Đã tìm được ${this.found}/${GOAL} món rồi. Cảm ơn con!`,
+          ]),
       },
       {
         at: () => [120, 134],
@@ -176,66 +213,69 @@ export class InterludeA1WorkshopScene extends InteractiveScene {
             "Làm việc nhỏ với tình yêu lớn chính là con đường nên thánh đó con!",
           ]),
       },
+      ...CHESTS.map((c, i) => ({
+        at: (): [number, number] => [c.x, c.y - 6],
+        r: 26,
+        label: () => "[A] Mở rương",
+        active: () => !this.finished && !this.chests[i].opened,
+        act: () => this.openChest(i),
+      })),
     ];
   }
 
-  private tryStrikePlank() {
-    if (this.finished) return;
-    // Generous hit window (±32px from center of workbench) so kids succeed easily
-    const offset = Math.abs(this.slidingPlank.x - BENCH_X);
-    if (offset <= 32) {
-      this.crafted++;
-      this.syncProgress();
-      audio.sfx("chime");
-      this.sparkleBurst(BENCH_X, BENCH_Y - 20);
-
-      // Place a finished wooden craft icon on the display table row
-      const iconX = 240 + (this.crafted - 1) * 40;
-      const icon = this.add.image(iconX, 118, "wood_craft").setDepth(DEPTH.FX);
-      this.craftedIcons.push(icon);
-
-      if (this.crafted >= GOAL) {
-        this.finishWorkshop();
-      } else {
-        // Gentle speed increase
-        this.plankSpeed = 115 + this.crafted * 12;
-      }
-    } else {
-      audio.sfx("blip", 1);
-    }
+  private askJesus() {
+    const next = this.chests.find((c) => c.tool !== undefined && !c.opened);
+    if (!next) return;
+    const where = CHESTS[this.chests.indexOf(next)].where;
+    this.talk("Chúa Giêsu", "💛", [
+      `Con nhớ rồi! Có một dụng cụ của Cha Giuse nằm trong rương ${where}.`,
+      `Còn ${GOAL - this.found} món nữa. Mình cùng tìm nhé!`,
+    ]);
   }
 
-  update() {
-    super.update();
-    if (this.finished || !this.slidingPlank) return;
-    const delta = this.game.loop.delta;
-
-    const minX = BENCH_X - 54;
-    const maxX = BENCH_X + 54;
-    let nx = this.slidingPlank.x + (this.plankDir * this.plankSpeed * delta) / 1000;
-    if (nx >= maxX) {
-      nx = maxX;
-      this.plankDir = -1;
-    } else if (nx <= minX) {
-      nx = minX;
-      this.plankDir = 1;
+  private openChest(i: number) {
+    const chest = this.chests[i];
+    const c = CHESTS[i];
+    chest.opened = true;
+    chest.img.setTexture("chest_open");
+    if (chest.tool === undefined) {
+      audio.sfx("blip", 1);
+      const t = this.add
+        .text(c.x, c.y - 22, "Rương trống!", {
+          fontFamily: "'Dearpix', monospace",
+          fontSize: "20px",
+          color: "#fef08a",
+          resolution: 4,
+        })
+        .setOrigin(0.5, 1)
+        .setDepth(DEPTH.FX);
+      this.tweens.add({ targets: t, y: t.y - 10, alpha: 0, duration: 1200, onComplete: () => t.destroy() });
+      return;
     }
-    this.slidingPlank.x = Math.round(nx);
-    this.plankGlow.x = this.slidingPlank.x;
-
-    // Highlight strike zone when plank is inside
-    const inZone = Math.abs(this.slidingPlank.x - BENCH_X) <= 32;
-    this.zoneRing.setFillStyle(inZone ? 0xfde047 : 0xfef08a, inZone ? 0.55 : 0.22);
+    const tool = TOOLS[chest.tool];
+    this.found++;
+    this.syncProgress();
+    this.sparkleBurst(c.x, c.y - 10);
+    const pop = this.add.image(c.x, c.y - 10, tool.key).setDepth(DEPTH.FX);
+    const slotX = 240 + (this.found - 1) * 40;
+    this.tweens.add({ targets: pop, y: c.y - 30, duration: 400 });
+    this.tweens.add({
+      targets: pop,
+      x: slotX,
+      y: 118,
+      delay: 600,
+      duration: 700,
+      onComplete: () => pop.setDepth(118),
+    });
+    this.talk("Tìm thấy rồi!", "🔨", [`Bạn tìm được ${tool.name} của Thánh Giuse! (${this.found}/${GOAL})`], () => {
+      if (this.found >= GOAL) this.finishWorkshop();
+    });
   }
 
   private finishWorkshop() {
     this.finished = true;
-    this.slidingPlank.setVisible(false);
-    this.plankGlow.setVisible(false);
     audio.sfx("bless");
-    this.sparkleBurst(BENCH_X - 48, BENCH_Y - 30);
-    this.sparkleBurst(BENCH_X + 48, BENCH_Y - 30);
-
+    this.sparkleBurst(this.joseph.x, this.joseph.y - 20);
     this.time.delayedCall(500, () =>
       this.completeInterlude(
         "CẦU NỐI MÙA A1",

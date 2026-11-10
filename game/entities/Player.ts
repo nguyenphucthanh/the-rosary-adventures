@@ -7,6 +7,8 @@ import { generatePlayerSpriteCanvas } from "../utils/playerTextureGenerator";
 export class Player extends Phaser.Physics.Arcade.Sprite {
   private currentDirection: "up" | "down" | "left" | "right" = "down";
   private moveSpeed = 140;
+  /** Temporary speed multiplier (e.g. slowed by a hazard). */
+  public speedScale = 1;
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
   private wasdKeys?: {
     up: Phaser.Input.Keyboard.Key;
@@ -200,7 +202,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       vy = this.stick.y;
     }
 
-    this.setVelocity(vx * this.moveSpeed, vy * this.moveSpeed);
+    this.setVelocity(vx * this.moveSpeed * this.speedScale, vy * this.moveSpeed * this.speedScale);
     this.intent.x = vx;
     this.intent.y = vy;
 

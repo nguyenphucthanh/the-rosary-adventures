@@ -58,7 +58,7 @@ export class InterludeB2MiraculousCatchScene extends InteractiveScene {
 
     this.buildLakeAndShore();
     this.buildBoatAndApostles();
-    this.defineInteractables();
+    this.interactables = [];
 
     // Pre-spawn a few friendly fish right away
     for (let i = 0; i < 4; i++) this.spawnFish(140 + i * 100);
@@ -130,16 +130,9 @@ export class InterludeB2MiraculousCatchScene extends InteractiveScene {
     this.add.sprite(420, 420, "john_apostle").setOrigin(0.5, 1).setDepth(420);
   }
 
-  private defineInteractables() {
-    this.interactables = [
-      {
-        at: () => [this.player ? this.player.x : 320, BOAT_Y + 34],
-        r: 220,
-        label: () => "[A] Quăng lưới bắt cá!",
-        active: () => !this.finished && !this.casting,
-        act: () => this.castNet(),
-      },
-    ];
+  /** [A] / Space always casts the net; no floating prompt (the intro explains it). */
+  protected handleActionTrigger() {
+    this.castNet();
   }
 
   private spawnFish(customX?: number) {
@@ -152,7 +145,7 @@ export class InterludeB2MiraculousCatchScene extends InteractiveScene {
       .image(x, y, isGold ? "fish_gold" : "fish_silver")
       .setFlipX(goRight)
       .setDepth(DEPTH.RUG + 2);
-    const speed = Phaser.Math.Between(42, 72);
+    const speed = Phaser.Math.Between(30, 120);
     this.fishes.push({ sprite, vx: goRight ? speed : -speed });
   }
 
@@ -161,8 +154,19 @@ export class InterludeB2MiraculousCatchScene extends InteractiveScene {
     this.casting = true;
     audio.sfx("whoosh");
 
-    const netX = Phaser.Math.Clamp(Math.round(this.player.x), 120, W - 120);
-    const netY = 195;
+    // Aim at the fish nearest the player's column (led by the 240ms flight time) so the net lands on it
+    const px = this.player.x;
+    let netX = Phaser.Math.Clamp(Math.round(px), 30, W - 30);
+    let netY = 195;
+    let best = 70;
+    for (const f of this.fishes) {
+      const fx = f.sprite.x + f.vx * 0.24;
+      if (Math.abs(fx - px) < best) {
+        best = Math.abs(fx - px);
+        netX = Phaser.Math.Clamp(Math.round(fx), 30, W - 30);
+        netY = Math.round(f.sprite.y);
+      }
+    }
 
     const net = this.add.image(netX, BOAT_Y - 12, "fishing_net").setDepth(DEPTH.FX);
     const glow = this.add.image(netX, netY, "glow_gold").setDepth(DEPTH.FX - 1).setAlpha(0.45);
@@ -172,11 +176,11 @@ export class InterludeB2MiraculousCatchScene extends InteractiveScene {
       y: netY,
       duration: 240,
       onComplete: () => {
-        // Catch any fish within a generous 58px radius of the net!
+        // Catch fish under the net (radius matches the 28px net sprite, a bit generous)
         let caughtNow = 0;
         for (let i = this.fishes.length - 1; i >= 0; i--) {
           const f = this.fishes[i];
-          if (Phaser.Math.Distance.Between(netX, netY, f.sprite.x, f.sprite.y) <= 58) {
+          if (Phaser.Math.Distance.Between(netX, netY, f.sprite.x, f.sprite.y) <= 34) {
             caughtNow++;
             f.sprite.destroy();
             this.fishes.splice(i, 1);
