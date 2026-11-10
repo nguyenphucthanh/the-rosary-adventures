@@ -29,7 +29,6 @@ const GameContainer = dynamic(() => import("@/modules/the-garden-of-eden/compone
 export default function TheGardenOfEden() {
   const [saveInfo, setSaveInfo] = useState<GenesisSaveData | null>(null);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const [showCharacterModal, setShowCharacterModal] = useState(false);
   const [hasExistingSave, setHasExistingSave] = useState(false);
   const muted = useSyncExternalStore(audio.subscribe, () => audio.muted, () => false);
@@ -45,9 +44,6 @@ export default function TheGardenOfEden() {
     setHasExistingSave(!!existing);
     setShowCharacterModal(!existing); // new player: create a character first
 
-    const onFullscreen = () => setIsFullscreen(!!document.fullscreenElement);
-    document.addEventListener("fullscreenchange", onFullscreen);
-
     const refresh = () => {
       const cur = loadGame();
       if (cur) setSaveInfo(cur);
@@ -57,7 +53,6 @@ export default function TheGardenOfEden() {
 
     return () => {
       coarse.removeEventListener("change", syncTouch);
-      document.removeEventListener("fullscreenchange", onFullscreen);
       EventBus.off("mystery-completed", refresh);
       EventBus.off("game-restart", refresh);
     };
@@ -73,14 +68,6 @@ export default function TheGardenOfEden() {
     EventBus.emit("character-updated", { customization });
   };
 
-  const toggleFullscreen = async () => {
-    try {
-      if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
-      else await document.exitFullscreen();
-    } catch (err) {
-      console.warn("Fullscreen request error:", err);
-    }
-  };
 
   const handleSceneReady = useCallback(() => {}, []); // ponytail: Phase 2 scenes will drive HUD visibility from this
 
@@ -107,9 +94,16 @@ export default function TheGardenOfEden() {
             >
               <span className="text-[16px] leading-none">{saveInfo.player.customization.gender === "girl" ? "👧" : "👦"}</span>
               <span className="font-pixel text-[13px] sm:text-[14px] text-amber-100">{saveInfo.player.customization.name}</span>
-              <span className="text-[12px] text-amber-200">✏️</span>
             </button>
           )}
+          <button
+            type="button"
+            onClick={() => EventBus.emit("checkpoint-retry")}
+            title="Thử lại từ Checkpoint gần nhất"
+            className="retro-btn px-3 py-1.5 font-pixel text-[13px] sm:text-[14px] text-amber-300"
+          >
+            ↺ THỬ LẠI
+          </button>
         </div>
         <div className="pointer-events-auto flex items-center gap-2">
           <button
@@ -119,14 +113,6 @@ export default function TheGardenOfEden() {
             className="retro-btn px-3 py-1.5 text-[12px] sm:text-[13px] text-amber-300"
           >
             {muted ? "🔇" : "🔊"}
-          </button>
-          <button
-            type="button"
-            onClick={toggleFullscreen}
-            title={isFullscreen ? "Thoát toàn màn hình" : "Toàn màn hình"}
-            className="retro-btn px-3 py-1.5 text-[12px] sm:text-[13px] text-amber-300"
-          >
-            {isFullscreen ? "THOÁT" : "TOÀN MÀN HÌNH"}
           </button>
         </div>
       </header>
