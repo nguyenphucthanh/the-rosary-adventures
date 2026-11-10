@@ -1,47 +1,25 @@
 import * as Phaser from "phaser";
-import { PAL, makeCanvas } from "@/modules/shared/game/utils/pixelArt";
 
-/** Every storybook illustration is INTRO_W x INTRO_H logical pixels, shaded pixel-art picture painted once (frames = 1). */
-export const INTRO_W = 320;
-export const INTRO_H = 192;
+/** Storybook pictures shown before each stage: static images in public/games/the-garden-of-eden/intro (1312x816, 16:10). */
+export const INTRO_W = 1312;
+export const INTRO_H = 816;
 
-export type IntroPainter = (ctx: CanvasRenderingContext2D, frame: number) => void;
-interface IntroIllustration {
-  frames: number;
-  paint: IntroPainter;
-  sparkle: string; // particle colour
-}
+const FILE: Record<string, string> = {
+  prologue: "start",
+  light: "1", sky: "2", land: "3", stars: "4", seabirds: "5", adam: "6",
+  sabbath: "7", rivers: "8", eve: "9", serpent: "10", hiding: "11", exodus: "12",
+  epilogue: "end",
+};
 
-const registry = new Map<string, IntroIllustration>();
-
-/** Stage files call this once (idempotent) with their painter; `introIllustration(id)` is then valid. */
-export function registerIntroIllustration(id: string, paint: IntroPainter, frames = 1, sparkle: string = PAL.l) {
-  registry.set(id, { paint, frames, sparkle });
-}
-
-export function introIllustration(id: string) {
-  return registry.get(id) ?? registry.get("default")!;
-}
-
-/** Idempotent: builds the sheet + looping animation; returns the texture key. */
-export function ensureIntroTexture(scene: Phaser.Scene, id: string) {
-  const art = introIllustration(id);
-  const key = `intro_${registry.has(id) ? id : "default"}`;
-  if (!scene.textures.exists(key)) {
-    const { canvas, ctx } = makeCanvas(INTRO_W * art.frames, INTRO_H);
-    for (let f = 0; f < art.frames; f++) {
-      ctx.save();
-      ctx.translate(f * INTRO_W, 0);
-      ctx.beginPath();
-      ctx.rect(0, 0, INTRO_W, INTRO_H);
-      ctx.clip();
-      art.paint(ctx, f);
-      ctx.restore();
-    }
-    scene.textures.addSpriteSheet(key, canvas as unknown as HTMLImageElement, { frameWidth: INTRO_W, frameHeight: INTRO_H });
-  }
-  if (!scene.anims.exists(key)) {
-    scene.anims.create({ key, frames: scene.anims.generateFrameNumbers(key, { start: 0, end: art.frames - 1 }), frameRate: 2, repeat: -1 });
-  }
-  return { key, sparkle: art.sparkle };
+/** Loads the picture for `id` (cached after the first time) and calls `ready(key)` once the texture exists. */
+export function loadIntroImage(scene: Phaser.Scene, id: string, ready: (key: string) => void) {
+  const key = `intro_${FILE[id] ?? "start"}`;
+  const done = () => {
+    scene.textures.get(key).setFilter(Phaser.Textures.FilterMode.LINEAR); // big picture is scaled down: keep it smooth
+    ready(key);
+  };
+  if (scene.textures.exists(key)) return done();
+  scene.load.image(key, `/games/the-garden-of-eden/intro/intro-${FILE[id] ?? "start"}.jpg`);
+  scene.load.once(Phaser.Loader.Events.COMPLETE, done);
+  scene.load.start();
 }

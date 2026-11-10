@@ -4,9 +4,8 @@ import { CharacterCustomization, DEFAULT_CHARACTER } from "@/modules/shared/type
 import { GENESIS_STAGE_KEYS, GenesisSaveData } from "@/modules/the-garden-of-eden/types/game";
 import { GENESIS_STAGES, nextSceneAfter } from "@/modules/the-garden-of-eden/data/stagesData";
 import { loadGame, updateSave } from "@/modules/the-garden-of-eden/utils/saveManager";
-import { INTRO_H, INTRO_W, ensureIntroTexture } from "@/modules/the-garden-of-eden/game/utils/introIllustrations";
+import { INTRO_H, INTRO_W, loadIntroImage } from "@/modules/the-garden-of-eden/game/utils/introIllustrations";
 import { PAL } from "@/modules/shared/game/utils/pixelArt";
-import "@/modules/the-garden-of-eden/game/utils/storybookArt"; // registers every storybook picture
 import { tr, type L } from "@/modules/the-garden-of-eden/data/dialogues";
 import EventBus from "@/modules/shared/game/EventBus";
 import audio from "@/modules/shared/game/audio/AudioManager";
@@ -290,32 +289,33 @@ export class BaseGenesisScene extends Phaser.Scene {
 
   protected introActive = false;
 
-  /** Storybook picture (own camera, integer scale) + dialogue, then a stepped fade into the map. */
+  /** Storybook picture (own camera) + dialogue, then a stepped fade into the map. */
   protected playIntro(intro: StageIntro) {
     this.introActive = true;
     this.player.setMovementLock(true);
-    const { key } = ensureIntroTexture(this, intro.illustration);
+    loadIntroImage(this, intro.illustration, (key) => this.showIntro(intro, key));
+  }
 
+  private showIntro(intro: StageIntro, key: string) {
     const items: Phaser.GameObjects.GameObject[] = [];
     const add = <T extends Phaser.GameObjects.GameObject>(o: T) => (items.push(o), o);
     const cam = this.cameras.add(0, 0, this.scale.width, this.scale.height).setName("intro");
     const bg = add(this.add.rectangle(0, 0, 8192, 8192, 0x05060d).setOrigin(0).setDepth(DEPTH.INTRO).setScrollFactor(0));
     const frame = add(this.add.graphics().setDepth(DEPTH.INTRO + 1));
-    const pic = add(this.add.sprite(0, 0, key).setOrigin(0).setDepth(DEPTH.INTRO + 2)) as Phaser.GameObjects.Sprite;
-    pic.play(key);
+    const pic = add(this.add.image(0, 0, key).setOrigin(0).setDepth(DEPTH.INTRO + 2)) as Phaser.GameObjects.Image;
 
-    // Layout: picture in the upper area (dialogue box sits at the bottom). Integer scale only.
+    // Layout: picture in the upper area (dialogue box sits at the bottom).
     const layout = () => {
       const { width: w, height: h } = this.scale;
       cam.setSize(w, h);
-      const s = Math.max(1, Math.floor(Math.min((w - 32) / INTRO_W, (h * 0.58) / INTRO_H)));
-      const pw = INTRO_W * s, ph = INTRO_H * s;
+      const s = Math.min((w - 32) / INTRO_W, (h * 0.58) / INTRO_H); // big picture scaled down to fit
+      const pw = Math.floor(INTRO_W * s), ph = Math.floor(INTRO_H * s);
       const px = Math.floor((w - pw) / 2), py = Math.max(24, Math.floor((h * 0.62 - ph) / 2));
-      pic.setPosition(px, py).setScale(s); // integer nearest-neighbour upscale of a whole picture
+      pic.setPosition(px, py).setDisplaySize(pw, ph);
       frame.clear();
-      const b = 3 * s;
+      const b = 6;
       frame.fillStyle(Phaser.Display.Color.HexStringToColor(PAL.Y).color).fillRect(px - b, py - b, pw + 2 * b, ph + 2 * b);
-      frame.fillStyle(Phaser.Display.Color.HexStringToColor(PAL.O).color).fillRect(px - b + s, py - b + s, pw + 2 * (b - s), ph + 2 * (b - s));
+      frame.fillStyle(Phaser.Display.Color.HexStringToColor(PAL.O).color).fillRect(px - b + 2, py - b + 2, pw + 2 * (b - 2), ph + 2 * (b - 2));
     };
     layout();
     this.scale.on("resize", layout);
