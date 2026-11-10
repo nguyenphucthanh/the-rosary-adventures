@@ -18,8 +18,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "The Rosary Adventures - 20 Mầu Nhiệm Mân Côi",
-  description: "Trò chơi 2D phiêu lưu học và suy niệm 20 Mầu Nhiệm Mân Côi dành cho thiếu nhi và gia đình.",
+  title: "Bible Adventures",
+  description: "Những cuộc phiêu lưu Kinh Thánh dành cho thiếu nhi và gia đình.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

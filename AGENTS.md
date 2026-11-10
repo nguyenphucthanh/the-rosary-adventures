@@ -12,25 +12,26 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 Cute 8-bit top-down RPG (Phaser 3 inside Next.js) teaching children the 20 Rosary mysteries. Mobile-first.
 
-- **Stage content** (story, NPCs, puzzle, outro for each of the 20 stages): read `stage-scripts.md` before building or changing any stage — it is the source of truth.
-- **Roadmap / architecture**: `plan.md`. Tick its checkboxes when you finish an item.
-- React ↔ Phaser talk only through `game/EventBus.ts`.
+- **Stage content** (story, NPCs, puzzle, outro for each of the 20 stages): read `modules/the-rosary-adventures/stage-scripts.md` before building or changing any stage — it is the source of truth.
+- **Roadmap**: `modules/the-rosary-adventures/plan.md` (game-specific; tick its checkboxes when you finish an item). **Platform architecture**: root `plan.md`.
+- **Layout**: `app/` = routes only. Each game lives in `modules/<game-title>/`; code reused across games (character dialog, EventBus, audio, Player, pixelArt, virtual controller, dialogue box) lives in `modules/shared/`. Home `/` lists games; Rosary is at `/the-rosary-adventures`.
+- React ↔ Phaser talk only through `modules/shared/game/EventBus.ts`.
 
 ## Art style: one pixel grid
 
-Every in-world graphic is 8-bit pixel art drawn in code, and must look like it belongs next to the player sprite (`game/utils/playerTextureGenerator.ts`). Benchmark: stage 1 (`game/utils/npcTextureGenerator.ts`).
+Every in-world graphic is 8-bit pixel art drawn in code, and must look like it belongs next to the player sprite (`modules/shared/game/utils/playerTextureGenerator.ts`). Benchmark: stage 1 (`modules/the-rosary-adventures/game/utils/npcTextureGenerator.ts`).
 
-- **Build textures from pixels.** Characters and small items are `PixelMap` string grids painted with `drawMap()`; tiles and big props are integer `rect()` calls. Both live in `game/utils/pixelArt.ts`. Colors come from its `PAL` palette — add a new key there when you need a color, so maps stay readable and the palette stays shared.
+- **Build textures from pixels.** Characters and small items are `PixelMap` string grids painted with `drawMap()`; tiles and big props are integer `rect()` calls. Both live in `modules/shared/game/utils/pixelArt.ts`. Colors come from its `PAL` palette — add a new key there when you need a color, so maps stay readable and the palette stays shared.
 - **Characters use the chibi grid**: 32×32 frame, hair rows 6–9, face rows 10–15 (x 11–20), 2×2 eyes rows 12–13, blush row 14, body rows 17–24, feet 25–27, shadow rows 27–29. Flat colors plus one shade color, no outline. Bigger figures widen the canvas and keep the body on the grid (Gabriel: 48×32, body offset x+8, wings mirrored with `drawMap(..., mirror=true)`). Holy figures get a pixel halo ring in the map, not a blur.
 - **Scale**: 16px tile grid. Characters ≈ 22px tall; props sized against them (table 48px wide, jar 14×20, scroll 16×16).
 - **Light and magic** are stepped too: `glowCanvas()` for glows, `sparkle` texture for twinkles, flat low-alpha fills for beams.
 - **Animate with frames, position and alpha** — spritesheet frames (`addSpriteSheet`, 2-frame loops are enough), 1–4px tweens, alpha pulses. Hard guardrail: canvas gradients, arcs/ellipses/curves, fractional coordinates and `setScale` on art all produce smooth/blurry shapes that break the look — draw with integer rects only.
-- `game/config.ts` keeps `pixelArt: true` + `roundPixels: true`; camera zoom stays an integer (`BaseMysteryScene.setupCamera`).
+- `modules/the-rosary-adventures/game/config.ts` keeps `pixelArt: true` + `roundPixels: true`; camera zoom stays an integer (`BaseMysteryScene.setupCamera`).
 - In-world text: Dearpix font, ~10px `fontSize`, `resolution: 4`.
 
 ## Scene building
 
-Each stage is a `BaseMysteryScene` subclass in `game/scenes/mysteries/`, registering its textures once via an idempotent `register<Stage>Textures(scene)`.
+Each stage is a `BaseMysteryScene` subclass in `modules/the-rosary-adventures/game/scenes/mysteries/`, registering its textures once via an idempotent `register<Stage>Textures(scene)`.
 
 - **Dress every scene**: a tiled floor, walls or terrain edges, at least one light source (window, lamp, sky), wall/ground decor, a floor accent (rug, path, water), and 4+ props that fit the biblical setting. An empty room of flat rectangles is unfinished.
 - **Interactables read at a glance**: glow + sparkle + gentle bob on anything the child can pick up or talk to.
