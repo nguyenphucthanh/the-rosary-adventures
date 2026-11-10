@@ -17,9 +17,9 @@ const CRATE_W = 0.4; // tilt contributed by one crate on a side
 const DANGER = 0.85; // |tilt| above this is the red zone
 const DANGER_FAIL_MS = 6000;
 const PANIC_MS = 50000;
-const AISLE_L = 50;
-const AISLE_R = 130;
-const CRATE_Y = [118, 170];
+const AISLE_L = 66; // crates sit clear of the stalls (stall edges at x=49 / 131)
+const AISLE_R = 114;
+const CRATE_Y = [102, 148]; // between the stall rows, never level with an animal
 const STALLS = [[26, 80], [26, 125], [26, 170], [154, 80], [154, 125], [154, 170]] as const;
 const ANIMALS = ["noah_sheep", "noah_rabbit", "noah_turtle", "noah_deer", "noah_zebra", "noah_lion"];
 const ITEMS = [
@@ -90,8 +90,8 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
     STALLS.forEach(([x, y], i) => {
       this.add.image(x, y, "noah_stall").setDepth(DEPTH.RUG);
       this.add.image(x, y + 12, ANIMALS[i], 0).setOrigin(0.5, 1).setDepth(y + 12);
-      const ix = x < W / 2 ? x + 32 : x - 32;
-      this.interactables.push({ x: ix, y, r: 22, label: () => { const n = this.needs[i]; return n ? (this.held === n.item ? "[A] Chăm sóc con thú" : `Cần ${NEED_NAMES[n.item]} – lấy ở kệ trên`) : ""; }, active: () => this.running && !!this.needs[i], act: () => this.care(i) });
+      const ix = x < W / 2 ? x + 36 : x - 36;
+      this.interactables.push({ x: ix, y, r: 16, label: () => { const n = this.needs[i]; return n ? (this.held === n.item ? "[A] Chăm sóc con thú" : `Cần ${NEED_NAMES[n.item]} – lấy ở kệ trên`) : ""; }, active: () => this.running && !!this.needs[i], act: () => this.care(i) });
     });
     // supplies shelf
     this.add.rectangle(45, 28, 90, 14, 0x5b2a0c).setOrigin(0).setDepth(DEPTH.RUG + 1);
@@ -111,13 +111,13 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
     // crates
     CRATE_Y.forEach((y, i) => {
       this.crates.push(this.add.image(this.sides[i] < 0 ? AISLE_L : AISLE_R, y, "noah_crate").setOrigin(0.5, 1).setDepth(y));
-      this.interactables.push({ x: this.sides[i] < 0 ? AISLE_L : AISLE_R, y: y - 6, r: 30, label: () => (this.sides[i] < 0 ? "[A] Đẩy thùng sang Phải" : "[A] Đẩy thùng sang Trái"), active: () => this.running, act: () => this.shove(i) });
+      this.interactables.push({ x: this.sides[i] < 0 ? AISLE_L : AISLE_R, y: y - 6, r: 12, label: () => (this.sides[i] < 0 ? "[A] Đẩy thùng sang Phải" : "[A] Đẩy thùng sang Trái"), active: () => this.running, act: () => this.shove(i) });
     });
     this.heldImg = this.add.image(0, 0, "noah_hay").setDepth(DEPTH.FX).setVisible(false);
     this.hud = this.add.graphics().setDepth(DEPTH.UI);
     const style = { fontFamily: "Dearpix, monospace", fontSize: "10px", color: "#fde68a", backgroundColor: "#0f172acc", padding: { x: 3, y: 1 }, resolution: 4 };
-    this.label = this.add.text(W / 2, 66, "", style).setOrigin(0.5, 0).setDepth(DEPTH.UI);
-    this.warn = this.add.text(W / 2, 78, "", { ...style, color: "#fecaca" }).setOrigin(0.5, 0).setDepth(DEPTH.UI).setVisible(false);
+    this.label = this.add.text(W / 2, 46, "", style).setOrigin(0.5, 0).setDepth(DEPTH.UI);
+    this.warn = this.add.text(W / 2, 200, "", { ...style, color: "#fecaca" }).setOrigin(0.5, 0).setDepth(DEPTH.UI).setVisible(false);
   }
 
   protected onStageStart() {
@@ -241,14 +241,14 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
   private draw() {
     const g = this.hud?.clear();
     if (!g) return;
-    const w = 140, x = (W - w) / 2, y = 52;
+    const w = 140, x = (W - w) / 2, y = 214; // bottom of the deck: keeps the animals' speech bubbles clear
     g.fillStyle(0x0f172a, 1).fillRect(x - 2, y - 2, w + 4, 12);
     g.fillStyle(0xdc2626, 1).fillRect(x, y, w, 8);
     const zone = (a: number, b: number, col: number) => g.fillStyle(col, 1).fillRect(x + Math.round(((a + 1) / 2) * w), y, Math.round(((b - a) / 2) * w), 8);
     zone(-DANGER, DANGER, 0xfbbf24); zone(-0.6, 0.6, 0x22c55e);
     const nx = x + Math.round(((Phaser.Math.Clamp(this.tilt, -1, 1) + 1) / 2) * w);
     g.fillStyle(0xffffff, 1).fillRect(nx - 1, y - 3, 3, 14);
-    if (this.dangerT > 0) g.fillStyle(0xdc2626, 1).fillRect(x, y + 12, Math.round((w * this.dangerT) / DANGER_FAIL_MS), 2);
+    if (this.dangerT > 0) g.fillStyle(0xdc2626, 1).fillRect(x, y - 6, Math.round((w * this.dangerT) / DANGER_FAIL_MS), 2);
     this.label?.setText(this.running ? `Chặng ${this.leg + 1}/2 – chăm sóc ${this.cares}/${CARES_PER_LEG * 2}` : "");
     const msg = this.time.now < this.msgUntil;
     const show = this.running && (msg || this.warnDir !== 0);
