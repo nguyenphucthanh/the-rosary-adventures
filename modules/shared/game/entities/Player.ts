@@ -24,6 +24,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   private lastEmittedX = 0;
   private lastEmittedY = 0;
 
+  /** Story characters (e.g. Adam/Eve) keep their own look when the avatar is edited. */
+  public fixedLook = false;
+  private animPrefix = "";
+
   constructor(
     scene: Phaser.Scene,
     x: number,
@@ -75,23 +79,34 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     const key = Player.ensureTexture(this.scene, custom, `_${Date.now()}`);
     this.setTexture(key);
     this.setupAnimations(key);
-    this.play(`player-idle-${this.currentDirection}`, true);
+    this.play(`${this.animPrefix}player-idle-${this.currentDirection}`, true);
     if (oldKey !== key && this.scene.textures.exists(oldKey)) {
       this.scene.textures.remove(oldKey);
     }
   }
 
+  /** Swap in a ready-made 128x128 sheet (4 dirs x 4 steps of 32px) instead of the generated avatar look. */
+  public useSheet(canvas: HTMLCanvasElement) {
+    const oldKey = this.texture.key;
+    const key = `player_sheet_${Date.now()}_${Math.floor(Math.random() * 1e6)}`;
+    this.scene.textures.addSpriteSheet(key, canvas as unknown as HTMLImageElement, { frameWidth: 32, frameHeight: 32 });
+    this.setTexture(key);
+    this.setupAnimations(key);
+    this.play(`${this.animPrefix}player-idle-${this.currentDirection}`, true);
+    if (this.scene.textures.exists(oldKey)) this.scene.textures.remove(oldKey);
+  }
+
   private setupAnimations(textureKey: string) {
     const anims = this.scene.anims;
 
+    this.animPrefix = `${textureKey}:`;
+    // Anim frames carry their texture, so a shared key makes every Player adopt the last-built skin.
+    // Per-texture keys fix that; the plain keys stay for scenes that play them on a lone player.
     const createAnim = (name: string, frames: number[], frameRate = 8) => {
-      if (anims.exists(name)) anims.remove(name);
-      anims.create({
-        key: name,
-        frames: anims.generateFrameNumbers(textureKey, { frames }),
-        frameRate,
-        repeat: -1,
-      });
+      for (const key of [name, this.animPrefix + name]) {
+        if (anims.exists(key)) anims.remove(key);
+        anims.create({ key, frames: anims.generateFrameNumbers(textureKey, { frames }), frameRate, repeat: -1 });
+      }
     };
 
     createAnim("player-walk-down", [0, 1, 2, 3]);
@@ -129,6 +144,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     };
 
     const handleCharacterUpdate = (data: { customization: CharacterCustomization }) => {
+      if (this.fixedLook) return;
       this.updateCustomization(data.customization);
     };
 
@@ -159,7 +175,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.isMovementLocked = locked;
     if (locked) {
       this.setVelocity(0, 0);
-      this.play(`player-idle-${this.currentDirection}`, true);
+      this.play(`${this.animPrefix}player-idle-${this.currentDirection}`, true);
     }
   }
 
@@ -213,7 +229,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       } else {
         this.currentDirection = vy < 0 ? "up" : "down";
       }
-      this.play(`player-walk-${this.currentDirection}`, true);
+      this.play(`${this.animPrefix}player-walk-${this.currentDirection}`, true);
       audio.footstep();
 
       // Throttled position update emit
@@ -230,7 +246,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         });
       }
     } else {
-      this.play(`player-idle-${this.currentDirection}`, true);
+      this.play(`${this.animPrefix}player-idle-${this.currentDirection}`, true);
     }
   }
 }

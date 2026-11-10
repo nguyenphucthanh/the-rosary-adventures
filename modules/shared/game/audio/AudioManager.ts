@@ -250,6 +250,13 @@ class AudioManager {
     }
   }
 
+  /** One soft melodic note (midi) — used by musical puzzles. */
+  note(midi: number, len = 0.4) {
+    const ctx = this.live();
+    if (!ctx || this._muted) return;
+    this.tone(this.sfxBus!, "triangle", midiFreq(midi), ctx.currentTime, len, 0.35);
+  }
+
   /** Footstep with a built-in cadence limiter; call every frame while walking. */
   private lastStep = 0;
   footstep() {

@@ -34,6 +34,7 @@ export const PAL: Record<string, string> = {
   r: "#dc2626", // red
   g: "#22c55e", // leaf
   G: "#15803d", // leaf shade
+  H: "#14532d", // deep leaf shade
   k: "#7dd3fc", // sky
   t: "#c2703d", // terracotta
   T: "#9a4a24", // terracotta shade
@@ -45,6 +46,13 @@ export const PAL: Record<string, string> = {
   f: "#f97316", // flame orange
   i: "#475569", // dark greyish blue
   I: "#334155", // dark greyish blue shade
+  x: "#38bdf8", // water blue
+  X: "#0369a1", // water shade
+  j: "#fde68a", // sand / cream fur
+  N: "#a3e635", // lime
+  K: "#0b1020", // night sky
+  L: "#1e1b4b", // indigo sky
+  Z: "#4c1d95", // deep violet
 };
 
 export function makeCanvas(w: number, h: number) {

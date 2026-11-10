@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-// ponytail: one entry now; add objects here as games ship.
+// ponytail: add objects here as games ship.
 const GAMES = [
   {
     href: "/the-rosary-adventures",
@@ -8,6 +8,13 @@ const GAMES = [
     blurb: "Phiêu lưu qua 20 Mầu Nhiệm Mân Côi cùng Đức Mẹ và Chúa Giêsu.",
     tags: ["20 màn chơi", "Mobile", "Thiếu nhi"],
     image: "/games/the-rosary-adventures.png",
+  },
+  {
+    href: "/the-garden-of-eden",
+    title: "The Garden of Eden",
+    blurb: "Bảy ngày tạo dựng, Vườn Địa Đàng và Lời Hứa Cứu Độ qua 12 màn chơi giải đố.",
+    tags: ["12 màn chơi", "Giải đố", "Sáng Thế"],
+    image: "/games/the-garden-of-eden.png",
   },
 ];
 

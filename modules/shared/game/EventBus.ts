@@ -35,6 +35,8 @@ export type GameEvents = {
   "game-complete": void; // Epilogue finished: show congratulations
   "game-restart": void; // progress already reset: go back to the title
   "trigger-save": void;
+  "grace-update": { current: number; max: number }; // Grace pips for action stages (max 0 = hidden)
+  "checkpoint-retry": void; // HUD asks the running scene to soft-reset to its last checkpoint
   "game-saved": { success: boolean; timestamp: number };
 
   // Player state & Mobile Virtual Controller inputs
