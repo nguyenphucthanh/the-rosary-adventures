@@ -45,6 +45,7 @@ export type GameEvents = {
   "input-move": { x: number; y: number }; // analog joystick, each axis -1..1, length <= 1
   "input-direction": { direction: "up" | "down" | "left" | "right" | "idle" };
   "input-action": { action: "A" | "B" | "MENU" };
+  "input-action-release": { action: "A" | "B" }; // virtual button lifted (for hold-to-pull etc.)
 };
 
 export const EventBus: Emitter<GameEvents> = mitt<GameEvents>();

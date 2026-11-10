@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import type { CharacterCustomization } from "@/modules/shared/types";
 import { GenesisSaveData, createInitialSaveData } from "@/modules/the-garden-of-eden/types/game";
@@ -88,7 +89,15 @@ export default function TheGardenOfEden() {
       <GameContainer onSceneReady={handleSceneReady} />
 
       <header className="pointer-events-none fixed top-0 inset-x-0 z-30 flex items-center justify-between p-2 sm:p-4">
-        <div className="pointer-events-auto">
+        <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
+          <Link
+            href="/"
+            title="Về trang chủ"
+            aria-label="Về trang chủ"
+            className="retro-btn px-3 py-1.5 flex items-center justify-center text-[16px] leading-none text-amber-300"
+          >
+            🏠
+          </Link>
           {saveInfo && (
             <button
               type="button"

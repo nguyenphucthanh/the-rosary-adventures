@@ -137,8 +137,9 @@ export default function VirtualController({
     EventBus.emit("input-action", { action: act });
   }, []);
 
-  const handleActionRelease = useCallback(() => {
+  const handleActionRelease = useCallback((act: "A" | "B") => {
     setActiveButton(null);
+    EventBus.emit("input-action-release", { action: act });
   }, []);
 
   return (
@@ -159,8 +160,8 @@ export default function VirtualController({
             type="button"
             aria-label="Nút B - Hủy hoặc Menu"
             onPointerDown={() => handleActionPress("B")}
-            onPointerUp={handleActionRelease}
-            onPointerCancel={handleActionRelease}
+            onPointerUp={() => handleActionRelease("B")}
+            onPointerCancel={() => handleActionRelease("B")}
             className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full font-pixel text-[40px] flex items-center justify-center retro-btn-red shadow-xl ${
               activeButton === "B" ? "translate-y-1 scale-95" : ""
             }`}
@@ -178,8 +179,8 @@ export default function VirtualController({
             type="button"
             aria-label="Nút A - Tương tác hoặc Trò chuyện"
             onPointerDown={() => handleActionPress("A")}
-            onPointerUp={handleActionRelease}
-            onPointerCancel={handleActionRelease}
+            onPointerUp={() => handleActionRelease("A")}
+            onPointerCancel={() => handleActionRelease("A")}
             className={`w-16 h-16 sm:w-18 sm:h-18 rounded-full font-pixel text-[48px] flex items-center justify-center retro-btn-green shadow-2xl ${
               activeButton === "A" ? "translate-y-1 scale-95" : ""
             }`}

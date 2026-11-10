@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import { loadGame, saveGame } from "@/modules/the-rosary-adventures/utils/saveManager";
 import type { CharacterCustomization } from "@/modules/shared/types";
@@ -124,6 +125,14 @@ export default function RosaryGame() {
       <header hidden={onTitle} className="pointer-events-none fixed top-0 inset-x-0 z-30 flex items-center justify-between p-2 sm:p-4">
         {/* Pilgrim Profile Button */}
         <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
+          <Link
+            href="/"
+            title="Về trang chủ"
+            aria-label="Về trang chủ"
+            className="retro-btn px-3 py-1.5 flex items-center justify-center text-[16px] leading-none text-amber-300"
+          >
+            🏠
+          </Link>
           {/* Character Quick Profile Badge (Click to open Customizer) */}
           {saveInfo && (
             <button

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import EventBus from "@/modules/shared/game/EventBus";
 import audio from "@/modules/shared/game/audio/AudioManager";
 
@@ -24,6 +24,8 @@ export default function DialogueBox() {
   const [displayedText, setDisplayedText] = useState<string>("");
   const [isTyping, setIsTyping] = useState<boolean>(false);
 
+  const typeTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+
   // Typewriter effect
   useEffect(() => {
     if (!dialogue || currentLineIndex >= dialogue.lines.length) return;
@@ -33,7 +35,7 @@ export default function DialogueBox() {
     setDisplayedText("");
     setIsTyping(true);
 
-    const interval = setInterval(() => {
+    const interval = (typeTimer.current = setInterval(() => {
       currentIndex++;
       setDisplayedText(fullText.slice(0, currentIndex));
       if (fullText[currentIndex - 1] !== " ") audio.typeBlip(dialogue.speaker);
@@ -41,7 +43,7 @@ export default function DialogueBox() {
         setIsTyping(false);
         clearInterval(interval);
       }
-    }, 20);
+    }, 20));
 
     return () => clearInterval(interval);
   }, [dialogue, currentLineIndex]);
@@ -56,6 +58,7 @@ export default function DialogueBox() {
 
     // If still typing, immediately complete the line
     if (isTyping) {
+      if (typeTimer.current) clearInterval(typeTimer.current); // else it keeps typing after skip
       setDisplayedText(dialogue.lines[currentLineIndex]);
       setIsTyping(false);
       return;

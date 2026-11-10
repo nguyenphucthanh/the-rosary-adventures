@@ -36,13 +36,13 @@ const CARD: PixelMap = [
 
 function floorWood() {
   const { canvas, ctx } = makeCanvas(16, 16);
-  rect(ctx, 0, 0, 16, 16, PAL.o);
-  rect(ctx, 0, 0, 16, 1, PAL.O);
-  rect(ctx, 0, 8, 16, 1, PAL.O);
-  rect(ctx, 5, 1, 1, 7, PAL.O);
-  rect(ctx, 12, 9, 1, 7, PAL.O);
-  rect(ctx, 2, 3, 2, 1, PAL.u);
-  rect(ctx, 9, 12, 2, 1, PAL.u);
+  rect(ctx, 0, 0, 16, 16, PAL.Q);
+  rect(ctx, 0, 0, 16, 1, PAL.J);
+  rect(ctx, 0, 8, 16, 1, PAL.J);
+  rect(ctx, 5, 1, 1, 7, PAL.J);
+  rect(ctx, 12, 9, 1, 7, PAL.J);
+  rect(ctx, 2, 3, 2, 1, PAL.floorGrain);
+  rect(ctx, 9, 12, 2, 1, PAL.floorGrain);
   return canvas;
 }
 

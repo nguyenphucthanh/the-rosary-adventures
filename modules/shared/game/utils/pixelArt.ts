@@ -28,6 +28,9 @@ export const PAL: Record<string, string> = {
   Y: "#d97706", // amber / gold shade
   o: "#92400e", // wood
   O: "#5b2a0c", // dark wood
+  Q: "#ebd0a3", // bright floor plank
+  J: "#d1ad79", // bright floor seam
+  floorGrain: "#dfbe8c", // bright floor grain
   u: "#78350f", // sandal / leather
   p: "#fef3c7", // parchment
   P: "#e9cf8f", // parchment shade

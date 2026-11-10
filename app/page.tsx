@@ -16,6 +16,13 @@ const GAMES = [
     tags: ["12 màn chơi", "Giải đố", "Sáng Thế"],
     image: "/games/the-garden-of-eden.png",
   },
+  {
+    href: "/noahs-ark",
+    title: "Noah's Ark",
+    blurb: "Con Tàu Nô-ê, cơn Đại Hồng Thủy và Cầu Vồng Giao Ước qua 8 màn chơi đa thể loại.",
+    tags: ["8 màn chơi", "Đa thể loại", "Sáng Thế"],
+    image: "/games/noahs-ark.png",
+  },
 ];
 
 export default function Home() {
