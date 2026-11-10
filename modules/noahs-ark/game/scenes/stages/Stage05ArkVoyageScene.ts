@@ -6,7 +6,7 @@ import { NOAH_TEXT } from "@/modules/noahs-ark/data/stageText";
 import { tr } from "@/modules/noahs-ark/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
 
-const W = 320;
+const W = 180; // narrow portrait deck: fits a 360px phone at the normal zoom 2, so details stay big
 const H = 240;
 const CARES_PER_LEG = 6;
 // per leg: ms between big waves, wave strength, how many animals may call at once, ms between new calls
@@ -17,15 +17,15 @@ const CRATE_W = 0.4; // tilt contributed by one crate on a side
 const DANGER = 0.85; // |tilt| above this is the red zone
 const DANGER_FAIL_MS = 6000;
 const PANIC_MS = 50000;
-const AISLE_L = 112;
-const AISLE_R = 208;
+const AISLE_L = 50;
+const AISLE_R = 130;
 const CRATE_Y = [118, 170];
-const STALLS = [[30, 80], [30, 125], [30, 170], [290, 80], [290, 125], [290, 170]] as const;
+const STALLS = [[26, 80], [26, 125], [26, 170], [154, 80], [154, 125], [154, 170]] as const;
 const ANIMALS = ["noah_sheep", "noah_rabbit", "noah_turtle", "noah_deer", "noah_zebra", "noah_lion"];
 const ITEMS = [
-  { key: "hay", tex: "noah_hay", need: "noah_need_hay", x: 120, label: "[A] Lấy Bó Cỏ Khô" },
-  { key: "lamp", tex: "noah_lamp", need: "noah_need_lamp", x: 160, label: "[A] Lấy Đèn Dầu" },
-  { key: "blanket", tex: "noah_blanket", need: "noah_need_blanket", x: 200, label: "[A] Lấy Chăn Rơm" },
+  { key: "hay", tex: "noah_hay", need: "noah_need_hay", x: 60, label: "[A] Lấy Bó Cỏ Khô" },
+  { key: "lamp", tex: "noah_lamp", need: "noah_need_lamp", x: 90, label: "[A] Lấy Đèn Dầu" },
+  { key: "blanket", tex: "noah_blanket", need: "noah_need_blanket", x: 120, label: "[A] Lấy Chăn Rơm" },
 ] as const;
 
 const NEED_NAMES = ["BÓ CỎ", "ĐÈN DẦU", "CHĂN RƠM"];
@@ -60,7 +60,7 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
     this.worldWidth = W;
     this.worldHeight = H;
     this.stageKey = "stage_05_lenh_denh_bien_nuoc";
-    this.spawn = [160, 200];
+    this.spawn = [90, 200];
   }
 
   create() {
@@ -71,22 +71,6 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
     this.leg = 0;
     this.intro = { illustration: "stage5", speaker: NOAH_TEXT.s5.speaker, lines: NOAH_TEXT.s5.intro.map(tr) };
     super.create();
-  }
-
-  /** The whole deck must be visible to watch every stall: pick the largest integer zoom (1 on narrow phones) that fits the room. */
-  protected setupCamera() {
-    super.setupCamera();
-    const cam = this.cameras.main;
-    const fit = () => {
-      const { width, height } = this.scale.gameSize;
-      const z = Math.max(1, Math.min(Math.floor(width / W), Math.floor(height / H), 4));
-      cam.setZoom(z);
-      const w = W * z, h = H * z;
-      cam.setViewport(Math.floor((width - w) / 2), Math.floor((height - h) / 2), w, h);
-    };
-    fit();
-    this.scale.on("resize", fit);
-    this.events.once("shutdown", () => this.scale.off("resize", fit));
   }
 
   protected buildWorld() {
@@ -106,24 +90,24 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
     STALLS.forEach(([x, y], i) => {
       this.add.image(x, y, "noah_stall").setDepth(DEPTH.RUG);
       this.add.image(x, y + 12, ANIMALS[i], 0).setOrigin(0.5, 1).setDepth(y + 12);
-      const ix = x < W / 2 ? x + 36 : x - 36;
+      const ix = x < W / 2 ? x + 32 : x - 32;
       this.interactables.push({ x: ix, y, r: 22, label: () => { const n = this.needs[i]; return n ? (this.held === n.item ? "[A] Chăm sóc con thú" : `Cần ${NEED_NAMES[n.item]} – lấy ở kệ trên`) : ""; }, active: () => this.running && !!this.needs[i], act: () => this.care(i) });
     });
     // supplies shelf
-    this.add.rectangle(100, 28, 120, 14, 0x5b2a0c).setOrigin(0).setDepth(DEPTH.RUG + 1);
+    this.add.rectangle(45, 28, 90, 14, 0x5b2a0c).setOrigin(0).setDepth(DEPTH.RUG + 1);
     ITEMS.forEach((it, k) => {
       this.pickup(it.x, 44, it.tex);
       this.interactables.push({ x: it.x, y: 40, r: 18, label: it.label, active: () => this.running && this.held !== k, act: () => this.take(k) });
     });
     // lamps on the walls
-    for (const [x, y] of [[70, 34], [250, 34], [70, 210], [250, 210]]) {
+    for (const [x, y] of [[40, 34], [140, 34], [40, 210], [140, 210]]) {
       const g = this.add.image(x, y, "noah_glow_gold").setDepth(DEPTH.LIGHT).setAlpha(0.35);
       this.tweens.add({ targets: g, alpha: 0.5, duration: 1400 + x, yoyo: true, repeat: -1, ease: "Stepped", easeParams: [3] });
       this.add.image(x, y + 6, "noah_lamp").setOrigin(0.5, 1).setDepth(DEPTH.WALL - 2);
     }
     // the family keeps watch
-    this.add.sprite(60, 205, "noah_wife").setOrigin(0.5, 1).setDepth(205);
-    this.add.sprite(262, 200, "noah_noah").setOrigin(0.5, 1).setDepth(200);
+    this.add.sprite(40, 205, "noah_wife").setOrigin(0.5, 1).setDepth(205);
+    this.add.sprite(140, 200, "noah_noah").setOrigin(0.5, 1).setDepth(200);
     // crates
     CRATE_Y.forEach((y, i) => {
       this.crates.push(this.add.image(this.sides[i] < 0 ? AISLE_L : AISLE_R, y, "noah_crate").setOrigin(0.5, 1).setDepth(y));
@@ -158,7 +142,7 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
     });
     this.needs.forEach((nd, i) => { nd?.bubble.destroy(); this.needs[i] = null; });
     this.running = true;
-    this.saveCheckpoint(`leg${n}`, n, 160, 200);
+    this.saveCheckpoint(`leg${n}`, n, 90, 200);
   }
 
   private take(k: number) {
