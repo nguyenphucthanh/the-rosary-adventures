@@ -7,7 +7,9 @@ import { tr } from "@/modules/noahs-ark/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
 
 const W = 240;
-const H = 420;
+const EXTRA = 110; // open sea behind the start so the D-pad / A-B buttons never cover the ark
+const H = 420 + EXTRA;
+const PLAY_H = 420; // ark stays inside the original course
 const START: [number, number] = [120, 388];
 const STEER = 350; // px/s² from the rudder
 const DRAG = 4; // 1/s
@@ -83,7 +85,7 @@ export class Stage06AraratWindScene extends BaseNoahScene {
     for (const [x, y, w, h] of CURRENT) zones.fillStyle(0x0c4a6e, 0.28).fillRect(x, y, w, h);
     for (const g of GUSTS) zones.fillStyle(0xe2e8f0, 0.2).fillRect(...g.r);
     this.fx = this.add.graphics().setDepth(DEPTH.RUG + 1);
-    this.label = this.add.text(W / 2, 4, "", { fontFamily: "Dearpix, monospace", fontSize: "10px", color: "#fde68a", backgroundColor: "#0f172acc", padding: { x: 3, y: 1 }, resolution: 4 }).setOrigin(0.5, 0).setDepth(DEPTH.UI).setScrollFactor(0);
+    this.label = this.add.text(W / 2, 4, "", { fontFamily: "Dearpix, monospace", fontSize: "10px", color: "#fde68a", backgroundColor: "#0f172acc", padding: { x: 3, y: 1 }, resolution: 4 }).setOrigin(0.5, 0).setDepth(DEPTH.UI);
   }
 
   protected onStageStart() {
@@ -130,6 +132,8 @@ export class Stage06AraratWindScene extends BaseNoahScene {
     ark.setFrame(this.sail ? 1 : 0).setAlpha(this.invuln > 0 && ((this.time.now / 100) | 0) % 2 ? 0.4 : 1);
     this.swirlS.forEach((s) => s.setFrame(((this.time.now / 250) | 0) % 2));
     this.drawFx();
+    const v = this.cameras.main.worldView;
+    this.label?.setPosition(Math.round(v.centerX), Math.round(v.y) + this.safeInsetTop() + 4);
     this.label?.setText(this.time.now < this.toast.until ? this.toast.text : `Buồm: ${this.sail ? "MỞ" : "THU"}  –  Hải đăng ${this.lit.filter(Boolean).length}/3`);
     if (!this.running || this.introActive || this.dialogueOpen) return;
 
@@ -145,7 +149,7 @@ export class Stage06AraratWindScene extends BaseNoahScene {
     this.v.x += (ax - this.v.x * DRAG) * dt;
     this.v.y += (ay - this.v.y * DRAG) * dt;
     ark.x = Phaser.Math.Clamp(ark.x + this.v.x * dt, 12, W - 12);
-    ark.y = Phaser.Math.Clamp(ark.y + this.v.y * dt, 20, H - 20);
+    ark.y = Phaser.Math.Clamp(ark.y + this.v.y * dt, 20, PLAY_H - 20);
     ark.setPosition(Math.round(ark.x), Math.round(ark.y));
 
     // reefs and whirlpools hurt (the ark's hull is 14x26 around its centre)

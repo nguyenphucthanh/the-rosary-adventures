@@ -73,6 +73,22 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
     super.create();
   }
 
+  /** The whole deck must be visible to watch every stall: pick the largest integer zoom (1 on narrow phones) that fits the room. */
+  protected setupCamera() {
+    super.setupCamera();
+    const cam = this.cameras.main;
+    const fit = () => {
+      const { width, height } = this.scale.gameSize;
+      const z = Math.max(1, Math.min(Math.floor(width / W), Math.floor(height / H), 4));
+      cam.setZoom(z);
+      const w = W * z, h = H * z;
+      cam.setViewport(Math.floor((width - w) / 2), Math.floor((height - h) / 2), w, h);
+    };
+    fit();
+    this.scale.on("resize", fit);
+    this.events.once("shutdown", () => this.scale.off("resize", fit));
+  }
+
   protected buildWorld() {
     registerStageTextures(this);
     registerVoyageTextures(this);

@@ -218,12 +218,12 @@ export class Stage07OliveDoveScene extends BaseNoahScene {
   private draw() {
     const g = this.bar?.clear();
     if (!g) return;
-    // pin HUD to the visible top of the screen, not the map
-    const v = this.cameras.main.worldView, top = Math.round(v.y);
+    // pin HUD to the camera's safe area (below the top buttons), not to the map
+    const v = this.cameras.main.worldView, top = Math.round(v.y) + this.safeInsetTop();
     g.setPosition(0, top);
-    this.label?.setPosition(Math.round(v.centerX), top + 4);
+    this.label?.setPosition(Math.round(v.centerX), top + 14);
     if (this.leg === 0 && this.running) {
-      const w = 80, x = 6, y = 6;
+      const w = 80, x = Math.round(this.cameras.main.worldView.centerX - 40), y = 6;
       g.fillStyle(0x0f172a, 1).fillRect(x - 2, y - 2, w + 4, 8);
       g.fillStyle(this.stamina > 40 ? 0xfbbf24 : 0xdc2626, 1).fillRect(x, y, Math.round((w * Math.max(0, this.stamina)) / 100), 4);
     }

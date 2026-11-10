@@ -41,6 +41,15 @@ Each stage is a `BaseMysteryScene` subclass in `modules/the-rosary-adventures/ga
 
 A visual change is done when you have looked at it rendered at game zoom beside the player (`npm run dev`, or render the canvas to PNG if no browser is available) and it matches the grid. `drawMap()` throws on ragged rows or unknown palette keys — a clean load is the first check, not the last. Then `npx tsc --noEmit` and `npx eslint game` pass.
 
+## Safe area for interactive things and HUD
+
+The page overlays the canvas with a top bar + HUD buttons (top ≈ 108px of screen) and, on mobile, the D-pad / A-B row and instruction row (bottom ≈ 200px). Anything that is not a static detail — interactive objects, pickups, NPCs to talk to, start positions of vehicles/players, hints, progress bars, labels — must sit inside the safe area those overlays leave uncovered.
+
+- HUD (hint, progress bar, counters): pin to the **camera**, not the map — position from `cameras.main.worldView` each frame, offset by `safeInsetTop()` (BaseNoahScene). Never `y = 4` in world space or `setScrollFactor(0)` under zoom.
+- Interactive objects and start positions: keep them away from the map's top and bottom edges by `safeInsetTop()` / `safeInsetBottom()` world px; if the course needs to start at an edge, extend the world with open space (e.g. extra sea behind the boat) so the camera can scroll it clear of the controls.
+- Rooms that must be fully observed must fit the screen at the chosen integer zoom on phones and desktop (drop to zoom 1 rather than crop).
+- Only static, non-interactive decoration may sit under the overlays.
+
 ## Tone
 
 Vietnamese first (EN supported). Reverent, warm, simple words for children; Scripture quotes cite the reference (e.g. `Lc 1, 26-38`).

@@ -267,6 +267,23 @@ export class BaseNoahScene extends Phaser.Scene {
     this.events.once("shutdown", () => this.scale.off("resize", applyZoom));
   }
 
+  /** Screen px covered by the top bar + HUD buttons / by the D-pad + A-B row. Keep interactive things and HUD out of them. */
+  protected static readonly SAFE_TOP_PX = 108;
+  protected static readonly SAFE_BOTTOM_PX = 200;
+
+  /** World px the top of the visible map must be pushed down to clear the top buttons (0 when the map is already below them). */
+  protected safeInsetTop(): number {
+    const cam = this.cameras.main;
+    return Math.ceil(Math.max(0, BaseNoahScene.SAFE_TOP_PX - cam.y) / cam.zoom);
+  }
+
+  /** World px at the bottom of the visible map hidden behind the D-pad / A-B row. */
+  protected safeInsetBottom(): number {
+    const cam = this.cameras.main;
+    const bottomGap = this.scale.gameSize.height - (cam.y + cam.height);
+    return Math.ceil(Math.max(0, BaseNoahScene.SAFE_BOTTOM_PX - bottomGap) / cam.zoom);
+  }
+
   protected dialogueOpen = false;
   private dialogueClosedAt = 0;
 
