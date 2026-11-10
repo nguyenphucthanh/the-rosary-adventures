@@ -90,8 +90,8 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
     STALLS.forEach(([x, y], i) => {
       this.add.image(x, y, "noah_stall").setDepth(DEPTH.RUG);
       this.add.image(x, y + 12, ANIMALS[i], 0).setOrigin(0.5, 1).setDepth(y + 12);
-      const ix = x < W / 2 ? x + 36 : x - 36;
-      this.interactables.push({ x: ix, y, r: 16, label: () => { const n = this.needs[i]; return n ? (this.held === n.item ? "[A] Chăm sóc con thú" : `Cần ${NEED_NAMES[n.item]} – lấy ở kệ trên`) : ""; }, active: () => this.running && !!this.needs[i], act: () => this.care(i) });
+      this.interactables.push({ x, y, r: 30, // centred on the stall: works from inside the straw cage or anywhere near it; nearest one wins
+         label: () => { const n = this.needs[i]; return n ? (this.held === n.item ? "[A] Chăm sóc con thú" : `Cần ${NEED_NAMES[n.item]} – lấy ở kệ trên`) : ""; }, active: () => this.running && !!this.needs[i], act: () => this.care(i) });
     });
     // supplies shelf
     this.add.rectangle(45, 28, 90, 14, 0x5b2a0c).setOrigin(0).setDepth(DEPTH.RUG + 1);
