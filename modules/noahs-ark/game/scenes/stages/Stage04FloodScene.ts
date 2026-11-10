@@ -10,7 +10,7 @@ const FLOOR_H = 320; // portrait: short walk between table and hazards
 const H = FLOOR_H + 48; // extra bottom wall: the on-screen controls row covers the lowest ~40px
 const WAVE_MS = 40000;
 const LEAKS: [number, number][] = [[16, 56], [16, 112], [16, 168], [16, 224], [224, 56], [224, 112], [224, 168], [224, 224]];
-const TOP = 32; // thick top wall keeps windows clear of the on-screen controls row
+const TOP = 56; // thick top wall keeps windows clear of the on-screen controls row
 const WINDOWS: [number, number][] = [[48, TOP], [120, TOP], [192, TOP], [48, FLOOR_H - 14], [192, FLOOR_H - 14]];
 const PUDDLES: [number, number][] = [[64, 96], [176, 210], [96, 256]];
 // per wave: how many hazards appear, and the gap between them (ms)

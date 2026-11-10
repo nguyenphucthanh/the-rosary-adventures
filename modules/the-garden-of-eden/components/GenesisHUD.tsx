@@ -46,14 +46,6 @@ export default function GenesisHUD({ saveData }: { saveData: GenesisSaveData | n
         <div className="flex gap-1">
           <button
             type="button"
-            onClick={() => EventBus.emit("checkpoint-retry")}
-            title="Thử lại từ Checkpoint gần nhất"
-            className="retro-btn px-3 py-1.5 font-pixel text-[14px] text-amber-300"
-          >
-            ↺ THỬ LẠI
-          </button>
-          <button
-            type="button"
             onClick={() => setIsOpen(true)}
             title="Xem Cuộn Sách Sáng Thế"
             className="retro-frame px-3 py-1.5 bg-slate-950/90 flex items-center gap-2 transition-transform hover:scale-105 active:scale-95"

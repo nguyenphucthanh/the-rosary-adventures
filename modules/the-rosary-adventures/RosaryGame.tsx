@@ -33,7 +33,6 @@ export default function RosaryGame() {
   const [currentScene, setCurrentScene] = useState<string>("Đang khởi tạo...");
   const [saveInfo, setSaveInfo] = useState<SaveData | null>(null);
   const [isTouchDevice, setIsTouchDevice] = useState<boolean>(false);
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [showCharacterModal, setShowCharacterModal] = useState<boolean>(false);
   const [hasExistingSave, setHasExistingSave] = useState<boolean>(false);
   const muted = useSyncExternalStore(audio.subscribe, () => audio.muted, () => false);
@@ -58,12 +57,6 @@ export default function RosaryGame() {
       setShowCharacterModal(true);
     }
 
-    // Lắng nghe thay đổi trạng thái fullscreen
-    const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
-    };
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-
     // Lắng nghe sự kiện hoàn thành mầu nhiệm để cập nhật dữ liệu save
     const handleMysteryCompleted = () => {
       const current = loadGame();
@@ -74,7 +67,6 @@ export default function RosaryGame() {
 
     return () => {
       coarse.removeEventListener("change", syncTouch);
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
       EventBus.off("mystery-completed", handleMysteryCompleted);
       EventBus.off("game-restart", handleMysteryCompleted);
     };
@@ -96,19 +88,6 @@ export default function RosaryGame() {
     EventBus.emit("character-updated", { customization });
   };
 
-  const toggleFullscreen = async () => {
-    if (!document.fullscreenElement) {
-      try {
-        await document.documentElement.requestFullscreen();
-      } catch (err) {
-        console.warn("Fullscreen request error:", err);
-      }
-    } else {
-      if (document.exitFullscreen) {
-        await document.exitFullscreen();
-      }
-    }
-  };
 
   const handleSceneReady = useCallback((sceneKey: string) => {
     setCurrentScene(sceneKey);
@@ -147,7 +126,6 @@ export default function RosaryGame() {
               <span className="font-pixel text-[13px] sm:text-[14px] text-amber-100">
                 {saveInfo.player.customization.name}
               </span>
-              <span className="text-[12px] text-amber-200">✏️</span>
             </button>
           )}
         </div>
@@ -163,15 +141,6 @@ export default function RosaryGame() {
             className="retro-btn px-3 py-1.5 text-[12px] sm:text-[13px] text-amber-300"
           >
             {muted ? "🔇" : "🔊"}
-          </button>
-          {/* Fullscreen Button */}
-          <button
-            type="button"
-            onClick={toggleFullscreen}
-            title={isFullscreen ? "Thoát toàn màn hình" : "Toàn màn hình"}
-            className="retro-btn px-3 py-1.5 text-[12px] sm:text-[13px] text-amber-300"
-          >
-            {isFullscreen ? "THOÁT" : "TOÀN MÀN HÌNH"}
           </button>
         </div>
       </header>
