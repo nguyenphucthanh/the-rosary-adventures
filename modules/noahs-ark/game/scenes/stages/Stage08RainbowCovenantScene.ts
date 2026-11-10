@@ -232,6 +232,8 @@ export class Stage08RainbowCovenantScene extends BaseNoahScene {
   update(time?: number, delta = 16) {
     super.update(time, delta);
     this.heldImg?.setPosition(Math.round(this.player.x), Math.round(this.player.y - 18));
+    const v = this.cameras.main.worldView; // pin the hint to the camera's safe area, not the map
+    this.label?.setPosition(Math.round(v.centerX), Math.round(v.y) + this.safeInsetTop() + 4);
     this.label?.setText(
       this.phase === 1 ? `Đá tinh tuyền ${this.got}/${STONES.length}${this.plank ? " – đang cầm ván gỗ" : ""}` : this.lit ? `Tia sáng: ${NOAH_TEXT.s8.colours[this.lit - 1]}` : "Hãy xoay các Trụ Tinh Thể"
     );
