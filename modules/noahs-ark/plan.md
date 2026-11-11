@@ -103,37 +103,87 @@ export interface NoahSaveData {
 * [x] **Màn Mở Đầu (`PrologueScene`):** *Cơn Mưa Chiều & Mô Hình Con Tàu Gỗ (`St 6, 8-9`; `1 Pr 3, 20`)* ([Chi tiết](./scripts.md#màn-mở-đầu-cơn-mưa-chiều--mô-hình-con-tàu-gỗ-st-6-8-9-1-pr-3-20))
   * [x] 🎨 Tranh mở màn: Bên khung cửa sổ mưa rơi lất phất, Lữ khách nhìn chiếc cầu vồng ló dạng sau mưa và mở trang sách Sáng Thế chương 6 cạnh mô hình con tàu gỗ nhỏ.
   * [x] Bản đồ & Gameplay: Phòng nhỏ ngày mưa, đóng cửa sổ chắn mưa tạt, ghép 3 mảnh ghép gỗ bách của mô hình tàu (*Đức Tin – Vâng Phục – Cứu Độ*) và nhận **Hải Đồ Giao Ước (0/8 Ấn Dấu)**.
+  * [x] 🎵 Âm thanh & Nhạc nền:
+    * **Nhạc nền (BGM):** `lullaby` (Music-box lullaby 70 BPM, C major) — ấm áp, dịu êm bên khung cửa sổ ngày mưa rơi.
+    * **Âm nền (Ambience):** `["wind", "crickets"]` — tiếng gió mưa ngoài hiên & dế đêm tĩnh mịch.
+    * **Mặt sàn (Surface):** `wood` (sàn gỗ trong phòng).
+    * **Hiệu ứng (SFX):** `bless` (lau cửa sổ bừng sáng cầu vồng), `pickup` (nhặt mảnh gỗ mô hình), `chime` (ghép đúng mảnh gỗ), `wrong` (ghép sai thứ tự).
 
 ### Giai đoạn 4: Phần 1 – Đóng Tàu & Tập Hợp Muôn Loài (`Stages 1–4`)
 * [x] **Stage 1 (`Stage01RighteousNoahScene`):** *Người Công Chính Giữa Thế Gian (`St 6, 5-13`)* ([Chi tiết](./scripts.md#stage-1-người-công-chính-giữa-thế-gian-st-6-5-13))
   * [x] 🎨 Tranh mở màn: Giữa vùng đất tối tăm ồn ào đầy khói đen bất chính, ông Nô-ê quỳ cầu nguyện dưới cột sáng vàng ấm áp từ trời cao.
   * [x] Gameplay (**Lantern Purity & Shadow Stealth**): Cầm Đèn Công Chính đi qua 3 khu vực làng mạc đang chìm trong Sương Đen Bạo Lực, tránh vùng quét của Bóng Tối Xấu Xa, thắp sáng 4 Bàn Thờ Gia Đình để đến nơi lắng nghe Lời Chúa phán dạy ông Nô-ê.
+  * [x] 🎵 Âm thanh & Nhạc nền:
+    * **Nhạc nền (BGM):** `sorrowful` (Slow, prayerful contrition 56 BPM, A minor) — trầm lắng, thiết tha cầu nguyện giữa thế gian u tối.
+    * **Âm nền (Ambience):** `["wind", "crickets"]` — gió sa mạc lạnh lẽo & tiếng dế đêm hoang vu.
+    * **Mặt sàn (Surface):** `sand` (bãi đất cát bụi làng mạc).
+    * **Hiệu ứng (SFX):** `bless` (thắp sáng Đá Lương Tâm), `wrong` (bóng tối chạm trúng / gió tắt đèn), `chime` (vượt qua khu vực an toàn).
 * [x] **Stage 2 (`Stage02GopherArkScene`):** *Bản Vẽ Gỗ Bách & Nhựa Thông (`St 6, 14-16`)* ([Chi tiết](./scripts.md#stage-2-bản-vẽ-gỗ-bách--nhựa-thông-st-6-14-16))
   * [x] 🎨 Tranh mở màn: Đại công trường đóng tàu khổng lồ với khung sườn gỗ bách 3 tầng (dài 300 thước, rộng 50 thước, cao 30 thước), ông Nô-ê và 3 người con đang phết nhựa thông chống thấm.
   * [x] Gameplay (**Blueprint Sokoban & Crafting Puzzle**): Thu thập và đẩy các Kiện Gỗ Bách và Thùng Nhựa Thông trên hệ thống ròng rọc/đường trượt để lắp khít **3 Tầng Khung Tàu** (Tầng Đáy – Tầng Giữa – Tầng Thượng có cửa sổ) đúng theo bản vẽ Chúa truyền.
+  * [x] 🎵 Âm thanh & Nhạc nền:
+    * **Nhạc nền (BGM):** `crafting` (Ark Carpentry & Blueprint 108 BPM, G major) — cần mẫn, nhịp nhàng tiếng đục gỗ và lắp ráp khung sườn.
+    * **Âm nền (Ambience):** `["wind"]` — gió lộng qua xưởng đóng tàu ngoài trời.
+    * **Mặt sàn (Surface):** `wood` (sàn ván gỗ bách).
+    * **Hiệu ứng (SFX):** `pickup` (đẩy kiện gỗ & nhựa thông), `chime` (khớp mộng gỗ vào khung), `bless` (hoàn tất một tầng tàu).
 * [x] **Stage 3 (`Stage03AnimalPairsScene`):** *Muôn Thú Từng Đôi Lên Tàu (`St 6, 19-22; 7, 1-9`)* ([Chi tiết](./scripts.md#stage-3-muôn-thú-từng-đôi-lên-tàu-st-6-19-22-7-1-9))
   * [x] 🎨 Tranh mở màn: Cầu dẫn lớn lên cửa tàu Nô-ê với từng cặp voi, hươu cao cổ, sư tử, chiên con và đàn chim nối đuôi nhau tiến vào trong ánh hoàng hôn trước cơn bão.
   * [x] Gameplay (**Pair Matching & Herding Routing Puzzle**): Tìm các cặp thú bị lạc quanh thung lũng, mở/đóng các cổng rào gỗ để dẫn từng đôi thú vào đúng khoang tàu quy định (Khoang Thú Ăn Cỏ, Khoang Thú Lớn, Khoang Chim Trời) mà không để thú dữ cắt ngang đường thú hiền (nguyên tắc *Sông Nước – Cừu – Sói*).
+  * [x] 🎵 Âm thanh & Nhạc nền:
+    * **Nhạc nền (BGM):** `animals` (Animal March Two-by-Two 112 BPM, F major) — vui tươi, ngộ nghĩnh bước chân từng đôi muôn loài.
+    * **Âm nền (Ambience):** `["crowd", "birds"]` — tiếng muôn thú ríu rít xôn xao & tiếng chim gọi bầy.
+    * **Mặt sàn (Surface):** `wood` (cầu gỗ & sàn boong tàu).
+    * **Hiệu ứng (SFX):** `pickup` (dẫn từng đôi thú), `door` (đóng/mở cổng rào), `chime` (đôi thú vào đúng khoang an toàn), `wrong` (thú hoảng sợ / sai luồng).
 * [x] **Stage 4 (`Stage04FloodDoorsScene`):** *Cánh Cửa Đóng Lại & Bốn Mươi Đêm Mưa (`St 7, 10-16`)* ([Chi tiết](./scripts.md#stage-4-cánh-cửa-đóng-lại--bốn-mươi-đêm-mưa-st-7-10-16))
   * [x] 🎨 Tranh mở màn: Mưa thác đổ từ bầu trời đen kịt và các mạch nước vực thẳm phun trào; một bàn tay ánh sáng của Thiên Chúa từ bên ngoài khép chặt cánh cửa lớn của con tàu.
   * [x] Gameplay (**Time-Management Hull Sealing Defense**): Mưa lớn bắt đầu dội xuống! Trong thời gian đếm ngược 3 đợt sóng dâng, chạy khắp boong tàu mang Nhựa Thông và Chốt Gỗ bịt kín các điểm rò nước, khóa chặt 6 cửa thông gió trước khi mực nước chạm đỉnh và Chúa đóng cửa tàu.
+  * [x] 🎵 Âm thanh & Nhạc nền:
+    * **Nhạc nền (BGM):** `storm` (Deluge & 40 Nights of Rain 124 BPM, D minor) — dồn dập, căng thẳng, tiếng mưa bão cuồn cuộn và bịt kín rò rỉ.
+    * **Âm nền (Ambience):** `["wind"]` — gió bão thét gào ngoài mạn tàu.
+    * **Mặt sàn (Surface):** `wood` (sàn boong tàu sũng nước).
+    * **Hiệu ứng (SFX):** `pickup` (nhặt chốt gỗ & nhựa thông), `chime` (bịt kín điểm rò nước), `wrong` (nước dâng cao báo động), `door` (cánh cửa lớn của Chúa đóng lại).
 
 ### Giai đoạn 5: Phần 2 – Vượt Đại Hồng Thủy & Cầu Vồng Giao Ước (`Stages 5–8`)
 * [x] **Stage 5 (`Stage05ArkVoyageScene`):** *Lênh Đênh Trên Biển Nước Mênh Mông (`St 7, 17-24`)* ([Chi tiết](./scripts.md#stage-5-lênh-đênh-trên-biển-nước-mênh-mông-st-7-17-24))
   * [x] 🎨 Tranh mở màn: Con tàu Nô-ê đơn độc nhưng vững chãi nổi trên biển nước bao la che phủ mọi đỉnh núi cao; bên trong khoang tàu ấm áp ánh đèn dầu, gia đình Nô-ê đang chăm sóc muôn loài.
   * [x] Gameplay (**Ark Balance & Caretaking Multitask**): Khi sóng lớn đánh nghiêng mạn tàu (thanh cân bằng nghiêng Trái/Phải), người chơi phải dịch chuyển các Kiện Lương Thực đối trọng để giữ tàu cân bằng, đồng thời mang cỏ khô/hạt giống và thắp đèn trấn an 6 khoang thú đang hoảng sợ.
+  * [x] 🎵 Âm thanh & Nhạc nền:
+    * **Nhạc nền (BGM):** `voyage` (Endless Ocean Voyage 84 BPM, G major) — êm ả, nhấp nhô sóng nước bao la dưới vòm trời đêm.
+    * **Âm nền (Ambience):** `["wind"]` — gió biển đại dương thổi dịu dàng.
+    * **Mặt sàn (Surface):** `wood` (sàn khoang tàu ấm áp).
+    * **Hiệu ứng (SFX):** `pickup` (chuyển kiện lương thực đối trọng), `chime` (giữ thăng bằng mạn tàu), `bless` (cho thú ăn & thắp đèn trấn an), `wrong` (tàu nghiêng lắc mạnh).
 * [x] **Stage 6 (`Stage06AraratWindScene`):** *Ngọn Gió Của Chúa & Đỉnh Núi A-ra-rát (`St 8, 1-5`)* ([Chi tiết](./scripts.md#stage-6-ngọn-gió-của-chúa--đỉnh-núi-a-ra-rát-st-8-1-5))
   * [x] 🎨 Tranh mở màn: Thiên Chúa nhớ đến ông Nô-ê; một làn gió lớn thổi tan mây đen, mực nước rút dần để lộ chỏm núi A-ra-rát hùng vĩ nơi con tàu đang từ từ neo đậu.
   * [x] Gameplay (**Current Navigation & Reef Avoidance**): Điều khiển bánh lái và giương buồm đón **Luồng Gió Của Chúa**, dẫn con tàu vượt qua mê cung các mỏm đá ngầm mới nhô lên và xoáy nước rút để cập bến an toàn tại đỉnh núi A-ra-rát.
+  * [x] 🎵 Âm thanh & Nhạc nền:
+    * **Nhạc nền (BGM):** `luminous` (Luminous & God's Wind 100 BPM, D major) — thanh thoát, sảng khoái luồng gió mới thổi tan mây đen.
+    * **Âm nền (Ambience):** `["wind"]` — ngọn gió của Chúa thổi mạnh mẽ trên sườn núi A-ra-rát.
+    * **Mặt sàn (Surface):** `stone` (mỏm đá ngầm & vách núi nhô lên).
+    * **Hiệu ứng (SFX):** `whoosh` (đón đúng luồng gió lướt nhanh), `chime` (cập bến an toàn đỉnh núi), `wrong` (va chạm đá ngầm).
 * [x] **Stage 7 (`Stage07OliveDoveScene`):** *Cánh Quạ & Chim Bồ Câu Ngậm Nhành Ô-liu (`St 8, 6-12`)* ([Chi tiết](./scripts.md#stage-7-cánh-quạ--chim-bồ-câu-ngậm-nhành-ô-liu-st-8-6-12))
   * [x] 🎨 Tranh mở màn: Khung cửa sổ tầng thượng mở ra bầu trời bình minh trong trẻo; chú chim bồ câu trắng đang bay về phía bàn tay ông Nô-ê, mỏ ngậm một nhành lá ô-liu xanh tươi lấp lánh sương sớm.
   * [x] Gameplay (**3-Phase Flight Scouting Action**): Điều khiển hành trình bay qua 3 đợt thả chim: Đợt 1 (Chim Quạ & Bồ Câu lần 1 bay khảo sát tìm chỗ đậu giữa mặt nước), Đợt 2 (Chim Bồ Câu lần 2 vượt các luồng gió lốc tìm cây ô-liu vừa nhú trên sườn đồi và mang nhành lá xanh về tàu), Đợt 3 (Bay mở đường báo hiệu mặt đất đã khô ráo).
+  * [x] 🎵 Âm thanh & Nhạc nền:
+    * **Nhạc nền (BGM):** `luminous` (Dove Flight Scouting 100 BPM, D major) — bay bổng, trong sáng, hy vọng hồi sinh sau bão giông.
+    * **Âm nền (Ambience):** `["birds", "wind"]` — tiếng bồ câu vỗ cánh & gió mát ban mai.
+    * **Mặt sàn (Surface):** `grass` (nhành lá ô-liu & sườn đồi xanh tươi).
+    * **Hiệu ứng (SFX):** `pickup` (ngậm nhành lá ô-liu xanh), `whoosh` (vỗ cánh lượn qua luồng gió), `bless` (bồ câu mang bình an về tàu).
 * [x] **Stage 8 (`Stage08RainbowCovenantScene`):** *Bàn Thờ Tạ Ơn & Cầu Vồng Giao Ước (`St 8, 15 – 9, 17`)* ([Chi tiết](./scripts.md#stage-8-bàn-thờ-tạ-ơn--cầu-vồng-giao-ước-st-8-15--9-17))
   * [x] 🎨 Tranh mở màn: Trên sườn núi A-ra-rát xanh tươi, gia đình Nô-ê quỳ quanh bàn thờ đá dâng lễ tạ ơn, muôn thú tỏa đi khắp mặt đất, và trên bầu trời mây trắng hiện lên **Cầu Vồng Bảy Sắc** rực rỡ nối liền trời đất.
   * [x] Gameplay (**Altar Building & 7-Color Prism Harmony Finale**): Pha 1 thu thập 12 viên đá tinh tuyền dựng Bàn Thờ Tạ Ơn; Pha 2 xoay các Trụ Tinh Thể Giọt Mưa để tách tia nắng mặt trời thành đúng **7 Sắc Cầu Vồng (Đỏ – Cam – Vàng – Lục – Lam – Chàm – Tím)** chiếu vào Vòm Cung Giao Ước.
+  * [x] 🎵 Âm thanh & Nhạc nền:
+    * **Nhạc nền (BGM):** `glorious` (Glorious Triumphant Covenant 116 BPM, C major) — khải hoàn, huy hoàng hợp xướng arpeggio mừng Giao Ước Cầu Vồng.
+    * **Âm nền (Ambience):** `["birds", "wind"]` — muôn chim hót vang & gió núi A-ra-rát trong lành.
+    * **Mặt sàn (Surface):** `stone` (bàn thờ đá & sườn núi A-ra-rát).
+    * **Hiệu ứng (SFX):** `pickup` (thu thập 12 viên đá bàn thờ), `chime` (xoay đúng lăng kính giọt mưa), `bless` / `complete` (7 sắc cầu vồng bừng sáng nối trời đất).
 
 ### Giai đoạn 6: Khúc Vĩ Thanh (Epilogue) & Kiểm định Chất lượng
 * [x] **Màn Kết (`EpilogueScene`):** *Con Tàu Hội Thánh & Nhành Ô-liu Bình An (`St 9, 13; 1 Pr 3, 20-21`)* ([Chi tiết](./scripts.md#màn-kết-con-tàu-hội-thánh--nhành-ô-liu-bình-an-st-9-13-1-pr-3-20-21))
   * [x] 🎨 Tranh mở màn: Căn phòng nhỏ sau cơn mưa ngập tràn ánh nắng cầu vồng, mô hình tàu Nô-ê đặt cạnh cuốn Kinh Thánh và Chuỗi Mân Côi.
   * [x] Gameplay: Thực hiện 3 cam kết của **Người Thủy Thủ Đức Tin** (kiên vững làm điều lành dù xung quanh chạy theo điều xấu, kết nối Nước Hồng Thủy với Bí tích Rửa Tội & Con Tàu Hội Thánh, mang nhành ô-liu hòa bình đến cho mọi người).
+  * [x] 🎵 Âm thanh & Nhạc nền:
+    * **Nhạc nền (BGM):** `lullaby` (Church Ark & Rainbow Reflection 70 BPM, C major) — bình an, lắng đọng, trọn vẹn hành trình đức tin.
+    * **Âm nền (Ambience):** `["crickets"]` — căn phòng ấm cúng sau cơn mưa.
+    * **Mặt sàn (Surface):** `wood` (sàn phòng ngủ).
+    * **Hiệu ứng (SFX):** `chime` (nối kết mầu nhiệm đức tin), `bless` (bình an giao ước), `complete` (kết thúc toàn bộ hành trình Nô-ê).
 * [ ] Kiểm tra hiển thị thực tế tất cả 10 bức tranh Intro Pixel Illustration và 10 bản đồ Top-down ở độ phóng đại game (`npm run dev`), đảm bảo `npx tsc --noEmit`, `npx eslint modules app` và `npx next build` đều pass sạch.

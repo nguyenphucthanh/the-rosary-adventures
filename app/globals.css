@@ -41,6 +41,15 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+body:has([data-dev-page]) {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior-y: auto !important;
+  touch-action: auto !important;
+  -webkit-user-select: auto !important;
+  user-select: auto !important;
+}
+
 input, textarea {
   user-select: text;
   -webkit-user-select: text;

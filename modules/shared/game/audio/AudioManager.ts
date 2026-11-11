@@ -14,9 +14,10 @@ const LOOKAHEAD = 0.3; // seconds of music scheduled ahead
 
 const midiFreq = (m: number) => 440 * 2 ** ((m - 69) / 12);
 
-type SfxName =
+export type SfxName =
   | "step" | "blip" | "select" | "talk" | "pickup" | "chime" | "wrong"
-  | "door" | "bead" | "angel" | "bless" | "complete" | "whoosh" | "menu";
+  | "door" | "bead" | "angel" | "bless" | "complete" | "whoosh" | "menu"
+  | "staff" | "tambourine" | "shofar" | "splash";
 
 class AudioManager {
   private ctx?: AudioContext;
@@ -36,6 +37,26 @@ class AudioManager {
 
   get muted() {
     return this._muted;
+  }
+
+  get activeTrack(): string | undefined {
+    return this.music?.id;
+  }
+
+  get activeAmbient(): Ambient[] {
+    return this.wantedAmbient;
+  }
+
+  setSurface(s: Surface) {
+    this.surface = s;
+  }
+
+  getSurface(): Surface {
+    return this.surface;
+  }
+
+  stopMusic() {
+    this.playMusic("");
   }
 
   private listeners = new Set<() => void>();
@@ -247,6 +268,30 @@ class AudioManager {
       case "whoosh":
         this.noise(t, 0.5, 0.25, 300, 3000);
         break;
+      case "staff":
+        // Moses' staff strike: crisp wood impact with resonant gold chime
+        this.noise(t, 0.05, 0.28, 900, 350);
+        this.tone(bus, "triangle", 220, t, 0.12, 0.4, 110);
+        this.tone(bus, "sine", midiFreq(84), t + 0.03, 0.45, 0.25);
+        break;
+      case "tambourine":
+        // Miriam's tambourine: leather slap + metallic jingles
+        this.noise(t, 0.035, 0.25, 4500, 1800);
+        this.tone(bus, 0.25, midiFreq(88), t + 0.01, 0.09, 0.18);
+        this.tone(bus, 0.25, midiFreq(95), t + 0.02, 0.07, 0.12);
+        this.noise(t + 0.04, 0.05, 0.12, 7000, 4000);
+        break;
+      case "shofar":
+        // Sacred Ram's Horn blast: majestic dual interval (root -> fifth)
+        this.tone(bus, "square", midiFreq(58), t, 0.18, 0.25, midiFreq(60));
+        this.tone(bus, "square", midiFreq(65), t + 0.15, 0.6, 0.3);
+        this.tone(bus, "triangle", midiFreq(53), t, 0.75, 0.35);
+        break;
+      case "splash":
+        // Water splash & reed ripple
+        this.noise(t, 0.15, 0.2, 1200, 400);
+        this.tone(bus, "sine", 320, t, 0.12, 0.18, 160);
+        break;
     }
   }
 
@@ -348,10 +393,12 @@ class AudioManager {
 
   private ambientKinds = "";
 
-  private stopAmbient() {
+  stopAmbient() {
+    this.wantedAmbient = [];
     const a = this.ambient;
     if (!a) return;
     this.ambient = undefined;
+    this.ambientKinds = "";
     const ctx = this.ctx!;
     a.layer.gain.setTargetAtTime(0, ctx.currentTime, 0.3);
     a.stops.forEach((s) => s());

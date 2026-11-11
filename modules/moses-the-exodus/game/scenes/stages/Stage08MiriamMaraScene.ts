@@ -234,7 +234,7 @@ export class Stage08MiriamMaraScene extends BaseExodusScene {
       hit.resolved = true;
       hit.img.setFrame(1);
       this.hits++;
-      audio.sfx("pickup");
+      audio.sfx("tambourine");
       this.time.delayedCall(140, () => hit.img.setVisible(false));
     } else audio.sfx("wrong");
   }

@@ -156,7 +156,7 @@ export class BaseExodusScene extends Phaser.Scene {
       targets: staff, x: Math.round(staff.x + dx / 2), y: Math.round(staff.y + (dir === "up" ? -4 : 4)), alpha: 0, duration: 320,
       ease: "Stepped", easeParams: [4], onComplete: () => staff.destroy(),
     });
-    audio.sfx("chime");
+    audio.sfx("staff");
   }
 
   protected sparkleBurst(x: number, y: number, n = 10) {
