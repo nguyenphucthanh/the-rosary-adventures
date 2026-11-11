@@ -33,9 +33,10 @@ export function registerTabernacleTextures(scene: Phaser.Scene) {
     for (const y of [3, 12]) { rect(c, 2, y, 4, 1, PAL.Y); rect(c, 10, y, 4, 1, PAL.Y); }
   });
   still("tb_rug", 16, 16, (c) => {
-    rect(c, 0, 0, 16, 16, PAL.Z);
-    rect(c, 0, 0, 16, 2, PAL.r); rect(c, 0, 14, 16, 2, PAL.r); rect(c, 0, 2, 16, 1, PAL.y); rect(c, 0, 13, 16, 1, PAL.y);
-    rect(c, 7, 5, 2, 6, PAL.b); rect(c, 5, 7, 6, 2, PAL.b); rect(c, 7, 7, 2, 2, PAL.y);
+    // calm dark indigo carpet with a faint tone-on-tone pattern, so gold holy things and lamps stand out
+    rect(c, 0, 0, 16, 16, PAL.L);
+    rect(c, 0, 0, 16, 1, PAL.Z); rect(c, 0, 15, 16, 1, PAL.Z);
+    rect(c, 7, 6, 2, 4, PAL.Z); rect(c, 6, 7, 4, 2, PAL.Z);
   });
   still("tb_gold_floor", 16, 16, (c) => {
     rect(c, 0, 0, 16, 16, PAL.l);
