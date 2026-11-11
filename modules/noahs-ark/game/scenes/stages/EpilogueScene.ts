@@ -7,6 +7,7 @@ import audio from "@/modules/shared/game/audio/AudioManager";
 import EventBus from "@/modules/shared/game/EventBus";
 import { resetProgress } from "@/modules/noahs-ark/utils/saveManager";
 import { FIRST_SCENE } from "@/modules/noahs-ark/game/scenes/PreloadScene";
+import { t as tx } from "@/modules/shared/i18n";
 
 const ROOM_W = 320;
 const ROOM_H = 240;
@@ -67,9 +68,9 @@ export class EpilogueScene extends BaseNoahScene {
     this.tweens.add({ targets: lamp, alpha: 0.5, duration: 1800, yoyo: true, repeat: -1 });
 
     this.interactables = [
-      { x: DESK[0], y: DESK[1] - 4, r: 38, label: "[A] Mô hình Con Tàu Gỗ", act: () => this.ask(0, NOAH_TEXT.epilogue.ark) },
-      { x: WINDOW[0], y: WALL + 8, r: 34, label: "[A] Cửa sổ Cầu Vồng", act: () => this.window() },
-      { x: ALTAR[0], y: ALTAR[1] + 4, r: 36, label: "[A] Góc Cầu Nguyện", act: () => this.ask(2, NOAH_TEXT.epilogue.prayer) },
+      { x: DESK[0], y: DESK[1] - 4, r: 38, label: tx("[A] Mô hình Con Tàu Gỗ", "[A] Wooden ark model"), act: () => this.ask(0, NOAH_TEXT.epilogue.ark) },
+      { x: WINDOW[0], y: WALL + 8, r: 34, label: tx("[A] Cửa sổ Cầu Vồng", "[A] Rainbow window"), act: () => this.window() },
+      { x: ALTAR[0], y: ALTAR[1] + 4, r: 36, label: tx("[A] Góc Cầu Nguyện", "[A] Prayer corner"), act: () => this.ask(2, NOAH_TEXT.epilogue.prayer) },
     ];
   }
 
@@ -79,12 +80,12 @@ export class EpilogueScene extends BaseNoahScene {
 
   private ask(i: 0 | 2, quiz: Quiz) {
     const right = tr(quiz.right);
-    this.talk("Chúa Thánh Thần", [tr(quiz.q)], undefined, quiz.options.map((o) => ({
+    this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), [tr(quiz.q)], undefined, quiz.options.map((o) => ({
       label: tr(o),
       onSelect: () => {
         if (tr(o) !== right) {
           audio.sfx("wrong");
-          this.talk("Chúa Thánh Thần", quiz.wrong.map(tr));
+          this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), quiz.wrong.map(tr));
           return;
         }
         audio.sfx("chime");
@@ -96,13 +97,13 @@ export class EpilogueScene extends BaseNoahScene {
   private window() {
     audio.sfx("bless");
     this.sparkleBurst(WINDOW[0], WINDOW[1] + 24);
-    this.talk("Chúa Thánh Thần", NOAH_TEXT.epilogue.window.map(tr), () => this.mark(1));
+    this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), NOAH_TEXT.epilogue.window.map(tr), () => this.mark(1));
   }
 
   private mark(i: number) {
     this.done[i] = true;
     const left = this.done.filter((d) => !d).length;
-    if (left) return this.talk("Hải Đồ Giao Ước", [tr(NOAH_TEXT.epilogue.left).replace("{n}", String(left))]);
+    if (left) return this.talk(tx("Hải Đồ Giao Ước", "Covenant Sea Chart"), [tr(NOAH_TEXT.epilogue.left).replace("{n}", String(left))]);
     if (this.finished) return;
     this.finished = true;
     this.cameras.main.flash(500, 255, 244, 180);
@@ -117,9 +118,9 @@ export class EpilogueScene extends BaseNoahScene {
       .text(ROOM_W / 2, 120, "HẾT · THE END", { fontFamily: "Dearpix, monospace", fontSize: "20px", color: "#fde68a", backgroundColor: "#0f172acc", padding: { x: 8, y: 4 }, resolution: 4 })
       .setOrigin(0.5).setDepth(DEPTH.UI);
     this.tweens.add({ targets: banner, y: 116, duration: 600, yoyo: true, repeat: -1, ease: "Stepped", easeParams: [2] });
-    this.talk("Hải Đồ Giao Ước", NOAH_TEXT.epilogue.end.map(tr), undefined, [
-      { label: "🏠 Ở lại căn phòng", onSelect: () => banner.destroy() },
-      { label: "🔄 Chơi lại từ đầu", onSelect: () => this.replay() },
+    this.talk(tx("Hải Đồ Giao Ước", "Covenant Sea Chart"), NOAH_TEXT.epilogue.end.map(tr), undefined, [
+      { label: tx("🏠 Ở lại căn phòng", "🏠 Stay in the room"), onSelect: () => banner.destroy() },
+      { label: tx("🔄 Chơi lại từ đầu", "🔄 Play again from the start"), onSelect: () => this.replay() },
     ]);
   }
 

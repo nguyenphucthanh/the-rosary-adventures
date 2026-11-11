@@ -6,6 +6,7 @@ import { registerEdenTextures } from "@/modules/the-garden-of-eden/game/utils/ed
 import { STAGE_TEXT } from "@/modules/the-garden-of-eden/data/stageText";
 import { tr } from "@/modules/the-garden-of-eden/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 960;
 const H = 240;
@@ -69,7 +70,7 @@ export class Stage12PromiseScene extends BaseGenesisScene {
     PILLARS.forEach((x, i) => {
       this.pillars.push(this.add.sprite(x, 132, "gen_pillar", 0).setOrigin(0.5, 1).setDepth(132));
       this.block(x, 126, 10, 8);
-      this.interactables.push({ x, y: 124, r: 26, label: "[A] Thắp Cột Mốc", active: () => this.mode === "walk" && !this.lit[i], act: () => this.startLock(i) });
+      this.interactables.push({ x, y: 124, r: 26, label: tx("[A] Thắp Cột Mốc", "[A] Light the Marker"), active: () => this.mode === "walk" && !this.lit[i], act: () => this.startLock(i) });
     });
     this.oils = OILS.map(([x, y]) => this.pickup(x, y, "gen_oil"));
     SNAKES.forEach((sn) => {
@@ -128,7 +129,7 @@ export class Stage12PromiseScene extends BaseGenesisScene {
     this.sparkleBurst(PILLARS[i], 110, 12);
     this.torch = 1;
     this.snakes.forEach((sn) => { if (Math.abs(sn.x - PILLARS[i]) < 130) { this.tweens.add({ targets: sn.s, alpha: 0, duration: 500, ease: "Stepped", easeParams: [4] }); sn.speed = 0; sn.y = -100; } }); // light drives them back
-    this.talk(`Cột Mốc ${i + 1}/5`, [tr(STAGE_TEXT.s12.pillars[i])], () => {
+    this.talk(tx(`Cột Mốc ${i + 1}/5`, `Marker ${i + 1}/5`), [tr(STAGE_TEXT.s12.pillars[i])], () => {
       if (this.lit.every(Boolean)) return this.finale();
       this.saveCheckpoint(`p${i}`, null, PILLARS[i] - 24, 150);
       this.mode = "walk";
@@ -159,7 +160,7 @@ export class Stage12PromiseScene extends BaseGenesisScene {
       this.dark.clear().fill(0x05060d, 0.8).erase(`gen_lightmask_${k}`, Math.round(px - r), Math.round(py - 8 - r));
       this.lit.forEach((on, i) => on && this.dark?.erase("gen_lightmask_1", PILLARS[i] - 40, 100 - 40));
     }
-    this.tag?.setText(this.mode === "done" ? "" : `Đuốc ${Math.round(this.torch * 100)}%`).setPosition(Math.round(px), Math.round(this.player.y - 14));
+    this.tag?.setText(this.mode === "done" ? "" : tx(`Đuốc ${Math.round(this.torch * 100)}%`, `Torch ${Math.round(this.torch * 100)}%`)).setPosition(Math.round(px), Math.round(this.player.y - 14));
 
     if (this.mode === "lock") {
       this.ringT += delta;

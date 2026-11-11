@@ -9,6 +9,7 @@ import { registerLightTextures } from "@/modules/the-rosary-adventures/game/util
 import { registerCanaTextures } from "@/modules/the-rosary-adventures/game/utils/canaTextureGenerator";
 import { registerGalileeTextures } from "@/modules/the-rosary-adventures/game/utils/galileeTextureGenerator";
 import { registerPassionTextures } from "@/modules/the-rosary-adventures/game/utils/passionTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 560;
@@ -20,19 +21,19 @@ const CENTURION_AT: [number, number] = [520, 410];
 /** The three faith-candles: where they lie, and the word of Jesus each one lights. */
 const CANDLES = [
   {
-    id: "forgive", name: "nến Tha thứ", label: "Tha thứ", from: [110, 430] as [number, number], holder: [290, 276] as [number, number],
-    word: "Lạy Cha, xin tha cho họ, vì họ không biết việc họ làm. (Lc 23, 34)",
-    lesson: "Chúa Giêsu tha thứ cho cả những người đóng đinh Người. Hãy học tha thứ cho người làm con buồn nhé.",
+    id: "forgive", name: tx("nến Tha thứ", "Candle of Forgiveness"), label: tx("Tha thứ", "Forgiveness"), from: [110, 430] as [number, number], holder: [290, 276] as [number, number],
+    word: tx("Lạy Cha, xin tha cho họ, vì họ không biết việc họ làm. (Lc 23, 34)", "Father, forgive them, they know not what they do. (Lk 23:34)"),
+    lesson: tx("Chúa Giêsu tha thứ cho cả những người đóng đinh Người. Hãy học tha thứ cho người làm con buồn nhé.", "Jesus forgave even those who nailed Him to the cross. Learn to forgive those who make you sad."),
   },
   {
-    id: "trust", name: "nến Phó thác", label: "Phó thác", from: [520, 470] as [number, number], holder: [320, 284] as [number, number],
-    word: "Lạy Cha, con phó thác hồn con trong tay Cha. (Lc 23, 46)",
-    lesson: "Chúa Giêsu phó thác tất cả trong tay Cha. Khi sợ hãi, hãy phó thác cho Cha trên trời như Người.",
+    id: "trust", name: tx("nến Phó thác", "Candle of Trust"), label: tx("Phó thác", "Trust"), from: [520, 470] as [number, number], holder: [320, 284] as [number, number],
+    word: tx("Lạy Cha, con phó thác hồn con trong tay Cha. (Lc 23, 46)", "Father, into your hands I commend my spirit. (Lk 23:46)"),
+    lesson: tx("Chúa Giêsu phó thác tất cả trong tay Cha. Khi sợ hãi, hãy phó thác cho Cha trên trời như Người.", "Jesus entrusted everything into the Father's hands. When you're afraid, trust in the Father in heaven like Him."),
   },
   {
-    id: "mother", name: "nến Trao Mẹ", label: "Này là Mẹ con", from: [320, 506] as [number, number], holder: [350, 276] as [number, number],
-    word: "Thưa Bà, đây là con của Bà. — Này là Mẹ của con. (Ga 19, 26-27)",
-    lesson: "Chúa Giêsu trao Đức Mẹ làm Mẹ của chúng ta. Hãy yêu mến Mẹ Maria và xin Mẹ chở che nhé.",
+    id: "mother", name: tx("nến Trao Mẹ", "Candle of the Gift of Mother"), label: tx("Này là Mẹ con", "Behold your mother"), from: [320, 506] as [number, number], holder: [350, 276] as [number, number],
+    word: tx("Thưa Bà, đây là con của Bà. — Này là Mẹ của con. (Ga 19, 26-27)", "Woman, behold your son. — Behold your mother. (Jn 19:26-27)"),
+    lesson: tx("Chúa Giêsu trao Đức Mẹ làm Mẹ của chúng ta. Hãy yêu mến Mẹ Maria và xin Mẹ chở che nhé.", "Jesus gave Mary to be our Mother. Love Mother Mary and ask her to protect you."),
   },
 ];
 
@@ -72,12 +73,12 @@ export class Sorrowful05CalvaryScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("thuong_05_chiu_chet", [320, 520], {
-      speaker: "Đồi Can-vê",
+      speaker: tx("Đồi Can-vê", "Calvary"),
       emoji: "✝️",
       lines: [
-        "Mầu Nhiệm Thứ Năm Năm Sự Thương: Đức Chúa Giêsu Chịu Chết Trên Cây Thập Tự (Lc 23, 33-46).",
-        "Giữa ban ngày mà bầu trời tối đen. Chúa Giêsu bị treo trên thập giá, Đức Mẹ và thánh Gioan đứng dưới chân Người.",
-        "Hãy nhặt ba ngọn nến đức tin: Tha thứ, Phó thác và Trao Mẹ, rồi đặt đúng vào ba chân đế dưới thập giá nhé.",
+        tx("Mầu Nhiệm Thứ Năm Năm Sự Thương: Đức Chúa Giêsu Chịu Chết Trên Cây Thập Tự (Lc 23, 33-46).", "Fifth Sorrowful Mystery: The Crucifixion and Death of Jesus (Lk 23:33-46)."),
+        tx("Giữa ban ngày mà bầu trời tối đen. Chúa Giêsu bị treo trên thập giá, Đức Mẹ và thánh Gioan đứng dưới chân Người.", "In the middle of the day the sky turns black. Jesus hangs on the cross, with Mary and Saint John standing at His feet."),
+        tx("Hãy nhặt ba ngọn nến đức tin: Tha thứ, Phó thác và Trao Mẹ, rồi đặt đúng vào ba chân đế dưới thập giá nhé.", "Pick up the three candles of faith: Forgiveness, Trust and Gift of Mother, and place each on the right one of the three stands below the cross."),
       ],
     });
   }
@@ -131,45 +132,45 @@ export class Sorrowful05CalvaryScene extends InteractiveScene {
       ...CANDLES.map((c) => ({
         at: (): [number, number] => c.from,
         r: 34,
-        label: () => `[A] Nhặt ${c.name}`,
+        label: () => tx(`[A] Nhặt ${c.name}`, `[A] Pick up ${c.name}`),
         active: () => !this.lit.has(c.id) && this.lootActive(c.id),
         act: () => this.takeLoot(c.id),
       })),
       ...CANDLES.map((c) => ({
         at: (): [number, number] => [c.holder[0], c.holder[1] + 10],
         r: 24,
-        label: () => (this.held ? `[A] Đặt nến vào "${c.label}"` : `Chân đế "${c.label}"`),
+        label: () => (this.held ? tx(`[A] Đặt nến vào "${c.label}"`, `[A] Place the candle on the "${c.label}" stand`) : tx(`Chân đế "${c.label}"`, `"${c.label}" stand`)),
         active: () => !this.lit.has(c.id),
         act: () => this.place(c),
       })),
       {
         at: () => MARY_AT,
         r: 44,
-        label: () => "[A] Đức Mẹ Maria",
+        label: () => tx("[A] Đức Mẹ Maria", "[A] Mother Mary"),
         active: () => !this.done,
         act: () =>
-          this.talk("Đức Mẹ Maria", "💙", [
-            "Mẹ đứng dưới chân thập giá, đau xót như bị gươm đâm thâu qua lòng. (Lc 2, 35)",
-            "Mẹ ở bên Con cho đến phút cuối. Con hãy ở lại cầu nguyện với Mẹ nhé.",
+          this.talk(tx("Đức Mẹ Maria", "Mother Mary"), "💙", [
+            tx("Mẹ đứng dưới chân thập giá, đau xót như bị gươm đâm thâu qua lòng. (Lc 2, 35)", "Mary stands at the foot of the cross, her heart pierced as if by a sword. (Lk 2:35)"),
+            tx("Mẹ ở bên Con cho đến phút cuối. Con hãy ở lại cầu nguyện với Mẹ nhé.", "Mary stays with her Son until the last moment. Stay and pray with her."),
           ]),
       },
       {
         at: () => CROSS_AT,
         r: 60,
-        label: () => "[A] Nhìn lên thập giá",
+        label: () => tx("[A] Nhìn lên thập giá", "[A] Look up at the cross"),
         active: () => !this.done,
         act: () =>
-          this.talk("Chúa Giêsu", "✝️", [
-            "Chúa Giêsu bị đóng đinh giữa hai người phạm tội. Người nói: 'Hôm nay, anh sẽ được ở với tôi trên Thiên Đàng.' (Lc 23, 43)",
-            "Hãy thắp ba ngọn nến đức tin dưới chân thập giá để nghe những lời sau cùng của Chúa.",
+          this.talk(tx("Chúa Giêsu", "Jesus"), "✝️", [
+            tx("Chúa Giêsu bị đóng đinh giữa hai người phạm tội. Người nói: 'Hôm nay, anh sẽ được ở với tôi trên Thiên Đàng.' (Lc 23, 43)", "Jesus is crucified between two criminals. He says: ‘Today you will be with me in Paradise.’ (Lk 23:43)"),
+            tx("Hãy thắp ba ngọn nến đức tin dưới chân thập giá để nghe những lời sau cùng của Chúa.", "Light the three candles of faith at the foot of the cross to hear the Lord's last words."),
           ]),
       },
       {
         at: () => CENTURION_AT,
         r: 44,
-        label: () => "[A] Nói chuyện với viên đại đội trưởng",
+        label: () => tx("[A] Nói chuyện với viên đại đội trưởng", "[A] Talk to the centurion"),
         active: () => !this.done,
-        act: () => this.talk("Đại Đội Trưởng", "🛡️", ["Tôi đã đứng canh ở đây suốt từ sáng... Người này lạ lắm, chưa từng thấy ai chịu đau đớn mà vẫn tha thứ như thế."]),
+        act: () => this.talk(tx("Đại Đội Trưởng", "Centurion"), "🛡️", [tx("Tôi đã đứng canh ở đây suốt từ sáng... Người này lạ lắm, chưa từng thấy ai chịu đau đớn mà vẫn tha thứ như thế.", "I've stood guard here since morning... This man is strange. I've never seen anyone suffer and still forgive like that.")]),
       },
     ];
   }
@@ -178,12 +179,12 @@ export class Sorrowful05CalvaryScene extends InteractiveScene {
 
   private place(c: (typeof CANDLES)[number]) {
     if (!this.held) {
-      this.talk(`Chân đế "${c.label}"`, "🕯️", [`Chân đế này chờ ${c.name}. Hãy nhặt nến trên đồi mang đến đây nhé.`]);
+      this.talk(tx(`Chân đế "${c.label}"`, `"${c.label}" stand`), "🕯️", [tx(`Chân đế này chờ ${c.name}. Hãy nhặt nến trên đồi mang đến đây nhé.`, `This stand is waiting for ${c.name}. Pick up the candle on the hill and bring it here.`)]);
       return;
     }
     if (this.held.id !== c.id) {
       audio.sfx("wrong");
-      this.talk(`Chân đế "${c.label}"`, "🕯️", [`Chưa đúng rồi. Chân đế này dành cho ${c.name}. Hãy xem tên dưới mỗi chân đế nhé.`]);
+      this.talk(tx(`Chân đế "${c.label}"`, `"${c.label}" stand`), "🕯️", [tx(`Chưa đúng rồi. Chân đế này dành cho ${c.name}. Hãy xem tên dưới mỗi chân đế nhé.`, `Not right. This stand is for ${c.name}. Check the name under each stand.`)]);
       return;
     }
     this.lit.add(c.id);
@@ -195,7 +196,7 @@ export class Sorrowful05CalvaryScene extends InteractiveScene {
     this.sparkleBurst(x, y - 18);
     this.sky.setAlpha(Math.max(0.3, this.sky.alpha - 0.07));
     const last = this.lit.size === CANDLES.length;
-    this.talk("Chúa Giêsu", "✝️", [c.word, c.lesson], last ? () => this.climax() : undefined);
+    this.talk(tx("Chúa Giêsu", "Jesus"), "✝️", [c.word, c.lesson], last ? () => this.climax() : undefined);
   }
 
   private climax() {
@@ -213,12 +214,12 @@ export class Sorrowful05CalvaryScene extends InteractiveScene {
     }
     this.time.delayedCall(1100, () =>
       this.talk(
-        "Đại Đội Trưởng",
+        tx("Đại Đội Trưởng", "Centurion"),
         "🛡️",
         [
-          "Chúa Giêsu kêu lớn tiếng rồi trút hơi thở cuối cùng. Đất rung chuyển, bức màn Đền Thờ xé làm đôi từ trên xuống dưới. (Lc 23, 45-46)",
-          "Viên đại đội trưởng La Mã đấm ngực và thốt lên: 'Quả thật, người này là Con Thiên Chúa!' (Mt 27, 54)",
-          "Chúa Giêsu đã hiến mạng sống vì yêu thương chúng ta đến cùng.",
+          tx("Chúa Giêsu kêu lớn tiếng rồi trút hơi thở cuối cùng. Đất rung chuyển, bức màn Đền Thờ xé làm đôi từ trên xuống dưới. (Lc 23, 45-46)", "Jesus cries out in a loud voice and breathes His last. The earth shakes and the curtain of the Temple is torn in two from top to bottom. (Lk 23:45-46)"),
+          tx("Viên đại đội trưởng La Mã đấm ngực và thốt lên: 'Quả thật, người này là Con Thiên Chúa!' (Mt 27, 54)", "The Roman centurion beats his breast and says: ‘Truly this man was the Son of God!’ (Mt 27:54)"),
+          tx("Chúa Giêsu đã hiến mạng sống vì yêu thương chúng ta đến cùng.", "Jesus gave His life out of love for us to the very end."),
         ],
         () => this.finish()
       )
@@ -229,10 +230,10 @@ export class Sorrowful05CalvaryScene extends InteractiveScene {
     this.time.delayedCall(300, () =>
       this.complete(
         5,
-        "Năm Sự Thương",
-        "Đức Chúa Giêsu Chịu Chết Trên Cây Thập Tự",
-        "Lòng biết ơn sâu xa ơn cứu độ và tình yêu hy sinh đến cùng của Chúa Giêsu.",
-        "Mỗi lần làm dấu Thánh Giá, hãy nhớ Chúa Giêsu đã yêu bạn đến chết vì bạn. Cảm ơn Chúa nhé!",
+        tx("Năm Sự Thương", "Sorrowful"),
+        tx("Đức Chúa Giêsu Chịu Chết Trên Cây Thập Tự", "The Crucifixion and Death of Jesus"),
+        tx("Lòng biết ơn sâu xa ơn cứu độ và tình yêu hy sinh đến cùng của Chúa Giêsu.", "Deep gratitude for salvation and for Jesus' love that sacrificed everything."),
+        tx("Mỗi lần làm dấu Thánh Giá, hãy nhớ Chúa Giêsu đã yêu bạn đến chết vì bạn. Cảm ơn Chúa nhé!", "Every time you make the Sign of the Cross, remember that Jesus loved you even to death. Thank You, Lord!"),
         ["light_three_candles", "last_words", "centurion_confession"]
       )
     );

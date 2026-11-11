@@ -3,6 +3,7 @@ import { BaseNoahScene, DEPTH } from "@/modules/noahs-ark/game/scenes/BaseNoahSc
 import { registerPrologueTextures } from "@/modules/noahs-ark/game/utils/prologueTextures";
 import { PROLOGUE, tr } from "@/modules/noahs-ark/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const ROOM_W = 320;
 const ROOM_H = 240;
@@ -35,7 +36,7 @@ export class PrologueScene extends BaseNoahScene {
     this.wiped = this.done = false;
     this.got = [false, false, false];
     this.pieces = [null, null, null];
-    this.intro = { illustration: "prologue", speaker: "Cơn Mưa Chiều", lines: PROLOGUE.intro.map(tr) };
+    this.intro = { illustration: "prologue", speaker: tx("Cơn Mưa Chiều", "The Afternoon Rain"), lines: PROLOGUE.intro.map(tr) };
     super.create();
   }
 
@@ -81,10 +82,10 @@ export class PrologueScene extends BaseNoahScene {
   private defineInteractables() {
     this.interactables = [
       { x: WINDOW[0], y: WALL + 8, r: 34, label: tr(PROLOGUE.windowHint), active: () => !this.wiped, act: () => this.wipeWindow() },
-      { x: DESK[0], y: DESK[1] - 4, r: 38, label: "[A] Mô hình Con Tàu", active: () => !this.done, act: () => this.desk() },
+      { x: DESK[0], y: DESK[1] - 4, r: 38, label: tx("[A] Mô hình Con Tàu", "[A] Ark model"), active: () => !this.done, act: () => this.desk() },
     ];
     PIECE_AT.forEach(([x, y], i) => {
-      this.interactables.push({ x, y: y - 6, r: 24, label: "[A] Mảnh gỗ mô hình", active: () => !!this.pieces[i] && !this.got[i], act: () => this.collect(i) });
+      this.interactables.push({ x, y: y - 6, r: 24, label: tx("[A] Mảnh gỗ mô hình", "[A] Model piece"), active: () => !!this.pieces[i] && !this.got[i], act: () => this.collect(i) });
     });
   }
 
@@ -94,7 +95,7 @@ export class PrologueScene extends BaseNoahScene {
     this.win?.stop().setTexture("rainbow_window");
     this.drawBeam(0xfef08a, 0.18);
     this.sparkleBurst(WINDOW[0], WINDOW[1] + 24);
-    this.talk("Cửa sổ", PROLOGUE.windowWipe.map(tr), () => {
+    this.talk(tx("Cửa sổ", "Window"), PROLOGUE.windowWipe.map(tr), () => {
       PIECE_AT.forEach(([x, y], i) => {
         this.pieces[i] = this.pickup(x, y, `ark_piece_${i}`);
         this.sparkleBurst(x, y - 6, 6);
@@ -107,13 +108,13 @@ export class PrologueScene extends BaseNoahScene {
     audio.sfx("pickup");
     const img = this.pieces[i];
     if (img) this.removePickup(img);
-    this.talk("Mảnh gỗ", [tr(PROLOGUE.pieceFound) + tr(PROLOGUE.pieces[i])]);
+    this.talk(tx("Mảnh gỗ", "Wooden piece"), [tr(PROLOGUE.pieceFound) + tr(PROLOGUE.pieces[i])]);
   }
 
   private desk() {
     const n = this.got.filter(Boolean).length;
-    if (!this.wiped) return this.talk("Mô hình", PROLOGUE.deskNotYet.map(tr));
-    if (n < 3) return this.talk("Mô hình", [tr(PROLOGUE.deskPartial).replace("{n}", String(n))]);
+    if (!this.wiped) return this.talk(tx("Mô hình", "Model"), PROLOGUE.deskNotYet.map(tr));
+    if (n < 3) return this.talk(tx("Mô hình", "Model"), [tr(PROLOGUE.deskPartial).replace("{n}", String(n))]);
     this.arrange([]);
   }
 
@@ -122,7 +123,7 @@ export class PrologueScene extends BaseNoahScene {
     const left = [0, 1, 2].filter((i) => !order.includes(i));
     if (left.length === 1) return this.finishModel();
     this.talk(
-      "Mô hình Con Tàu",
+      tx("Mô hình Con Tàu", "Ark model"),
       [tr(order.length ? PROLOGUE.deskNext : PROLOGUE.deskStart)],
       undefined,
       left.map((i) => ({
@@ -133,7 +134,7 @@ export class PrologueScene extends BaseNoahScene {
             this.arrange([...order, i]);
           } else {
             audio.sfx("wrong");
-            this.talk("Mô hình Con Tàu", PROLOGUE.deskWrong.map(tr));
+            this.talk(tx("Mô hình Con Tàu", "Ark model"), PROLOGUE.deskWrong.map(tr));
           }
         },
       }))
@@ -146,7 +147,7 @@ export class PrologueScene extends BaseNoahScene {
     this.cameras.main.flash(500, 255, 244, 180);
     audio.sfx("bless");
     this.sparkleBurst(DESK[0] + 8, DESK[1] - 24, 12);
-    this.talk("Con Tàu Nô-ê", PROLOGUE.modelDone.map(tr), () => this.spiritAppears());
+    this.talk(tx("Con Tàu Nô-ê", "Noah's Ark"), PROLOGUE.modelDone.map(tr), () => this.spiritAppears());
   }
 
   private spiritAppears() {
@@ -154,9 +155,9 @@ export class PrologueScene extends BaseNoahScene {
     this.sparkleBurst(DESK[0] - 12, DESK[1] - 30);
     this.glideTo(dove, DESK[0] - 34, DESK[1] + 28);
     this.time.delayedCall(1500, () =>
-      this.talk("Chúa Thánh Thần", PROLOGUE.spirit.map(tr), () => {
+      this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), PROLOGUE.spirit.map(tr), () => {
         this.completeStage();
-        this.talk("Suy niệm", [tr(PROLOGUE.lesson)], () => this.goToNextStage());
+        this.talk(tx("Suy niệm", "Reflection"), [tr(PROLOGUE.lesson)], () => this.goToNextStage());
       })
     );
   }

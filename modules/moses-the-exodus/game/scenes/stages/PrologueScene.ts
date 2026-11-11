@@ -3,6 +3,7 @@ import { BaseExodusScene, DEPTH } from "@/modules/moses-the-exodus/game/scenes/B
 import { registerPrologueTextures } from "@/modules/moses-the-exodus/game/utils/prologueTextures";
 import { PROLOGUE, tr } from "@/modules/moses-the-exodus/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const ROOM_W = 320;
 const ROOM_H = 240;
@@ -36,7 +37,7 @@ export class PrologueScene extends BaseExodusScene {
     this.lit = this.done = false;
     this.got = [false, false, false];
     this.pieces = [null, null, null];
-    this.intro = { illustration: "start", speaker: "Cuốn Sách Xuất Hành", lines: PROLOGUE.intro.map(tr) };
+    this.intro = { illustration: "start", speaker: tx("Cuốn Sách Xuất Hành", "The Book of Exodus"), lines: PROLOGUE.intro.map(tr) };
     super.create();
   }
 
@@ -75,14 +76,14 @@ export class PrologueScene extends BaseExodusScene {
       { x: DESK[0] + 10, y: DESK[1] - 4, r: 38, label: () => tr(this.lit ? PROLOGUE.mapHint : PROLOGUE.lampHint), active: () => !this.done, act: () => this.desk() },
     ];
     PIECE_AT.forEach(([x, y], i) => {
-      this.interactables.push({ x, y: y - 6, r: 24, label: "[A] Mảnh bản đồ", active: () => !!this.pieces[i] && !this.got[i], act: () => this.collect(i) });
+      this.interactables.push({ x, y: y - 6, r: 24, label: tx("[A] Mảnh bản đồ", "[A] Map piece"), active: () => !!this.pieces[i] && !this.got[i], act: () => this.collect(i) });
     });
   }
 
   private desk() {
     if (!this.lit) return this.lightLamp();
     const n = this.got.filter(Boolean).length;
-    if (n < 3) return this.talk("Bản đồ cổ", [tr(PROLOGUE.mapPartial).replace("{n}", String(n))]);
+    if (n < 3) return this.talk(tx("Bản đồ cổ", "Old map"), [tr(PROLOGUE.mapPartial).replace("{n}", String(n))]);
     this.arrange([]);
   }
 
@@ -94,7 +95,7 @@ export class PrologueScene extends BaseExodusScene {
     this.tweens.add({ targets: this.lampGlow, alpha: 0.5, duration: 1800, yoyo: true, repeat: -1 });
     this.beam?.clear().fillStyle(0xfef08a, 0.12).fillPoints([{ x: DESK[0] + 18, y: DESK[1] - 8 }, { x: DESK[0] + 30, y: DESK[1] - 8 }, { x: DESK[0] + 70, y: DESK[1] + 70 }, { x: DESK[0] - 10, y: DESK[1] + 70 }], true);
     this.sparkleBurst(DESK[0] + 24, DESK[1] - 20);
-    this.talk("Ngọn đèn bàn học", PROLOGUE.lampLit.map(tr), () => {
+    this.talk(tx("Ngọn đèn bàn học", "Desk lamp"), PROLOGUE.lampLit.map(tr), () => {
       PIECE_AT.forEach(([x, y], i) => {
         this.pieces[i] = this.pickup(x, y, `map_piece_${i}`);
         this.sparkleBurst(x, y - 6, 6);
@@ -107,7 +108,7 @@ export class PrologueScene extends BaseExodusScene {
     audio.sfx("pickup");
     const img = this.pieces[i];
     if (img) this.removePickup(img);
-    this.talk("Mảnh bản đồ", [tr(PROLOGUE.pieceFound) + tr(PROLOGUE.pieces[i])]);
+    this.talk(tx("Mảnh bản đồ", "Map piece"), [tr(PROLOGUE.pieceFound) + tr(PROLOGUE.pieces[i])]);
   }
 
   /** Pick the pieces in route order. A wrong pick clears the row and the child tries again (soft reset, no penalty). */
@@ -115,7 +116,7 @@ export class PrologueScene extends BaseExodusScene {
     const left = [0, 1, 2].filter((i) => !order.includes(i));
     if (left.length === 1) return this.finishMap();
     this.talk(
-      "Lộ trình Xuất Hành",
+      tx("Lộ trình Xuất Hành", "Exodus route"),
       [tr(order.length ? PROLOGUE.mapNext : PROLOGUE.mapStart)],
       undefined,
       left.map((i) => ({
@@ -126,7 +127,7 @@ export class PrologueScene extends BaseExodusScene {
             this.arrange([...order, i]);
           } else {
             audio.sfx("wrong");
-            this.talk("Lộ trình Xuất Hành", PROLOGUE.mapWrong.map(tr));
+            this.talk(tx("Lộ trình Xuất Hành", "Exodus route"), PROLOGUE.mapWrong.map(tr));
           }
         },
       }))
@@ -139,7 +140,7 @@ export class PrologueScene extends BaseExodusScene {
     this.cameras.main.flash(500, 255, 244, 180);
     audio.sfx("bless");
     this.sparkleBurst(DESK[0] + 6, DESK[1] - 24, 12);
-    this.talk("Bản đồ Xuất Hành", PROLOGUE.mapDone.map(tr), () => this.spiritAppears());
+    this.talk(tx("Bản đồ Xuất Hành", "Exodus map"), PROLOGUE.mapDone.map(tr), () => this.spiritAppears());
   }
 
   private spiritAppears() {
@@ -147,9 +148,9 @@ export class PrologueScene extends BaseExodusScene {
     this.sparkleBurst(DESK[0] - 14, DESK[1] - 30);
     this.glideTo(dove, DESK[0] - 36, DESK[1] + 28);
     this.time.delayedCall(1500, () =>
-      this.talk("Chúa Thánh Thần", PROLOGUE.spirit.map(tr), () => {
+      this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), PROLOGUE.spirit.map(tr), () => {
         this.completeStage();
-        this.talk("Suy niệm", [tr(PROLOGUE.lesson)], () => this.goToNextStage());
+        this.talk(tx("Suy niệm", "Reflection"), [tr(PROLOGUE.lesson)], () => this.goToNextStage());
       })
     );
   }

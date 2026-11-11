@@ -4,6 +4,7 @@ import { registerSiteTextures } from "@/modules/moses-the-exodus/game/utils/site
 import { registerMountTextures } from "@/modules/moses-the-exodus/game/utils/mountTextures";
 import { STAGE3, tr } from "@/modules/moses-the-exodus/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 240;
@@ -438,10 +439,10 @@ export class Stage03BurningBushScene extends BaseExodusScene {
     this.running = false;
     audio.sfx("complete");
     this.completeStage();
-    this.talk("Thiên Chúa", STAGE3.name.map(tr), () =>
-      this.talk("Ấn Dấu thứ 3", STAGE3.outro.map(tr), () =>
-        this.talk("Suy niệm", [tr(STAGE3.lesson)], () =>
-          this.talk("Trên Đường Trở Về Ai Cập", STAGE3.cutscene.map(tr), () => this.goToNextStage()))));
+    this.talk(tx("Thiên Chúa", "God"), STAGE3.name.map(tr), () =>
+      this.talk(tx("Ấn Dấu thứ 3", "Seal 3"), STAGE3.outro.map(tr), () =>
+        this.talk(tx("Suy niệm", "Reflection"), [tr(STAGE3.lesson)], () =>
+          this.talk(tx("Trên Đường Trở Về Ai Cập", "On the Road Back to Egypt"), STAGE3.cutscene.map(tr), () => this.goToNextStage()))));
   }
 
   // ---------------------------------------------------------------- timing bar (signs 1 and 2)

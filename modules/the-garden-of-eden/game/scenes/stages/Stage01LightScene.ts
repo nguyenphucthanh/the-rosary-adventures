@@ -4,6 +4,7 @@ import { registerStageTextures } from "@/modules/the-garden-of-eden/game/utils/s
 import { STAGE_TEXT } from "@/modules/the-garden-of-eden/data/stageText";
 import { tr } from "@/modules/the-garden-of-eden/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const T = 16;
 const COLS = 33;
@@ -130,7 +131,7 @@ export class Stage01LightScene extends BaseGenesisScene {
       this.prisms.push(this.add.sprite(px(c), px(r), "gen_prism", this.faces[i]).setDepth((r + 1) * T));
       this.block(px(c), px(r), T, T);
       this.interactables.push({
-        x: px(c), y: px(r), r: 26, label: "[A] Xoay Trụ Tinh Thể",
+        x: px(c), y: px(r), r: 26, label: tx("[A] Xoay Trụ Tinh Thể", "[A] Turn the Crystal Pillar"),
         act: () => {
           this.faces[i] = ((this.faces[i] + 1) % 4) as Dir;
           this.prisms[i].setFrame(this.faces[i]);
@@ -194,7 +195,7 @@ export class Stage01LightScene extends BaseGenesisScene {
     if (this.fog.has(idx) && !this.lit.has(idx)) {
       if (!this.toldFog) {
         this.toldFog = true;
-        this.time.delayedCall(350, () => this.talk("Chúa Thánh Thần", ["Sương đen còn dày đặc! Hãy để ánh sáng mở đường trước khi em bước vào nhé."]));
+        this.time.delayedCall(350, () => this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), [tx("Sương đen còn dày đặc! Hãy để ánh sáng mở đường trước khi em bước vào nhé.", "The black mist is still thick! Let the light clear the way before you step in.")]));
       }
       this.resetToCheckpoint();
     }

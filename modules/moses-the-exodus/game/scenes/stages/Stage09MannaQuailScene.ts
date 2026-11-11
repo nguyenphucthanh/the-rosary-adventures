@@ -4,6 +4,7 @@ import { registerSiteTextures } from "@/modules/moses-the-exodus/game/utils/site
 import { registerMannaTextures } from "@/modules/moses-the-exodus/game/utils/mannaTextures";
 import { STAGE9, tr } from "@/modules/moses-the-exodus/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 352;
 const H = 300;
@@ -266,9 +267,9 @@ export class Stage09MannaQuailScene extends BaseExodusScene {
     this.cameras.main.flash(500, 255, 244, 200);
     this.completeStage();
     this.time.delayedCall(900, () =>
-      this.talk("Ấn Dấu thứ 9", STAGE9.outro.map(tr), () =>
-        this.talk("Suy niệm", [tr(STAGE9.lesson)], () =>
-          this.talk("Hoang địa Xin", STAGE9.cutscene.map(tr), () => this.goToNextStage()))));
+      this.talk(tx("Ấn Dấu thứ 9", "Seal 9"), STAGE9.outro.map(tr), () =>
+        this.talk(tx("Suy niệm", "Reflection"), [tr(STAGE9.lesson)], () =>
+          this.talk(tx("Hoang địa Xin", "Desert of Sin"), STAGE9.cutscene.map(tr), () => this.goToNextStage()))));
   }
 
   // ---------------------------------------------------------------- frame update

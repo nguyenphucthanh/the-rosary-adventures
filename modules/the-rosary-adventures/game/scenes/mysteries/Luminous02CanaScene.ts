@@ -6,6 +6,7 @@ import { registerVisitationTextures } from "@/modules/the-rosary-adventures/game
 import { registerInfancyTextures } from "@/modules/the-rosary-adventures/game/utils/infancyTextureGenerator";
 import { registerLightTextures } from "@/modules/the-rosary-adventures/game/utils/lightTextureGenerator";
 import { registerCanaTextures } from "@/modules/the-rosary-adventures/game/utils/canaTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 576;
@@ -66,12 +67,12 @@ export class Luminous02CanaScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("sang_02_tiec_cuoi_cana", [320, 520], {
-      speaker: "Tiệc Cưới Cana",
+      speaker: tx("Tiệc Cưới Cana", "The Wedding at Cana"),
       emoji: "🏺",
       lines: [
-        "Mầu Nhiệm Thứ Hai Năm Sự Sáng: Đức Chúa Giêsu Dự Tiệc Cưới Cana (Ga 2, 1-11).",
-        "Tiệc cưới đang vui, nhưng rượu đã hết, và gia đình ai cũng lo lắng.",
-        "Hãy đến gặp Đức Mẹ Maria, Mẹ đang để ý đến mọi người.",
+        tx("Mầu Nhiệm Thứ Hai Năm Sự Sáng: Đức Chúa Giêsu Dự Tiệc Cưới Cana (Ga 2, 1-11).", "Second Luminous Mystery: Jesus at the Wedding Feast at Cana (Jn 2:1-11)."),
+        tx("Tiệc cưới đang vui, nhưng rượu đã hết, và gia đình ai cũng lo lắng.", "The wedding is joyful, but the wine has run out, and the whole family is worried."),
+        tx("Hãy đến gặp Đức Mẹ Maria, Mẹ đang để ý đến mọi người.", "Go meet Mother Mary. She is looking after everyone."),
       ],
     });
   }
@@ -175,52 +176,52 @@ export class Luminous02CanaScene extends InteractiveScene {
       {
         at: () => MARY_AT,
         r: 48,
-        label: () => "[A] Trò chuyện với Đức Mẹ",
+        label: () => tx("[A] Trò chuyện với Đức Mẹ", "[A] Talk to Mary"),
         active: () => !this.maryHeard,
         act: () => this.talkMary(),
       },
       {
         at: () => JESUS_AT,
         r: 48,
-        label: () => "[A] Trò chuyện với Chúa Giêsu",
+        label: () => tx("[A] Trò chuyện với Chúa Giêsu", "[A] Talk to Jesus"),
         active: () => !this.commanded,
         act: () => this.talkJesus(),
       },
       {
         at: () => WELL_AT,
         r: 52,
-        label: () => (this.carrying ? "[A] Giếng làng" : "[A] Múc nước"),
+        label: () => (this.carrying ? tx("[A] Giếng làng", "[A] Village well") : tx("[A] Múc nước", "[A] Draw water")),
         active: () => this.commanded && !this.finished && this.filled.size < JAR_XS.length,
         act: () => this.drawWater(),
       },
       ...JAR_XS.map((x, i) => ({
         at: (): [number, number] => [x, JAR_Y + 6],
         r: 36,
-        label: () => (this.carrying ? "[A] Đổ nước vào chum" : "[A] Chum đá"),
+        label: () => (this.carrying ? tx("[A] Đổ nước vào chum", "[A] Pour water into the jar") : tx("[A] Chum đá", "[A] Stone jar")),
         active: () => this.commanded && !this.filled.has(i),
         act: () => this.pour(i),
       })),
       {
         at: () => STEWARD_AT,
         r: 48,
-        label: () => "[A] Trò chuyện với người quản tiệc",
+        label: () => tx("[A] Trò chuyện với người quản tiệc", "[A] Talk to the master of the feast"),
         active: () => !this.finished,
         act: () =>
-          this.talk("Người Quản Tiệc", "🍇", [
-            "Tiệc cưới phải có rượu ngon cho khách. Vậy mà thức uống đã cạn rồi...",
-            this.commanded ? "Các gia nhân đang làm theo lời Chúa Giêsu. Hãy cùng giúp nhé!" : "Hãy hỏi Đức Mẹ xem có cách nào không.",
+          this.talk(tx("Người Quản Tiệc", "Master of the Feast"), "🍇", [
+            tx("Tiệc cưới phải có rượu ngon cho khách. Vậy mà thức uống đã cạn rồi...", "A wedding must have good wine for the guests. Yet the drinks have run dry..."),
+            this.commanded ? tx("Các gia nhân đang làm theo lời Chúa Giêsu. Hãy cùng giúp nhé!", "The servants are doing as Jesus said. Let's help them!") : tx("Hãy hỏi Đức Mẹ xem có cách nào không.", "Ask Mary if there is any way."),
           ]),
       },
       {
         at: () => [60, 380],
         r: 50,
-        label: () => "[A] Trò chuyện với gia nhân",
+        label: () => tx("[A] Trò chuyện với gia nhân", "[A] Talk to the servant"),
         active: () => !this.finished,
         act: () =>
-          this.talk("Gia Nhân", "🧑‍🍳", [
+          this.talk(tx("Gia Nhân", "Servant"), "🧑‍🍳", [
             this.commanded
-              ? "Có sáu chum đá bên cạnh phòng tiệc. Chúng ta phải đổ đầy nước, từng gàu một."
-              : "Mẹ của Chúa Giêsu bảo chúng tôi: 'Người bảo gì, các anh cứ việc làm theo.'",
+              ? tx("Có sáu chum đá bên cạnh phòng tiệc. Chúng ta phải đổ đầy nước, từng gàu một.", "There are six stone jars beside the banquet hall. We must fill them with water, bucket by bucket.")
+              : tx("Mẹ của Chúa Giêsu bảo chúng tôi: 'Người bảo gì, các anh cứ việc làm theo.'", "Jesus' mother told us: ‘Do whatever He tells you.’"),
           ]),
       },
     ];
@@ -228,13 +229,13 @@ export class Luminous02CanaScene extends InteractiveScene {
 
   private talkMary() {
     this.talk(
-      "Đức Mẹ Maria",
+      tx("Đức Mẹ Maria", "Mother Mary"),
       "👩",
       [
-        "Con ơi, gia đình đây hết rượu rồi. Họ đang bối rối và xấu hổ lắm.",
-        "Mẹ sẽ thưa với Con của Mẹ. (Ga 2, 3)",
-        "Mẹ nói với các gia nhân: 'Người bảo gì, các anh cứ việc làm theo.' (Ga 2, 5)",
-        "Con cũng đến gặp Chúa Giêsu nhé.",
+        tx("Con ơi, gia đình đây hết rượu rồi. Họ đang bối rối và xấu hổ lắm.", "My child, this family has run out of wine. They are confused and ashamed."),
+        tx("Mẹ sẽ thưa với Con của Mẹ. (Ga 2, 3)", "I will tell my Son. (Jn 2:3)"),
+        tx("Mẹ nói với các gia nhân: 'Người bảo gì, các anh cứ việc làm theo.' (Ga 2, 5)", "She tells the servants: ‘Do whatever He tells you.’ (Jn 2:5)"),
+        tx("Con cũng đến gặp Chúa Giêsu nhé.", "You go meet Jesus too."),
       ],
       () => (this.maryHeard = true)
     );
@@ -242,17 +243,17 @@ export class Luminous02CanaScene extends InteractiveScene {
 
   private talkJesus() {
     if (!this.maryHeard) {
-      this.talk("Chúa Giêsu", "✨", ["Con hãy nói chuyện với Mẹ Maria trước đã. Mẹ đang lo cho gia đình này."]);
+      this.talk(tx("Chúa Giêsu", "Jesus"), "✨", [tx("Con hãy nói chuyện với Mẹ Maria trước đã. Mẹ đang lo cho gia đình này.", "Talk to Mother Mary first. She is worried about this family.")]);
       return;
     }
     this.talk(
-      "Chúa Giêsu",
+      tx("Chúa Giêsu", "Jesus"),
       "✨",
       [
-        "'Thưa Bà, chuyện đó liên can gì đến Bà và con? Giờ của con chưa đến.' (Ga 2, 4)",
-        "Rồi Chúa nhìn Mẹ và mỉm cười, vì Người luôn nghe lời Mẹ.",
-        "'Các anh đổ đầy nước vào chum đi!' (Ga 2, 7)",
-        "Hãy múc nước ở giếng, đổ đầy sáu chum đá nhé!",
+        tx("'Thưa Bà, chuyện đó liên can gì đến Bà và con? Giờ của con chưa đến.' (Ga 2, 4)", "‘Woman, how does your concern affect me? My hour has not yet come.’ (Jn 2:4)"),
+        tx("Rồi Chúa nhìn Mẹ và mỉm cười, vì Người luôn nghe lời Mẹ.", "Then the Lord looks at His mother and smiles, because He always listens to her."),
+        tx("'Các anh đổ đầy nước vào chum đi!' (Ga 2, 7)", "‘Fill the jars with water.’ (Jn 2:7)"),
+        tx("Hãy múc nước ở giếng, đổ đầy sáu chum đá nhé!", "Draw water from the well and fill all six stone jars!"),
       ],
       () => this.startPouring()
     );
@@ -269,7 +270,7 @@ export class Luminous02CanaScene extends InteractiveScene {
 
   private drawWater() {
     if (this.carrying) {
-      this.talk("Giếng Làng", "⛲", ["Gàu nước đã đầy rồi. Hãy mang đến đổ vào một chum đá nhé!"]);
+      this.talk(tx("Giếng Làng", "Village Well"), "⛲", [tx("Gàu nước đã đầy rồi. Hãy mang đến đổ vào một chum đá nhé!", "The bucket is full. Carry it over and pour it into a stone jar!")]);
       return;
     }
     this.carrying = true;
@@ -278,7 +279,7 @@ export class Luminous02CanaScene extends InteractiveScene {
 
   private pour(i: number) {
     if (!this.carrying) {
-      this.talk("Chum Đá", "🏺", [`Chum còn trống. Đã có ${this.filled.size}/${JAR_XS.length} chum đầy. Hãy ra giếng múc nước.`]);
+      this.talk(tx("Chum Đá", "Stone Jar"), "🏺", [tx(`Chum còn trống. Đã có ${this.filled.size}/${JAR_XS.length} chum đầy. Hãy ra giếng múc nước.`, `The jar is still empty. ${this.filled.size}/${JAR_XS.length} jars are full. Go draw water at the well.`)]);
       return;
     }
     this.carrying = false;
@@ -291,9 +292,9 @@ export class Luminous02CanaScene extends InteractiveScene {
 
   private miracle() {
     this.talk(
-      "Chúa Giêsu",
+      tx("Chúa Giêsu", "Jesus"),
       "✨",
-      ["Sáu chum đã đầy ắp nước, đầy đến miệng chum. (Ga 2, 7)", "'Bây giờ các anh múc ra đem cho người quản tiệc.' (Ga 2, 8)"],
+      [tx("Sáu chum đã đầy ắp nước, đầy đến miệng chum. (Ga 2, 7)", "All six jars are filled to the brim. (Jn 2:7)"), tx("'Bây giờ các anh múc ra đem cho người quản tiệc.' (Ga 2, 8)", "‘Now draw some out and take it to the headwaiter.’ (Jn 2:8)")],
       () => {
         const cam = this.cameras.main;
         cam.flash(400, 255, 240, 200);
@@ -303,12 +304,12 @@ export class Luminous02CanaScene extends InteractiveScene {
         });
         this.walk(this.steward, [[360, JAR_Y + 18]], () =>
           this.talk(
-            "Người Quản Tiệc",
+            tx("Người Quản Tiệc", "Master of the Feast"),
             "🍇",
             [
-              "Ông nếm nước đã hóa thành rượu mà không biết rượu từ đâu ra. (Ga 2, 9)",
-              "'Ai cũng đãi rượu ngon trước, đến khi khách ngà ngà say mới đãi rượu thường. Còn anh, anh lại giữ rượu ngon đến bây giờ!' (Ga 2, 10)",
-              "Các môn đệ thấy dấu lạ đầu tiên này thì tin vào Chúa Giêsu. (Ga 2, 11)",
+              tx("Ông nếm nước đã hóa thành rượu mà không biết rượu từ đâu ra. (Ga 2, 9)", "He tasted the water that had become wine without knowing where it came from. (Jn 2:9)"),
+              tx("'Ai cũng đãi rượu ngon trước, đến khi khách ngà ngà say mới đãi rượu thường. Còn anh, anh lại giữ rượu ngon đến bây giờ!' (Ga 2, 10)", "‘Everyone serves good wine first, and when people have drunk freely, an inferior one. You have kept the good wine until now!’ (Jn 2:10)"),
+              tx("Các môn đệ thấy dấu lạ đầu tiên này thì tin vào Chúa Giêsu. (Ga 2, 11)", "When the disciples saw this first sign, they believed in Jesus. (Jn 2:11)"),
             ],
             () => this.finish()
           )
@@ -322,10 +323,10 @@ export class Luminous02CanaScene extends InteractiveScene {
     this.time.delayedCall(300, () =>
       this.complete(
         2,
-        "Năm Sự Sáng",
-        "Đức Chúa Giêsu Dự Tiệc Cưới Cana",
-        "Vâng nghe Lời Chúa nhờ sự chuyển cầu của Mẹ Maria.",
-        "Mẹ Maria luôn chuyển cầu cho chúng ta. Hãy cứ việc làm theo lời Chúa Giêsu như Mẹ dạy nhé!",
+        tx("Năm Sự Sáng", "Luminous"),
+        tx("Đức Chúa Giêsu Dự Tiệc Cưới Cana", "Jesus at the Wedding Feast at Cana"),
+        tx("Vâng nghe Lời Chúa nhờ sự chuyển cầu của Mẹ Maria.", "Obey God's Word through the intercession of Mother Mary."),
+        tx("Mẹ Maria luôn chuyển cầu cho chúng ta. Hãy cứ việc làm theo lời Chúa Giêsu như Mẹ dạy nhé!", "Mother Mary always intercedes for us. Just do whatever Jesus tells you, as she taught!"),
         ["hear_mary", "fill_jars", "water_to_wine"]
       )
     );

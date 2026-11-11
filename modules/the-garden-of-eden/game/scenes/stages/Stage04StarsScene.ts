@@ -4,6 +4,7 @@ import { registerStageTextures } from "@/modules/the-garden-of-eden/game/utils/s
 import { STAGE_TEXT } from "@/modules/the-garden-of-eden/data/stageText";
 import { tr } from "@/modules/the-garden-of-eden/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 320;
 const H = 240;
@@ -17,7 +18,7 @@ const SLOTS = [
 const LIFE = 8000; // a falling star piece fades after 8 s
 // Phase 2: orbits. Angles (deg from the top) = OMEGA * (t - T_ALIGN); everything lines up at t = 4, 10, 16...
 const PEDS: [number, number][] = [[48, 48], [272, 48], [272, 192], [48, 192]];
-const SEASONS = ["Xuân", "Hạ", "Thu", "Đông"];
+const SEASONS = [tx("Xuân", "Spring"), tx("Hạ", "Summer"), "Thu", tx("Đông", "Winter")];
 const WINDOW = [34, 28, 22, 17]; // Golden Window half-width (deg), narrower each season
 const OMEGA = [60, -60, 120]; // sun, moon, stars (deg/s)
 const RADII = [24, 40, 56];
@@ -87,7 +88,7 @@ export class Stage04StarsScene extends BaseGenesisScene {
       this.slotImgs.push(this.add.image(s.x, s.y, `gen_star_${s.type}`).setAlpha(0.3).setDepth(DEPTH.RUG + 1));
     });
     this.slotItems = SLOTS.map((s, i) => ({
-      x: s.x, y: s.y, r: 26, label: "[A] Đặt Mảnh Tinh Tú", active: () => this.phase === 1 && this.carry >= 0 && !this.filled[i], act: () => this.place(i),
+      x: s.x, y: s.y, r: 26, label: tx("[A] Đặt Mảnh Tinh Tú", "[A] Place the Star Piece"), active: () => this.phase === 1 && this.carry >= 0 && !this.filled[i], act: () => this.place(i),
     }));
     this.carryImg = this.add.image(0, 0, "gen_star_0").setVisible(false).setDepth(DEPTH.FX);
     this.spawnDove(CX, 40);
@@ -120,7 +121,7 @@ export class Stage04StarsScene extends BaseGenesisScene {
     this.tweens.add({ targets: img, y, duration: 450, ease: "Stepped", easeParams: [5] }); // falls in
     const p: Piece = {
       s: img, type, born: this.time.now,
-      it: { x, y, r: 22, label: "[A] Nhặt Mảnh Tinh Tú", active: () => this.carry < 0, act: () => this.pick(p) },
+      it: { x, y, r: 22, label: tx("[A] Nhặt Mảnh Tinh Tú", "[A] Pick up the Star Piece"), active: () => this.carry < 0, act: () => this.pick(p) },
     };
     this.pieces.push(p);
     this.syncItems();
@@ -142,7 +143,7 @@ export class Stage04StarsScene extends BaseGenesisScene {
   private place(i: number) {
     if (this.carry !== SLOTS[i].type) {
       audio.sfx("wrong");
-      this.talk("Chúa Thánh Thần", ["Mảnh này thuộc về ô cùng màu, ở bên đối xứng. Hãy tìm đúng chỗ nhé!"]);
+      this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), [tx("Mảnh này thuộc về ô cùng màu, ở bên đối xứng. Hãy tìm đúng chỗ nhé!", "This piece belongs to the same-colored tile on the opposite side. Find the right place!")]);
       return;
     }
     this.filled[i] = true;
@@ -155,7 +156,7 @@ export class Stage04StarsScene extends BaseGenesisScene {
       this.phase = 0;
       this.syncItems();
       SLOTS.forEach((s) => this.sparkleBurst(s.x, s.y, 8));
-      this.time.delayedCall(900, () => this.talk("Chúa Thánh Thần", STAGE_TEXT.s4.phase2.map(tr), () => this.startOrbits()));
+      this.time.delayedCall(900, () => this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), STAGE_TEXT.s4.phase2.map(tr), () => this.startOrbits()));
     }
   }
 
@@ -178,13 +179,13 @@ export class Stage04StarsScene extends BaseGenesisScene {
       this.label(x, y + 6, SEASONS[i]);
       this.block(x, y - 6, 14, 10);
     });
-    this.pedItems = PEDS.map(([x, y], i) => ({ x, y: y - 6, r: 30, label: `[A] Khóa mùa ${SEASONS[i]}`, active: () => this.phase === 2 && this.season === i, act: () => this.lock() }));
+    this.pedItems = PEDS.map(([x, y], i) => ({ x, y: y - 6, r: 30, label: tx(`[A] Khóa mùa ${SEASONS[i]}`, `[A] Lock the ${SEASONS[i]} season`), active: () => this.phase === 2 && this.season === i, act: () => this.lock() }));
     this.interactables = [...this.pedItems];
     this.showSeason();
   }
 
   private showSeason() {
-    this.seasonText?.setText(this.season < 4 ? `Mùa ${SEASONS[this.season]}: nhấn A ở bệ sáng khi cả ba thiên thể vào Khung Vàng` : "");
+    this.seasonText?.setText(this.season < 4 ? tx(`Mùa ${SEASONS[this.season]}: nhấn A ở bệ sáng khi cả ba thiên thể vào Khung Vàng`, `${SEASONS[this.season]}: press A on the glowing pad when all three heavenly bodies are in the Gold Frame`) : "");
     this.pedGlow.forEach((g, i) => g.setAlpha(i === this.season ? 0.7 : 0.05));
     this.pedImgs.forEach((p, i) => p.setAlpha(i < this.season ? 1 : i === this.season ? 1 : 0.5));
     const g = this.windowGfx;

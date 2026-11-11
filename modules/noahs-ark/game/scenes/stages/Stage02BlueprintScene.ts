@@ -5,6 +5,7 @@ import { NOAH_TEXT } from "@/modules/noahs-ark/data/stageText";
 import { tr } from "@/modules/noahs-ark/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
 import EventBus from "@/modules/shared/game/EventBus";
+import { t as tx } from "@/modules/shared/i18n";
 
 const T = 16;
 const W = 320;
@@ -16,9 +17,9 @@ const PITCH_MS = 16000;
  * Every floor was checked with a Sokoban solver (see Phase 4 notes), so all three are solvable.
  */
 const FLOORS = [
-  { name: "Tầng 1 – Đáy Tàu", rows: ["##########", "#P.......#", "#..C.....#", "#.....#..#", "#.C...#T.#", "#.....#T.#", "##########"] },
-  { name: "Tầng 2 – Khoang Nhiều Ngăn", rows: ["############", "#P....#....#", "#..C..G..T.#", "#.....G..T.#", "#.C...G..T.#", "#..L.C#....#", "#.....#....#", "############"] },
-  { name: "Tầng 3 – Mái Tàu & Cửa Sổ", rows: ["############", "#P.....#...#", "#..C...G.T.#", "#.C.#..G.T.#", "#....C.G.T.#", "#.L.C..G.T.#", "#......#...#", "############"] },
+  { name: tx("Tầng 1 – Đáy Tàu", "Deck 1 – The Hull"), rows: ["##########", "#P.......#", "#..C.....#", "#.....#..#", "#.C...#T.#", "#.....#T.#", "##########"] },
+  { name: tx("Tầng 2 – Khoang Nhiều Ngăn", "Deck 2 – The Many Rooms"), rows: ["############", "#P....#....#", "#..C..G..T.#", "#.....G..T.#", "#.C...G..T.#", "#..L.C#....#", "#.....#....#", "############"] },
+  { name: tx("Tầng 3 – Mái Tàu & Cửa Sổ", "Deck 3 – Roof & Window"), rows: ["############", "#P.....#...#", "#..C...G.T.#", "#.C.#..G.T.#", "#....C.G.T.#", "#.L.C..G.T.#", "#......#...#", "############"] },
 ];
 
 /** Stage 2: Sokoban + crafting. Push cypress blocks into the blueprint slots, then seal every joint with hot pitch before it cools. */
@@ -145,14 +146,14 @@ export class Stage02BlueprintScene extends BaseNoahScene {
       if (ch === "L") {
         this.lever = this.add_(this.add.sprite(x, y + 2, "noah_lever", 0).setDepth(y + 8)) as Phaser.GameObjects.Sprite;
         this.solid(x, y, T, T);
-        this.interactables.push({ x, y: y + 6, r: 24, label: "[A] Kéo cần gạt mở ray", active: () => !this.leverPulled, act: () => this.pull() });
+        this.interactables.push({ x, y: y + 6, r: 24, label: tx("[A] Kéo cần gạt mở ray", "[A] Pull the lever to open the rail"), active: () => !this.leverPulled, act: () => this.pull() });
       }
     }));
     // pitch pot in the bottom-left corner
     this.potAt = this.tileXY(1, rows.length - 2);
     this.pot = this.add_(this.add.image(this.potAt[0], this.potAt[1] + 8, "noah_pot").setOrigin(0.5, 1).setDepth(this.potAt[1])) as Phaser.GameObjects.Image;
     this.pot.setVisible(false);
-    this.interactables.push({ x: this.potAt[0], y: this.potAt[1], r: 22, label: "[A] Lấy nhựa thông nóng", active: () => this.phase === "pitch" && this.time.now > this.hotUntil, act: () => this.heat() });
+    this.interactables.push({ x: this.potAt[0], y: this.potAt[1], r: 22, label: tx("[A] Lấy nhựa thông nóng", "[A] Take hot pitch"), active: () => this.phase === "pitch" && this.time.now > this.hotUntil, act: () => this.heat() });
     // slimmer feet box than the default 18x14 so the child slides through 1-tile gaps and past corners
     (this.player.body as Phaser.Physics.Arcade.Body).setSize(10, 8).setOffset(11, 20);
     this.player.setPosition(start[0], start[1]);
@@ -251,7 +252,7 @@ export class Stage02BlueprintScene extends BaseNoahScene {
 
   private refreshInfo() {
     const f = FLOORS[this.floor];
-    const hint = this.phase === "blocks" ? "đẩy gỗ vào ô vàng (giữ A + lùi để kéo)" : this.phase === "pitch" ? (this.time.now < this.hotUntil ? `nhựa nóng ${Math.ceil((this.hotUntil - this.time.now) / 1000)}s – trét mối nối!` : "lấy nhựa thông ở thùng") : "";
+    const hint = this.phase === "blocks" ? tx("đẩy gỗ vào ô vàng (giữ A + lùi để kéo)", "push the wood onto the gold square (hold A + step back to pull)") : this.phase === "pitch" ? (this.time.now < this.hotUntil ? tx(`nhựa nóng ${Math.ceil((this.hotUntil - this.time.now) / 1000)}s – trét mối nối!`, `hot pitch ${Math.ceil((this.hotUntil - this.time.now) / 1000)}s – seal the joints!`) : tx("lấy nhựa thông ở thùng", "get pitch from the barrel")) : "";
     this.info?.setText(`${f.name}  |  ${hint}`);
   }
 
@@ -259,7 +260,7 @@ export class Stage02BlueprintScene extends BaseNoahScene {
     this.phase = "done";
     audio.sfx("bless");
     this.sparkleBurst(this.player.x, this.player.y - 8, 12);
-    if (this.floor + 1 < FLOORS.length) this.talk("Bản Vẽ Của Chúa", NOAH_TEXT.s2.floorDone.map(tr), () => this.loadFloor(this.floor + 1));
+    if (this.floor + 1 < FLOORS.length) this.talk(tx("Bản Vẽ Của Chúa", "God's Blueprint"), NOAH_TEXT.s2.floorDone.map(tr), () => this.loadFloor(this.floor + 1));
     else this.finishStage(NOAH_TEXT.s2);
   }
 
@@ -275,7 +276,7 @@ export class Stage02BlueprintScene extends BaseNoahScene {
       this.joints.forEach((j) => { j.sealed = false; j.img.setTexture("noah_joint"); });
       this.hotUntil = 0;
       audio.sfx("wrong");
-      this.talk("Nhựa Thông", NOAH_TEXT.s2.cooled.map(tr));
+      this.talk(tx("Nhựa Thông", "Pitch"), NOAH_TEXT.s2.cooled.map(tr));
       return;
     }
     if (!hot) return;

@@ -3,6 +3,7 @@ import { BaseExodusScene, DEPTH } from "@/modules/moses-the-exodus/game/scenes/B
 import { registerNileTextures } from "@/modules/moses-the-exodus/game/utils/nileTextures";
 import { STAGE1, tr } from "@/modules/moses-the-exodus/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 480;
 const H = 240;
@@ -159,7 +160,7 @@ export class Stage01NileBasketScene extends BaseExodusScene {
   }
 
   private dockTalk() {
-    this.talk("Công chúa Pha-ra-ô", STAGE1.dock.map(tr), undefined, [
+    this.talk(tx("Công chúa Pha-ra-ô", "Pharaoh's Daughter"), STAGE1.dock.map(tr), undefined, [
       { label: tr(STAGE1.askRight), onSelect: () => this.won() },
       { label: tr(STAGE1.askWrong), onSelect: () => { audio.sfx("wrong"); this.talk("Mi-ri-am", STAGE1.wrong.map(tr)); } },
     ]);
@@ -170,10 +171,10 @@ export class Stage01NileBasketScene extends BaseExodusScene {
     audio.sfx("complete");
     this.sparkleBurst(this.bx, this.ly - 8, 12);
     this.completeStage();
-    this.talk("Công chúa Pha-ra-ô", STAGE1.right.map(tr), () =>
-      this.talk("Ấn Dấu thứ 1", STAGE1.outro.map(tr), () =>
-        this.talk("Suy niệm", [tr(STAGE1.lesson)], () =>
-          this.talk("Lớn Lên Nơi Hoàng Cung", STAGE1.cutscene.map(tr), () => this.goToNextStage()))));
+    this.talk(tx("Công chúa Pha-ra-ô", "Pharaoh's Daughter"), STAGE1.right.map(tr), () =>
+      this.talk(tx("Ấn Dấu thứ 1", "Seal 1"), STAGE1.outro.map(tr), () =>
+        this.talk(tx("Suy niệm", "Reflection"), [tr(STAGE1.lesson)], () =>
+          this.talk(tx("Lớn Lên Nơi Hoàng Cung", "Growing Up in the Palace"), STAGE1.cutscene.map(tr), () => this.goToNextStage()))));
   }
 
   update(time?: number, delta = 16) {

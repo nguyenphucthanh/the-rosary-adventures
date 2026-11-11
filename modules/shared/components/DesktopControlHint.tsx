@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
+import { useT } from "@/modules/shared/i18n";
 
 export default function DesktopControlHint() {
+  const t = useT();
   return (
     <div className="pointer-events-auto select-none retro-frame px-3 py-1.5 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-slate-200">
       {/* Movement instruction */}
@@ -21,7 +23,7 @@ export default function DesktopControlHint() {
           <span className="pixel-key px-1.5 py-0 text-[14px]">→</span>
         </span>
         <span className="font-pixel text-[14px] text-amber-200 ml-1.5 tracking-wide">
-          DI CHUYỂN
+          {t("DI CHUYỂN", "MOVE")}
         </span>
       </div>
 
@@ -37,7 +39,7 @@ export default function DesktopControlHint() {
           ENTER
         </span>
         <span className="font-pixel text-[14px] text-emerald-300 ml-1.5 tracking-wide">
-          TƯƠNG TÁC
+          {t("TƯƠNG TÁC", "INTERACT")}
         </span>
       </div>
 

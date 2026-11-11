@@ -5,6 +5,7 @@ import { registerVoyageTextures } from "@/modules/noahs-ark/game/utils/voyageTex
 import { NOAH_TEXT } from "@/modules/noahs-ark/data/stageText";
 import { tr } from "@/modules/noahs-ark/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 240;
 const EXTRA = 110; // open sea behind the start so the D-pad / A-B buttons never cover the ark
@@ -119,7 +120,7 @@ export class Stage06AraratWindScene extends BaseNoahScene {
     const reset = this.loseGrace(); // 0 pips -> checkpoint (previous beacon), onCheckpointRestore moves the ark
     if (reset) {
       this.running = false;
-      this.talk("Con Tàu", NOAH_TEXT.s6.hit.map(tr), () => (this.running = true));
+      this.talk(tx("Con Tàu", "The Ark"), NOAH_TEXT.s6.hit.map(tr), () => (this.running = true));
     }
   }
 
@@ -134,7 +135,7 @@ export class Stage06AraratWindScene extends BaseNoahScene {
     this.drawFx();
     const v = this.cameras.main.worldView;
     this.label?.setPosition(Math.round(v.centerX), Math.round(v.y) + this.safeInsetTop() + 4);
-    this.label?.setText(this.time.now < this.toast.until ? this.toast.text : `Buồm: ${this.sail ? "MỞ" : "THU"}  –  Hải đăng ${this.lit.filter(Boolean).length}/3`);
+    this.label?.setText(this.time.now < this.toast.until ? this.toast.text : tx(`Buồm: ${this.sail ? "MỞ" : "THU"}  –  Hải đăng ${this.lit.filter(Boolean).length}/3`, `Sail: ${this.sail ? "OPEN" : "FURLED"}  –  Lighthouses ${this.lit.filter(Boolean).length}/3`));
     if (!this.running || this.introActive || this.dialogueOpen) return;
 
     const dt = Math.min(delta, 50) / 1000;
@@ -178,7 +179,7 @@ export class Stage06AraratWindScene extends BaseNoahScene {
         this.finishStage(NOAH_TEXT.s6);
       } else {
         this.v.y = 40;
-        this.toast = { text: "Hãy thắp đủ 3 Hải Đăng trước đã!", until: this.time.now + 2500 };
+        this.toast = { text: tx("Hãy thắp đủ 3 Hải Đăng trước đã!", "Light all 3 Lighthouses first!"), until: this.time.now + 2500 };
       }
     }
   }

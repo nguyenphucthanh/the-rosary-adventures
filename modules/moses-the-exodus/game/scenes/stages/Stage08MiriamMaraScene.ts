@@ -6,6 +6,7 @@ import { registerMaraTextures } from "@/modules/moses-the-exodus/game/utils/mara
 import { STAGE8, tr } from "@/modules/moses-the-exodus/data/dialogues";
 import { PAL } from "@/modules/shared/game/utils/pixelArt";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 352;
 const H = 300;
@@ -380,9 +381,9 @@ export class Stage08MiriamMaraScene extends BaseExodusScene {
     this.carryImg?.setVisible(false);
     this.completeStage();
     this.time.delayedCall(900, () =>
-      this.talk("Ấn Dấu thứ 8", STAGE8.outro.map(tr), () =>
-        this.talk("Suy niệm", [tr(STAGE8.lesson)], () =>
-          this.talk("Hoang địa Xin", STAGE8.cutscene.map(tr), () => this.goToNextStage()))));
+      this.talk(tx("Ấn Dấu thứ 8", "Seal 8"), STAGE8.outro.map(tr), () =>
+        this.talk(tx("Suy niệm", "Reflection"), [tr(STAGE8.lesson)], () =>
+          this.talk(tx("Hoang địa Xin", "Desert of Sin"), STAGE8.cutscene.map(tr), () => this.goToNextStage()))));
   }
 
   // ---------------------------------------------------------------- frame update

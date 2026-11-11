@@ -3,6 +3,7 @@ import { BaseMysteryScene, DEPTH } from "@/modules/the-rosary-adventures/game/sc
 import audio from "@/modules/shared/game/audio/AudioManager";
 import EventBus, { InterludeQuestProgress } from "@/modules/shared/game/EventBus";
 import type { DialogueOption } from "@/modules/shared/components/DialogueBox";
+import { t as tx } from "@/modules/shared/i18n";
 
 export interface Interactable {
   at: () => [number, number];
@@ -163,14 +164,17 @@ export abstract class InteractiveScene extends BaseMysteryScene {
   /** Lit-bead dialogue + stage save + move on. */
   protected complete(n: number, season: string, title: string, fruit: string, moral: string, quests: string[]) {
     this.saveStageComplete(quests);
-    const ordinal = ["", "Nhất", "Hai", "Ba", "Bốn", "Năm"][n] ?? String(n);
+    const ordinal = tx(
+      ["", "Nhất", "Hai", "Ba", "Bốn", "Năm"][n] ?? String(n),
+      ["", "First", "Second", "Third", "Fourth", "Fifth"][n] ?? String(n)
+    );
     this.talk(
-      `✨ HOÀN THÀNH MẦU NHIỆM THỨ ${ordinal.toUpperCase()} ✨`,
+      tx(`✨ HOÀN THÀNH MẦU NHIỆM THỨ ${ordinal.toUpperCase()} ✨`, `✨ ${ordinal.toUpperCase()} MYSTERY COMPLETE ✨`),
       "📿",
       [
-        `CHÚC MỪNG BẠN ĐÃ THẮP SÁNG HẠT MÂN CÔI SỐ ${n}!`,
-        `Mầu Nhiệm Thứ ${ordinal} ${season}: ${title}.`,
-        `Hoa trái suy niệm: ${fruit}`,
+        tx(`CHÚC MỪNG BẠN ĐÃ THẮP SÁNG HẠT MÂN CÔI SỐ ${n}!`, `CONGRATULATIONS! YOU LIT ROSARY BEAD NUMBER ${n}!`),
+        tx(`Mầu Nhiệm Thứ ${ordinal} ${season}: ${title}.`, `${ordinal} ${season} Mystery: ${title}.`),
+        tx(`Hoa trái suy niệm: ${fruit}`, `Fruit of the meditation: ${fruit}`),
         moral,
       ],
       () => this.goToNextStage()
@@ -190,11 +194,11 @@ export abstract class InteractiveScene extends BaseMysteryScene {
     });
     EventBus.emit("mystery-completed", { mysteryKey: key, mysteryIndex: -1 });
     this.talk(
-      `🌟 HOÀN THÀNH ${badge} 🌟`,
+      tx(`🌟 HOÀN THÀNH ${badge} 🌟`, `🌟 ${badge} COMPLETE 🌟`),
       "✨",
       [
-        `TUYỆT VỜI! Bạn đã vượt qua chặng hành động: ${title}.`,
-        `Bài học suy niệm: ${lesson}`,
+        tx(`TUYỆT VỜI! Bạn đã vượt qua chặng hành động: ${title}.`, `WONDERFUL! You finished the action stage: ${title}.`),
+        tx(`Bài học suy niệm: ${lesson}`, `Lesson to meditate on: ${lesson}`),
         moral,
       ],
       () => this.goToNextStage()

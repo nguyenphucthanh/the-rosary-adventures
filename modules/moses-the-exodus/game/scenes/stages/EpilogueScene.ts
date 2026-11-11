@@ -5,6 +5,7 @@ import { registerPrologueTextures } from "@/modules/moses-the-exodus/game/utils/
 import { registerEpilogueTextures } from "@/modules/moses-the-exodus/game/utils/epilogueTextures";
 import { EPILOGUE, tr, type L } from "@/modules/moses-the-exodus/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const ROOM_W = 320;
 const ROOM_H = 240;
@@ -37,7 +38,7 @@ export class EpilogueScene extends BaseExodusScene {
     this.bridge = 0;
     this.busy = true;
     this.glows = [];
-    this.intro = { illustration: "end", speaker: "Cuốn Sách Xuất Hành", lines: EPILOGUE.intro.map(tr) };
+    this.intro = { illustration: "end", speaker: tx("Cuốn Sách Xuất Hành", "The Book of Exodus"), lines: EPILOGUE.intro.map(tr) };
     super.create();
   }
 
@@ -145,14 +146,14 @@ export class EpilogueScene extends BaseExodusScene {
     this.time.delayedCall(1400, () => this.talk(EPILOGUE.speaker, EPILOGUE.finale.map(tr), () => {
       audio.sfx("complete");
       this.completeStage();
-      this.talk("Suy niệm", [tr(EPILOGUE.lesson)], () => this.theEnd());
+      this.talk(tx("Suy niệm", "Reflection"), [tr(EPILOGUE.lesson)], () => this.theEnd());
     }));
   }
 
   private theEnd() {
-    this.talk("Hoàn thành hành trình", EPILOGUE.theEnd.map(tr), undefined, [
-      { label: "Về trang chủ", onSelect: () => window.location.assign(window.location.origin) },
-      { label: "Chơi lại từ đầu", onSelect: () => { const cam = this.cameras.main; cam.fadeOut(600, 0, 0, 0); cam.once("camerafadeoutcomplete", () => this.scene.start("PrologueScene")); } },
+    this.talk(tx("Hoàn thành hành trình", "Journey complete"), EPILOGUE.theEnd.map(tr), undefined, [
+      { label: tx("Về trang chủ", "Back to home"), onSelect: () => window.location.assign(window.location.origin) },
+      { label: tx("Chơi lại từ đầu", "Play again from the start"), onSelect: () => { const cam = this.cameras.main; cam.fadeOut(600, 0, 0, 0); cam.once("camerafadeoutcomplete", () => this.scene.start("PrologueScene")); } },
     ]);
   }
 

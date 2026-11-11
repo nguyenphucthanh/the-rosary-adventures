@@ -1,9 +1,8 @@
-/** Bilingual line. The game reads `.vi`; `.en` is kept ready for a language toggle. */
-export interface L {
-  vi: string;
-  en: string;
-}
-export const tr = (l: L) => l.vi;
+/** Bilingual line. `tr` picks the player's current language (shared language toggle). */
+import type { L } from "@/modules/shared/i18n";
+export type { L };
+export { tr } from "@/modules/shared/i18n";
+
 
 export const PROLOGUE = {
   intro: [

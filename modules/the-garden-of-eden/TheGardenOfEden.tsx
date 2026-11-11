@@ -12,21 +12,17 @@ import DesktopControlHint from "@/modules/shared/components/DesktopControlHint";
 import CharacterCreationModal from "@/modules/shared/components/CharacterCreationModal";
 import DialogueBox from "@/modules/shared/components/DialogueBox";
 import EventBus from "@/modules/shared/game/EventBus";
+import { useT } from "@/modules/shared/i18n";
+import LoadingEngine from "@/modules/shared/components/LoadingEngine";
 import audio from "@/modules/shared/game/audio/AudioManager";
 
 const GameContainer = dynamic(() => import("@/modules/the-garden-of-eden/components/GameContainer"), {
   ssr: false,
-  loading: () => (
-    <div className="flex items-center justify-center w-full h-full bg-slate-950 text-amber-400 font-mono text-[28px]">
-      <div className="flex flex-col items-center gap-2">
-        <div className="w-8 h-8 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
-        <span>Đang nạp động cơ Phaser 3...</span>
-      </div>
-    </div>
-  ),
+  loading: () => <LoadingEngine />,
 });
 
 export default function TheGardenOfEden() {
+  const t = useT();
   const [saveInfo, setSaveInfo] = useState<GenesisSaveData | null>(null);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [showCharacterModal, setShowCharacterModal] = useState(false);
@@ -79,8 +75,8 @@ export default function TheGardenOfEden() {
         <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
           <Link
             href="/"
-            title="Về trang chủ"
-            aria-label="Về trang chủ"
+            title={t("Về trang chủ", "Back to home")}
+            aria-label={t("Về trang chủ", "Back to home")}
             className="retro-btn px-3 py-1.5 flex items-center justify-center text-[16px] leading-none text-amber-300"
           >
             🏠
@@ -89,7 +85,7 @@ export default function TheGardenOfEden() {
             <button
               type="button"
               onClick={() => setShowCharacterModal(true)}
-              title="Nhấn để đổi diện mạo"
+              title={t("Nhấn để đổi diện mạo", "Tap to change your look or language")}
               className="retro-btn-gold px-3 py-1.5 flex items-center gap-2 active:translate-y-0.5"
             >
               <span className="text-[16px] leading-none">{saveInfo.player.customization.gender === "girl" ? "👧" : "👦"}</span>
@@ -99,17 +95,17 @@ export default function TheGardenOfEden() {
           <button
             type="button"
             onClick={() => EventBus.emit("checkpoint-retry")}
-            title="Thử lại từ Checkpoint gần nhất"
+            title={t("Thử lại từ Checkpoint gần nhất", "Retry from the last checkpoint")}
             className="retro-btn px-3 py-1.5 font-pixel text-[13px] sm:text-[14px] text-amber-300"
           >
-            ↺ THỬ LẠI
+            ↺ {t("THỬ LẠI", "RETRY")}
           </button>
         </div>
         <div className="pointer-events-auto flex items-center gap-2">
           <button
             type="button"
             onClick={() => audio.setMuted(!muted)}
-            title={muted ? "Bật âm thanh" : "Tắt âm thanh"}
+            title={muted ? t("Bật âm thanh", "Sound on") : t("Tắt âm thanh", "Sound off")}
             className="retro-btn px-3 py-1.5 text-[12px] sm:text-[13px] text-amber-300"
           >
             {muted ? "🔇" : "🔊"}

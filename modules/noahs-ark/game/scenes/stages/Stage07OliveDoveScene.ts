@@ -5,6 +5,7 @@ import { registerVoyageTextures } from "@/modules/noahs-ark/game/utils/voyageTex
 import { NOAH_TEXT } from "@/modules/noahs-ark/data/stageText";
 import { tr } from "@/modules/noahs-ark/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 240;
 const H = 360;
@@ -88,7 +89,7 @@ export class Stage07OliveDoveScene extends BaseNoahScene {
   protected onStageStart() {
     const raven = this.add.sprite(HOME[0], HOME[1] - 6, "noah_raven", 0).setDepth(4000);
     this.tweens.add({ targets: raven, x: 20, y: -10, duration: 3500, ease: "Sine.easeIn", onUpdate: () => raven.setFrame(((this.time.now / 150) | 0) % 2), onComplete: () => raven.destroy() });
-    this.talk("Ông Nô-ê", NOAH_TEXT.s7.raven.map(tr), () => this.startLeg(0));
+    this.talk(tx("Ông Nô-ê", "Noah"), NOAH_TEXT.s7.raven.map(tr), () => this.startLeg(0));
   }
 
   protected onCheckpointRestore(_id: string, state: unknown) {
@@ -142,14 +143,14 @@ export class Stage07OliveDoveScene extends BaseNoahScene {
     }
     this.saveCheckpoint(`leg${n}`, n, HOME[0], HOME[1]);
     if (quiet) this.running = true; // retry: skip the briefing
-    else this.talk("Ông Nô-ê", NOAH_TEXT.s7.legs[n].map(tr), () => (this.running = true));
+    else this.talk(tx("Ông Nô-ê", "Noah"), NOAH_TEXT.s7.legs[n].map(tr), () => (this.running = true));
   }
 
   private fail() {
     this.running = false;
     audio.sfx("wrong");
     this.cameras.main.shake(150, 0.004);
-    this.talk("Chú chim", NOAH_TEXT.s7.back.map(tr), () => this.resetToCheckpoint());
+    this.talk(tx("Chú chim", "The bird"), NOAH_TEXT.s7.back.map(tr), () => this.resetToCheckpoint());
   }
 
   private home() {
@@ -199,7 +200,7 @@ export class Stage07OliveDoveScene extends BaseNoahScene {
         this.hasOlive = true;
         audio.sfx("pickup");
         this.sparkleBurst(OLIVE[0], OLIVE[1], 8);
-        this.talk("Chú chim", NOAH_TEXT.s7.olive.map(tr));
+        this.talk(tx("Chú chim", "The bird"), NOAH_TEXT.s7.olive.map(tr));
       }
       if (this.hasOlive && near(HOME, 20)) this.home();
     }
@@ -227,9 +228,9 @@ export class Stage07OliveDoveScene extends BaseNoahScene {
       g.fillStyle(0x0f172a, 1).fillRect(x - 2, y - 2, w + 4, 8);
       g.fillStyle(this.stamina > 40 ? 0xfbbf24 : 0xdc2626, 1).fillRect(x, y, Math.round((w * Math.max(0, this.stamina)) / 100), 4);
     }
-    const goal = ["Điểm mốc", "Nhành ô-liu", "Cánh đồng"][this.leg];
+    const goal = [tx("Điểm mốc", "Landmark"), tx("Nhành ô-liu", "Olive branch"), tx("Cánh đồng", "Field")][this.leg];
     const n = this.leg === 1 ? (this.hasOlive ? 1 : 0) : this.seen.filter(Boolean).length;
     const total = this.leg === 1 ? 1 : this.seen.length || 1;
-    this.label?.setText(this.running ? `Lần thả ${this.leg + 1}/3 – ${goal} ${n}/${total}${n === total ? " – Về cửa sổ!" : ""}` : "");
+    this.label?.setText(this.running ? tx(`Lần thả ${this.leg + 1}/3 – ${goal} ${n}/${total}${n === total ? " – Về cửa sổ!" : ""}`, `Release ${this.leg + 1}/3 – ${goal} ${n}/${total}${n === total ? " – Back to the window!" : ""}`) : "");
   }
 }

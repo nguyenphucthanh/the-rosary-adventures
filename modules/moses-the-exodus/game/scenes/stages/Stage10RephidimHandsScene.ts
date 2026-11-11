@@ -4,6 +4,7 @@ import { registerSiteTextures } from "@/modules/moses-the-exodus/game/utils/site
 import { registerRephidimTextures } from "@/modules/moses-the-exodus/game/utils/rephidimTextures";
 import { STAGE10, tr } from "@/modules/moses-the-exodus/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 352;
 const H = 300;
@@ -325,9 +326,9 @@ export class Stage10RephidimHandsScene extends BaseExodusScene {
     this.cameras.main.flash(500, 255, 244, 200);
     this.completeStage();
     this.time.delayedCall(900, () =>
-      this.talk("Ấn Dấu thứ 10", STAGE10.outro.map(tr), () =>
-        this.talk("Suy niệm", [tr(STAGE10.lesson)], () =>
-          this.talk("Rê-phi-đim", STAGE10.cutscene.map(tr), () => this.goToNextStage()))));
+      this.talk(tx("Ấn Dấu thứ 10", "Seal 10"), STAGE10.outro.map(tr), () =>
+        this.talk(tx("Suy niệm", "Reflection"), [tr(STAGE10.lesson)], () =>
+          this.talk(tx("Rê-phi-đim", "Rephidim"), STAGE10.cutscene.map(tr), () => this.goToNextStage()))));
   }
 
   // ---------------------------------------------------------------- frame update

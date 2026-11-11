@@ -125,7 +125,7 @@ export const NOAH_TEXT = {
     plank: [l("Em đã bắc ván qua suối!", "You laid the plank across the stream!")],
     stones: [l("Đủ 12 viên đá! Em xếp bàn thờ, và ông Nô-ê thắp lửa lễ vật tạ ơn Chúa.", "All 12 stones! You build the altar and Noah lights the thanksgiving fire.")],
     phase2: [l("Ánh sáng trắng từ trời chiếu xuống bàn thờ. Các Trụ Tinh Thể hiện ra. Hãy dẫn tia sáng qua 7 màu theo thứ tự cầu vồng!", "White light falls on the altar and the Crystal Pillars appear. Lead the ray through the seven colours in rainbow order!")],
-    colours: ["Đỏ – Tình Yêu", "Cam – Hy Vọng", "Vàng – Tín Trung", "Lục – Sự Sống", "Lam – Bình An", "Chàm – Trông Cậy", "Tím – Thánh Ân"],
+    colours: [l("Đỏ – Tình Yêu", "Red – Love"), l("Cam – Hy Vọng", "Orange – Hope"), l("Vàng – Tín Trung", "Yellow – Faithfulness"), l("Lục – Sự Sống", "Green – Life"), l("Lam – Bình An", "Blue – Peace"), l("Chàm – Trông Cậy", "Indigo – Trust"), l("Tím – Thánh Ân", "Violet – Holy Grace")],
     outro: [
       l("Bảy sắc nối liền một mạch: Cầu Vồng Giao Ước vươn cao bao trùm cả bầu trời! Thiên Chúa chúc lành cho gia đình ông Nô-ê và lập giao ước muôn đời với mọi loài.", "Seven colours join in one: the Rainbow of the Covenant arches over the sky! God blesses Noah's family and makes an everlasting covenant with every creature."),
       l("Ấn Dấu thứ tám hoàn tất. Hải Đồ Giao Ước đã đủ 8/8 Ấn Dấu!", "The eighth Seal is complete. The Covenant Sea Chart now shows 8/8 Seals!"),

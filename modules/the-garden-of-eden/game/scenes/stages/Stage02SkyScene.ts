@@ -4,6 +4,7 @@ import { registerStageTextures } from "@/modules/the-garden-of-eden/game/utils/s
 import { STAGE_TEXT } from "@/modules/the-garden-of-eden/data/stageText";
 import { tr } from "@/modules/the-garden-of-eden/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 320;
 const H = 240;
@@ -88,7 +89,7 @@ export class Stage02SkyScene extends BaseGenesisScene {
     (n === 1 ? CLOUDS_1 : CLOUDS_2).forEach(([x, y]) => {
       const c: Cloud = { s: this.add.image(x, y, n === 1 ? "gen_cloud_s" : "gen_cloud_l").setDepth(y), fx: x, fy: y, vx: 0, vy: 0, big: n === 2, gone: false };
       this.clouds.push(c);
-      this.interactables.push({ get x() { return c.fx; }, get y() { return c.fy; }, r: 34, label: "[A] Thổi gió", active: () => !c.gone, act: () => this.blow(c) });
+      this.interactables.push({ get x() { return c.fx; }, get y() { return c.fy; }, r: 34, label: tx("[A] Thổi gió", "[A] Blow the wind"), active: () => !c.gone, act: () => this.blow(c) });
     });
     VORTEX.slice(0, n === 1 ? 2 : 3).forEach(([x, y, vx, vy]) => {
       const k = n === 2 ? 1.25 : 1;
@@ -195,7 +196,7 @@ export class Stage02SkyScene extends BaseGenesisScene {
       this.waves.forEach((w) => { w.warn.destroy(); w.front?.destroy(); });
       this.waves = [];
       this.vortices.forEach((v) => (v.vx = v.vy = 0));
-      this.time.delayedCall(600, () => this.talk("Chúa Thánh Thần", STAGE_TEXT.s2.phase2.map(tr), () => this.startPhase(2)));
+      this.time.delayedCall(600, () => this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), STAGE_TEXT.s2.phase2.map(tr), () => this.startPhase(2)));
     } else {
       this.over = true;
       this.waves.forEach((w) => { w.warn.destroy(); w.front?.destroy(); });

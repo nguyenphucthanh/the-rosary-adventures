@@ -5,12 +5,16 @@ import { MYSTERIES_DATA, INTERLUDES_DATA, SEASONS } from "@/modules/the-rosary-a
 import { SaveData, MysterySeason } from "@/modules/the-rosary-adventures/types/game";
 import { EPILOGUE_SCENE, PROLOGUE_SCENE, STAGE_SCENES } from "@/modules/the-rosary-adventures/data/stages";
 import EventBus from "@/modules/shared/game/EventBus";
+import { useLang, useT } from "@/modules/shared/i18n";
 
 interface RosaryHUDProps {
   saveData: SaveData | null;
 }
 
 export default function RosaryHUD({ saveData }: RosaryHUDProps) {
+  const t = useT();
+  const lang = useLang();
+  const en = lang === "en";
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSeason, setSelectedSeason] = useState<MysterySeason>("joyful");
   const [extraLit, setExtraLit] = useState(0);
@@ -73,7 +77,7 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          title="Nhấn để xem Chuỗi 20 Mầu Nhiệm Mân Côi"
+          title={t("Nhấn để xem Chuỗi 20 Mầu Nhiệm Mân Côi", "Tap to view the 20 Mysteries of the Rosary")}
           className="retro-frame px-3 py-1.5 bg-slate-950/90 flex items-center gap-2.5 transition-transform hover:scale-105 active:scale-95 group shadow-lg"
         >
           {/* Rosary Icon with gentle shine */}
@@ -82,7 +86,7 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
           {/* Beads Miniature Counter */}
           <div className="flex flex-col items-start text-left">
             <span className="font-pixel text-[14px] sm:text-[16px] text-amber-300 tracking-wider">
-              CHUỖI MÂN CÔI
+              {t("CHUỖI MÂN CÔI", "THE ROSARY")}
             </span>
             <div className="flex items-center gap-1 mt-0.5">
               {/* Mini 5 dots for Joyful season */}
@@ -122,10 +126,10 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
               <div className="flex items-center gap-3">
                 <div>
                   <h2 className="pixel-title text-[32px] sm:text-[36px] text-amber-300">
-                    20 MẦU NHIỆM MÂN CÔI
+                    {t("20 MẦU NHIỆM MÂN CÔI", "THE 20 MYSTERIES OF THE ROSARY")}
                   </h2>
                   <p className="font-pixel text-[22px] sm:text-[24px] text-amber-100/70">
-                    Đã thắp sáng: {litBeadsCount}/20 hạt mầu nhiệm
+                    {t("Đã thắp sáng", "Lit")}: {litBeadsCount}/20 {t("hạt mầu nhiệm", "mystery beads")}
                   </p>
                 </div>
               </div>
@@ -134,7 +138,7 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                aria-label="Đóng"
+                aria-label={t("Đóng", "Close")}
                 className="retro-btn-red px-3 py-1 text-[24px] font-pixel active:translate-y-0.5"
               >
                 ✕
@@ -148,16 +152,16 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                 onClick={() => goTo(PROLOGUE_SCENE)}
                 className="retro-btn-gold px-2 py-2 font-pixel text-[24px] text-amber-100 active:translate-y-0.5"
               >
-                🕯️ MÀN MỞ ĐẦU
+                🕯️ {t("MÀN MỞ ĐẦU", "PROLOGUE")}
               </button>
               <button
                 type="button"
                 disabled={!finished}
                 onClick={() => goTo(EPILOGUE_SCENE)}
-                title={finished ? undefined : "Hoàn thành Chặng 20 để mở khóa"}
+                title={finished ? undefined : t("Hoàn thành Chặng 20 để mở khóa", "Finish Stage 20 to unlock")}
                 className="retro-btn-gold px-2 py-2 font-pixel text-[24px] text-amber-100 active:translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none"
               >
-                {finished ? "🏡 MÀN KẾT" : "🔒 MÀN KẾT"}
+                {finished ? "🏡 " : "🔒 "}{t("MÀN KẾT", "EPILOGUE")}
               </button>
             </div>
 
@@ -185,10 +189,10 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                       }`}
                   >
                     <div className="flex items-center gap-1">
-                      <span className="font-bold">{s.labelVi}</span>
+                      <span className="font-bold">{en ? s.labelEn : s.labelVi}</span>
                     </div>
                     <span className="text-[20px] opacity-80">
-                      {seasonLitCount}/5 Hạt
+                      {seasonLitCount}/5 {t("Hạt", "Beads")}
                     </span>
                   </button>
                 );
@@ -227,20 +231,20 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                           <div>
                             <div className="flex items-center gap-2">
                               <span className="font-pixel text-[12px] text-amber-400">
-                                {item.decadeNameVi}
+                                {en ? item.decadeNameEn : item.decadeNameVi}
                               </span>
                               <span className="text-[11px] font-mono px-1.5 py-0.2 bg-slate-800 text-amber-200 rounded">
-                                {item.scriptureVi}
+                                {en ? item.scriptureEn : item.scriptureVi}
                               </span>
                             </div>
 
                             <h3 className="font-retro text-[18px] sm:text-[20px] text-amber-100 font-bold mt-0.5">
-                              {item.titleVi}
+                              {en ? item.titleEn : item.titleVi}
                             </h3>
 
                             {/* Spiritual Fruit (Hoa trái suy niệm) */}
                             <div className="mt-1.5 font-retro text-[18px] sm:text-[22px] text-amber-200/90 flex items-center gap-1.5">
-                              <span>{item.fruitVi}</span>
+                              <span>{en ? item.fruitEn : item.fruitVi}</span>
                             </div>
                           </div>
                         </div>
@@ -249,12 +253,12 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                         <div className="shrink-0 text-right">
                           {isLit ? (
                             <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-amber-500/20 border border-amber-400 text-amber-300 font-pixel text-[11px] rounded">
-                              <span>ĐÃ SÁNG</span>
+                              <span>{t("ĐÃ SÁNG", "LIT")}</span>
                               <span>★</span>
                             </span>
                           ) : (
                             <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-slate-800 border border-slate-700 text-slate-400 font-pixel text-[10px] rounded">
-                              CHƯA SÁNG
+                              {t("CHƯA SÁNG", "NOT LIT")}
                             </span>
                           )}
                           {isCompleted && STAGE_SCENES[item.key] && (
@@ -263,7 +267,7 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                               onClick={() => replay(item.key)}
                               className="mt-1.5 block ml-auto retro-btn-gold px-2.5 py-1 font-pixel text-[11px] text-amber-100 active:translate-y-0.5"
                             >
-                              ▶ CHƠI LẠI
+                              ▶ {t("CHƠI LẠI", "REPLAY")}
                             </button>
                           )}
                         </div>
@@ -286,17 +290,17 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                                 className={`font-pixel text-[10px] ${interlude.kind === "bridge" ? "text-sky-300" : "text-emerald-300"
                                   }`}
                               >
-                                {interlude.badgeVi}
+                                {en ? interlude.badgeEn : interlude.badgeVi}
                               </span>
                               <span className="text-[10px] font-mono px-1.5 bg-slate-800 text-amber-200 rounded">
-                                {interlude.scriptureVi}
+                                {en ? interlude.scriptureEn : interlude.scriptureVi}
                               </span>
                               {interludeDone && (
-                                <span className="font-pixel text-[10px] text-amber-300">✓ ĐÃ QUA</span>
+                                <span className="font-pixel text-[10px] text-amber-300">✓ {t("ĐÃ QUA", "DONE")}</span>
                               )}
                             </div>
                             <div className="font-retro text-[16px] text-amber-100 font-bold">
-                              {interlude.titleVi}
+                              {en ? interlude.titleEn : interlude.titleVi}
                             </div>
                           </div>
                         </div>
@@ -306,7 +310,7 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
                           onClick={() => replay(interlude.key)}
                           className="shrink-0 retro-btn-gold px-2.5 py-1 font-pixel text-[11px] text-amber-100 active:translate-y-0.5"
                         >
-                          ⚡ CHƠI NGAY
+                          ⚡ {t("CHƠI NGAY", "PLAY NOW")}
                         </button>
                       </div>
                     )}
@@ -317,7 +321,7 @@ export default function RosaryHUD({ saveData }: RosaryHUDProps) {
 
             {/* Modal Footer Guidance */}
             <div className="pt-3 border-t border-slate-800 flex items-center justify-between font-pixel text-[22px] sm:text-[24px] text-slate-400">
-              <span>Mỗi chặng hoàn thành sẽ thắp sáng 1 hạt Mân Côi tương ứng</span>
+              <span>{t("Mỗi chặng hoàn thành sẽ thắp sáng 1 hạt Mân Côi tương ứng", "Each finished stage lights one Rosary bead")}</span>
             </div>
           </div>
         </div>

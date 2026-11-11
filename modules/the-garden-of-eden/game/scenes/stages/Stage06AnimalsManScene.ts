@@ -4,16 +4,17 @@ import { registerStageTextures } from "@/modules/the-garden-of-eden/game/utils/s
 import { STAGE_TEXT } from "@/modules/the-garden-of-eden/data/stageText";
 import { tr } from "@/modules/the-garden-of-eden/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 320;
 const H = 240;
 const ALTAR: [number, number] = [160, 132]; // Bệ Đất Thánh (foot)
 // the four Red Earth Essences, in the order the Holy Spirit shows them (clockwise from the hill)
 const ESS: { x: number; y: number; name: string }[] = [
-  { x: 50, y: 34, name: "Trí Khôn" },
-  { x: 270, y: 34, name: "Trái Tim Yêu Thương" },
-  { x: 270, y: 206, name: "Đôi Tay Lao Động" },
-  { x: 50, y: 206, name: "Ý Chí Tự Do" },
+  { x: 50, y: 34, name: tx("Trí Khôn", "Wisdom") },
+  { x: 270, y: 34, name: tx("Trái Tim Yêu Thương", "A Loving Heart") },
+  { x: 270, y: 206, name: tx("Đôi Tay Lao Động", "Working Hands") },
+  { x: 50, y: 206, name: tx("Ý Chí Tự Do", "Free Will") },
 ];
 // patrolling animals: moving along one axis between min and max
 const PATROLS = [
@@ -89,7 +90,7 @@ export class Stage06AnimalsManScene extends BaseGenesisScene {
     });
 
     this.interactables = ESS.map((e, i) => ({
-      x: e.x, y: e.y, r: 18, label: "[A] Tìm Tinh Hoa", active: () => this.mode === "gather" && i >= this.collected, act: () => this.gather(i),
+      x: e.x, y: e.y, r: 18, label: tx("[A] Tìm Tinh Hoa", "[A] Find the Essence"), active: () => this.mode === "gather" && i >= this.collected, act: () => this.gather(i),
     }));
   }
 
@@ -108,14 +109,14 @@ export class Stage06AnimalsManScene extends BaseGenesisScene {
       const num = this.text(e.x, e.y - 14, `${i + 1}. ${e.name}`);
       this.markers.push(glow, img, num);
     });
-    this.countdown = this.text(W / 2, 12, `Ghi nhớ! ${secs}`);
+    this.countdown = this.text(W / 2, 12, tx(`Ghi nhớ! ${secs}`, `Remember! ${secs}`));
     this.markers.push(this.countdown);
     let left = secs;
     this.time.addEvent({
       delay: 1000, repeat: secs - 1,
       callback: () => {
         left--;
-        if (left > 0) return this.countdown?.setText(`Ghi nhớ! ${left}`);
+        if (left > 0) return this.countdown?.setText(tx(`Ghi nhớ! ${left}`, `Remember! ${left}`));
         this.markers.forEach((m) => this.tweens.add({ targets: m, alpha: 0, duration: 500, ease: "Stepped", easeParams: [4], onComplete: () => m.destroy() }));
         this.markers = [];
         this.mode = "gather";
@@ -127,7 +128,7 @@ export class Stage06AnimalsManScene extends BaseGenesisScene {
     if (i !== this.collected) { // wrong place in the order: gentle restart of the sequence
       audio.sfx("wrong");
       this.mode = "idle";
-      this.talk("Chúa Thánh Thần", STAGE_TEXT.s6.wrong.map(tr), () => {
+      this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), STAGE_TEXT.s6.wrong.map(tr), () => {
         this.collected = 0;
         this.altarIcons.forEach((a) => a.destroy());
         this.altarIcons = [];
@@ -141,7 +142,7 @@ export class Stage06AnimalsManScene extends BaseGenesisScene {
     this.collected++;
     if (this.collected === ESS.length) {
       this.mode = "idle";
-      this.time.delayedCall(500, () => this.talk("Chúa Thánh Thần", STAGE_TEXT.s6.breath.map(tr), () => this.startBreath()));
+      this.time.delayedCall(500, () => this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), STAGE_TEXT.s6.breath.map(tr), () => this.startBreath()));
     }
   }
 
@@ -153,7 +154,7 @@ export class Stage06AnimalsManScene extends BaseGenesisScene {
     this.breathT = 0;
     this.heart = this.add.image(ALTAR[0], ALTAR[1] - 46, "gen_heart").setDepth(DEPTH.FX);
     this.ringGfx = this.add.graphics().setDepth(DEPTH.FX);
-    this.breathText = this.text(ALTAR[0], ALTAR[1] - 76, `Nhịp thở 0/${BREATHS}`);
+    this.breathText = this.text(ALTAR[0], ALTAR[1] - 76, tx(`Nhịp thở 0/${BREATHS}`, `Breaths 0/${BREATHS}`));
   }
 
   private ringSize() {
@@ -171,7 +172,7 @@ export class Stage06AnimalsManScene extends BaseGenesisScene {
     this.breaths++;
     audio.sfx("chime");
     this.sparkleBurst(ALTAR[0], ALTAR[1] - 46, 6);
-    this.breathText?.setText(`Nhịp thở ${this.breaths}/${BREATHS}`);
+    this.breathText?.setText(tx(`Nhịp thở ${this.breaths}/${BREATHS}`, `Breaths ${this.breaths}/${BREATHS}`));
     if (this.breaths >= BREATHS) this.lifeBreathed();
   }
 

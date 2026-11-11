@@ -5,6 +5,7 @@ import { registerVisitationTextures } from "@/modules/the-rosary-adventures/game
 import { registerInfancyTextures } from "@/modules/the-rosary-adventures/game/utils/infancyTextureGenerator";
 import { registerLightTextures } from "@/modules/the-rosary-adventures/game/utils/lightTextureGenerator";
 import { registerGalileeTextures } from "@/modules/the-rosary-adventures/game/utils/galileeTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 640;
@@ -14,23 +15,23 @@ const JESUS_AT: [number, number] = [320, 181]; // on top of the rock (top edge y
 
 const NEEDY = [
   {
-    sprite: "mourner", item: "icon_hope", at: [150, 540] as [number, number], name: "Người Khóc Than", emoji: "😢",
-    plight: "Tôi vừa mất người thân, lòng tôi đau buồn lắm. Tôi cần một niềm hy vọng. (Mt 5, 4)",
-    thanks: "Cảm ơn con! Chúa nói: 'Phúc thay ai sầu khổ, vì họ sẽ được Thiên Chúa ủi an.' (Mt 5, 4)",
+    sprite: "mourner", item: "icon_hope", at: [150, 540] as [number, number], name: tx("Người Khóc Than", "Mourner"), emoji: "😢",
+    plight: tx("Tôi vừa mất người thân, lòng tôi đau buồn lắm. Tôi cần một niềm hy vọng. (Mt 5, 4)", "I have just lost a loved one and my heart is heavy with grief. I need hope. (Mt 5:4)"),
+    thanks: tx("Cảm ơn con! Chúa nói: 'Phúc thay ai sầu khổ, vì họ sẽ được Thiên Chúa ủi an.' (Mt 5, 4)", "Thank you! The Lord says: ‘Blessed are those who mourn, for they will be comforted.’ (Mt 5:4)"),
   },
   {
-    sprite: "hungry", item: "icon_bread", at: [320, 556] as [number, number], name: "Người Nghèo Đói", emoji: "🥖",
-    plight: "Mấy ngày nay tôi chưa có gì bỏ bụng. Tôi cần chút bánh để sống. (Mt 5, 3.6)",
-    thanks: "Cảm ơn con! 'Phúc thay ai đói khát nên công chính, vì họ sẽ được no thỏa.' (Mt 5, 6)",
+    sprite: "hungry", item: "icon_bread", at: [320, 556] as [number, number], name: tx("Người Nghèo Đói", "Hungry Poor Man"), emoji: "🥖",
+    plight: tx("Mấy ngày nay tôi chưa có gì bỏ bụng. Tôi cần chút bánh để sống. (Mt 5, 3.6)", "I haven't had anything to eat for days. I need a little bread to live. (Mt 5:3, 6)"),
+    thanks: tx("Cảm ơn con! 'Phúc thay ai đói khát nên công chính, vì họ sẽ được no thỏa.' (Mt 5, 6)", "Thank you! ‘Blessed are those who hunger and thirst for righteousness, for they will be satisfied.’ (Mt 5:6)"),
   },
   {
-    sprite: "prisoner", item: "icon_peace", at: [490, 540] as [number, number], name: "Người Bị Bắt Bớ", emoji: "🕊️",
-    plight: "Tôi bị người ta xua đuổi, bắt bớ chỉ vì sống ngay lành. Tôi cần bình an. (Mt 5, 10)",
-    thanks: "Cảm ơn con! 'Phúc thay ai bị bách hại vì sống công chính, vì Nước Trời là của họ.' (Mt 5, 10)",
+    sprite: "prisoner", item: "icon_peace", at: [490, 540] as [number, number], name: tx("Người Bị Bắt Bớ", "Persecuted Man"), emoji: "🕊️",
+    plight: tx("Tôi bị người ta xua đuổi, bắt bớ chỉ vì sống ngay lành. Tôi cần bình an. (Mt 5, 10)", "I've been driven away and persecuted just for living uprightly. I need peace. (Mt 5:10)"),
+    thanks: tx("Cảm ơn con! 'Phúc thay ai bị bách hại vì sống công chính, vì Nước Trời là của họ.' (Mt 5, 10)", "Thank you! ‘Blessed are those who are persecuted for the sake of righteousness, for theirs is the Kingdom of Heaven.’ (Mt 5:10)"),
   },
 ];
 const ITEMS: [string, number, number][] = [["icon_hope", 110, 400], ["icon_bread", 530, 380], ["icon_peace", 320, 440]];
-const ITEM_NAME: Record<string, string> = { icon_hope: "niềm hy vọng", icon_bread: "bánh sẻ chia", icon_peace: "chim bồ câu bình an" };
+const ITEM_NAME: Record<string, string> = { icon_hope: tx("niềm hy vọng", "hope"), icon_bread: tx("bánh sẻ chia", "shared bread"), icon_peace: tx("chim bồ câu bình an", "dove of peace") };
 
 export class Luminous03BeatitudesScene extends InteractiveScene {
   private helped = new Set<string>();
@@ -62,11 +63,11 @@ export class Luminous03BeatitudesScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("sang_03_rao_giang", [320, 610], {
-      speaker: "Đồi Bát Phúc",
+      speaker: tx("Đồi Bát Phúc", "The Hill of the Beatitudes"),
       emoji: "🏔️",
       lines: [
-        "Mầu Nhiệm Thứ Ba Năm Sự Sáng: Đức Chúa Giêsu Rao Giảng Nước Trời Và Kêu Gọi Sám Hối (Mc 1, 14-15; Mt 5–7).",
-        "Dưới chân đồi có ba người đang đau khổ. Hãy nhặt các món quà Lời Chúa trên đồi và trao đúng người cần nhé!",
+        tx("Mầu Nhiệm Thứ Ba Năm Sự Sáng: Đức Chúa Giêsu Rao Giảng Nước Trời Và Kêu Gọi Sám Hối (Mc 1, 14-15; Mt 5–7).", "Third Luminous Mystery: Jesus Proclaims the Kingdom of God and Calls to Conversion (Mk 1:14-15; Mt 5–7)."),
+        tx("Dưới chân đồi có ba người đang đau khổ. Hãy nhặt các món quà Lời Chúa trên đồi và trao đúng người cần nhé!", "Three suffering people wait at the foot of the hill. Pick up the gifts of God's Word on the hill and give each to the right person!"),
       ],
     });
   }
@@ -121,7 +122,7 @@ export class Luminous03BeatitudesScene extends InteractiveScene {
     const need = (n: (typeof NEEDY)[number]) => ({
       at: () => n.at,
       r: 46,
-      label: () => (this.held ? `[A] Trao cho ${n.name}` : `[A] Trò chuyện với ${n.name}`),
+      label: () => (this.held ? `[A] Trao cho ${n.name}` : tx(`[A] Trò chuyện với ${n.name}`, `[A] Talk to ${n.name}`)),
       active: () => !this.helped.has(n.item),
       act: () => this.give(n),
     });
@@ -129,7 +130,7 @@ export class Luminous03BeatitudesScene extends InteractiveScene {
       ...ITEMS.map(([id]) => ({
         at: () => this.lootPos(id),
         r: 30,
-        label: () => `[A] Nhặt ${ITEM_NAME[id]}`,
+        label: () => tx(`[A] Nhặt ${ITEM_NAME[id]}`, `[A] Pick up ${ITEM_NAME[id]}`),
         active: () => this.lootActive(id),
         act: () => this.takeLoot(id),
       })),
@@ -137,7 +138,7 @@ export class Luminous03BeatitudesScene extends InteractiveScene {
       {
         at: () => JESUS_AT,
         r: 56,
-        label: () => "[A] Trò chuyện với Chúa Giêsu",
+        label: () => tx("[A] Trò chuyện với Chúa Giêsu", "[A] Talk to Jesus"),
         active: () => !this.finished,
         act: () => this.jesus(),
       },
@@ -151,32 +152,32 @@ export class Luminous03BeatitudesScene extends InteractiveScene {
 
   private give(n: (typeof NEEDY)[number]) {
     if (!this.held) {
-      this.talk(n.name, n.emoji, [n.plight, "Hãy nhặt một món quà Lời Chúa trên đồi mang đến cho tôi nhé."]);
+      this.talk(n.name, n.emoji, [n.plight, tx("Hãy nhặt một món quà Lời Chúa trên đồi mang đến cho tôi nhé.", "Please pick up a gift of God's Word from the hill and bring it to me.")]);
       return;
     }
     if (this.held.id !== n.item) {
-      this.talk(n.name, n.emoji, [`Cảm ơn con, nhưng ${ITEM_NAME[this.held.id]} chưa phải điều tôi đang cần.`, "Thử món quà khác nhé."]);
+      this.talk(n.name, n.emoji, [tx(`Cảm ơn con, nhưng ${ITEM_NAME[this.held.id]} chưa phải điều tôi đang cần.`, `Thank you, but ${ITEM_NAME[this.held.id]} is not what I need.`), tx("Thử món quà khác nhé.", "Try another gift.")]);
       return;
     }
     this.helped.add(n.item);
     this.dropItem();
     this.sparkleBurst(n.at[0], n.at[1] - 16);
     const done = this.helped.size === NEEDY.length;
-    this.talk(n.name, n.emoji, [n.thanks, ...(done ? ["Cả ba người đã được an ủi! Hãy lên đồi gặp Chúa Giêsu nhé."] : [])]);
+    this.talk(n.name, n.emoji, [n.thanks, ...(done ? [tx("Cả ba người đã được an ủi! Hãy lên đồi gặp Chúa Giêsu nhé.", "All three have been comforted! Go up the hill to meet Jesus.")] : [])]);
   }
 
   private jesus() {
     if (this.helped.size < NEEDY.length) {
-      this.talk("Chúa Giêsu", "✨", [`Hãy an ủi những người đang đau khổ dưới chân đồi trước nhé. Đã có ${this.helped.size}/${NEEDY.length} người được giúp.`]);
+      this.talk(tx("Chúa Giêsu", "Jesus"), "✨", [tx(`Hãy an ủi những người đang đau khổ dưới chân đồi trước nhé. Đã có ${this.helped.size}/${NEEDY.length} người được giúp.`, `First comfort the suffering people at the foot of the hill. ${this.helped.size}/${NEEDY.length} have been helped.`)]);
       return;
     }
     this.talk(
-      "Chúa Giêsu",
+      tx("Chúa Giêsu", "Jesus"),
       "✨",
       [
-        "'Phúc thay ai có tâm hồn nghèo khó, vì Nước Trời là của họ.' (Mt 5, 3)",
-        "Người nhìn con và mỉm cười.",
-        "'Thời kỳ đã mãn, Nước Thiên Chúa đã đến gần. Anh em hãy sám hối và tin vào Tin Mừng.' (Mc 1, 15)",
+        tx("'Phúc thay ai có tâm hồn nghèo khó, vì Nước Trời là của họ.' (Mt 5, 3)", "‘Blessed are the poor in spirit, for theirs is the Kingdom of Heaven.’ (Mt 5:3)"),
+        tx("Người nhìn con và mỉm cười.", "He looks at you and smiles."),
+        tx("'Thời kỳ đã mãn, Nước Thiên Chúa đã đến gần. Anh em hãy sám hối và tin vào Tin Mừng.' (Mc 1, 15)", "‘The time is fulfilled, and the Kingdom of God is at hand. Repent, and believe in the Gospel.’ (Mk 1:15)"),
       ],
       () => this.finish()
     );
@@ -188,10 +189,10 @@ export class Luminous03BeatitudesScene extends InteractiveScene {
     this.time.delayedCall(500, () =>
       this.complete(
         3,
-        "Năm Sự Sáng",
-        "Đức Chúa Giêsu Rao Giảng Nước Trời Và Kêu Gọi Sám Hối",
-        "Sống tinh thần Tám Mối Phúc Thật và hoán cải tâm hồn mỗi ngày.",
-        "Mỗi lần bạn an ủi và chia sẻ với người khác, bạn đang sống Tám Mối Phúc. Hãy sám hối và tin vào Tin Mừng nhé!",
+        tx("Năm Sự Sáng", "Luminous"),
+        tx("Đức Chúa Giêsu Rao Giảng Nước Trời Và Kêu Gọi Sám Hối", "Jesus Proclaims the Kingdom of God and Calls to Conversion"),
+        tx("Sống tinh thần Tám Mối Phúc Thật và hoán cải tâm hồn mỗi ngày.", "Live the spirit of the Beatitudes and turn your heart back to God every day."),
+        tx("Mỗi lần bạn an ủi và chia sẻ với người khác, bạn đang sống Tám Mối Phúc. Hãy sám hối và tin vào Tin Mừng nhé!", "Every time you comfort and share with others, you are living the Beatitudes. Repent and believe in the Gospel!"),
         ["gift_hope", "gift_bread", "gift_peace"]
       )
     );

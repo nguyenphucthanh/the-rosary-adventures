@@ -7,6 +7,7 @@ import { registerSinaiTextures } from "@/modules/moses-the-exodus/game/utils/sin
 import { registerCalfTextures } from "@/modules/moses-the-exodus/game/utils/calfTextures";
 import { STAGE12, tr } from "@/modules/moses-the-exodus/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 // Tall map (top -> bottom): rock cleft summit, whirlwind path, stonecutters' shelter, gate, calf camp.
 // Everything interactive sits y >= 100 and y <= 500 (the bottom 100px hide behind the mobile controls).
@@ -284,7 +285,7 @@ export class Stage12GoldenCalfMercyScene extends BaseExodusScene {
 
   private askPrayer() {
     this.phase = "wait";
-    this.talk("Lời cầu bầu", [tr(STAGE12.atNiche[1])], undefined, STAGE12.prayer.map((o) => ({
+    this.talk(tx("Lời cầu bầu", "Intercession"), [tr(STAGE12.atNiche[1])], undefined, STAGE12.prayer.map((o) => ({
       label: tr(o.label),
       onSelect: () => {
         if (o.right) { audio.sfx("chime"); this.mercy(); return; }
@@ -301,15 +302,15 @@ export class Stage12GoldenCalfMercyScene extends BaseExodusScene {
     this.halo?.setAlpha(0.8);
     if (this.halo) this.tweens.add({ targets: this.halo, alpha: 0.4, duration: 900, yoyo: true, repeat: -1, ease: "Stepped", easeParams: [4] });
     this.sparkleBurst(NICHE[0], NICHE[1] - 30, 14);
-    this.time.delayedCall(900, () => this.talk("Đức Chúa", STAGE12.mercy.map(tr), () => this.won()));
+    this.time.delayedCall(900, () => this.talk(tx("Đức Chúa", "The Lord"), STAGE12.mercy.map(tr), () => this.won()));
   }
 
   private won() {
     audio.sfx("complete");
     this.completeStage();
-    this.talk("Ấn Dấu thứ 12", STAGE12.outro.map(tr), () =>
-      this.talk("Suy niệm", [tr(STAGE12.lesson)], () =>
-        this.talk("Trại Ít-ra-en", STAGE12.cutscene.map(tr), () => this.goToNextStage())));
+    this.talk(tx("Ấn Dấu thứ 12", "Seal 12"), STAGE12.outro.map(tr), () =>
+      this.talk(tx("Suy niệm", "Reflection"), [tr(STAGE12.lesson)], () =>
+        this.talk(tx("Trại Ít-ra-en", "Israel's Camp"), STAGE12.cutscene.map(tr), () => this.goToNextStage())));
   }
 
   private toast(x: number, y: number, msg: string, color = "#fecaca") {

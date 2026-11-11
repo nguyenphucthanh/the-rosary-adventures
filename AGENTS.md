@@ -58,6 +58,15 @@ When you design a stage, the layout must be easy to read on both mobile and desk
 - **Too big** = long walks, wasted time, and the child loses the chance to notice important signals. **Too small** = objects crowd together and collapse the interaction space (overlapping colliders, targets inside each other's reach, no room to maneuver).
 - Check both ends: at the chosen integer zoom, verify key objects are visible or reachable quickly on a phone and on desktop; keep distances between interaction points short enough to cross in a few seconds, with clear space around each interactable.
 
+## Language (Vietnamese + English)
+
+All four games are bilingual. The player picks the language in the character dialog (open it with the name button) and on the home page; it is stored in `localStorage` and the page reloads on change, because Phaser scenes build their text once. Never put a language button on the top bar.
+
+- `modules/shared/i18n.ts` is the only place that knows the language: `tx`/`t(vi, en)` and `tr({vi, en})` for Phaser scenes (client only), `useT()` / `useLang()` for React (hydration-safe, use these in anything server-rendered).
+- Every player-visible string needs both languages: data files carry `{ vi, en }` pairs (`L`), scenes wrap literals as `tx("Vietnamese", "English")` (`import { t as tx } from "@/modules/shared/i18n"`; many scenes already use `t` as a local variable). This includes hint labels, speaker names, HUD text and toasts.
+- Speaker plates on the shared dialogue box are translated through `modules/shared/speakers.ts` for the Vietnamese-only names that data files pass in.
+- Scripture references: English uses `Luke 1:26-38`-style, Vietnamese keeps `Lc 1, 26-38`.
+
 ## Tone
 
 Vietnamese first (EN supported). Reverent, warm, simple words for children; Scripture quotes cite the reference (e.g. `Lc 1, 26-38`).

@@ -10,6 +10,7 @@ import { registerGalileeTextures } from "@/modules/the-rosary-adventures/game/ut
 import { registerPassionTextures } from "@/modules/the-rosary-adventures/game/utils/passionTextureGenerator";
 import { registerGloryTextures } from "@/modules/the-rosary-adventures/game/utils/gloryTextureGenerator";
 import { registerInterludeTextures } from "@/modules/the-rosary-adventures/game/utils/interludeTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 540;
@@ -86,12 +87,12 @@ export class InterludeB4CarryCrossScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("mid_b4_vac_thap_gia_nho", [320, 470], {
-      speaker: "Chúa Giêsu",
+      speaker: tx("Chúa Giêsu", "Jesus"),
       emoji: "✝️",
       lines: [
-        "Chặng Đệm Hành Động: Vác Thập Giá Nhỏ Theo Chúa (Lc 9, 23).",
-        "“Ai muốn theo Tôi, phải từ bỏ chính mình, vác thập giá mình hằng ngày mà theo.” (Lc 9, 23)",
-        "Con đang vác cây Thập Giá Nhỏ trên vai! Hãy bước theo 6 Dấu Chân Vàng của Chúa trên dốc đá, và đến gần 4 bụi gai/đá lăn bấm [A] giơ Thập Giá hóa chúng thành Hoa Hy Sinh nhé!",
+        tx("Chặng Đệm Hành Động: Vác Thập Giá Nhỏ Theo Chúa (Lc 9, 23).", "Action Mid-Stage: Carrying Our Little Cross with Jesus (Lk 9:23)."),
+        tx("“Ai muốn theo Tôi, phải từ bỏ chính mình, vác thập giá mình hằng ngày mà theo.” (Lc 9, 23)", "“Whoever wishes to come after me must deny himself, take up his cross daily and follow me.” (Lk 9:23)"),
+        tx("Con đang vác cây Thập Giá Nhỏ trên vai! Hãy bước theo 6 Dấu Chân Vàng của Chúa trên dốc đá, và đến gần 4 bụi gai/đá lăn bấm [A] giơ Thập Giá hóa chúng thành Hoa Hy Sinh nhé!", "You carry the Little Cross on your shoulder! Follow the 6 Golden Footprints of the Lord up the rocky slope, and near the 4 thorn bushes / rolling rocks press [A] to hold up the Cross and turn them into Flowers of Sacrifice!"),
       ],
     });
 
@@ -105,7 +106,7 @@ export class InterludeB4CarryCrossScene extends InteractiveScene {
       {
         id: "footsteps",
         emoji: "👣",
-        label: "BƯỚC CHÂN",
+        label: tx("BƯỚC CHÂN", "FOOTSTEPS"),
         current: this.stepCount,
         total: STEP_GOAL,
         color: "amber",
@@ -227,7 +228,7 @@ export class InterludeB4CarryCrossScene extends InteractiveScene {
       // Place at() 18px above the thorn so the prompt at y-36 never covers the player's face
       at: () => [t.sprite.x, t.y - 18] as [number, number],
       r: 56,
-      label: () => "[A] Giơ Thập Giá Nhỏ — Hóa gai nhọn thành Hoa Hy Sinh!",
+      label: () => tx("[A] Giơ Thập Giá Nhỏ — Hóa gai nhọn thành Hoa Hy Sinh!", "[A] Hold up the Little Cross — Turn sharp thorns into Flowers of Sacrifice!"),
       active: () => !this.finished && !t.transformed,
       act: () => this.transformThorn(idx),
     }));
@@ -240,8 +241,8 @@ export class InterludeB4CarryCrossScene extends InteractiveScene {
         r: 64,
         label: () =>
           this.stepCount >= STEP_GOAL && this.flowerCount >= FLOWER_GOAL
-            ? "[A] Dâng Thập Giá Nhỏ lên Chúa Giêsu"
-            : `[A] Chúa Giêsu (${this.stepCount}/${STEP_GOAL} Bước Chân · ${this.flowerCount}/${FLOWER_GOAL} Hoa Hy Sinh)`,
+            ? tx("[A] Dâng Thập Giá Nhỏ lên Chúa Giêsu", "[A] Offer the Little Cross to Jesus")
+            : tx(`[A] Chúa Giêsu (${this.stepCount}/${STEP_GOAL} Bước Chân · ${this.flowerCount}/${FLOWER_GOAL} Hoa Hy Sinh)`, `[A] Jesus (${this.stepCount}/${STEP_GOAL} Footsteps · ${this.flowerCount}/${FLOWER_GOAL} Flowers of Sacrifice)`),
         active: () => !this.finished,
         act: () => this.talkToJesus(),
       },
@@ -273,9 +274,9 @@ export class InterludeB4CarryCrossScene extends InteractiveScene {
 
   private talkToJesus() {
     if (this.stepCount < STEP_GOAL || this.flowerCount < FLOWER_GOAL) {
-      this.talk("Chúa Giêsu", "✝️", [
-        "Cảm ơn con đã cùng vác thập giá nhỏ đi bên Thầy!",
-        `Con hãy bước đủ ${STEP_GOAL} Dấu Chân Vàng (${this.stepCount}/${STEP_GOAL}) và hóa phép đủ ${FLOWER_GOAL} Hoa Hy Sinh (${this.flowerCount}/${FLOWER_GOAL}) trên đường nhé!`,
+      this.talk(tx("Chúa Giêsu", "Jesus"), "✝️", [
+        tx("Cảm ơn con đã cùng vác thập giá nhỏ đi bên Thầy!", "Thank you for carrying a little cross beside Me!"),
+        tx(`Con hãy bước đủ ${STEP_GOAL} Dấu Chân Vàng (${this.stepCount}/${STEP_GOAL}) và hóa phép đủ ${FLOWER_GOAL} Hoa Hy Sinh (${this.flowerCount}/${FLOWER_GOAL}) trên đường nhé!`, `Walk all ${STEP_GOAL} Golden Footprints (${this.stepCount}/${STEP_GOAL}) and work the wonder on ${FLOWER_GOAL} Flowers of Sacrifice (${this.flowerCount}/${FLOWER_GOAL}) along the way!`),
       ]);
       return;
     }
@@ -284,18 +285,18 @@ export class InterludeB4CarryCrossScene extends InteractiveScene {
     audio.sfx("angel");
     this.sparkleBurst(320, 112);
     this.talk(
-      "Chúa Giêsu",
+      tx("Chúa Giêsu", "Jesus"),
       "🌸",
       [
-        "Mỗi việc thiện nhỏ bé, mỗi lời vâng phục cha mẹ và mỗi hy sinh âm thầm của con đều làm nhẹ bớt Thập Giá của Thầy!",
-        "“Ai muốn theo Tôi, phải từ bỏ chính mình, vác thập giá mình hằng ngày mà theo.” (Lc 9, 23)",
+        tx("Mỗi việc thiện nhỏ bé, mỗi lời vâng phục cha mẹ và mỗi hy sinh âm thầm của con đều làm nhẹ bớt Thập Giá của Thầy!", "Every small good deed, every act of obedience to your parents and every quiet sacrifice makes My Cross lighter!"),
+        tx("“Ai muốn theo Tôi, phải từ bỏ chính mình, vác thập giá mình hằng ngày mà theo.” (Lc 9, 23)", "“Whoever wishes to come after me must deny himself, take up his cross daily and follow me.” (Lk 9:23)"),
       ],
       () =>
         this.completeInterlude(
-          "CHẶNG ĐỆM B4",
-          "Vác Thập Giá Nhỏ Theo Chúa (Lc 9, 23)",
-          "Biến những hy sinh nhỏ bé hằng ngày thành những bông hoa yêu thương dâng Chúa.",
-          "Con đường gai nhọn đã nở đầy hoa hy sinh! Giờ đây chúng ta cùng bước tiếp lên Đồi Can-vê với Chúa Giêsu nhé!"
+          tx("CHẶNG ĐỆM B4", "MID-STAGE B4"),
+          tx("Vác Thập Giá Nhỏ Theo Chúa (Lc 9, 23)", "Carrying Our Little Cross with Jesus (Lk 9:23)"),
+          tx("Biến những hy sinh nhỏ bé hằng ngày thành những bông hoa yêu thương dâng Chúa.", "Turn small daily sacrifices into flowers of love offered to the Lord."),
+          tx("Con đường gai nhọn đã nở đầy hoa hy sinh! Giờ đây chúng ta cùng bước tiếp lên Đồi Can-vê với Chúa Giêsu nhé!", "The thorny path has bloomed with flowers of sacrifice! Now let's go on to Calvary with Jesus!")
         )
     );
   }

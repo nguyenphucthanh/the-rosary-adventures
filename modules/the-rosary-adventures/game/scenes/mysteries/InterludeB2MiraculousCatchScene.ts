@@ -8,6 +8,7 @@ import { registerInfancyTextures } from "@/modules/the-rosary-adventures/game/ut
 import { registerLightTextures } from "@/modules/the-rosary-adventures/game/utils/lightTextureGenerator";
 import { registerGalileeTextures } from "@/modules/the-rosary-adventures/game/utils/galileeTextureGenerator";
 import { registerInterludeTextures } from "@/modules/the-rosary-adventures/game/utils/interludeTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 500;
@@ -64,13 +65,13 @@ export class InterludeB2MiraculousCatchScene extends InteractiveScene {
     for (let i = 0; i < 4; i++) this.spawnFish(140 + i * 100);
 
     this.begin("mid_b2_me_ca_la", [320, 310], {
-      speaker: "Hồ Galilê – Thuyền Ông Simon",
+      speaker: tx("Hồ Galilê – Thuyền Ông Simon", "Sea of Galilee – Simon's Boat"),
       emoji: "🐟",
       lines: [
-        "Chặng Đệm Hành Động: Mẻ Cá Lạ Trên Hồ Galilê (Lc 5, 1-11).",
-        "Chúa Giêsu bảo ông Simon: “Hãy chèo ra chỗ nước sâu mà thả lưới bắt cá.”",
-        "Ông Simon thưa: “Thưa Thầy, chúng tôi đã vất vả suốt đêm mà không bắt được gì cả; nhưng vâng lời Thầy, tôi sẽ thả lưới!”",
-        "Hãy di chuyển qua lại trên boong thuyền và nhấn nút [A] (hoặc phím Space) để quăng lưới bắt đủ 8 chú cá nhé!",
+        tx("Chặng Đệm Hành Động: Mẻ Cá Lạ Trên Hồ Galilê (Lc 5, 1-11).", "Action Mid-Stage: The Miraculous Catch of Fish on the Sea of Galilee (Lk 5:1-11)."),
+        tx("Chúa Giêsu bảo ông Simon: “Hãy chèo ra chỗ nước sâu mà thả lưới bắt cá.”", "Jesus tells Simon: “Put out into deep water and let down your nets for a catch.”"),
+        tx("Ông Simon thưa: “Thưa Thầy, chúng tôi đã vất vả suốt đêm mà không bắt được gì cả; nhưng vâng lời Thầy, tôi sẽ thả lưới!”", "Simon answers: “Master, we have worked all night and caught nothing, but at your command I will lower the nets!”"),
+        tx("Hãy di chuyển qua lại trên boong thuyền và nhấn nút [A] (hoặc phím Space) để quăng lưới bắt đủ 8 chú cá nhé!", "Move back and forth on the deck and press [A] (or Space) to cast the net and catch 8 fish!"),
       ],
     });
     this.syncProgress();
@@ -81,7 +82,7 @@ export class InterludeB2MiraculousCatchScene extends InteractiveScene {
       {
         id: "galilee_fish",
         emoji: "🐟",
-        label: "MẺ CÁ",
+        label: tx("MẺ CÁ", "CATCH"),
         current: this.caught,
         total: GOAL,
         color: "sky",
@@ -243,10 +244,10 @@ export class InterludeB2MiraculousCatchScene extends InteractiveScene {
 
     this.time.delayedCall(500, () =>
       this.completeInterlude(
-        "CHẶNG ĐỆM B2",
-        "Mẻ Cá Lạ Trên Hồ Galilê (Lc 5, 1-11)",
-        "Tin tưởng vâng lời Chúa Giêsu và hăng hái theo Chúa trở thành những người 'lưới người như lưới cá'.",
-        "Chúa Giêsu bảo ông Simon: “Đừng sợ, từ nay anh sẽ là người thu phục người ta.” Các ông liền bỏ mọi sự mà theo Người!"
+        tx("CHẶNG ĐỆM B2", "MID-STAGE B2"),
+        tx("Mẻ Cá Lạ Trên Hồ Galilê (Lc 5, 1-11)", "The Miraculous Catch of Fish on the Sea of Galilee (Lk 5:1-11)"),
+        tx("Tin tưởng vâng lời Chúa Giêsu và hăng hái theo Chúa trở thành những người 'lưới người như lưới cá'.", "Trust and obey Jesus and follow Him eagerly, becoming people who ‘catch people like fish’."),
+        tx("Chúa Giêsu bảo ông Simon: “Đừng sợ, từ nay anh sẽ là người thu phục người ta.” Các ông liền bỏ mọi sự mà theo Người!", "Jesus tells Simon: “Do not be afraid; from now on you will be catching men.” They left everything and followed Him!")
       )
     );
   }

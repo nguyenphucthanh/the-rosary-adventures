@@ -6,6 +6,7 @@ import { registerEdenTextures } from "@/modules/the-garden-of-eden/game/utils/ed
 import { STAGE_TEXT } from "@/modules/the-garden-of-eden/data/stageText";
 import { tr } from "@/modules/the-garden-of-eden/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 320;
 const H = 240;
@@ -14,9 +15,9 @@ const ADAM_AT: [number, number] = [132, 176];
 const NEED = [6, 8, 10]; // smoke clouds to block per wave
 // the serpent's three lies and God's truth against each
 const DEBATE = [
-  { q: "Rắn: “Thật sao? Chúa cấm các ngươi ăn MỌI cây trong vườn ư?”", ok: "Không! Chúa cho ăn mọi cây, chỉ trừ một cây giữa vườn để chúng ta nhớ Chúa là Đấng Tạo Hóa.", bad: ["Đúng vậy, Chúa cấm chúng ta ăn mọi cây trong vườn.", "Chúng ta chỉ được ăn khi nào Rắn cho phép."] },
-  { q: "Rắn: “Chẳng chết đâu! Chúa sợ các ngươi ăn vào sẽ mở mắt bằng Thiên Chúa đấy!”", ok: "Đó là lời nói dối kiêu ngạo! Mọi ơn lành Chúa đều đã ban vì yêu thương con người.", bad: ["Có thể Chúa giấu chúng ta một điều gì đó tốt hơn.", "Chắc không sao đâu, chỉ thử một lần thôi."] },
-  { q: "Rắn: “Nhìn kìa, trái này thật ngon lành, đẹp mắt và đáng quý!”", ok: "Đẹp mắt chưa chắc là tốt. Chúa đã dặn, và vâng lời Chúa mới đem lại bình an thật.", bad: ["Trái đẹp thế thì chắc chắn tốt cho chúng ta.", "Ăn một miếng nhỏ thì Chúa sẽ không biết đâu."] },
+  { q: tx("Rắn: “Thật sao? Chúa cấm các ngươi ăn MỌI cây trong vườn ư?”", "Serpent: “Really? God forbade you to eat from EVERY tree in the garden?”"), ok: tx("Không! Chúa cho ăn mọi cây, chỉ trừ một cây giữa vườn để chúng ta nhớ Chúa là Đấng Tạo Hóa.", "No! God lets us eat from every tree except one in the middle, so we remember He is our Creator."), bad: [tx("Đúng vậy, Chúa cấm chúng ta ăn mọi cây trong vườn.", "Yes, God forbade us to eat from every tree in the garden."), tx("Chúng ta chỉ được ăn khi nào Rắn cho phép.", "We may only eat when the Serpent allows it.")] },
+  { q: tx("Rắn: “Chẳng chết đâu! Chúa sợ các ngươi ăn vào sẽ mở mắt bằng Thiên Chúa đấy!”", "Serpent: “You will not die! God is afraid that if you eat, your eyes will open and you will be like God!”"), ok: tx("Đó là lời nói dối kiêu ngạo! Mọi ơn lành Chúa đều đã ban vì yêu thương con người.", "That is a proud lie! Every blessing God gave came from His love for us."), bad: [tx("Có thể Chúa giấu chúng ta một điều gì đó tốt hơn.", "Maybe God is hiding something better from us."), tx("Chắc không sao đâu, chỉ thử một lần thôi.", "It's probably fine, just try it once.")] },
+  { q: tx("Rắn: “Nhìn kìa, trái này thật ngon lành, đẹp mắt và đáng quý!”", "Serpent: “Look, this fruit is so tasty, beautiful and precious!”"), ok: tx("Đẹp mắt chưa chắc là tốt. Chúa đã dặn, và vâng lời Chúa mới đem lại bình an thật.", "Beautiful doesn't always mean good. God gave His word, and obeying Him brings true peace."), bad: [tx("Trái đẹp thế thì chắc chắn tốt cho chúng ta.", "Such a beautiful fruit must be good for us."), tx("Ăn một miếng nhỏ thì Chúa sẽ không biết đâu.", "God won't know if we take just a small bite.")] },
 ];
 interface Puff { s: Phaser.GameObjects.Sprite; tx: number; ty: number; vx: number; vy: number }
 interface Trap { s: Phaser.GameObjects.Sprite; t: number }
@@ -99,7 +100,7 @@ export class Stage10SerpentScene extends BaseGenesisScene {
     this.mode = "wave";
     this.saveCheckpoint(`w${this.wave}`, null, 210, 190);
     this.shield?.setVisible(true);
-    this.meter?.setText(`Đợt ${this.wave + 1}/3 · Chặn khói 0/${NEED[this.wave]}`);
+    this.meter?.setText(tx(`Đợt ${this.wave + 1}/3 · Chặn khói 0/${NEED[this.wave]}`, `Wave ${this.wave + 1}/3 · Smoke blocked 0/${NEED[this.wave]}`));
   }
 
   private spawnPuff() {
@@ -140,7 +141,7 @@ export class Stage10SerpentScene extends BaseGenesisScene {
         p.s.destroy();
         audio.sfx("chime");
         this.blocked++;
-        this.meter?.setText(`Đợt ${this.wave + 1}/3 · Chặn khói ${this.blocked}/${NEED[this.wave]}`);
+        this.meter?.setText(tx(`Đợt ${this.wave + 1}/3 · Chặn khói ${this.blocked}/${NEED[this.wave]}`, `Wave ${this.wave + 1}/3 · Smoke blocked ${this.blocked}/${NEED[this.wave]}`));
         if (this.blocked >= NEED[this.wave]) return this.debate();
       } else if (Math.hypot(p.s.x - p.tx, p.s.y - p.ty) < 9) { // it reached them
         this.puffs.splice(this.puffs.indexOf(p), 1);
@@ -170,7 +171,7 @@ export class Stage10SerpentScene extends BaseGenesisScene {
       this.tweens.add({ targets: target, x: { from: bx - 2, to: bx + 2 }, duration: 50, yoyo: true, repeat: 3, onComplete: () => target.active && target.setX(bx) });
     }
     this.sparkleBurst(x, y, 8);
-    const t = this.add.text(Math.round(x), Math.round(y - 8), "-1 Ân Sủng", { fontFamily: "Dearpix, monospace", fontSize: "10px", color: "#fca5a5", backgroundColor: "#0f172acc", padding: { x: 2, y: 1 }, resolution: 4 }).setOrigin(0.5).setDepth(DEPTH.FX);
+    const t = this.add.text(Math.round(x), Math.round(y - 8), tx("-1 Ân Sủng", "-1 Grace"), { fontFamily: "Dearpix, monospace", fontSize: "10px", color: "#fca5a5", backgroundColor: "#0f172acc", padding: { x: 2, y: 1 }, resolution: 4 }).setOrigin(0.5).setDepth(DEPTH.FX);
     this.tweens.add({ targets: t, y: t.y - 14, alpha: 0, duration: 900, ease: "Stepped", easeParams: [5], onComplete: () => t.destroy() });
     this.meter?.setColor("#f87171");
     this.time.delayedCall(400, () => this.meter?.setColor("#fde68a"));
@@ -183,12 +184,12 @@ export class Stage10SerpentScene extends BaseGenesisScene {
     this.shield?.setVisible(false);
     const d = DEBATE[this.wave];
     const opts = Phaser.Utils.Array.Shuffle([d.ok, ...d.bad]);
-    this.talk("Con Rắn", [d.q, "Em hãy chọn Lời Chúa đúng để đáp lại."], undefined, opts.map((o) => ({
+    this.talk(tx("Con Rắn", "The Serpent"), [d.q, tx("Em hãy chọn Lời Chúa đúng để đáp lại.", "Choose the right Word of God to answer.")], undefined, opts.map((o) => ({
       label: o,
       onSelect: () => {
         if (o === d.ok) return this.truth();
         audio.sfx("wrong");
-        this.talk("Chúa Thánh Thần", ["Đó là lời của Con Rắn đấy! Hãy nhớ điều Chúa thật sự đã phán. Đợt này sẽ bắt đầu lại."], () => this.resetToCheckpoint());
+        this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), [tx("Đó là lời của Con Rắn đấy! Hãy nhớ điều Chúa thật sự đã phán. Đợt này sẽ bắt đầu lại.", "Those are the Serpent's words! Remember what God really said. This wave will start over.")], () => this.resetToCheckpoint());
       },
     })));
   }
@@ -197,7 +198,7 @@ export class Stage10SerpentScene extends BaseGenesisScene {
     audio.sfx("bless");
     this.cameras.main.flash(300, 255, 244, 180);
     this.wave++;
-    if (this.wave < NEED.length) return this.talk("Chúa Thánh Thần", [`Đúng rồi! Lời Chúa là sự thật. Con Rắn sắp tung đợt cám dỗ ${this.wave + 1}.`], () => this.startWave());
+    if (this.wave < NEED.length) return this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), [tx(`Đúng rồi! Lời Chúa là sự thật. Con Rắn sắp tung đợt cám dỗ ${this.wave + 1}.`, `That's right! God's word is truth. The Serpent is about to launch temptation ${this.wave + 1}.`)], () => this.startWave());
     this.fall();
   }
 
@@ -205,7 +206,7 @@ export class Stage10SerpentScene extends BaseGenesisScene {
   private fall() {
     this.mode = "done";
     this.meter?.setText("");
-    this.talk("Cuộn Sách Sáng Thế", STAGE_TEXT.s10.fall.map(tr), () => {
+    this.talk(tx("Cuộn Sách Sáng Thế", "The Genesis Scroll"), STAGE_TEXT.s10.fall.map(tr), () => {
       audio.sfx("wrong");
       this.cameras.main.shake(700, 0.012);
       const dark = this.add.rectangle(0, 0, W, H, 0x05060d, 0).setOrigin(0).setDepth(DEPTH.FX - 6);

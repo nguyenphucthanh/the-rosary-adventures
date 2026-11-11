@@ -6,6 +6,7 @@ import { registerAnnunciationTextures } from "@/modules/the-rosary-adventures/ga
 import { registerVisitationTextures } from "@/modules/the-rosary-adventures/game/utils/visitationTextureGenerator";
 import { registerInfancyTextures } from "@/modules/the-rosary-adventures/game/utils/infancyTextureGenerator";
 import { registerInterludeTextures } from "@/modules/the-rosary-adventures/game/utils/interludeTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 480;
@@ -14,23 +15,23 @@ const BENCH_Y = 250;
 const GOAL = 5;
 
 const TOOLS = [
-  { key: "tool_hammer", name: "cái búa" },
-  { key: "tool_saw", name: "cái cưa" },
-  { key: "tool_plane", name: "cái bào" },
-  { key: "tool_chisel", name: "cái đục" },
-  { key: "tool_square", name: "cây thước vuông" },
+  { key: "tool_hammer", name: tx("cái búa", "hammer") },
+  { key: "tool_saw", name: tx("cái cưa", "saw") },
+  { key: "tool_plane", name: tx("cái bào", "plane") },
+  { key: "tool_chisel", name: tx("cái đục", "chisel") },
+  { key: "tool_square", name: tx("cây thước vuông", "square ruler") },
 ];
 
 /** Chests: foot position + how Jesus describes them. 5 of 8 hide a tool (random each play). */
 const CHESTS = [
-  { x: 64, y: 190, where: "ở góc trái, ngay dưới chậu ô-liu" },
-  { x: 576, y: 190, where: "ở góc phải, ngay dưới chậu ô-liu" },
-  { x: 120, y: 262, where: "cạnh đống củi bên trái" },
-  { x: 520, y: 262, where: "cạnh đống củi bên phải" },
-  { x: 130, y: 420, where: "cạnh mấy cái chum đất" },
-  { x: 500, y: 420, where: "gần bó rơm" },
-  { x: 400, y: 390, where: "phía dưới bàn mộc, hơi lệch bên phải" },
-  { x: 490, y: 112, where: "bên dưới cửa sổ phía phải" },
+  { x: 64, y: 190, where: tx("ở góc trái, ngay dưới chậu ô-liu", "in the left corner, right under the olive pot") },
+  { x: 576, y: 190, where: tx("ở góc phải, ngay dưới chậu ô-liu", "in the right corner, right under the olive pot") },
+  { x: 120, y: 262, where: tx("cạnh đống củi bên trái", "next to the left woodpile") },
+  { x: 520, y: 262, where: tx("cạnh đống củi bên phải", "next to the right woodpile") },
+  { x: 130, y: 420, where: tx("cạnh mấy cái chum đất", "beside the clay jars") },
+  { x: 500, y: 420, where: tx("gần bó rơm", "near the straw bundle") },
+  { x: 400, y: 390, where: tx("phía dưới bàn mộc, hơi lệch bên phải", "below the workbench, slightly to the right") },
+  { x: 490, y: 112, where: tx("bên dưới cửa sổ phía phải", "under the right-hand window") },
 ];
 
 const WANDER: [number, number][] = [
@@ -78,12 +79,12 @@ export class InterludeA1WorkshopScene extends InteractiveScene {
     this.wander();
 
     this.begin("bridge_a1_xuong_moc", [320, 440], {
-      speaker: "Xưởng Mộc Nazareth",
+      speaker: tx("Xưởng Mộc Nazareth", "The Nazareth Carpenter's Workshop"),
       emoji: "🪚",
       lines: [
-        "Cầu Nối Mùa Vui → Mùa Sáng: Xưởng Mộc Nazareth (Lc 2, 51-52).",
-        "“Chúa Giêsu xuống cùng với cha mẹ trở về Na-da-rét và hằng vâng phục các ngài... Người ngày càng thêm khôn ngoan, thêm cao lớn và thêm ân nghĩa.”",
-        "Thánh Giuse làm mất 5 dụng cụ mộc rồi! Hãy đến hỏi Chúa Giêsu bé nhỏ để nghe gợi ý, rồi mở các rương [A] tìm giúp Ngài nhé. Có rương trống đó!",
+        tx("Cầu Nối Mùa Vui → Mùa Sáng: Xưởng Mộc Nazareth (Lc 2, 51-52).", "Season Bridge Joyful → Luminous: The Nazareth Carpenter's Workshop (Lk 2:51-52)."),
+        tx("“Chúa Giêsu xuống cùng với cha mẹ trở về Na-da-rét và hằng vâng phục các ngài... Người ngày càng thêm khôn ngoan, thêm cao lớn và thêm ân nghĩa.”", "“Jesus went down with them and came to Nazareth, and was obedient to them... And Jesus grew in wisdom and stature, and in favor with God and men.”"),
+        tx("Thánh Giuse làm mất 5 dụng cụ mộc rồi! Hãy đến hỏi Chúa Giêsu bé nhỏ để nghe gợi ý, rồi mở các rương [A] tìm giúp Ngài nhé. Có rương trống đó!", "Saint Joseph has lost 5 carpentry tools! Ask little Jesus for a hint, then open the chests with [A] to help Him look. Some chests are empty!"),
       ],
     });
     this.syncProgress();
@@ -94,7 +95,7 @@ export class InterludeA1WorkshopScene extends InteractiveScene {
       {
         id: "workshop_tools",
         emoji: "🪚",
-        label: "DỤNG CỤ",
+        label: tx("DỤNG CỤ", "TOOLS"),
         current: this.found,
         total: GOAL,
         color: "amber",
@@ -187,36 +188,36 @@ export class InterludeA1WorkshopScene extends InteractiveScene {
       {
         at: () => [320, 330],
         r: 36,
-        label: () => "[A] Hỏi Chúa Giêsu",
+        label: () => tx("[A] Hỏi Chúa Giêsu", "[A] Ask Jesus"),
         active: () => !this.finished,
         act: () => this.askJesus(),
       },
       {
         at: () => [this.joseph.x, this.joseph.y - 12],
         r: 34,
-        label: () => "[A] Trò chuyện với Thánh Giuse",
+        label: () => tx("[A] Trò chuyện với Thánh Giuse", "[A] Talk to Saint Joseph"),
         active: () => !this.finished,
         act: () =>
-          this.talk("Thánh Giuse", "🪚", [
-            "Ôi, bác tìm mãi mà chưa thấy đủ dụng cụ! Con hỏi Giêsu giúp bác nhé.",
-            `Đã tìm được ${this.found}/${GOAL} món rồi. Cảm ơn con!`,
+          this.talk(tx("Thánh Giuse", "Saint Joseph"), "🪚", [
+            tx("Ôi, bác tìm mãi mà chưa thấy đủ dụng cụ! Con hỏi Giêsu giúp bác nhé.", "Oh, I've searched and searched but I can't find all my tools! Please ask Jesus to help me."),
+            tx(`Đã tìm được ${this.found}/${GOAL} món rồi. Cảm ơn con!`, `You've found ${this.found}/${GOAL} tools already. Thank you!`),
           ]),
       },
       {
         at: () => [120, 134],
         r: 44,
-        label: () => "[A] Trò chuyện với Đức Mẹ",
+        label: () => tx("[A] Trò chuyện với Đức Mẹ", "[A] Talk to Mary"),
         active: () => !this.finished,
         act: () =>
-          this.talk("Đức Mẹ Maria", "💙", [
-            "Suốt những năm tháng ở Nazareth, Chúa Giêsu luôn vui vẻ phụ giúp Thánh Giuse trong xưởng mộc.",
-            "Làm việc nhỏ với tình yêu lớn chính là con đường nên thánh đó con!",
+          this.talk(tx("Đức Mẹ Maria", "Mother Mary"), "💙", [
+            tx("Suốt những năm tháng ở Nazareth, Chúa Giêsu luôn vui vẻ phụ giúp Thánh Giuse trong xưởng mộc.", "Through all the years in Nazareth, Jesus happily helped Saint Joseph in the carpenter's workshop."),
+            tx("Làm việc nhỏ với tình yêu lớn chính là con đường nên thánh đó con!", "Doing small things with great love is the path to holiness, my child!"),
           ]),
       },
       ...CHESTS.map((c, i) => ({
         at: (): [number, number] => [c.x, c.y - 6],
         r: 26,
-        label: () => "[A] Mở rương",
+        label: () => tx("[A] Mở rương", "[A] Open the chest"),
         active: () => !this.finished && !this.chests[i].opened,
         act: () => this.openChest(i),
       })),
@@ -227,9 +228,9 @@ export class InterludeA1WorkshopScene extends InteractiveScene {
     const next = this.chests.find((c) => c.tool !== undefined && !c.opened);
     if (!next) return;
     const where = CHESTS[this.chests.indexOf(next)].where;
-    this.talk("Chúa Giêsu", "💛", [
-      `Con nhớ rồi! Có một dụng cụ của Cha Giuse nằm trong rương ${where}.`,
-      `Còn ${GOAL - this.found} món nữa. Mình cùng tìm nhé!`,
+    this.talk(tx("Chúa Giêsu", "Jesus"), "💛", [
+      tx(`Con nhớ rồi! Có một dụng cụ của Cha Giuse nằm trong rương ${where}.`, `I remember! One of Joseph's tools is in the chest ${where}.`),
+      tx(`Còn ${GOAL - this.found} món nữa. Mình cùng tìm nhé!`, `${GOAL - this.found} more to go. Let's find them together!`),
     ]);
   }
 
@@ -241,7 +242,7 @@ export class InterludeA1WorkshopScene extends InteractiveScene {
     if (chest.tool === undefined) {
       audio.sfx("blip", 1);
       const t = this.add
-        .text(c.x, c.y - 22, "Rương trống!", {
+        .text(c.x, c.y - 22, tx("Rương trống!", "Empty chest!"), {
           fontFamily: "'Dearpix', monospace",
           fontSize: "20px",
           color: "#fef08a",
@@ -267,7 +268,7 @@ export class InterludeA1WorkshopScene extends InteractiveScene {
       duration: 700,
       onComplete: () => pop.setDepth(118),
     });
-    this.talk("Tìm thấy rồi!", "🔨", [`Bạn tìm được ${tool.name} của Thánh Giuse! (${this.found}/${GOAL})`], () => {
+    this.talk(tx("Tìm thấy rồi!", "Found it!"), "🔨", [tx(`Bạn tìm được ${tool.name} của Thánh Giuse! (${this.found}/${GOAL})`, `You found Saint Joseph's ${tool.name}! (${this.found}/${GOAL})`)], () => {
       if (this.found >= GOAL) this.finishWorkshop();
     });
   }
@@ -278,10 +279,10 @@ export class InterludeA1WorkshopScene extends InteractiveScene {
     this.sparkleBurst(this.joseph.x, this.joseph.y - 20);
     this.time.delayedCall(500, () =>
       this.completeInterlude(
-        "CẦU NỐI MÙA A1",
-        "Xưởng Mộc Nazareth (Lc 2, 51-52)",
-        "Thánh hóa công việc học tập và bổn phận hằng ngày bằng sự chăm chỉ và lòng vâng phục.",
-        "Chúa Giêsu đã khôn lớn tại mái nhà Nazareth. Giờ đây, Chúa Thánh Thần sẽ đưa chúng ta bước sang Năm Sự Sáng tại dòng sông Gio-đan!"
+        tx("CẦU NỐI MÙA A1", "SEASON BRIDGE A1"),
+        tx("Xưởng Mộc Nazareth (Lc 2, 51-52)", "The Nazareth Carpenter's Workshop (Lk 2:51-52)"),
+        tx("Thánh hóa công việc học tập và bổn phận hằng ngày bằng sự chăm chỉ và lòng vâng phục.", "Make school work and daily duties holy through diligence and obedience."),
+        tx("Chúa Giêsu đã khôn lớn tại mái nhà Nazareth. Giờ đây, Chúa Thánh Thần sẽ đưa chúng ta bước sang Năm Sự Sáng tại dòng sông Gio-đan!", "Jesus grew up under the roof at Nazareth. Now the Holy Spirit leads us on to the Luminous Mysteries at the River Jordan!")
       )
     );
   }

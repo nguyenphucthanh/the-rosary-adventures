@@ -4,6 +4,7 @@ import { registerStageTextures } from "@/modules/the-garden-of-eden/game/utils/s
 import { STAGE_TEXT } from "@/modules/the-garden-of-eden/data/stageText";
 import { tr } from "@/modules/the-garden-of-eden/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const T = 16;
 const W = 400; // 25 tiles
@@ -86,7 +87,7 @@ export class Stage05SeaBirdsScene extends BaseGenesisScene {
     CURRENTS.forEach(([c, r, d]) => (this.bay[r][c] = d));
 
     this.add.rectangle(GOAL.x, GOAL.y, GOAL.width, GOAL.height, 0xfde68a, 0.22).setOrigin(0).setDepth(DEPTH.RUG);
-    this.add.text(GOAL.centerX, GOAL.y - 6, "BIỂN RỘNG", { fontFamily: "Dearpix, monospace", fontSize: "10px", color: "#fde68a", resolution: 4 }).setOrigin(0.5).setDepth(DEPTH.FX);
+    this.add.text(GOAL.centerX, GOAL.y - 6, tx("BIỂN RỘNG", "OPEN SEA"), { fontFamily: "Dearpix, monospace", fontSize: "10px", color: "#fde68a", resolution: 4 }).setOrigin(0.5).setDepth(DEPTH.FX);
 
     for (let r = 0; r < BAY_ROWS; r++) {
       for (let c = 0; c < BAY_COLS; c++) {
@@ -121,7 +122,7 @@ export class Stage05SeaBirdsScene extends BaseGenesisScene {
     this.birds = Array.from({ length: 5 }, (_, i) => this.add.sprite(NEST[0], NEST[1], "gen_bird").setDepth(DEPTH.FX - 1).play("gen_bird").setData("i", i));
     this.bar = this.add.graphics().setDepth(DEPTH.FX);
     this.status = this.label(NEST[0], NEST[1] - 30, "").setVisible(false);
-    this.interactables = FANS.map(([x, y], i) => ({ x, y: y - 6, r: 26, label: `[A] Quạt Gió ${i + 1}`, active: () => this.part === 2, act: () => this.switchFan(i) }));
+    this.interactables = FANS.map(([x, y], i) => ({ x, y: y - 6, r: 26, label: tx(`[A] Quạt Gió ${i + 1}`, `[A] Wind fan ${i + 1}`), active: () => this.part === 2, act: () => this.switchFan(i) }));
     this.add.image(NEST[0], NEST[1] + 6, "gen_tree_s").setOrigin(0.5, 1).setDepth(NEST[1] + 6); // the nest tree
   }
 
@@ -178,7 +179,7 @@ export class Stage05SeaBirdsScene extends BaseGenesisScene {
         audio.sfx("wrong");
         if (!this.toldLost) {
           this.toldLost = true;
-          this.time.delayedCall(300, () => this.talk("Chúa Thánh Thần", ["Một chú cá chạm gai và bị lạc rồi! Hãy quay lại đón bạn nhỏ nhé, rồi tránh xa rặng gai hơn."]));
+          this.time.delayedCall(300, () => this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), [tx("Một chú cá chạm gai và bị lạc rồi! Hãy quay lại đón bạn nhỏ nhé, rồi tránh xa rặng gai hơn.", "A little fish touched the thorns and got lost! Go back to fetch your friend, then keep farther from the thorns.")]));
         }
       }
     }
@@ -196,7 +197,7 @@ export class Stage05SeaBirdsScene extends BaseGenesisScene {
     this.fish.forEach((f) => this.tweens.add({ targets: f.s, y: f.s.y - 10, alpha: 0, duration: 800, ease: "Stepped", easeParams: [6], onComplete: () => f.s.destroy() }));
     this.fish = [];
     this.time.delayedCall(900, () =>
-      this.talk("Chúa Thánh Thần", STAGE_TEXT.s5.hill.map(tr), () => {
+      this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), STAGE_TEXT.s5.hill.map(tr), () => {
         const cam = this.cameras.main;
         cam.fadeOut(500, 0, 0, 0);
         cam.once("camerafadeoutcomplete", () => {
@@ -213,7 +214,7 @@ export class Stage05SeaBirdsScene extends BaseGenesisScene {
   private switchFan(i: number) {
     if (i < this.nextFan) return;
     if (i > this.nextFan) {
-      this.resetWind("Chưa đến lượt! Gió đổi chiều rồi, hãy bắt đầu lại từ quạt số 1 nhé.");
+      this.resetWind(tx("Chưa đến lượt! Gió đổi chiều rồi, hãy bắt đầu lại từ quạt số 1 nhé.", "Not your turn yet! The wind changed. Start again from fan number 1."));
       return;
     }
     this.fans[i].play("gen_fan");
@@ -241,7 +242,7 @@ export class Stage05SeaBirdsScene extends BaseGenesisScene {
     this.tweens.add({ targets: this.flock, x: NEST[0], y: NEST[1], duration: 900, ease: "Sine.easeInOut" });
     this.bar?.clear();
     audio.sfx("wrong");
-    if (msg) this.talk("Chúa Thánh Thần", [msg]);
+    if (msg) this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), [msg]);
   }
 
   update(time?: number, delta = 16) {
@@ -255,7 +256,7 @@ export class Stage05SeaBirdsScene extends BaseGenesisScene {
       this.windLeft -= delta;
       const w = Math.max(0, Math.round((this.windLeft / WIND_MS) * 32));
       this.bar?.clear().fillStyle(0x0f172a, 0.8).fillRect(Math.round(this.flock.x) - 17, Math.round(this.flock.y) - 22, 34, 5).fillStyle(0xfde68a, 1).fillRect(Math.round(this.flock.x) - 16, Math.round(this.flock.y) - 21, w, 3);
-      if (this.windLeft <= 0) this.resetWind("Gió đã đổi chiều, đàn chim bay về tổ. Hãy bật quạt nhanh hơn nhé!");
+      if (this.windLeft <= 0) this.resetWind(tx("Gió đã đổi chiều, đàn chim bay về tổ. Hãy bật quạt nhanh hơn nhé!", "The wind changed and the birds flew back to their nest. Turn on the fans faster!"));
     }
   }
 }

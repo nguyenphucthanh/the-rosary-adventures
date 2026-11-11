@@ -4,6 +4,7 @@ import { InteractiveScene, type Pickup } from "@/modules/the-rosary-adventures/g
 import { registerAnnunciationTextures } from "@/modules/the-rosary-adventures/game/utils/npcTextureGenerator";
 import { registerVisitationTextures } from "@/modules/the-rosary-adventures/game/utils/visitationTextureGenerator";
 import { registerInfancyTextures } from "@/modules/the-rosary-adventures/game/utils/infancyTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 800;
 const H = 600;
@@ -57,12 +58,12 @@ export class Joyful03NativityScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("vui_03_sinh_chua", [CX, 540], {
-      speaker: "Đêm Bê-lem",
+      speaker: tx("Đêm Bê-lem", "Night in Bethlehem"),
       emoji: "⭐",
       lines: [
-        "Mầu Nhiệm Thứ Ba: Đức Bà Sinh Đức Chúa Giêsu Nơi Hang Đá (Lc 2, 1-20).",
-        "Đêm đông lạnh giá. Hang đá chiên bò thật tối và vắng. Đức Mẹ và Thánh Giuse đang chờ giờ Chúa ra đời.",
-        "Hãy nhặt 3 cành củi khô, tìm viên đá lửa để nhóm lửa sưởi ấm ở góc hang (nơi có mũi tên vàng), rồi dẫn các mục đồng lạc đường về hang nhé!",
+        tx("Mầu Nhiệm Thứ Ba: Đức Bà Sinh Đức Chúa Giêsu Nơi Hang Đá (Lc 2, 1-20).", "Third Mystery: The Birth of Jesus in the Stable (Lk 2:1-20)."),
+        tx("Đêm đông lạnh giá. Hang đá chiên bò thật tối và vắng. Đức Mẹ và Thánh Giuse đang chờ giờ Chúa ra đời.", "A cold winter night. The stable is dark and empty. Mary and Joseph await the hour of the Lord's birth."),
+        tx("Hãy nhặt 3 cành củi khô, tìm viên đá lửa để nhóm lửa sưởi ấm ở góc hang (nơi có mũi tên vàng), rồi dẫn các mục đồng lạc đường về hang nhé!", "Pick up 3 dry sticks, find a flint to light a fire to warm the corner of the cave (where the gold arrow is), then guide the lost shepherds to the stable!"),
       ],
     });
   }
@@ -157,14 +158,14 @@ export class Joyful03NativityScene extends InteractiveScene {
       this.interactables.push({
         at: () => [x, y],
         r: 36,
-        label: () => "[A] Nhặt củi khô",
+        label: () => tx("[A] Nhặt củi khô", "[A] Pick up dry sticks"),
         active: () => this.woodPickups[i] !== null,
         act: () => {
           this.vanish(this.woodPickups[i]!);
           this.woodPickups[i] = null;
           this.wood++;
-          this.talk("Cành Củi Khô", "🪵", [
-            this.wood < 3 ? `Bạn nhặt được cành củi khô thứ ${this.wood}/3.` : "Đủ 3 cành củi rồi! Hãy tìm viên đá lửa nhé.",
+          this.talk(tx("Cành Củi Khô", "Dry Stick"), "🪵", [
+            this.wood < 3 ? tx(`Bạn nhặt được cành củi khô thứ ${this.wood}/3.`, `You picked up dry stick number ${this.wood}/3.`) : tx("Đủ 3 cành củi rồi! Hãy tìm viên đá lửa nhé.", "That's 3 sticks! Now find a flint."),
           ]);
         },
       })
@@ -174,18 +175,18 @@ export class Joyful03NativityScene extends InteractiveScene {
       {
         at: () => FLINT_SPOT,
         r: 36,
-        label: () => "[A] Nhặt đá lửa",
+        label: () => tx("[A] Nhặt đá lửa", "[A] Pick up the flint"),
         active: () => !this.hasFlint,
         act: () => {
           this.hasFlint = true;
           this.vanish(this.flintPickup);
-          this.talk("Viên Đá Lửa", "🪨", ["Bạn nhặt được viên đá lửa. Cộc cộc... có tia lửa nhỏ lóe lên!", "Hãy mang đến bếp lửa trước cửa hang."]);
+          this.talk(tx("Viên Đá Lửa", "Flint"), "🪨", [tx("Bạn nhặt được viên đá lửa. Cộc cộc... có tia lửa nhỏ lóe lên!", "You picked up a flint. Tap tap... a little spark flashes!"), tx("Hãy mang đến bếp lửa trước cửa hang.", "Bring it to the fireplace at the cave entrance.")]);
         },
       },
       {
         at: () => HEARTH,
         r: 44,
-        label: () => (this.wood >= 3 && this.hasFlint ? "[A] Nhóm lửa" : "[A] Xem bếp lửa"),
+        label: () => (this.wood >= 3 && this.hasFlint ? tx("[A] Nhóm lửa", "[A] Light the fire") : tx("[A] Xem bếp lửa", "[A] Look at the fireplace")),
         active: () => !this.fireLit,
         act: () => (this.wood >= 3 && this.hasFlint ? this.lightFire() : this.hearthHint()),
       }
@@ -195,7 +196,7 @@ export class Joyful03NativityScene extends InteractiveScene {
       this.interactables.push({
         at: () => [s.x, s.y],
         r: 44,
-        label: () => "[A] Chỉ đường cho mục đồng",
+        label: () => tx("[A] Chỉ đường cho mục đồng", "[A] Show the shepherds the way"),
         active: () => !this.guided[i],
         act: () => this.guideShepherd(i),
       })
@@ -205,30 +206,30 @@ export class Joyful03NativityScene extends InteractiveScene {
       {
         at: () => [CX - 32, 218 + 14],
         r: 26,
-        label: () => "[A] Trò chuyện với Đức Mẹ",
+        label: () => tx("[A] Trò chuyện với Đức Mẹ", "[A] Talk to Mary"),
         active: () => !this.finished,
         act: () =>
-          this.talk("Đức Mẹ Maria", "💙", [
-            "Con ơi, đêm nay lạnh quá, nhưng lòng Mẹ ấm áp lạ lùng.",
-            "Hài Nhi của chúng ta nằm trong máng cỏ. Chúa đã chọn sự nghèo khó để đến với nhân loại.",
+          this.talk(tx("Đức Mẹ Maria", "Mother Mary"), "💙", [
+            tx("Con ơi, đêm nay lạnh quá, nhưng lòng Mẹ ấm áp lạ lùng.", "My child, tonight is so cold, but my heart is wonderfully warm."),
+            tx("Hài Nhi của chúng ta nằm trong máng cỏ. Chúa đã chọn sự nghèo khó để đến với nhân loại.", "Our Little One lies in the manger. The Lord chose poverty to come to mankind."),
           ]),
       },
       {
         at: () => [CX + 34, 218 + 14],
         r: 26,
-        label: () => "[A] Trò chuyện với Thánh Giuse",
+        label: () => tx("[A] Trò chuyện với Thánh Giuse", "[A] Talk to Saint Joseph"),
         active: () => !this.finished,
         act: () =>
-          this.talk("Thánh Giuse", "🧔", [
-            "Không có chỗ trong nhà trọ, ta đành nghỉ trong hang chiên bò này.",
-            "Nhưng có Chúa ở cùng, hang đá nghèo cũng thành cung điện.",
-            this.fireLit ? "Cảm ơn con đã nhóm lửa! Hài Nhi ấm hơn nhiều rồi." : "Giá mà có chút lửa sưởi ấm cho Hài Nhi...",
+          this.talk(tx("Thánh Giuse", "Saint Joseph"), "🧔", [
+            tx("Không có chỗ trong nhà trọ, ta đành nghỉ trong hang chiên bò này.", "There was no room at the inn, so we rest in this stable."),
+            tx("Nhưng có Chúa ở cùng, hang đá nghèo cũng thành cung điện.", "But with the Lord here, even a poor stable becomes a palace."),
+            this.fireLit ? tx("Cảm ơn con đã nhóm lửa! Hài Nhi ấm hơn nhiều rồi.", "Thank you for lighting the fire! The Baby is much warmer now.") : tx("Giá mà có chút lửa sưởi ấm cho Hài Nhi...", "If only there were a little fire to warm the Baby..."),
           ]),
       },
       {
         at: () => [CX, 234],
         r: 34,
-        label: () => "[A] Quỳ trước Hài Nhi",
+        label: () => tx("[A] Quỳ trước Hài Nhi", "[A] Kneel before the Baby"),
         active: () => !this.finished,
         act: () => this.kneel(),
       }
@@ -237,10 +238,10 @@ export class Joyful03NativityScene extends InteractiveScene {
 
   private hearthHint() {
     const lines = [
-      this.wood < 3 ? `Bếp lửa còn trống. Cần thêm củi khô (${this.wood}/3).` : "Đã đủ củi, nhưng còn thiếu thứ để đánh lửa.",
-      this.hasFlint ? "Bạn đã có đá lửa." : "Hãy tìm viên đá lửa quanh đồi Bê-lem.",
+      this.wood < 3 ? tx(`Bếp lửa còn trống. Cần thêm củi khô (${this.wood}/3).`, `The fireplace is empty. We need more dry sticks (${this.wood}/3).`) : tx("Đã đủ củi, nhưng còn thiếu thứ để đánh lửa.", "We have enough sticks, but we still need something to strike a fire."),
+      this.hasFlint ? tx("Bạn đã có đá lửa.", "You already have the flint.") : tx("Hãy tìm viên đá lửa quanh đồi Bê-lem.", "Look for a flint around the hills of Bethlehem."),
     ];
-    this.talk("Bếp Lửa", "🔥", lines);
+    this.talk(tx("Bếp Lửa", "Fireplace"), "🔥", lines);
   }
 
   private lightFire() {
@@ -252,7 +253,7 @@ export class Joyful03NativityScene extends InteractiveScene {
     const glow = this.add.image(HEARTH[0], HEARTH[1] - 8, "glow_gold").setDepth(4600).setAlpha(0.6);
     this.tweens.add({ targets: glow, alpha: 0.85, duration: 500, yoyo: true, repeat: -1 });
     this.sparkleBurst(HEARTH[0], HEARTH[1] - 12);
-    this.talk("Bếp Lửa", "🔥", ["Phựt! Ngọn lửa bừng lên, ấm áp cả góc hang.", "Ánh lửa sáng sẽ giúp các mục đồng lạc đường nhìn thấy hang đá."]);
+    this.talk(tx("Bếp Lửa", "Fireplace"), "🔥", [tx("Phựt! Ngọn lửa bừng lên, ấm áp cả góc hang.", "Whoosh! The flame bursts up and warms the whole corner of the cave."), tx("Ánh lửa sáng sẽ giúp các mục đồng lạc đường nhìn thấy hang đá.", "The bright firelight will help the lost shepherds see the stable.")]);
   }
 
   private guideShepherd(i: number) {
@@ -261,12 +262,12 @@ export class Joyful03NativityScene extends InteractiveScene {
     const sheep = s.getData("sheep") as Phaser.GameObjects.Sprite;
     (s.getData("hint") as Phaser.GameObjects.Image).destroy();
     this.talk(
-      "Mục Đồng",
+      tx("Mục Đồng", "Shepherd"),
       "🐑",
       [
-        i ? "Tôi lạc mất đường trong đêm tối rồi..." : "Đàn chiên của tôi sợ lắm, trời lạnh quá!",
-        "Ô kìa, ngôi sao lạ trên kia! Có thiên thần báo tin vui: 'Hôm nay đã sinh ra cho anh em một Đấng Cứu Độ!' (Lc 2, 11)",
-        "Cảm ơn bạn đã chỉ đường. Chúng tôi đi theo ánh sao đến hang đá ngay!",
+        i ? tx("Tôi lạc mất đường trong đêm tối rồi...", "I've lost my way in the dark...") : tx("Đàn chiên của tôi sợ lắm, trời lạnh quá!", "My flock is so scared, and it's so cold!"),
+        tx("Ô kìa, ngôi sao lạ trên kia! Có thiên thần báo tin vui: 'Hôm nay đã sinh ra cho anh em một Đấng Cứu Độ!' (Lc 2, 11)", "Oh look, a strange star up there! An angel brings good news: ‘Today a Savior is born to you!’ (Lk 2:11)"),
+        tx("Cảm ơn bạn đã chỉ đường. Chúng tôi đi theo ánh sao đến hang đá ngay!", "Thank you for showing us the way. We'll follow the star to the stable right now!"),
       ],
       () => {
         const dx = i ? 26 : -26;
@@ -278,8 +279,8 @@ export class Joyful03NativityScene extends InteractiveScene {
 
   private kneel() {
     if (!this.fireLit || !this.guided[0] || !this.guided[1]) {
-      this.talk("Hài Nhi Giêsu", "👶", [
-        !this.fireLit ? "Hang đá còn tối và lạnh. Hãy nhóm lửa sưởi ấm cho Hài Nhi trước nhé." : "Các mục đồng vẫn còn lạc đường ngoài đồi. Hãy dẫn họ về hang!",
+      this.talk(tx("Hài Nhi Giêsu", "The Baby Jesus"), "👶", [
+        !this.fireLit ? tx("Hang đá còn tối và lạnh. Hãy nhóm lửa sưởi ấm cho Hài Nhi trước nhé.", "The stable is still dark and cold. Light a fire to warm the Baby first.") : tx("Các mục đồng vẫn còn lạc đường ngoài đồi. Hãy dẫn họ về hang!", "The shepherds are still lost on the hills. Guide them to the stable!"),
       ]);
       return;
     }
@@ -288,21 +289,21 @@ export class Joyful03NativityScene extends InteractiveScene {
     this.sparkleBurst(CX - 30, 180);
     this.sparkleBurst(CX + 30, 180);
     this.talk(
-      "Hài Nhi Giêsu",
+      tx("Hài Nhi Giêsu", "The Baby Jesus"),
       "👶",
       [
-        "Bạn quỳ gối thật khẽ trước máng cỏ. Có tiếng bò lừa thở nhẹ nhàng...",
-        "Từ trời cao vang tiếng hát thiên thần: 'Vinh danh Thiên Chúa trên trời, bình an dưới thế cho loài người Chúa thương.' (Lc 2, 14)",
-        "Các mục đồng cúi chào, còn Đức Mẹ thì ghi nhớ mọi điều ấy và suy niệm trong lòng. (Lc 2, 19)",
+        tx("Bạn quỳ gối thật khẽ trước máng cỏ. Có tiếng bò lừa thở nhẹ nhàng...", "You kneel very softly before the manger. You hear the gentle breathing of the ox and the donkey..."),
+        tx("Từ trời cao vang tiếng hát thiên thần: 'Vinh danh Thiên Chúa trên trời, bình an dưới thế cho loài người Chúa thương.' (Lc 2, 14)", "From high above comes the angels' song: ‘Glory to God in the highest, and on earth peace to those on whom His favor rests.’ (Lk 2:14)"),
+        tx("Các mục đồng cúi chào, còn Đức Mẹ thì ghi nhớ mọi điều ấy và suy niệm trong lòng. (Lc 2, 19)", "The shepherds bow, while Mary treasures all these things and ponders them in her heart. (Lk 2:19)"),
       ],
       () =>
         this.time.delayedCall(500, () =>
           this.complete(
             3,
-            "Năm Sự Vui",
-            "Đức Bà Sinh Đức Chúa Giêsu Nơi Hang Đá",
-            "Tinh thần nghèo khó, đơn sơ và lòng yêu mến người nghèo hèn.",
-            "Chúa Giêsu sinh ra trong hang đá nghèo. Hãy yêu mến sự đơn sơ và chia sẻ với người nghèo nhé!",
+            tx("Năm Sự Vui", "Joyful"),
+            tx("Đức Bà Sinh Đức Chúa Giêsu Nơi Hang Đá", "The Birth of Jesus in the Stable"),
+            tx("Tinh thần nghèo khó, đơn sơ và lòng yêu mến người nghèo hèn.", "A spirit of poverty, simplicity and love for the poor and lowly."),
+            tx("Chúa Giêsu sinh ra trong hang đá nghèo. Hãy yêu mến sự đơn sơ và chia sẻ với người nghèo nhé!", "Jesus was born in a poor stable. Love simplicity and share with the poor!"),
             ["gather_wood", "light_fire", "guide_shepherds", "adore_child"]
           )
         )
