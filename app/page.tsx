@@ -23,6 +23,13 @@ const GAMES = [
     tags: ["8 màn chơi", "Đa thể loại", "Sáng Thế"],
     image: "/games/noahs-ark.png",
   },
+  {
+    href: "/moses-the-exodus",
+    title: "Moses – The Exodus",
+    blurb: "Từ chiếc thúng cói sông Nin đến Mười Điều Răn trên núi Xi-nai qua 13 màn chơi đa thể loại.",
+    tags: ["13 màn chơi", "Đa thể loại", "Xuất Hành"],
+    image: "/games/moses-the-exodus.png",
+  },
 ];
 
 export default function Home() {

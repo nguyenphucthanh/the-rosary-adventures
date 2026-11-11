@@ -56,6 +56,12 @@ export const PAL: Record<string, string> = {
   K: "#0b1020", // night sky
   L: "#1e1b4b", // indigo sky
   Z: "#4c1d95", // deep violet
+  E: "#14b8a6", // turquoise (Egyptian headcloth / collar)
+  C: "#0f766e", // turquoise shade
+  F: "#fca5a5", // light red / blood highlight
+  M: "#a16207", // ochre desert robe
+  U: "#e7e5e4", // linen / cloud grey
+  D: "#44403c", // dark stone / basalt
 };
 
 export function makeCanvas(w: number, h: number) {

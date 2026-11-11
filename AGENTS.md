@@ -50,6 +50,14 @@ The page overlays the canvas with a top bar + HUD buttons (top ≈ 108px of scre
 - Rooms that must be fully observed must fit the screen at the chosen integer zoom on phones and desktop (drop to zoom 1 rather than crop).
 - Only static, non-interactive decoration may sit under the overlays.
 
+## Stage layout: easy to observe, sized to the gameplay
+
+When you design a stage, the layout must be easy to read on both mobile and desktop — the child should take in the important signals (NPCs, goals, hints, hazards) without hunting for them.
+
+- **Size the room to the gameplay.** If the stage makes the player travel between sides constantly (fetch/deliver, feed animals, ferry items), pick a room big enough to move and play in, but not bigger than needed.
+- **Too big** = long walks, wasted time, and the child loses the chance to notice important signals. **Too small** = objects crowd together and collapse the interaction space (overlapping colliders, targets inside each other's reach, no room to maneuver).
+- Check both ends: at the chosen integer zoom, verify key objects are visible or reachable quickly on a phone and on desktop; keep distances between interaction points short enough to cross in a few seconds, with clear space around each interactable.
+
 ## Tone
 
 Vietnamese first (EN supported). Reverent, warm, simple words for children; Scripture quotes cite the reference (e.g. `Lc 1, 26-38`).

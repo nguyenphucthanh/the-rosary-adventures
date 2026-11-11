@@ -6,23 +6,23 @@ Paste each prompt into an image generator. Each one is self-contained (style lin
 
 **Negative prompt (use if the tool supports it):** smooth gradients, blur, vector, 3D render, photo, text, watermark, outlines, realistic faces, scary, gore.
 
-## Progress Checklist (`modules/noahs-ark/images/`) — 6 / 11 Completed
+## Progress Checklist (`modules/noahs-ark/images/`) — 11 / 11 Completed
 
-- [ ] `cover.png` (`/public/games/noahs-ark.png`) — Game Cover Image for Home Page
+- [x] `cover.png` (`/public/games/noahs-ark.png`) — Game Cover Image for Home Page
 - [x] `intro-start.png` — 0. Prologue: Afternoon Rain and the Wooden Ark Model
 - [x] `intro-1.png` — 1. Stage 1: A Righteous Man in the World
 - [x] `intro-2.png` — 2. Stage 2: Gopher Wood Blueprint and Pitch
-- [ ] `intro-3.png` — 3. Stage 3: Animals Two by Two
-- [ ] `intro-4.png` — 4. Stage 4: The Door Shut and Forty Days of Rain
+- [x] `intro-3.png` — 3. Stage 3: Animals Two by Two
+- [x] `intro-4.png` — 4. Stage 4: The Door Shut and Forty Days of Rain
 - [x] `intro-5.png` — 5. Stage 5: Adrift on the Great Waters
 - [x] `intro-6.png` — 6. Stage 6: God's Wind and Mount Ararat
 - [x] `intro-7.png` — 7. Stage 7: The Dove and the Olive Branch
-- [ ] `intro-8.png` — 8. Stage 8: The Altar of Thanksgiving and the Rainbow Covenant
-- [ ] `intro-end.png` — 9. Epilogue: The Ark of the Church and Peace
+- [x] `intro-8.png` — 8. Stage 8: The Altar of Thanksgiving and the Rainbow Covenant
+- [x] `intro-end.png` — 9. Epilogue: The Ark of the Church and Peace
 
 ---
 
-## [ ] Cover. Game Cover Card (`public/games/noahs-ark.png`) — *TODO*
+## [x] Cover. Game Cover Card (`public/games/noahs-ark.png`)
 
 Detailed 16-bit pixel art game cover illustration, 16:9 landscape (1200x630), dithered gradients, limited retro palette, 3-4 tone shading per object, clean pixel edges, no anti-aliasing, warm reverent children's storybook RPG mood. In the centre, the grand wooden Noah's Ark sails peacefully on sparkling turquoise-blue waters toward the green peaks of Mount Ararat. Arching high across the deep blue-and-gold sky behind the Ark is a vivid 7-colour pixel rainbow surrounded by fluffy white clouds and twinkling stars. On the grassy shore in the foreground stand pairs of cute pixel animals (elephants, giraffes, lions, white lambs) looking up as a radiant white dove flies overhead carrying a green olive branch in its beak. At the top centre in bold retro 8-bit golden pixel typography: "NOAH'S ARK" with a smaller pixel subtitle below: "Con Tàu Nô-ê & Cầu Vồng Giao Ước".
 
@@ -40,11 +40,11 @@ Detailed 16-bit pixel art illustration, 16:10 landscape, dithered gradients, lim
 
 Detailed 16-bit pixel art illustration, 16:10 landscape, dithered gradients, limited palette, no outlines, no text. Building Noah's Ark in a sunlit valley bordered by tall green cypress (gopher) trees and distant blue hills. Filling the centre is the massive three-deck wooden framework of the Ark under construction, with warm reddish-brown timber ribs, scaffolding, wooden ramps and rope pulleys. In the foreground left, bearded Noah in a simple tunic holds an open parchment blueprint scroll, pointing upward; on the right, his three sons saw planks, haul beams on rollers, and brush glossy dark pitch onto the hull from a steaming pot. Warm golden daylight, industrious, hopeful.
 
-## [ ] 3. Stage 3: Animals Two by Two (`intro-3.png`) — *TODO*
+## [x] 3. Stage 3: Animals Two by Two (`intro-3.png`)
 
 Detailed 16-bit pixel art illustration, 16:10 landscape, dithered gradients, limited palette, no outlines, no text. Dramatic amber-and-violet sunset sky before the storm, with gathering purple clouds on the horizon. The finished giant wooden Ark rests on a green hill on the right, its wide wooden boarding ramp lowered to the ground. Marching peacefully up the ramp two by two are pairs of animals: two grey elephants, two tall giraffes, a lion and lioness, two white sheep, two zebras, two small rabbits, and two tortoises, while pairs of colourful birds and white doves fly in an arc toward the upper window of the Ark. Noah and his family stand by the Ark door welcoming them with lanterns. Joyful, wondrous, storybook warmth.
 
-## [ ] 4. Stage 4: The Door Shut and Forty Days of Rain (`intro-4.png`) — *TODO*
+## [x] 4. Stage 4: The Door Shut and Forty Days of Rain (`intro-4.png`)
 
 Detailed 16-bit pixel art illustration, 16:10 landscape, dithered gradients, limited palette, no outlines, no text. The beginning of the Great Flood, dramatic but child-safe and reassuring. Deep navy-and-indigo storm clouds with diagonal sheets of pixel rain and foamy turquoise floodwaters rising around the base of the massive wooden Ark. On the side of the Ark, the great heavy wooden door is sealed shut from the outside by a radiant golden-white hand of heavenly light and a glowing golden seal, keeping everyone inside safe. Warm yellow lantern light glows softly through the small high window under the Ark's roof. Awe-inspiring, protective, solemn.
 
@@ -60,10 +60,10 @@ Detailed 16-bit pixel art illustration, 16:10 landscape, dithered gradients, lim
 
 Detailed 16-bit pixel art illustration, 16:10 landscape, dithered gradients, limited palette, no outlines, no text. Close storybook view at the high wooden window of Noah's Ark at sunrise. Left: the weathered wooden hull and open window frame of the Ark, where bearded Noah leans out with a gentle smile, extending his two open hands. Centre-right: a pure white dove with spread wings flies toward Noah's hands, carrying a fresh bright-green olive branch with a sparkling dewdrop in its beak. Background: soft peach-and-gold dawn sky, receding blue waters, and green hilltops with young olive trees emerging below. Tender, joyful, iconic.
 
-## [ ] 8. Stage 8: The Altar of Thanksgiving and the Rainbow Covenant (`intro-8.png`) — *TODO*
+## [x] 8. Stage 8: The Altar of Thanksgiving and the Rainbow Covenant (`intro-8.png`)
 
 Detailed 16-bit pixel art illustration, 16:10 landscape, dithered gradients, limited palette, no outlines, no text. Grand finale on the lush green slopes of Mount Ararat after the Flood. In the centre foreground, Noah and his family kneel in thanksgiving around a stone altar where a warm golden offering flame sends fragrant white smoke straight up toward heaven. Around them on the flower-dotted meadow, pairs of animals (elephants, deer, sheep, lions, birds) walk happily out into the renewed world; the wooden Ark rests higher on the mountain on the left. Arching across the entire bright blue sky and fluffy white clouds is a magnificent, vivid 7-colour pixel rainbow glowing with sparkles. Joyful, holy, triumphant.
 
-## [ ] 9. Epilogue: The Ark of the Church and Peace (`intro-end.png`) — *TODO*
+## [x] 9. Epilogue: The Ark of the Church and Peace (`intro-end.png`)
 
 Detailed 16-bit pixel art illustration, 16:10 landscape, dithered gradients, limited palette, no outlines, no text. The child's sunny room after the rain, warm and serene. Left: an open wooden window showing a clear blue sky, green trees, a bright 7-colour rainbow and a white dove with an olive twig. Right: a wooden bookshelf with colourful books. On the wooden desk in the foreground sit the completed wooden Ark model, an open Bible with golden pages, the rolled Genesis scroll, and a red-and-gold Rosary with a small crucifix, all bathed in a warm sunbeam with tiny golden sparkles. Cozy, thankful, peaceful.
