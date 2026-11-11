@@ -47,6 +47,9 @@ export const STAGE_SCENES: Partial<Record<ExodusStageKey, string>> = {
   stage_09_banh_manna_tu_troi: "Stage09MannaQuailScene",
   stage_10_dap_da_va_doi_tay: "Stage10RephidimHandsScene",
   stage_11_muoi_dieu_ran_xinai: "Stage11SinaiCommandmentsScene",
+  stage_12_be_vang_chuyen_cau: "Stage12GoldenCalfMercyScene",
+  stage_13_nha_tam_giao_uoc: "Stage13TabernacleGloryScene",
+  epilogue_vuot_qua_moi: "EpilogueScene",
 };
 
 /** Scene of the next built stage after `key`, or undefined when none is built yet. */

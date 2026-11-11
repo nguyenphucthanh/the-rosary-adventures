@@ -1,6 +1,6 @@
 import { ExodusSaveData, createInitialSaveData } from "@/modules/moses-the-exodus/types/game";
 
-const STORAGE_KEY = "moses_the_exodus_save_v1";
+export const STORAGE_KEY = "moses_the_exodus_save_v1";
 
 export function validateSaveData(data: unknown): data is ExodusSaveData {
   const d = data as Partial<ExodusSaveData> | null;
