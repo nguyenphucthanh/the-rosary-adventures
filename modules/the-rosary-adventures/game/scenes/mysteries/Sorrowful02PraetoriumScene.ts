@@ -9,6 +9,7 @@ import { registerLightTextures } from "@/modules/the-rosary-adventures/game/util
 import { registerCanaTextures } from "@/modules/the-rosary-adventures/game/utils/canaTextureGenerator";
 import { registerGalileeTextures } from "@/modules/the-rosary-adventures/game/utils/galileeTextureGenerator";
 import { registerPassionTextures } from "@/modules/the-rosary-adventures/game/utils/passionTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 560;
@@ -29,9 +30,9 @@ const PATROLS: { from: [number, number]; to: [number, number]; ms: number }[] = 
 ];
 
 const PRAYERS = [
-  "Lạy Chúa Giêsu, vì tội lỗi chúng con mà Chúa chịu đánh đòn. Con thương Chúa nhiều lắm. (Is 53, 5)",
-  "Chúa không hề oán thán, Chúa lặng lẽ chịu đựng. Xin dạy con biết hãm mình và kiên nhẫn như Chúa. (Is 53, 7)",
-  "'Nhờ những vết thương của Người, chúng ta được chữa lành.' Xin tha tội cho con và cho mọi người. (Is 53, 5)",
+  tx("Lạy Chúa Giêsu, vì tội lỗi chúng con mà Chúa chịu đánh đòn. Con thương Chúa nhiều lắm. (Is 53, 5)", "Lord Jesus, You were scourged for our sins. I love You so much. (Is 53:5)"),
+  tx("Chúa không hề oán thán, Chúa lặng lẽ chịu đựng. Xin dạy con biết hãm mình và kiên nhẫn như Chúa. (Is 53, 7)", "You never complained, You suffered in silence. Teach me to practice self-denial and patience like You. (Is 53:7)"),
+  tx("'Nhờ những vết thương của Người, chúng ta được chữa lành.' Xin tha tội cho con và cho mọi người. (Is 53, 5)", "‘By His wounds we are healed.’ Forgive my sins and the sins of everyone. (Is 53:5)"),
 ];
 
 export class Sorrowful02PraetoriumScene extends InteractiveScene {
@@ -87,12 +88,12 @@ export class Sorrowful02PraetoriumScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("thuong_02_danh_don", SPAWN, {
-      speaker: "Dinh Tổng Trấn Philatô",
+      speaker: tx("Dinh Tổng Trấn Philatô", "Pilate's Governor's Palace"),
       emoji: "🏛️",
       lines: [
-        "Mầu Nhiệm Thứ Hai Năm Sự Thương: Đức Chúa Giêsu Chịu Đánh Đòn (Ga 19, 1).",
-        "Sân dinh lạnh lẽo bằng đá xám. Chúa Giêsu bị trói vào cột đá, không hề mở miệng oán thán.",
-        "Hãy lẻn qua các toán lính đang tuần tra, đến giếng nước bên hông dinh lấy một mảnh vải sạch. Đừng để lính nhìn thấy con nhé!",
+        tx("Mầu Nhiệm Thứ Hai Năm Sự Thương: Đức Chúa Giêsu Chịu Đánh Đòn (Ga 19, 1).", "Second Sorrowful Mystery: The Scourging of Jesus (Jn 19:1)."),
+        tx("Sân dinh lạnh lẽo bằng đá xám. Chúa Giêsu bị trói vào cột đá, không hề mở miệng oán thán.", "The palace courtyard is cold gray stone. Jesus is tied to a stone pillar and never opens His mouth to complain."),
+        tx("Hãy lẻn qua các toán lính đang tuần tra, đến giếng nước bên hông dinh lấy một mảnh vải sạch. Đừng để lính nhìn thấy con nhé!", "Sneak past the patrolling soldiers to the well at the side of the palace and take a clean piece of cloth. Don't let the soldiers see you!"),
       ],
     });
   }
@@ -116,7 +117,7 @@ export class Sorrowful02PraetoriumScene extends InteractiveScene {
     this.prop(WELL_AT[0], WELL_AT[1], "cana_well", 28, 10);
     this.add.image(MAT_AT[0], MAT_AT[1], "sleeping_mat").setDepth(DEPTH.RUG + 1);
     this.add
-      .text(MAT_AT[0], MAT_AT[1] - 18, "Chiếu cầu nguyện", { fontFamily: "'Dearpix', monospace", fontSize: "20px", color: "#fef08a", resolution: 4 })
+      .text(MAT_AT[0], MAT_AT[1] - 18, tx("Chiếu cầu nguyện", "Prayer mat"), { fontFamily: "'Dearpix', monospace", fontSize: "20px", color: "#fef08a", resolution: 4 })
       .setOrigin(0.5, 1)
       .setDepth(DEPTH.FX);
     // cold, grey light over everything; lifts a little with every prayer
@@ -159,18 +160,18 @@ export class Sorrowful02PraetoriumScene extends InteractiveScene {
       {
         at: () => CLOTH_AT,
         r: 34,
-        label: () => "[A] Lấy mảnh vải sạch",
+        label: () => tx("[A] Lấy mảnh vải sạch", "[A] Take the clean cloth"),
         active: () => this.step === 0 && this.lootActive("cloth"),
         act: () => {
           this.takeLoot("cloth");
           this.step = 1;
-          this.talk("Bên Giếng", "💧", ["Con đã lấy được mảnh vải sạch. Hãy lẻn về chiếu cầu nguyện ở bên trái sân, nơi con có thể nhìn Chúa từ xa nhé."]);
+          this.talk(tx("Bên Giếng", "By the Well"), "💧", [tx("Con đã lấy được mảnh vải sạch. Hãy lẻn về chiếu cầu nguyện ở bên trái sân, nơi con có thể nhìn Chúa từ xa nhé.", "You took the clean cloth. Sneak back to the prayer mat on the left of the courtyard, where you can watch the Lord from afar.")]);
         },
       },
       {
         at: () => MAT_AT,
         r: 44,
-        label: () => (this.step === 1 ? "[A] Đặt mảnh vải lên chiếu" : "[A] Cầu nguyện cho Chúa"),
+        label: () => (this.step === 1 ? tx("[A] Đặt mảnh vải lên chiếu", "[A] Lay the cloth on the mat") : tx("[A] Cầu nguyện cho Chúa", "[A] Pray for the Lord")),
         active: () => this.step === 1 || (this.step === 2 && this.prayers < PRAYERS.length),
         act: () => (this.step === 1 ? this.offer() : this.pray()),
       },
@@ -197,9 +198,9 @@ export class Sorrowful02PraetoriumScene extends InteractiveScene {
       this.step = 0;
     }
     this.player.setPosition(SPAWN[0], SPAWN[1]);
-    this.talk("Lính La Mã", "🛡️", [
-      "'Này, đứa nhỏ kia! Đi chỗ khác!' Lính La Mã đuổi con về cổng dinh.",
-      dropped ? "Con đánh rơi mảnh vải. Hãy đến giếng lấy lại và canh lúc lính quay đi nhé." : "Đừng nản lòng. Hãy đợi lính quay lưng đi rồi mới lẻn qua nhé.",
+    this.talk(tx("Lính La Mã", "Roman Soldier"), "🛡️", [
+      tx("'Này, đứa nhỏ kia! Đi chỗ khác!' Lính La Mã đuổi con về cổng dinh.", "‘Hey, you kid! Go away!’ The Roman soldier chases you back to the palace gate."),
+      dropped ? tx("Con đánh rơi mảnh vải. Hãy đến giếng lấy lại và canh lúc lính quay đi nhé.", "You dropped the cloth. Go back to the well and pick it up, and wait until the soldiers look away.") : tx("Đừng nản lòng. Hãy đợi lính quay lưng đi rồi mới lẻn qua nhé.", "Don't be discouraged. Wait until the soldiers turn their backs, then sneak past."),
     ]);
   }
 
@@ -210,9 +211,9 @@ export class Sorrowful02PraetoriumScene extends InteractiveScene {
     this.step = 2;
     this.offering = this.add.image(MAT_AT[0], MAT_AT[1] - 2, "cloth").setDepth(DEPTH.RUG + 2);
     this.sparkleBurst(MAT_AT[0], MAT_AT[1] - 8);
-    this.talk("Chiếu Cầu Nguyện", "🙏", [
-      "Con đặt mảnh vải sạch xuống, dâng lên Chúa như một lời xin lỗi âm thầm.",
-      "Từ xa, con nhìn thấy Chúa bị trói nơi cột đá. Hãy cầu nguyện ba lần cho Chúa nhé.",
+    this.talk(tx("Chiếu Cầu Nguyện", "Prayer Mat"), "🙏", [
+      tx("Con đặt mảnh vải sạch xuống, dâng lên Chúa như một lời xin lỗi âm thầm.", "You lay the clean cloth down and offer it to the Lord as a quiet apology."),
+      tx("Từ xa, con nhìn thấy Chúa bị trói nơi cột đá. Hãy cầu nguyện ba lần cho Chúa nhé.", "From afar you see the Lord tied to the stone pillar. Pray three times for Him."),
     ]);
   }
 
@@ -221,24 +222,24 @@ export class Sorrowful02PraetoriumScene extends InteractiveScene {
     this.tweens.add({ targets: this.gloom, alpha: 0.5 - 0.15 * (n + 1), duration: 900, ease: "Stepped", easeParams: [4] });
     this.sparkleBurst(MAT_AT[0], MAT_AT[1] - 16);
     if (n + 1 < PRAYERS.length) {
-      this.talk("Lời Cầu Nguyện", "🙏", [PRAYERS[n], `Bầu không khí dịu bớt u ám... (${n + 1}/${PRAYERS.length})`]);
+      this.talk(tx("Lời Cầu Nguyện", "Prayer"), "🙏", [PRAYERS[n], tx(`Bầu không khí dịu bớt u ám... (${n + 1}/${PRAYERS.length})`, `The gloomy air grows gentler... (${n + 1}/${PRAYERS.length})`)]);
       return;
     }
     this.step = 3;
     const glow = this.add.image(JESUS_AT[0], JESUS_AT[1] - 22, "glow_gold").setDepth(DEPTH.LIGHT).setAlpha(0.5);
     this.tweens.add({ targets: glow, alpha: 0.8, duration: 800, yoyo: true, repeat: -1 });
     this.cameras.main.flash(500, 255, 245, 210);
-    this.talk("Lời Cầu Nguyện", "🙏", [PRAYERS[n], "Một niềm bình an lặng lẽ lan khắp sân dinh. Chúa Giêsu biết con đang ở bên Người."], () => this.finish());
+    this.talk(tx("Lời Cầu Nguyện", "Prayer"), "🙏", [PRAYERS[n], tx("Một niềm bình an lặng lẽ lan khắp sân dinh. Chúa Giêsu biết con đang ở bên Người.", "A quiet peace spreads across the courtyard. Jesus knows you are with Him.")], () => this.finish());
   }
 
   private finish() {
     this.time.delayedCall(300, () =>
       this.complete(
         2,
-        "Năm Sự Thương",
-        "Đức Chúa Giêsu Chịu Đánh Đòn",
-        "Tinh thần hãm mình, đền tội và kiên nhẫn chịu đựng vì Chúa.",
-        "Khi con chịu thiệt thòi hay bị đau, hãy dâng lên Chúa để đền tội cho mình và cho mọi người nhé!",
+        tx("Năm Sự Thương", "Sorrowful"),
+        tx("Đức Chúa Giêsu Chịu Đánh Đòn", "The Scourging of Jesus"),
+        tx("Tinh thần hãm mình, đền tội và kiên nhẫn chịu đựng vì Chúa.", "A spirit of self-denial, penance and patient suffering for the Lord."),
+        tx("Khi con chịu thiệt thòi hay bị đau, hãy dâng lên Chúa để đền tội cho mình và cho mọi người nhé!", "When you lose something or feel pain, offer it to the Lord to make up for your sins and everyone's!"),
         ["sneak_past_guards", "clean_cloth", "three_prayers"]
       )
     );

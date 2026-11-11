@@ -5,6 +5,7 @@ import { STAGE_TEXT } from "@/modules/the-garden-of-eden/data/stageText";
 import { GENESIS_STAGE_KEYS } from "@/modules/the-garden-of-eden/types/game";
 import { tr, type L } from "@/modules/the-garden-of-eden/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 320;
 const H = 240;
@@ -64,9 +65,9 @@ export class EpilogueScene extends BaseGenesisScene {
     const t = STAGE_TEXT.s13;
     const spot = (i: number, x: number, y: number, r: number, label: string, act: () => void) => ({ x, y: y - 6, r, label, active: () => !this.done[i], act });
     this.interactables = [
-      spot(0, PLANT[0], PLANT[1], 34, "[A] Cửa sổ & chậu hoa", () => this.vow(0, "Chúa Thánh Thần", t.window)),
-      spot(1, DESK[0], DESK[1], 38, "[A] Bàn học", () => this.vow(1, "Chúa Thánh Thần", t.desk)),
-      spot(2, ALTAR[0], ALTAR[1], 38, "[A] Góc cầu nguyện", () => this.altar()),
+      spot(0, PLANT[0], PLANT[1], 34, tx("[A] Cửa sổ & chậu hoa", "[A] Window & flower pot"), () => this.vow(0, tx("Chúa Thánh Thần", "Holy Spirit"), t.window)),
+      spot(1, DESK[0], DESK[1], 38, tx("[A] Bàn học", "[A] Study desk"), () => this.vow(1, tx("Chúa Thánh Thần", "Holy Spirit"), t.desk)),
+      spot(2, ALTAR[0], ALTAR[1], 38, tx("[A] Góc cầu nguyện", "[A] Prayer corner"), () => this.altar()),
     ];
   }
 
@@ -78,7 +79,7 @@ export class EpilogueScene extends BaseGenesisScene {
       onSelect: () => {
         if (o !== v.ok) {
           audio.sfx("wrong");
-          return this.talk(who, ["Hãy nghĩ lại nhé. Điều nào giống Chúa Giêsu và Mẹ Maria vâng phục Chúa hơn?"]);
+          return this.talk(who, [tx("Hãy nghĩ lại nhé. Điều nào giống Chúa Giêsu và Mẹ Maria vâng phục Chúa hơn?", "Think again. Which is more like Jesus and Mary obeying God?")]);
         }
         this.done[i] = true;
         audio.sfx("bless");
@@ -90,12 +91,12 @@ export class EpilogueScene extends BaseGenesisScene {
 
   private altar() {
     const t = STAGE_TEXT.s13;
-    if (!this.done[0] || !this.done[1]) return this.talk("Chúa Thánh Thần", [tr(t.notYet)]);
+    if (!this.done[0] || !this.done[1]) return this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), [tr(t.notYet)]);
     this.done[2] = true;
     audio.sfx("bless");
     this.cameras.main.flash(500, 255, 244, 180);
     this.sparkleBurst(ALTAR[0], ALTAR[1] - 14, 14);
-    this.talk("Chúa Thánh Thần", t.altar.map(tr), () => this.finish());
+    this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), t.altar.map(tr), () => this.finish());
   }
 
   private finish() {
@@ -104,17 +105,17 @@ export class EpilogueScene extends BaseGenesisScene {
     const t = STAGE_TEXT.s13;
     audio.sfx("complete");
     this.completeStage();
-    this.talk("Người Quản Gia Nhỏ", t.outro.map(tr), () => this.talk("Suy niệm", [tr(t.lesson)], () => this.theEnd()));
+    this.talk(tx("Người Quản Gia Nhỏ", "The Little Steward"), t.outro.map(tr), () => this.talk(tx("Suy niệm", "Reflection"), [tr(t.lesson)], () => this.theEnd()));
   }
 
   /** Banner + choice: replay from the Prologue (character kept, progress cleared) or stay in the room. */
   private theEnd() {
     const cx = this.cameras.main.midPoint.x;
-    const banner = this.add.text(cx, 30, "★ HOÀN THÀNH ★", { fontFamily: "Dearpix, monospace", fontSize: "10px", color: "#fde68a", backgroundColor: "#0f172acc", padding: { x: 4, y: 2 }, resolution: 4 }).setOrigin(0.5).setDepth(DEPTH.FX);
+    const banner = this.add.text(cx, 30, tx("★ HOÀN THÀNH ★", "★ COMPLETE ★"), { fontFamily: "Dearpix, monospace", fontSize: "10px", color: "#fde68a", backgroundColor: "#0f172acc", padding: { x: 4, y: 2 }, resolution: 4 }).setOrigin(0.5).setDepth(DEPTH.FX);
     this.tweens.add({ targets: banner, alpha: 0.6, duration: 700, yoyo: true, repeat: -1, ease: "Stepped", easeParams: [2] });
-    this.talk("Cuộn Sách Sáng Thế", ["Chúc mừng em đã hoàn thành hành trình Sáng Thế! Em muốn làm gì tiếp theo?"], undefined, [
-      { label: "▶ Chơi lại từ đầu", onSelect: () => this.restartJourney() },
-      { label: "Ở lại căn phòng nhỏ", onSelect: () => {} },
+    this.talk(tx("Cuộn Sách Sáng Thế", "The Genesis Scroll"), [tx("Chúc mừng em đã hoàn thành hành trình Sáng Thế! Em muốn làm gì tiếp theo?", "Congratulations on finishing the Genesis journey! What would you like to do next?")], undefined, [
+      { label: tx("▶ Chơi lại từ đầu", "▶ Play again from the start"), onSelect: () => this.restartJourney() },
+      { label: tx("Ở lại căn phòng nhỏ", "Stay in the little room"), onSelect: () => {} },
     ]);
   }
 

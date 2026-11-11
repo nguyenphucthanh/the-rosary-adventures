@@ -4,6 +4,7 @@ import { registerSiteTextures } from "@/modules/moses-the-exodus/game/utils/site
 import { registerGoshenTextures } from "@/modules/moses-the-exodus/game/utils/goshenTextures";
 import { STAGE5, tr } from "@/modules/moses-the-exodus/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 352;
 const H = 288;
@@ -229,9 +230,9 @@ export class Stage05GoshenLightScene extends BaseExodusScene {
     this.cameras.main.flash(500, 255, 244, 200);
     this.completeStage();
     this.time.delayedCall(900, () =>
-      this.talk("Ấn Dấu thứ 5", STAGE5.outro.map(tr), () =>
-        this.talk("Suy niệm", [tr(STAGE5.lesson)], () =>
-          this.talk("Trước Đêm Vượt Qua", STAGE5.cutscene.map(tr), () => this.goToNextStage()))));
+      this.talk(tx("Ấn Dấu thứ 5", "Seal 5"), STAGE5.outro.map(tr), () =>
+        this.talk(tx("Suy niệm", "Reflection"), [tr(STAGE5.lesson)], () =>
+          this.talk(tx("Trước Đêm Vượt Qua", "Before the Passover Night"), STAGE5.cutscene.map(tr), () => this.goToNextStage()))));
   }
 
   // ---------------------------------------------------------------- frame update

@@ -4,8 +4,11 @@ import { useEffect, useState } from "react";
 import { NOAH_STAGES, SEAL_COUNT, STAGE_SCENES } from "@/modules/noahs-ark/data/stagesData";
 import type { NoahSaveData } from "@/modules/noahs-ark/types/game";
 import EventBus from "@/modules/shared/game/EventBus";
+import { useLang, useT } from "@/modules/shared/i18n";
 
 export default function NoahHUD({ saveData }: { saveData: NoahSaveData | null }) {
+  const t = useT();
+  const lang = useLang();
   const [isOpen, setIsOpen] = useState(false);
   const [grace, setGrace] = useState({ current: 0, max: 0 });
   const progress = saveData?.stagesProgress ?? {};
@@ -33,7 +36,7 @@ export default function NoahHUD({ saveData }: { saveData: NoahSaveData | null })
   return (
     <>
       {grace.max > 0 && (
-        <div className="fixed top-14 sm:top-16 left-2 sm:left-4 z-30 flex gap-1 pointer-events-none" title="Giọt Bình An">
+        <div className="fixed top-14 sm:top-16 left-2 sm:left-4 z-30 flex gap-1 pointer-events-none" title={t("Giọt Bình An", "Drops of Peace")}>
           {Array.from({ length: grace.max }, (_, i) => (
             <span key={i} className={`w-4 h-4 border-2 ${i < grace.current ? "bg-sky-400 border-sky-200" : "bg-slate-800 border-slate-600"}`} />
           ))}
@@ -44,11 +47,11 @@ export default function NoahHUD({ saveData }: { saveData: NoahSaveData | null })
           <button
             type="button"
             onClick={() => setIsOpen(true)}
-            title="Xem Hải Đồ Giao Ước"
+            title={t("Xem Hải Đồ Giao Ước", "View the Covenant Sea Chart")}
             className="retro-frame px-3 py-1.5 bg-slate-950/90 flex items-center gap-2 transition-transform hover:scale-105 active:scale-95"
           >
             <span className="text-[18px] leading-none">🚢</span>
-            <span className="font-pixel text-[14px] sm:text-[16px] text-amber-300">HẢI ĐỒ {lit}/{SEAL_COUNT}</span>
+            <span className="font-pixel text-[14px] sm:text-[16px] text-amber-300">{t("HẢI ĐỒ", "SEA CHART")} {lit}/{SEAL_COUNT}</span>
           </button>
         </div>
       </div>
@@ -58,10 +61,10 @@ export default function NoahHUD({ saveData }: { saveData: NoahSaveData | null })
           <div className="relative w-full max-w-3xl max-h-[90vh] flex flex-col retro-frame-gold bg-slate-950 p-4 sm:p-6 overflow-hidden">
             <div className="flex items-center justify-between pb-3 border-b-2 border-amber-600/60">
               <div>
-                <h2 className="pixel-title text-[32px] sm:text-[36px] text-amber-300">HẢI ĐỒ GIAO ƯỚC</h2>
-                <p className="font-pixel text-[22px] text-amber-100/70">Đã thắp sáng: {lit}/{SEAL_COUNT} Ấn Dấu Cầu Vồng</p>
+                <h2 className="pixel-title text-[32px] sm:text-[36px] text-amber-300">{t("HẢI ĐỒ GIAO ƯỚC", "COVENANT SEA CHART")}</h2>
+                <p className="font-pixel text-[22px] text-amber-100/70">{t("Đã thắp sáng", "Lit")}: {lit}/{SEAL_COUNT} {t("Ấn Dấu Cầu Vồng", "Rainbow Seals")}</p>
               </div>
-              <button type="button" onClick={() => setIsOpen(false)} aria-label="Đóng" className="retro-btn-red px-3 py-1 text-[24px] font-pixel active:translate-y-0.5">
+              <button type="button" onClick={() => setIsOpen(false)} aria-label={t("Đóng", "Close")} className="retro-btn-red px-3 py-1 text-[24px] font-pixel active:translate-y-0.5">
                 ✕
               </button>
             </div>
@@ -87,8 +90,8 @@ export default function NoahHUD({ saveData }: { saveData: NoahSaveData | null })
                     </div>
                     <div className="flex-1">
                       <span className="text-[11px] font-mono px-1.5 bg-slate-800 text-amber-200 rounded">{s.scripture}</span>
-                      <h3 className="font-retro text-[18px] sm:text-[20px] text-amber-100 font-bold mt-0.5">{s.titleVi}</h3>
-                      <p className="font-retro text-[16px] text-amber-200/90">{on ? s.fruitVi : s.genreVi}</p>
+                      <h3 className="font-retro text-[18px] sm:text-[20px] text-amber-100 font-bold mt-0.5">{lang === "en" ? s.titleEn : s.titleVi}</h3>
+                      <p className="font-retro text-[16px] text-amber-200/90">{on ? (lang === "en" ? s.fruitEn : s.fruitVi) : (lang === "en" ? s.genreEn : s.genreVi)}</p>
                     </div>
                     {scene && (
                       <button
@@ -96,7 +99,7 @@ export default function NoahHUD({ saveData }: { saveData: NoahSaveData | null })
                         onClick={() => { setIsOpen(false); EventBus.emit("scene-change-request", { targetSceneKey: scene }); }}
                         className="retro-btn self-center px-3 py-1.5 font-pixel text-[14px] text-amber-300 shrink-0"
                       >
-                        ▶ CHƠI LẠI
+                        ▶ {t("CHƠI LẠI", "REPLAY")}
                       </button>
                     )}
                   </li>

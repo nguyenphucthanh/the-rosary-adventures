@@ -8,6 +8,7 @@ import { registerLightTextures } from "@/modules/the-rosary-adventures/game/util
 import { registerCanaTextures } from "@/modules/the-rosary-adventures/game/utils/canaTextureGenerator";
 import { registerGalileeTextures } from "@/modules/the-rosary-adventures/game/utils/galileeTextureGenerator";
 import { registerPassionTextures } from "@/modules/the-rosary-adventures/game/utils/passionTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 880;
@@ -52,9 +53,9 @@ export class Sorrowful04CrossScene extends InteractiveScene {
       speaker: "Via Dolorosa",
       emoji: "✝️",
       lines: [
-        "Mầu Nhiệm Thứ Tư Năm Sự Thương: Đức Chúa Giêsu Vác Thập Giá Lên Đồi Can-vê (Lc 23, 26-32).",
-        "Con đường đá dốc đứng, bụi mù. Chúa Giêsu vác thập giá nặng nề và đã ngã quỵ giữa đường.",
-        "Hãy thuyết phục ông Simon người Kyrênê giúp Chúa vác thập giá, rồi mang khăn của bà Veronica đến lau mặt cho Người nhé.",
+        tx("Mầu Nhiệm Thứ Tư Năm Sự Thương: Đức Chúa Giêsu Vác Thập Giá Lên Đồi Can-vê (Lc 23, 26-32).", "Fourth Sorrowful Mystery: Jesus Carries the Cross to Calvary (Lk 23:26-32)."),
+        tx("Con đường đá dốc đứng, bụi mù. Chúa Giêsu vác thập giá nặng nề và đã ngã quỵ giữa đường.", "The stone road is steep and dusty. Jesus carries the heavy cross and has collapsed along the way."),
+        tx("Hãy thuyết phục ông Simon người Kyrênê giúp Chúa vác thập giá, rồi mang khăn của bà Veronica đến lau mặt cho Người nhé.", "Persuade Simon of Cyrene to help the Lord carry the cross, then bring Veronica's cloth to wipe His face."),
       ],
     });
   }
@@ -78,7 +79,7 @@ export class Sorrowful04CrossScene extends InteractiveScene {
       this.add.image(W - SIDE + 6, y + 40, "house_front").setOrigin(0, 1).setDepth(y + 40).setFlipX(true);
     }
     this.add
-      .text(500, 120, "ĐỒI CAN-VÊ", { fontFamily: "'Dearpix', monospace", fontSize: "20px", color: "#fef08a", resolution: 4 })
+      .text(500, 120, tx("ĐỒI CAN-VÊ", "CALVARY"), { fontFamily: "'Dearpix', monospace", fontSize: "20px", color: "#fef08a", resolution: 4 })
       .setOrigin(0.5, 1)
       .setDepth(DEPTH.FX);
     this.prop(260, 130, "crucifix_thief", 14, 8).setTint(0x7a6a5c);
@@ -118,33 +119,33 @@ export class Sorrowful04CrossScene extends InteractiveScene {
       {
         at: () => SIMON_AT,
         r: 48,
-        label: () => "[A] Nói chuyện với ông Simon",
+        label: () => tx("[A] Nói chuyện với ông Simon", "[A] Talk to Simon"),
         active: () => this.step === 0,
         act: () => this.askSimon(),
       },
       {
         at: () => [VERONICA_AT[0], VERONICA_AT[1] + 4],
         r: 48,
-        label: () => "[A] Hỏi bà Veronica",
+        label: () => tx("[A] Hỏi bà Veronica", "[A] Ask Veronica"),
         active: () => this.step === 1 && !this.held,
         act: () => this.veronica(),
       },
       {
         at: () => JESUS_AT,
         r: 56,
-        label: () => (this.step === 2 ? "[A] Lau mặt cho Chúa" : "[A] Nhìn Chúa Giêsu"),
+        label: () => (this.step === 2 ? tx("[A] Lau mặt cho Chúa", "[A] Wipe the Lord's face") : tx("[A] Nhìn Chúa Giêsu", "[A] Look at Jesus")),
         active: () => this.step < 3,
         act: () => this.jesusSpeaks(),
       },
       {
         at: () => MARY_AT,
         r: 44,
-        label: () => "[A] Đức Mẹ Maria",
+        label: () => tx("[A] Đức Mẹ Maria", "[A] Mother Mary"),
         active: () => this.step < 3,
         act: () =>
-          this.talk("Đức Mẹ Maria", "💙", [
-            "Đức Mẹ đứng lặng, nước mắt rơi, dõi theo Con yêu dấu. Mẹ không rời Chúa Giêsu một bước.",
-            "'Con hãy giúp Con của Mẹ nhé.'",
+          this.talk(tx("Đức Mẹ Maria", "Mother Mary"), "💙", [
+            tx("Đức Mẹ đứng lặng, nước mắt rơi, dõi theo Con yêu dấu. Mẹ không rời Chúa Giêsu một bước.", "Mary stands silently, tears falling, watching her beloved Son. She does not leave Jesus for a single step."),
+            tx("'Con hãy giúp Con của Mẹ nhé.'", "‘Please help my Son.’"),
           ]),
       },
     ];
@@ -152,29 +153,29 @@ export class Sorrowful04CrossScene extends InteractiveScene {
 
   private askSimon() {
     this.talk(
-      "Ông Simon",
+      tx("Ông Simon", "Simon"),
       "🧔",
       [
-        "Tôi chỉ là người từ đồng ruộng về, đứng ngơ ngác giữa đám đông này... Mọi người đang làm gì thế?",
-        "Chúa Giêsu đã ngã quỵ dưới thập giá. Chúng con cần một người mạnh khỏe giúp Người. (Lc 23, 26)",
+        tx("Tôi chỉ là người từ đồng ruộng về, đứng ngơ ngác giữa đám đông này... Mọi người đang làm gì thế?", "I'm just a man coming from the fields, standing confused in this crowd... What is everyone doing?"),
+        tx("Chúa Giêsu đã ngã quỵ dưới thập giá. Chúng con cần một người mạnh khỏe giúp Người. (Lc 23, 26)", "Jesus has collapsed under the cross. We need a strong man to help Him. (Lk 23:26)"),
       ],
       undefined,
       [
-        { label: "Xin bác hãy giúp Chúa vác thập giá!", onSelect: () => this.simonHelps() },
-        { label: "Thôi, bác cứ đi đường của bác.", onSelect: () => this.talk("Ông Simon", "🧔", ["Ừ... nhưng nhìn gương mặt mệt mỏi của vị Thầy kia, tôi thấy lòng nặng trĩu. Con còn muốn nhờ tôi giúp không?"]) },
+        { label: tx("Xin bác hãy giúp Chúa vác thập giá!", "Please help the Lord carry the cross!"), onSelect: () => this.simonHelps() },
+        { label: tx("Thôi, bác cứ đi đường của bác.", "No, I'll just go on my way."), onSelect: () => this.talk(tx("Ông Simon", "Simon"), "🧔", [tx("Ừ... nhưng nhìn gương mặt mệt mỏi của vị Thầy kia, tôi thấy lòng nặng trĩu. Con còn muốn nhờ tôi giúp không?", "Well... but looking at that tired Teacher's face, my heart feels heavy. Do you still want my help?")]) },
       ]
     );
   }
 
   private simonHelps() {
     this.step = 1;
-    this.talk("Ông Simon", "🧔", ["Được rồi, nhà ngươi nói có lý. Để tôi ghé vai vác đỡ thập giá cho Người!"], () =>
+    this.talk(tx("Ông Simon", "Simon"), "🧔", [tx("Được rồi, nhà ngươi nói có lý. Để tôi ghé vai vác đỡ thập giá cho Người!", "All right, you make a good point. Let me put my shoulder to the cross for Him!")], () =>
       this.walk(this.simon, [[SIMON_AT[0] + 40, 640], [JESUS_AT[0] + 44, JESUS_AT[1] + 6]], () => {
         this.jesus.setTexture("jesus_carry").setPosition(JESUS_AT[0], JESUS_AT[1] - 2);
         this.sparkleBurst(JESUS_AT[0], JESUS_AT[1] - 24);
         this.talk("Con", "🙏", [
-          "Ông Simon ghé vai vác thập giá, Chúa Giêsu đứng dậy được rồi. (Lc 23, 26)",
-          "Giờ con hãy đến hỏi bà Veronica ở bên đường: bà có chiếc khăn để lau mặt cho Chúa đấy.",
+          tx("Ông Simon ghé vai vác thập giá, Chúa Giêsu đứng dậy được rồi. (Lc 23, 26)", "Simon puts his shoulder under the cross, and Jesus can stand up. (Lk 23:26)"),
+          tx("Giờ con hãy đến hỏi bà Veronica ở bên đường: bà có chiếc khăn để lau mặt cho Chúa đấy.", "Now go ask Veronica by the roadside: she has a cloth to wipe the Lord's face."),
         ]);
       })
     );
@@ -182,9 +183,9 @@ export class Sorrowful04CrossScene extends InteractiveScene {
 
   private veronica() {
     this.talk(
-      "Bà Veronica",
+      tx("Bà Veronica", "Veronica"),
       "👵",
-      ["Tôi không chịu nổi khi thấy gương mặt Chúa đầy máu và mồ hôi. Con hãy cầm lấy khăn này, đem đến lau mặt cho Người nhé."],
+      [tx("Tôi không chịu nổi khi thấy gương mặt Chúa đầy máu và mồ hôi. Con hãy cầm lấy khăn này, đem đến lau mặt cho Người nhé.", "I can't bear to see the Lord's face covered in blood and sweat. Take this cloth and bring it to wipe His face.")],
       () => {
         this.spawnLoot(CLOTH_ID, VERONICA_AT[0] - 24, VERONICA_AT[1] + 6, "cloth");
         this.takeLoot(CLOTH_ID);
@@ -195,9 +196,9 @@ export class Sorrowful04CrossScene extends InteractiveScene {
 
   private jesusSpeaks() {
     if (this.step === 0) {
-      this.talk("Chúa Giêsu", "✝️", ["Chúa Giêsu ngã quỵ trên đường đá, thập giá đè nặng trên vai. Người cần có người đỡ. Con hãy tìm ông Simon đứng giữa đám đông phía dưới nhé."]);
+      this.talk(tx("Chúa Giêsu", "Jesus"), "✝️", [tx("Chúa Giêsu ngã quỵ trên đường đá, thập giá đè nặng trên vai. Người cần có người đỡ. Con hãy tìm ông Simon đứng giữa đám đông phía dưới nhé.", "Jesus has fallen on the stone road, the cross heavy on His shoulder. He needs someone to support Him. Find Simon in the crowd below.")]);
     } else if (this.step === 1) {
-      this.talk("Chúa Giêsu", "✝️", ["Chúa Giêsu bước đi chậm chạp, mồ hôi đẫm trán. Hãy đến bà Veronica xin chiếc khăn để lau mặt cho Người."]);
+      this.talk(tx("Chúa Giêsu", "Jesus"), "✝️", [tx("Chúa Giêsu bước đi chậm chạp, mồ hôi đẫm trán. Hãy đến bà Veronica xin chiếc khăn để lau mặt cho Người.", "Jesus walks slowly, sweat soaking His forehead. Go to Veronica and ask for the cloth to wipe His face.")]);
     } else {
       this.wipe();
     }
@@ -214,12 +215,12 @@ export class Sorrowful04CrossScene extends InteractiveScene {
     this.tweens.add({ targets: glow, alpha: 0.7, duration: 1000, yoyo: true, repeat: -1 });
     this.time.delayedCall(1200, () =>
       this.talk(
-        "Thánh Nhan",
+        tx("Thánh Nhan", "The Holy Face"),
         "🕊️",
         [
-          "Con nhẹ nhàng lau mặt cho Chúa. Một việc nhỏ bé, nhưng tràn đầy yêu thương.",
-          "Khi bỏ khăn xuống, trên đó hiện lên Thánh Nhan của Chúa Giêsu. Thiên Chúa luôn nhớ những việc tốt nhỏ bé của con.",
-          "'Mỗi lần anh em làm như thế cho một người bé nhỏ nhất, là anh em làm cho chính Thầy.' (Mt 25, 40)",
+          tx("Con nhẹ nhàng lau mặt cho Chúa. Một việc nhỏ bé, nhưng tràn đầy yêu thương.", "You gently wipe the Lord's face. A small act, but full of love."),
+          tx("Khi bỏ khăn xuống, trên đó hiện lên Thánh Nhan của Chúa Giêsu. Thiên Chúa luôn nhớ những việc tốt nhỏ bé của con.", "When you lower the cloth, the Holy Face of Jesus appears on it. God always remembers your small good deeds."),
+          tx("'Mỗi lần anh em làm như thế cho một người bé nhỏ nhất, là anh em làm cho chính Thầy.' (Mt 25, 40)", "‘Whatever you did for one of these least brothers of mine, you did for me.’ (Mt 25:40)"),
         ],
         () => {
           this.tweens.add({ targets: [this.jesus, this.simon], y: "-=70", duration: 2200 });
@@ -233,10 +234,10 @@ export class Sorrowful04CrossScene extends InteractiveScene {
     this.time.delayedCall(300, () =>
       this.complete(
         4,
-        "Năm Sự Thương",
-        "Đức Chúa Giêsu Vác Thập Giá Lên Đồi Can-vê",
-        "Sẵn sàng vác thập giá đời mình mỗi ngày và giúp người khác vác gánh nặng của họ.",
-        "Gặp ai đang mệt mỏi, buồn phiền, hãy ghé vai giúp họ như ông Simon và bà Veronica nhé!",
+        tx("Năm Sự Thương", "Sorrowful"),
+        tx("Đức Chúa Giêsu Vác Thập Giá Lên Đồi Can-vê", "Jesus Carries the Cross to Calvary"),
+        tx("Sẵn sàng vác thập giá đời mình mỗi ngày và giúp người khác vác gánh nặng của họ.", "Be ready to carry the cross of your own life each day and help others carry their burdens."),
+        tx("Gặp ai đang mệt mỏi, buồn phiền, hãy ghé vai giúp họ như ông Simon và bà Veronica nhé!", "When you meet someone tired or sad, lend them a shoulder like Simon and Veronica!"),
         ["persuade_simon", "veronica_cloth", "holy_face"]
       )
     );

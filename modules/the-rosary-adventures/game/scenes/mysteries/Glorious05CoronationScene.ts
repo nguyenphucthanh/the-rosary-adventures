@@ -4,6 +4,7 @@ import { DEPTH } from "@/modules/the-rosary-adventures/game/scenes/BaseMysterySc
 import { InteractiveScene } from "@/modules/the-rosary-adventures/game/scenes/InteractiveScene";
 import { registerAllForGlory } from "@/modules/the-rosary-adventures/game/utils/gloryTextureGenerator";
 import { loadGame } from "@/modules/the-rosary-adventures/utils/saveManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 600;
@@ -52,12 +53,12 @@ export class Glorious05CoronationScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("mung_05_doi_trieu_thien", [320, 540], {
-      speaker: "Thiên Cung",
+      speaker: tx("Thiên Cung", "The Heavenly Palace"),
       emoji: "👑",
       lines: [
-        "Mầu Nhiệm Thứ Năm Năm Sự Mừng: Đức Chúa Trời Thưởng Đức Mẹ Trên Trời (Kh 12, 1-2).",
-        "Thiên cung rực rỡ ánh sáng. Ba Ngôi Chí Thánh và triều đình thiên quốc cùng ca hát vang dội.",
-        "Hãy đặt 19 hạt mầu nhiệm bạn đã thu thập vào vòng triều thiên, rồi nhặt hạt thứ 20 đặt lên đỉnh nhé.",
+        tx("Mầu Nhiệm Thứ Năm Năm Sự Mừng: Đức Chúa Trời Thưởng Đức Mẹ Trên Trời (Kh 12, 1-2).", "Fifth Glorious Mystery: The Coronation of Mary in Heaven (Rev 12:1-2)."),
+        tx("Thiên cung rực rỡ ánh sáng. Ba Ngôi Chí Thánh và triều đình thiên quốc cùng ca hát vang dội.", "The heavenly palace shines with light. The Holy Trinity and the heavenly court sing together in joy."),
+        tx("Hãy đặt 19 hạt mầu nhiệm bạn đã thu thập vào vòng triều thiên, rồi nhặt hạt thứ 20 đặt lên đỉnh nhé.", "Place the 19 mystery beads you collected onto the crown, then pick up the 20th and set it on top."),
       ],
     });
   }
@@ -109,34 +110,34 @@ export class Glorious05CoronationScene extends InteractiveScene {
       {
         at: () => [RING_AT[0], RING_AT[1] + 30],
         r: 50,
-        label: () => (!this.ringFilled ? "[A] Đặt 19 hạt vào vòng triều thiên" : this.held ? "[A] Đặt hạt thứ 20 lên đỉnh" : "Vòng triều thiên"),
+        label: () => (!this.ringFilled ? tx("[A] Đặt 19 hạt vào vòng triều thiên", "[A] Place the 19 beads on the crown") : this.held ? tx("[A] Đặt hạt thứ 20 lên đỉnh", "[A] Place the 20th bead on top") : tx("Vòng triều thiên", "The crown")),
         active: () => !this.crowned,
         act: () => this.ring(),
       },
       {
         at: () => BEAD20_AT,
         r: 34,
-        label: () => "[A] Nhặt hạt Mân Côi thứ 20",
+        label: () => tx("[A] Nhặt hạt Mân Côi thứ 20", "[A] Pick up the 20th Rosary bead"),
         active: () => !this.crowned && this.lootActive("bead20"),
         act: () => this.takeLoot("bead20"),
       },
       {
         at: () => [this.mary.x, this.mary.y],
         r: 46,
-        label: () => "[A] Đức Mẹ Maria",
+        label: () => tx("[A] Đức Mẹ Maria", "[A] Mother Mary"),
         active: () => !this.done,
         act: () =>
-          this.talk("Đức Mẹ Maria", "💙", [
-            "Con ơi, Mẹ vui lắm khi thấy con lần hạt Mân Côi mỗi ngày.",
-            "Mẹ luôn cầu bầu cho con trước mặt Chúa. Hãy hoàn tất chuỗi hạt nhé.",
+          this.talk(tx("Đức Mẹ Maria", "Mother Mary"), "💙", [
+            tx("Con ơi, Mẹ vui lắm khi thấy con lần hạt Mân Côi mỗi ngày.", "My child, I am so happy to see you pray the Rosary every day."),
+            tx("Mẹ luôn cầu bầu cho con trước mặt Chúa. Hãy hoàn tất chuỗi hạt nhé.", "I always intercede for you before God. Finish the Rosary now."),
           ]),
       },
       {
         at: () => [this.father.x, this.father.y],
         r: 46,
-        label: () => "[A] Chúa Cha",
+        label: () => tx("[A] Chúa Cha", "[A] God the Father"),
         active: () => !this.done,
-        act: () => this.talk("Chúa Cha", "🌟", ["Đây là Con yêu dấu của Ta. Ta rất hài lòng về Con. (Mt 3, 17)", "Ta đã chuẩn bị triều thiên cho Mẹ của Con."]),
+        act: () => this.talk(tx("Chúa Cha", "God the Father"), "🌟", [tx("Đây là Con yêu dấu của Ta. Ta rất hài lòng về Con. (Mt 3, 17)", "This is my beloved Son. With Him I am well pleased. (Mt 3:17)"), tx("Ta đã chuẩn bị triều thiên cho Mẹ của Con.", "I have prepared a crown for the Mother of My Son.")]),
       },
     ];
   }
@@ -149,7 +150,7 @@ export class Glorious05CoronationScene extends InteractiveScene {
       return;
     }
     if (!this.held) {
-      this.talk("Vòng triều thiên", "👑", ["Còn một chỗ trống trên đỉnh vòng. Hãy nhặt hạt Mân Côi thứ 20 trong thiên cung nhé."]);
+      this.talk(tx("Vòng triều thiên", "The crown"), "👑", [tx("Còn một chỗ trống trên đỉnh vòng. Hãy nhặt hạt Mân Côi thứ 20 trong thiên cung nhé.", "One place is still empty at the top of the crown. Pick up the 20th Rosary bead in the heavenly palace.")]);
       return;
     }
     this.crowned = true;
@@ -174,9 +175,9 @@ export class Glorious05CoronationScene extends InteractiveScene {
       this.placeBead(i, x, y, i % 5 === 0 ? "bead_gold" : "bead_white", i * 90);
     }
     this.time.delayedCall(19 * 90 + 500, () =>
-      this.talk("Chuỗi Mân Côi", "📿", [
-        `19 hạt mầu nhiệm xoay thành vòng: ${Math.max(have, 15)} hạt đã thắp sáng trong hành trình của bạn.`,
-        "Còn một chỗ trống ở đỉnh vòng. Hãy nhặt hạt thứ 20 đặt lên đó.",
+      this.talk(tx("Chuỗi Mân Côi", "The Rosary"), "📿", [
+        tx(`19 hạt mầu nhiệm xoay thành vòng: ${Math.max(have, 15)} hạt đã thắp sáng trong hành trình của bạn.`, `19 mystery beads swirl into a ring: ${Math.max(have, 15)} beads lit during your journey.`),
+        tx("Còn một chỗ trống ở đỉnh vòng. Hãy nhặt hạt thứ 20 đặt lên đó.", "One place is still empty at the top of the ring. Pick up the 20th bead and set it there."),
       ])
     );
   }
@@ -239,11 +240,11 @@ export class Glorious05CoronationScene extends InteractiveScene {
     }
     this.time.delayedCall(2600, () =>
       this.talk(
-        "Thiên Cung",
+        tx("Thiên Cung", "The Heavenly Palace"),
         "👑",
         [
-          "Chúa Cha và Chúa Con đội triều thiên mười hai ngôi sao lên đầu Mẹ Maria. (Kh 12, 1)",
-          "Mẹ là Nữ Vương Thiên Đàng, áo mặc mặt trời, vầng trăng dưới chân.",
+          tx("Chúa Cha và Chúa Con đội triều thiên mười hai ngôi sao lên đầu Mẹ Maria. (Kh 12, 1)", "The Father and the Son place a crown of twelve stars on Mary's head. (Rev 12:1)"),
+          tx("Mẹ là Nữ Vương Thiên Đàng, áo mặc mặt trời, vầng trăng dưới chân.", "She is the Queen of Heaven, clothed with the sun, the moon under her feet."),
         ],
         () => this.jesusSpeaks()
       )
@@ -262,11 +263,11 @@ export class Glorious05CoronationScene extends InteractiveScene {
   private blessPlayer() {
     audio.sfx("bless");
     this.talk(
-        "Chúa Giêsu",
+        tx("Chúa Giêsu", "Jesus"),
         "✝️",
         [
-          "Chúa Giêsu mỉm cười, xoa đầu con.",
-          "'Con đã hoàn thành cuộc hành trình đức tin. Hãy giữ vững lời dạy này trong trái tim con và mang tình yêu thương ấy về trần gian mỗi ngày.'",
+          tx("Chúa Giêsu mỉm cười, xoa đầu con.", "Jesus smiles and pats your head."),
+          tx("'Con đã hoàn thành cuộc hành trình đức tin. Hãy giữ vững lời dạy này trong trái tim con và mang tình yêu thương ấy về trần gian mỗi ngày.'", "‘You have finished your journey of faith. Hold these teachings firmly in your heart and bring that love back to the world every day.’"),
         ],
         () => this.finish()
       );
@@ -276,10 +277,10 @@ export class Glorious05CoronationScene extends InteractiveScene {
     this.time.delayedCall(300, () =>
       this.complete(
         5,
-        "Năm Sự Mừng",
-        "Đức Chúa Trời Thưởng Đức Mẹ Trên Trời",
-        "Trọn niềm cậy trông vào vinh phúc Nước Trời và tôn kính Mẹ là Nữ Vương Thiên Đàng.",
-        "Bạn đã hoàn tất chuỗi Mân Côi 20 mầu nhiệm! Hãy tiếp tục lần hạt mỗi ngày với Mẹ Maria nhé.",
+        tx("Năm Sự Mừng", "Glorious"),
+        tx("Đức Chúa Trời Thưởng Đức Mẹ Trên Trời", "The Coronation of Mary in Heaven"),
+        tx("Trọn niềm cậy trông vào vinh phúc Nước Trời và tôn kính Mẹ là Nữ Vương Thiên Đàng.", "Full hope in the happiness of God's Kingdom and honor to Mary, Queen of Heaven."),
+        tx("Bạn đã hoàn tất chuỗi Mân Côi 20 mầu nhiệm! Hãy tiếp tục lần hạt mỗi ngày với Mẹ Maria nhé.", "You finished the 20-mystery Rosary! Keep praying the Rosary every day with Mother Mary."),
         ["twenty_beads", "crown_of_twelve_stars", "jesus_blessing"]
       )
     );

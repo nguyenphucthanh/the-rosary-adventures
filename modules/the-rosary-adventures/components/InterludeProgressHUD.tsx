@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import EventBus, { InterludeQuestProgress } from "@/modules/shared/game/EventBus";
+import { useT } from "@/modules/shared/i18n";
 
 const COLOR_MAP: Record<
   NonNullable<InterludeQuestProgress["color"]>,
@@ -34,6 +35,7 @@ const COLOR_MAP: Record<
 };
 
 export default function InterludeProgressHUD() {
+  const t = useT();
   const [quests, setQuests] = useState<InterludeQuestProgress[]>([]);
 
   useEffect(() => {
@@ -58,7 +60,7 @@ export default function InterludeProgressHUD() {
 
   return (
     <aside
-      aria-label="Tiến độ nhiệm vụ chặng đệm"
+      aria-label={t("Tiến độ nhiệm vụ chặng đệm", "Mid-stage quest progress")}
       className="pointer-events-none fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 flex items-center gap-2 sm:gap-2.5 select-none"
     >
       {quests.map((q) => {
@@ -99,7 +101,7 @@ export default function InterludeProgressHUD() {
 
             {/* Short Label */}
             <span className="font-pixel text-[18px] text-amber-100/80 uppercase tracking-wider text-center max-w-[46px] leading-tight">
-              {done ? "XONG ✓" : q.label}
+              {done ? t("XONG ✓", "DONE ✓") : q.label}
             </span>
           </div>
         );

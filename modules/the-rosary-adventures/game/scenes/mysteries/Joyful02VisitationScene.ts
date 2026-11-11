@@ -3,6 +3,7 @@ import { BaseMysteryScene, DEPTH } from "@/modules/the-rosary-adventures/game/sc
 import EventBus from "@/modules/shared/game/EventBus";
 import { registerAnnunciationTextures } from "@/modules/the-rosary-adventures/game/utils/npcTextureGenerator";
 import { registerVisitationTextures } from "@/modules/the-rosary-adventures/game/utils/visitationTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 800;
 const H = 600;
@@ -84,13 +85,13 @@ export class Joyful02VisitationScene extends BaseMysteryScene {
 
     this.time.delayedCall(800, () =>
       EventBus.emit("dialogue-open", {
-        speaker: "Đường Lên Giu-đê",
+        speaker: tx("Đường Lên Giu-đê", "The Road up to Judea"),
         avatarEmoji: "⛰️",
         lines: [
-          "Mầu Nhiệm Thứ Hai: Đức Mẹ Đi Viếng Bà Thánh Isave (Lc 1, 39-56).",
-          "Vừa nhận lời Sứ thần, Đức Mẹ vội vã lên miền núi Giu-đê để giúp người chị họ Isave đang mang thai.",
-          "Đường đồi hiểm trở: suối chắn lối, bụi gai cản bước. Hãy cùng Mẹ vượt qua nhé!",
-          "Gợi ý: tìm một tấm ván gỗ để bắc qua suối.",
+          tx("Mầu Nhiệm Thứ Hai: Đức Mẹ Đi Viếng Bà Thánh Isave (Lc 1, 39-56).", "Second Mystery: The Visitation of Mary to Saint Elizabeth (Lk 1:39-56)."),
+          tx("Vừa nhận lời Sứ thần, Đức Mẹ vội vã lên miền núi Giu-đê để giúp người chị họ Isave đang mang thai.", "Right after accepting the Angel's message, Mary hurries to the hill country of Judea to help her cousin Elizabeth, who is expecting a child."),
+          tx("Đường đồi hiểm trở: suối chắn lối, bụi gai cản bước. Hãy cùng Mẹ vượt qua nhé!", "The hill road is rough: a stream blocks the way and thorn bushes bar the path. Let's get past them with Mary!"),
+          tx("Gợi ý: tìm một tấm ván gỗ để bắc qua suối.", "Hint: find a wooden plank to lay across the stream."),
         ],
       })
     );
@@ -193,50 +194,50 @@ export class Joyful02VisitationScene extends BaseMysteryScene {
       {
         at: () => [640, 470],
         r: 40,
-        label: () => "[A] Nhặt tấm ván gỗ",
+        label: () => tx("[A] Nhặt tấm ván gỗ", "[A] Pick up the wooden plank"),
         active: () => !this.hasPlank,
         act: () => {
           this.hasPlank = true;
           this.vanish(this.plankPickup);
-          talk("Tấm Ván Gỗ", "🪵", ["Bạn nhặt được một tấm ván chắc chắn!", "Hãy mang đến bờ suối để Đức Mẹ qua được."]);
+          talk(tx("Tấm Ván Gỗ", "Wooden Plank"), "🪵", [tx("Bạn nhặt được một tấm ván chắc chắn!", "You picked up a sturdy plank!"), tx("Hãy mang đến bờ suối để Đức Mẹ qua được.", "Bring it to the stream so Mary can cross.")]);
         },
       },
       {
         at: () => [400, STREAM_Y],
         r: 58,
-        label: () => (this.hasPlank ? "[A] Bắc ván qua suối" : "[A] Nhìn dòng suối"),
+        label: () => (this.hasPlank ? tx("[A] Bắc ván qua suối", "[A] Lay the plank across the stream") : tx("[A] Nhìn dòng suối", "[A] Look at the stream")),
         active: () => !this.bridgeBuilt,
-        act: () => (this.hasPlank ? this.buildBridge() : talk("Dòng Suối", "🌊", ["Nước chảy xiết và sâu, Đức Mẹ không thể lội qua.", "Cần một tấm ván gỗ để bắc cầu. Hãy tìm quanh đây nhé!"])),
+        act: () => (this.hasPlank ? this.buildBridge() : talk(tx("Dòng Suối", "The Stream"), "🌊", [tx("Nước chảy xiết và sâu, Đức Mẹ không thể lội qua.", "The water is deep and fast. Mary cannot wade across."), tx("Cần một tấm ván gỗ để bắc cầu. Hãy tìm quanh đây nhé!", "We need a wooden plank to make a bridge. Look around here!")])),
       },
       {
         at: () => [400, ROCKS_Y + 4],
         r: 50,
-        label: () => "[A] Gạt bụi gai",
+        label: () => tx("[A] Gạt bụi gai", "[A] Push aside the thorn bushes"),
         active: () => this.bridgeBuilt && !this.thornsCleared,
         act: () => this.clearThorns(),
       },
       {
         at: () => [190, 186],
         r: 40,
-        label: () => "[A] Múc bình nước suối",
+        label: () => tx("[A] Múc bình nước suối", "[A] Scoop a jar of spring water"),
         active: () => !this.hasJar,
         act: () => {
           this.hasJar = true;
           this.vanish(this.jarPickup);
-          talk("Mạch Nước Suối", "💧", ["Nước suối trong và mát lạnh!", "Bạn đã có bình nước. Hãy mang đến cho Đức Mẹ."]);
+          talk(tx("Mạch Nước Suối", "Spring Water"), "💧", [tx("Nước suối trong và mát lạnh!", "The spring water is clear and cool!"), tx("Bạn đã có bình nước. Hãy mang đến cho Đức Mẹ.", "You have the water jar. Bring it to Mary.")]);
         },
       },
       {
         at: () => [560, 176],
         r: 56,
-        label: () => "[A] Chào ông Dacaria",
+        label: () => tx("[A] Chào ông Dacaria", "[A] Greet Zechariah"),
         active: () => true,
         act: () => this.talkToZechariah(),
       },
       {
         at: () => [this.mary.x, this.mary.y],
         r: 60,
-        label: () => (this.mayDeliverWater() ? "[A] Đưa nước cho Đức Mẹ" : "[A] Trò chuyện với Đức Mẹ"),
+        label: () => (this.mayDeliverWater() ? tx("[A] Đưa nước cho Đức Mẹ", "[A] Give the water to Mary") : tx("[A] Trò chuyện với Đức Mẹ", "[A] Talk to Mary")),
         active: () => !this.finished,
         act: () => (this.mayDeliverWater() ? this.deliverWater() : this.talkToMary()),
       },
@@ -286,15 +287,15 @@ export class Joyful02VisitationScene extends BaseMysteryScene {
     this.obstacles.remove(this.bridgeGap, true, true);
     this.add.image(400, STREAM_Y, "plank_bridge").setDepth(DEPTH.LIGHT);
     EventBus.emit("dialogue-open", {
-      speaker: "Dòng Suối",
+      speaker: tx("Dòng Suối", "The Stream"),
       avatarEmoji: "🌉",
-      lines: ["Tấm ván đã bắc vững chãi qua suối!", "Đức Mẹ nhẹ nhàng bước sang bờ bên kia."],
+      lines: [tx("Tấm ván đã bắc vững chãi qua suối!", "The plank is laid firmly across the stream!"), tx("Đức Mẹ nhẹ nhàng bước sang bờ bên kia.", "Mary steps gently to the other side.")],
       onComplete: () =>
         this.walkMary([[400, 380], [400, 285]], () =>
           EventBus.emit("dialogue-open", {
-            speaker: "Đức Mẹ Maria",
+            speaker: tx("Đức Mẹ Maria", "Mother Mary"),
             avatarEmoji: "💙",
-            lines: ["Cảm ơn con! Nhưng bụi gai kia chắn mất lối rồi.", "Con gạt giúp Mẹ nhé."],
+            lines: [tx("Cảm ơn con! Nhưng bụi gai kia chắn mất lối rồi.", "Thank you! But those thorn bushes are blocking the way."), tx("Con gạt giúp Mẹ nhé.", "Please push them aside for me.")],
           })
         ),
     });
@@ -305,31 +306,31 @@ export class Joyful02VisitationScene extends BaseMysteryScene {
     this.obstacles.remove(this.thornBlock, true, true);
     this.tweens.add({ targets: this.thorns, alpha: 0, x: "+=6", duration: 400, onComplete: () => this.thorns.destroy() });
     EventBus.emit("dialogue-open", {
-      speaker: "Bụi Gai",
+      speaker: tx("Bụi Gai", "Thorn Bush"),
       avatarEmoji: "🌿",
-      lines: ["Bạn cẩn thận gạt từng cành gai sang bên.", "Lối đi đã thông thoáng, an toàn cho Đức Mẹ!"],
+      lines: [tx("Bạn cẩn thận gạt từng cành gai sang bên.", "You carefully push each thorny branch aside."), tx("Lối đi đã thông thoáng, an toàn cho Đức Mẹ!", "The path is clear and safe for Mary!")],
       onComplete: () => this.walkMary([[400, 200]]),
     });
   }
 
   private talkToZechariah() {
     const lines = this.hasJar
-      ? ["(Ông Dacaria mỉm cười, gật đầu và giơ ngón tay cái.)"]
+      ? [tx("(Ông Dacaria mỉm cười, gật đầu và giơ ngón tay cái.)", "(Zechariah smiles, nods and gives a thumbs up.)")]
       : [
-          "(Ông Dacaria không nói được từ khi gặp Sứ thần, Lc 1, 20. Ông mỉm cười chào bạn.)",
-          "(Ông chỉ tay về mạch nước nhỏ bên trái, rồi làm dấu uống nước.)",
-          "Có lẽ ông muốn bạn mang bình nước mát cho Đức Mẹ sau chặng đường dài.",
+          tx("(Ông Dacaria không nói được từ khi gặp Sứ thần, Lc 1, 20. Ông mỉm cười chào bạn.)", "(Zechariah has been unable to speak since meeting the Angel, Lk 1:20. He smiles and greets you.)"),
+          tx("(Ông chỉ tay về mạch nước nhỏ bên trái, rồi làm dấu uống nước.)", "(He points to the little spring on the left, then mimes drinking water.)"),
+          tx("Có lẽ ông muốn bạn mang bình nước mát cho Đức Mẹ sau chặng đường dài.", "Maybe he wants you to bring cool water to Mary after her long journey."),
         ];
-    EventBus.emit("dialogue-open", { speaker: "Ông Dacaria", avatarEmoji: "👴", lines });
+    EventBus.emit("dialogue-open", { speaker: tx("Ông Dacaria", "Zechariah"), avatarEmoji: "👴", lines });
   }
 
   private talkToMary() {
     const lines = !this.bridgeBuilt
-      ? ["Dòng suối chảy xiết quá. Mẹ cần một tấm ván để bước qua.", "Con tìm giúp Mẹ nhé!"]
+      ? [tx("Dòng suối chảy xiết quá. Mẹ cần một tấm ván để bước qua.", "The stream is flowing too fast. I need a plank to step across."), tx("Con tìm giúp Mẹ nhé!", "Please find one for me!")]
       : !this.thornsCleared
-        ? ["Bụi gai chắn lối rồi. Con gạt giúp Mẹ nhé!"]
-        : ["Đường đã thông, nhưng Mẹ khát nước quá.", "Ông Dacaria hình như biết chỗ có mạch nước mát đấy."];
-    EventBus.emit("dialogue-open", { speaker: "Đức Mẹ Maria", avatarEmoji: "💙", lines });
+        ? [tx("Bụi gai chắn lối rồi. Con gạt giúp Mẹ nhé!", "Thorn bushes block the way. Please push them aside for me!")]
+        : [tx("Đường đã thông, nhưng Mẹ khát nước quá.", "The way is clear, but I am so thirsty."), tx("Ông Dacaria hình như biết chỗ có mạch nước mát đấy.", "Zechariah seems to know where there is a cool spring.")];
+    EventBus.emit("dialogue-open", { speaker: tx("Đức Mẹ Maria", "Mother Mary"), avatarEmoji: "💙", lines });
   }
 
   private mayDeliverWater() {
@@ -339,9 +340,9 @@ export class Joyful02VisitationScene extends BaseMysteryScene {
   private deliverWater() {
     this.finished = true;
     EventBus.emit("dialogue-open", {
-      speaker: "Đức Mẹ Maria",
+      speaker: tx("Đức Mẹ Maria", "Mother Mary"),
       avatarEmoji: "💙",
-      lines: ["Nước mát quá! Cảm ơn con đã chăm sóc Mẹ.", "Giờ ta cùng đến nhà bà Isave nhé."],
+      lines: [tx("Nước mát quá! Cảm ơn con đã chăm sóc Mẹ.", "The water is so cool! Thank you for taking care of me."), tx("Giờ ta cùng đến nhà bà Isave nhé.", "Now let's go to Elizabeth's house together.")],
       onComplete: () => this.walkMary([[385, 176]], () => this.elizabethGreets()),
     });
   }
@@ -352,12 +353,12 @@ export class Joyful02VisitationScene extends BaseMysteryScene {
     this.tweens.add({ targets: e, alpha: 1, duration: 700 });
     this.sparkleBurst(418, 160);
     EventBus.emit("dialogue-open", {
-      speaker: "Bà Isave",
+      speaker: tx("Bà Isave", "Elizabeth"),
       avatarEmoji: "👵",
       lines: [
-        "Em được chúc phúc hơn mọi người phụ nữ, và hoa trái lòng dạ em cũng được chúc phúc! (Lc 1, 42)",
-        "Bởi đâu tôi được Thân Mẫu Chúa tôi đến với tôi thế này?",
-        "Vừa nghe tiếng em chào, đứa con trong bụng tôi đã nhảy mừng!",
+        tx("Em được chúc phúc hơn mọi người phụ nữ, và hoa trái lòng dạ em cũng được chúc phúc! (Lc 1, 42)", "Blessed are you among women, and blessed is the fruit of your womb! (Lk 1:42)"),
+        tx("Bởi đâu tôi được Thân Mẫu Chúa tôi đến với tôi thế này?", "Why am I so favored that the mother of my Lord should come to me?"),
+        tx("Vừa nghe tiếng em chào, đứa con trong bụng tôi đã nhảy mừng!", "The moment your greeting reached my ears, the child in my womb leapt for joy!"),
       ],
       onComplete: () => this.magnificat(),
     });
@@ -365,11 +366,11 @@ export class Joyful02VisitationScene extends BaseMysteryScene {
 
   private magnificat() {
     EventBus.emit("dialogue-open", {
-      speaker: "Đức Mẹ Maria",
+      speaker: tx("Đức Mẹ Maria", "Mother Mary"),
       avatarEmoji: "🎶",
       lines: [
-        "Linh hồn tôi ngợi khen Đức Chúa, thần trí tôi hớn hở vui mừng vì Thiên Chúa, Đấng cứu độ tôi. (Lc 1, 46-47)",
-        "Đấng Toàn Năng đã làm cho tôi biết bao điều cao cả, danh Người thật chí thánh!",
+        tx("Linh hồn tôi ngợi khen Đức Chúa, thần trí tôi hớn hở vui mừng vì Thiên Chúa, Đấng cứu độ tôi. (Lc 1, 46-47)", "My soul proclaims the greatness of the Lord, my spirit rejoices in God my Savior. (Lk 1:46-47)"),
+        tx("Đấng Toàn Năng đã làm cho tôi biết bao điều cao cả, danh Người thật chí thánh!", "The Mighty One has done great things for me, and holy is His name!"),
       ],
       onComplete: () => {
         this.sparkleBurst(this.mary.x, this.mary.y - 16);
@@ -397,13 +398,13 @@ export class Joyful02VisitationScene extends BaseMysteryScene {
   private completeStage() {
     this.saveStageComplete(["cross_stream", "clear_thorns", "bring_water", "magnificat"]);
     EventBus.emit("dialogue-open", {
-      speaker: "✨ HOÀN THÀNH MẦU NHIỆM THỨ HAI ✨",
+      speaker: tx("✨ HOÀN THÀNH MẦU NHIỆM THỨ HAI ✨", "✨ SECOND MYSTERY COMPLETE ✨"),
       avatarEmoji: "📿",
       lines: [
-        "CHÚC MỪNG BẠN ĐÃ THẮP SÁNG HẠT MÂN CÔI SỐ 2!",
-        "Mầu Nhiệm Thứ Hai Năm Sự Vui: Đức Bà Đi Viếng Bà Thánh Isave.",
-        "Hoa trái suy niệm: Lòng bác ái và sẵn sàng phục vụ tha nhân.",
-        "Mẹ Maria vội vã lên đường để giúp người khác. Hãy noi gương Mẹ nhé!",
+        tx("CHÚC MỪNG BẠN ĐÃ THẮP SÁNG HẠT MÂN CÔI SỐ 2!", "CONGRATULATIONS! YOU LIT ROSARY BEAD NUMBER 2!"),
+        tx("Mầu Nhiệm Thứ Hai Năm Sự Vui: Đức Bà Đi Viếng Bà Thánh Isave.", "Second Joyful Mystery: The Visitation of Mary to Saint Elizabeth."),
+        tx("Hoa trái suy niệm: Lòng bác ái và sẵn sàng phục vụ tha nhân.", "Fruit of the meditation: Love of neighbor and readiness to serve others."),
+        tx("Mẹ Maria vội vã lên đường để giúp người khác. Hãy noi gương Mẹ nhé!", "Mary hurried off to help others. Follow her example!"),
       ],
       onComplete: () => this.goToNextStage(),
     });

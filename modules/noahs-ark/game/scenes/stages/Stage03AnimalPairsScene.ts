@@ -4,6 +4,7 @@ import { registerStageTextures } from "@/modules/noahs-ark/game/utils/stageTextu
 import { NOAH_TEXT } from "@/modules/noahs-ark/data/stageText";
 import { tr } from "@/modules/noahs-ark/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 320;
 const H = 240;
@@ -23,20 +24,20 @@ const NODES: Record<string, Node> = {
   KC: { x: 232, y: 60, exits: [], cabin: 2 },
 };
 const SWITCHES = [
-  { x: 176, y: 196, label: "Ngã ba dưới" }, { x: 72, y: 150, label: "Ngã ba trái" }, { x: 248, y: 150, label: "Ngã ba phải" },
+  { x: 176, y: 196, label: tx("Ngã ba dưới", "Lower fork") }, { x: 72, y: 150, label: tx("Ngã ba trái", "Left fork") }, { x: 248, y: 150, label: tx("Ngã ba phải", "Right fork") },
 ];
-const BARRIERS = [{ node: "H", label: "Cổng rào Khoang Hiền" }, { node: "M", label: "Cổng rào Khoang Lớn" }];
-const CABIN_NAMES = ["Khoang Thú Hiền", "Khoang Thú Lớn", "Khoang Chim Trời"];
+const BARRIERS = [{ node: "H", label: tx("Cổng rào Khoang Hiền", "Gentle Pen gate") }, { node: "M", label: tx("Cổng rào Khoang Lớn", "Big Pen gate") }];
+const CABIN_NAMES = [tx("Khoang Thú Hiền", "Gentle Animals' Pen"), tx("Khoang Thú Lớn", "Big Animals' Pen"), tx("Khoang Chim Trời", "Birds' Pen")];
 
 interface Kind { tex: string; spd: number; cabin: number; fierce?: boolean; name: string }
 const KINDS: Record<string, Kind> = {
-  sheep: { tex: "noah_sheep", spd: 34, cabin: 0, name: "chiên" },
-  rabbit: { tex: "noah_rabbit", spd: 40, cabin: 0, name: "thỏ" },
-  deer: { tex: "noah_deer", spd: 38, cabin: 0, name: "hươu" },
-  lion: { tex: "noah_lion", spd: 60, cabin: 1, fierce: true, name: "sư tử" },
+  sheep: { tex: "noah_sheep", spd: 34, cabin: 0, name: tx("chiên", "lamb") },
+  rabbit: { tex: "noah_rabbit", spd: 40, cabin: 0, name: tx("thỏ", "rabbit") },
+  deer: { tex: "noah_deer", spd: 38, cabin: 0, name: tx("hươu", "deer") },
+  lion: { tex: "noah_lion", spd: 60, cabin: 1, fierce: true, name: tx("sư tử", "lion") },
   elephant: { tex: "noah_elephant", spd: 28, cabin: 1, name: "voi" },
-  zebra: { tex: "noah_zebra", spd: 40, cabin: 1, name: "ngựa vằn" },
-  dove: { tex: "noah_dove", spd: 46, cabin: 2, name: "chim bồ câu" },
+  zebra: { tex: "noah_zebra", spd: 40, cabin: 1, name: tx("ngựa vằn", "zebra") },
+  dove: { tex: "noah_dove", spd: 46, cabin: 2, name: tx("chim bồ câu", "dove") },
 };
 // Three groups of pairs: 2, 3 then 4. One pair walks at a time; the next appears after the previous is home.
 const WAVES: string[][] = [
@@ -128,7 +129,7 @@ export class Stage03AnimalPairsScene extends BaseNoahScene {
 
     SWITCHES.forEach((s, i) => {
       this.levers.push(this.add.sprite(s.x, s.y, "noah_lever", 0).setOrigin(0.5, 1).setDepth(s.y));
-      this.interactables.push({ x: s.x, y: s.y - 4, r: 20, label: `[A] Đổi hướng: ${s.label}`, active: () => this.phase !== "lost", act: () => this.flip(i) });
+      this.interactables.push({ x: s.x, y: s.y - 4, r: 20, label: tx(`[A] Đổi hướng: ${s.label}`, `[A] Switch direction: ${s.label}`), active: () => this.phase !== "lost", act: () => this.flip(i) });
     });
     BARRIERS.forEach((b, i) => {
       const n = NODES[b.node], x = n.x + 18, y = n.y + 8;
@@ -145,7 +146,7 @@ export class Stage03AnimalPairsScene extends BaseNoahScene {
       const cry = this.add.image(l.x, l.y - this.lostS[i].height - 4, "noah_cry").setOrigin(0.5, 1).setDepth(DEPTH.FX);
       this.tweens.add({ targets: cry, y: cry.y - 3, duration: 500, yoyo: true, repeat: -1, ease: "Stepped", easeParams: [3] });
       this.cries.push(cry);
-      this.interactables.push({ x: l.x, y: l.y - 6, r: 26, label: `[A] Gọi ${k.name} lạc bầy`, active: () => !this.found[i], act: () => this.callHome(i) });
+      this.interactables.push({ x: l.x, y: l.y - 6, r: 26, label: tx(`[A] Gọi ${k.name} lạc bầy`, `[A] Call the lost ${k.name}`), active: () => !this.found[i], act: () => this.callHome(i) });
     });
     this.rain = this.add.graphics().setDepth(DEPTH.FX - 3);
   }
@@ -196,12 +197,12 @@ export class Stage03AnimalPairsScene extends BaseNoahScene {
     const [x, y] = RALLY[i];
     this.tweens.add({ targets: this.lostS[i], x, y, duration: 1100, ease: "Stepped", easeParams: [10], onUpdate: () => this.lostS[i].setDepth(this.lostS[i].y) });
     if (this.found.every(Boolean)) {
-      this.talk("Muôn Thú", NOAH_TEXT.s3.found.map(tr), () => this.talk("Ông Nô-ê", NOAH_TEXT.s3.phase2.map(tr), () => {
+      this.talk(tx("Muôn Thú", "The Animals"), NOAH_TEXT.s3.found.map(tr), () => this.talk(tx("Ông Nô-ê", "Noah"), NOAH_TEXT.s3.phase2.map(tr), () => {
         this.lostS.forEach((s) => s.destroy());
         this.saveCheckpoint("wave0", 0, 100, 216);
         this.startWave(0);
       }));
-    } else this.talk("Muôn Thú", [`Em đã tìm thấy ${this.found.filter(Boolean).length}/3 con thú lạc.`]);
+    } else this.talk(tx("Muôn Thú", "The Animals"), [tx(`Em đã tìm thấy ${this.found.filter(Boolean).length}/3 con thú lạc.`, `You found ${this.found.filter(Boolean).length}/3 lost animals.`)]);
   }
 
   private clearPairs() {
@@ -235,14 +236,14 @@ export class Stage03AnimalPairsScene extends BaseNoahScene {
     if (this.busy) return;
     this.busy = true;
     audio.sfx("wrong");
-    this.talk("Muôn Thú", [msg], () => this.resetToCheckpoint());
+    this.talk(tx("Muôn Thú", "The Animals"), [msg], () => this.resetToCheckpoint());
   }
 
   private waveClear() {
     this.busy = true;
     audio.sfx("bless");
     if (this.wave + 1 < WAVES.length) {
-      this.talk("Ông Nô-ê", NOAH_TEXT.s3.wave.map(tr), () => { this.startWave(this.wave + 1); });
+      this.talk(tx("Ông Nô-ê", "Noah"), NOAH_TEXT.s3.wave.map(tr), () => { this.startWave(this.wave + 1); });
     } else {
       this.rain?.clear();
       this.finishStage(NOAH_TEXT.s3);
@@ -273,7 +274,7 @@ export class Stage03AnimalPairsScene extends BaseNoahScene {
       else {
         p.x = node.x; p.y = node.y;
         if (node.cabin !== undefined) {
-          if (node.cabin !== k.cabin) return this.fail(`Ôi, ${k.name} vào nhầm ${CABIN_NAMES[node.cabin]}! Hãy đổi hướng đúng và thử lại.`);
+          if (node.cabin !== k.cabin) return this.fail(tx(`Ôi, ${k.name} vào nhầm ${CABIN_NAMES[node.cabin]}! Hãy đổi hướng đúng và thử lại.`, `Oh no, the ${k.name} went into the wrong place: ${CABIN_NAMES[node.cabin]}! Switch the right direction and try again.`));
           p.done = true;
           audio.sfx("chime");
           p.sprites.forEach((s) => s.setVisible(false));
@@ -289,7 +290,7 @@ export class Stage03AnimalPairsScene extends BaseNoahScene {
     const lions = this.pairs.filter((p) => !p.done && KINDS[p.kind].fierce);
     for (const q of this.pairs) {
       if (q.done || KINDS[q.kind].fierce || q.kind === "dove") continue;
-      if (lions.some((l) => Math.hypot(l.x - q.x, l.y - q.y) < 26)) return this.fail("Sư tử đã đến quá gần làm thú hiền hoảng sợ! Hãy tách hai đường đi và thử lại.");
+      if (lions.some((l) => Math.hypot(l.x - q.x, l.y - q.y) < 26)) return this.fail(tx("Sư tử đã đến quá gần làm thú hiền hoảng sợ! Hãy tách hai đường đi và thử lại.", "The lion came too close and frightened the gentle animals! Keep their paths apart and try again."));
     }
   }
 

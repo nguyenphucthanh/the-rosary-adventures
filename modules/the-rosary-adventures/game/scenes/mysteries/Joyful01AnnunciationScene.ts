@@ -3,6 +3,7 @@ import audio from "@/modules/shared/game/audio/AudioManager";
 import { BaseMysteryScene, DEPTH } from "@/modules/the-rosary-adventures/game/scenes/BaseMysteryScene";
 import EventBus from "@/modules/shared/game/EventBus";
 import { registerAnnunciationTextures } from "@/modules/the-rosary-adventures/game/utils/npcTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const ALTAR_Y = 130;
 
@@ -29,27 +30,27 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
   private scrolls: ScrollItem[] = [
     {
       id: "scroll_isaiah",
-      name: "Cuộn Sách Tiên Tri Isaia",
+      name: tx("Cuộn Sách Tiên Tri Isaia", "The Scroll of the Prophet Isaiah"),
       scripture:
-        "Is 7, 14: 'Này đây một trinh nữ sẽ thụ thai và sinh hạ một con trai, và người ta sẽ gọi tên con trẻ là Em-ma-nu-en.'",
+        tx("Is 7, 14: 'Này đây một trinh nữ sẽ thụ thai và sinh hạ một con trai, và người ta sẽ gọi tên con trẻ là Em-ma-nu-en.'", "Is 7:14: ‘Behold, the virgin shall conceive and bear a son, and shall name him Emmanuel.’"),
       x: 180,
       y: 190,
       collected: false,
     },
     {
       id: "scroll_micah",
-      name: "Cuộn Sách Tiên Tri Mikha",
+      name: tx("Cuộn Sách Tiên Tri Mikha", "The Scroll of the Prophet Micah"),
       scripture:
-        "Mk 5, 1: 'Phần ngươi, hỡi Bê-lem Ép-ra-tha, từ nơi ngươi sẽ xuất hiện vị thống lãnh Ít-ra-en.'",
+        tx("Mk 5, 1: 'Phần ngươi, hỡi Bê-lem Ép-ra-tha, từ nơi ngươi sẽ xuất hiện vị thống lãnh Ít-ra-en.'", "Mic 5:1: ‘But you, Bethlehem-Ephrathah, from you shall come forth for me one who is to be ruler in Israel.’"),
       x: 630,
       y: 220,
       collected: false,
     },
     {
       id: "scroll_david",
-      name: "Lời Hứa Với Nhà Đavít",
+      name: tx("Lời Hứa Với Nhà Đavít", "The Promise to the House of David"),
       scripture:
-        "2 Sm 7, 16: 'Nhà của ngươi và vương quyền của ngươi sẽ bền vững muôn đời trước mặt Ta.'",
+        tx("2 Sm 7, 16: 'Nhà của ngươi và vương quyền của ngươi sẽ bền vững muôn đời trước mặt Ta.'", "2 Sam 7:16: ‘Your house and your kingdom shall endure forever before me.’"),
       x: 480,
       y: 450,
       collected: false,
@@ -287,13 +288,13 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
 
   private triggerIntroDialogue() {
     EventBus.emit("dialogue-open", {
-      speaker: "Bối Cảnh Nazareth",
+      speaker: tx("Bối Cảnh Nazareth", "The Setting at Nazareth"),
       avatarEmoji: "🕊️",
       lines: [
-        "Mầu Nhiệm Thứ Nhất: Thiên Thần Truyền Tin Cho Đức Bà (Lc 1, 26-38).",
-        "Tại một ngôi nhà nhỏ thanh bình ở xứ Nazareth, Đức Mẹ Maria đang khiêm nhường quỳ cầu nguyện bên Bàn Thờ.",
-        "Một cơn gió thổi qua làm rơi những cuộn Kinh Thánh Cựu Ước tiên báo về Đấng Cứu Thế.",
-        "Hãy bước lại gần và thu thập đủ 3 cuộn Lời Chúa để đặt lại ngay ngắn trên Bàn Cầu Nguyện của Mẹ!",
+        tx("Mầu Nhiệm Thứ Nhất: Thiên Thần Truyền Tin Cho Đức Bà (Lc 1, 26-38).", "First Mystery: The Annunciation of the Angel to Mary (Lk 1:26-38)."),
+        tx("Tại một ngôi nhà nhỏ thanh bình ở xứ Nazareth, Đức Mẹ Maria đang khiêm nhường quỳ cầu nguyện bên Bàn Thờ.", "In a small, peaceful house in Nazareth, Mary kneels humbly in prayer beside the Altar."),
+        tx("Một cơn gió thổi qua làm rơi những cuộn Kinh Thánh Cựu Ước tiên báo về Đấng Cứu Thế.", "A breeze sweeps through and drops the Old Testament Scripture scrolls that foretell the Savior."),
+        tx("Hãy bước lại gần và thu thập đủ 3 cuộn Lời Chúa để đặt lại ngay ngắn trên Bàn Cầu Nguyện của Mẹ!", "Step closer and collect all 3 scrolls of God's Word to set them neatly back on Mary's Prayer Table!"),
       ],
     });
   }
@@ -313,7 +314,7 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
         if (dist < 48) {
           this.interactionPromptText
             .setPosition(item.x, item.y - 24)
-            .setText(`[A] Nhặt ${item.name}`)
+            .setText(tx(`[A] Nhặt ${item.name}`, `[A] Pick up ${item.name}`))
             .setVisible(true);
           return;
         }
@@ -329,7 +330,7 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
       if (this.scrollsCollectedCount > 0 && !this.scrollsPlacedOnAltar) {
         this.interactionPromptText
           .setPosition(centerX, altarY - 30)
-          .setText(`[A] Đặt ${this.scrollsCollectedCount}/3 Cuộn Sách lên Bàn`)
+          .setText(tx(`[A] Đặt ${this.scrollsCollectedCount}/3 Cuộn Sách lên Bàn`, `[A] Place ${this.scrollsCollectedCount}/3 Scrolls on the Table`))
           .setVisible(true);
         return;
       }
@@ -346,7 +347,7 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
       if (distToGabriel < 65) {
         this.interactionPromptText
           .setPosition(this.gabrielSprite.x, this.gabrielSprite.y - 36)
-          .setText("[A] Đối thoại với Sứ Thần")
+          .setText(tx("[A] Đối thoại với Sứ Thần", "[A] Speak with the Angel"))
           .setVisible(true);
         return;
       }
@@ -362,7 +363,7 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
     if (distToMary < 60) {
       this.interactionPromptText
         .setPosition(this.marySprite.x, this.marySprite.y - 34)
-        .setText("[A] Trò chuyện với Đức Mẹ")
+        .setText(tx("[A] Trò chuyện với Đức Mẹ", "[A] Talk to Mary"))
         .setVisible(true);
       return;
     }
@@ -446,12 +447,12 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
       speaker: item.name,
       avatarEmoji: "📜",
       lines: [
-        `Bạn đã nhặt được: ${item.name}!`,
+        tx(`Bạn đã nhặt được: ${item.name}!`, `You picked up: ${item.name}!`),
         item.scripture,
-        `Tiến độ: ${this.scrollsCollectedCount}/3 cuộn sách Lời Chúa.`,
+        tx(`Tiến độ: ${this.scrollsCollectedCount}/3 cuộn sách Lời Chúa.`, `Progress: ${this.scrollsCollectedCount}/3 scrolls of God's Word.`),
         this.scrollsCollectedCount === 3
-          ? "Bạn đã gom đủ 3 cuộn sách! Hãy mang tới đặt lên Bàn Cầu Nguyện của Đức Mẹ."
-          : "Hãy tiếp tục tìm kiếm những cuộn sách còn lại trong phòng.",
+          ? tx("Bạn đã gom đủ 3 cuộn sách! Hãy mang tới đặt lên Bàn Cầu Nguyện của Đức Mẹ.", "You have all 3 scrolls! Bring them to Mary's Prayer Table.")
+          : tx("Hãy tiếp tục tìm kiếm những cuộn sách còn lại trong phòng.", "Keep looking for the remaining scrolls in the room."),
       ],
     });
   }
@@ -459,11 +460,11 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
   private placeScrollsOnAltar() {
     if (this.scrollsCollectedCount < 3) {
       EventBus.emit("dialogue-open", {
-        speaker: "Bàn Cầu Nguyện",
+        speaker: tx("Bàn Cầu Nguyện", "Prayer Table"),
         avatarEmoji: "🕯️",
         lines: [
-          `Bạn đang giữ ${this.scrollsCollectedCount}/3 cuộn sách.`,
-          "Hãy gom đủ cả 3 cuộn Lời Chúa tiên báo Đấng Cứu Thế trước khi đặt lên bàn nhé!",
+          tx(`Bạn đang giữ ${this.scrollsCollectedCount}/3 cuộn sách.`, `You are holding ${this.scrollsCollectedCount}/3 scrolls.`),
+          tx("Hãy gom đủ cả 3 cuộn Lời Chúa tiên báo Đấng Cứu Thế trước khi đặt lên bàn nhé!", "Gather all 3 scrolls of God's Word that foretell the Savior before placing them on the table!"),
         ],
       });
       return;
@@ -477,11 +478,11 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
     this.add.image(centerX - 12, altarY - 6, "scripture_scroll").setDepth(altarY + 21);
 
     EventBus.emit("dialogue-open", {
-      speaker: "Bàn Cầu Nguyện",
+      speaker: tx("Bàn Cầu Nguyện", "Prayer Table"),
       avatarEmoji: "✨",
       lines: [
-        "Các cuộn Kinh Thánh đã được đặt lại ngay ngắn, trang nghiêm trên Bàn Cầu Nguyện!",
-        "Một bầu khí thánh thiêng bao trùm khắp căn phòng Nazareth...",
+        tx("Các cuộn Kinh Thánh đã được đặt lại ngay ngắn, trang nghiêm trên Bàn Cầu Nguyện!", "The scrolls are set neatly and reverently on the Prayer Table!"),
+        tx("Một bầu khí thánh thiêng bao trùm khắp căn phòng Nazareth...", "A holy atmosphere fills the whole room in Nazareth..."),
       ],
       onComplete: () => {
         this.triggerGabrielAppearance();
@@ -544,35 +545,35 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
   private talkToGabriel() {
     if (this.mysteryCompleted) {
       EventBus.emit("dialogue-open", {
-        speaker: "Sứ Thần Gabriel",
+        speaker: tx("Sứ Thần Gabriel", "The Angel Gabriel"),
         avatarEmoji: "🕊️",
         lines: [
-          "Bình an cho bạn, người lữ khách nhỏ đức tin!",
-          "Lời 'Xin Vâng' của Mẹ Maria đã mở lối cho Ơn Cứu Độ bước vào trần thế.",
-          "Hãy luôn giữ lòng khiêm nhường và lắng nghe tiếng Chúa trong đời sống mỗi ngày!",
+          tx("Bình an cho bạn, người lữ khách nhỏ đức tin!", "Peace be with you, little pilgrim of faith!"),
+          tx("Lời 'Xin Vâng' của Mẹ Maria đã mở lối cho Ơn Cứu Độ bước vào trần thế.", "Mary's ‘Yes’ opened the way for Salvation to enter the world."),
+          tx("Hãy luôn giữ lòng khiêm nhường và lắng nghe tiếng Chúa trong đời sống mỗi ngày!", "Always stay humble and listen for the Lord's voice in your daily life!"),
         ],
       });
       return;
     }
 
     EventBus.emit("dialogue-open", {
-      speaker: "Sứ Thần Gabriel",
+      speaker: tx("Sứ Thần Gabriel", "The Angel Gabriel"),
       avatarEmoji: "🌟",
       lines: [
-        "Hỡi Lữ Khách nhỏ, Thiên Chúa đã sai ta đến truyền tin cho Trinh Nữ Maria!",
-        "Hãy cùng ta cất lời chào Đấng Đầy Ơn Phúc đẹp lòng Thiên Chúa nhất:",
+        tx("Hỡi Lữ Khách nhỏ, Thiên Chúa đã sai ta đến truyền tin cho Trinh Nữ Maria!", "Little Pilgrim, God sent me to bring news to the Virgin Mary!"),
+        tx("Hãy cùng ta cất lời chào Đấng Đầy Ơn Phúc đẹp lòng Thiên Chúa nhất:", "Join me in greeting the one full of grace, most pleasing to God:"),
       ],
       options: [
         {
-          label: "Kính mừng Maria đầy ơn phúc, Đức Chúa Trời ở cùng Bà!",
+          label: tx("Kính mừng Maria đầy ơn phúc, Đức Chúa Trời ở cùng Bà!", "Hail Mary, full of grace, the Lord is with you!"),
           onSelect: () => this.handleGreetingCorrect(),
         },
         {
-          label: "Xin chào Maria, một ngày thật đẹp trời tại Nazareth!",
+          label: tx("Xin chào Maria, một ngày thật đẹp trời tại Nazareth!", "Hello Mary, what a lovely day in Nazareth!"),
           onSelect: () => this.handleGreetingIncorrect(1),
         },
         {
-          label: "Hỡi Maria, hãy mau mau tìm nơi an toàn để trú ẩn!",
+          label: tx("Hỡi Maria, hãy mau mau tìm nơi an toàn để trú ẩn!", "Mary, quickly find a safe place to hide!"),
           onSelect: () => this.handleGreetingIncorrect(2),
         },
       ],
@@ -581,17 +582,17 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
 
   private handleGreetingIncorrect(optionId: number) {
     EventBus.emit("dialogue-open", {
-      speaker: "Sứ Thần Gabriel",
+      speaker: tx("Sứ Thần Gabriel", "The Angel Gabriel"),
       avatarEmoji: "🌟",
       lines: [
         optionId === 1
-          ? "Đó là một lời chào lịch thiệp trần thế, nhưng sứ điệp từ Trời cao còn linh thánh và sâu sắc hơn nhiều!"
-          : "Đừng sợ hãi! Sứ mạng của Thiên Chúa mang lại bình an chứ không phải sự sợ hãi.",
-        "Hãy nhớ lại lời chúc tụng mà muôn thế hệ sẽ cùng hát khen Đức Mẹ...",
+          ? tx("Đó là một lời chào lịch thiệp trần thế, nhưng sứ điệp từ Trời cao còn linh thánh và sâu sắc hơn nhiều!", "That is a polite earthly greeting, but the message from Heaven is far holier and deeper!")
+          : tx("Đừng sợ hãi! Sứ mạng của Thiên Chúa mang lại bình an chứ không phải sự sợ hãi.", "Do not be afraid! God's mission brings peace, not fear."),
+        tx("Hãy nhớ lại lời chúc tụng mà muôn thế hệ sẽ cùng hát khen Đức Mẹ...", "Remember the blessing that all generations will sing in praise of Our Lady..."),
       ],
       options: [
         {
-          label: "Kính mừng Maria đầy ơn phúc, Đức Chúa Trời ở cùng Bà!",
+          label: tx("Kính mừng Maria đầy ơn phúc, Đức Chúa Trời ở cùng Bà!", "Hail Mary, full of grace, the Lord is with you!"),
           onSelect: () => this.handleGreetingCorrect(),
         },
       ],
@@ -601,12 +602,12 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
   private handleGreetingCorrect() {
     // Gabriel gives the Annunciation prophecy
     EventBus.emit("dialogue-open", {
-      speaker: "Sứ Thần Gabriel",
+      speaker: tx("Sứ Thần Gabriel", "The Angel Gabriel"),
       avatarEmoji: "🌟",
       lines: [
-        "Chính là lời ấy! 'Kính mừng Maria đầy ơn phúc, Đức Chúa Trời ở cùng Bà!'",
-        "Thánh Thần sẽ ngự xuống trên Bà, và quyền năng Đấng Tối Cao sẽ rợp bóng trên Bà,",
-        "vì thế, Đấng Thánh sắp sinh ra sẽ được gọi là Con Thiên Chúa!",
+        tx("Chính là lời ấy! 'Kính mừng Maria đầy ơn phúc, Đức Chúa Trời ở cùng Bà!'", "That's the one! ‘Hail Mary, full of grace, the Lord is with you!’"),
+        tx("Thánh Thần sẽ ngự xuống trên Bà, và quyền năng Đấng Tối Cao sẽ rợp bóng trên Bà,", "The Holy Spirit will come upon you, and the power of the Most High will overshadow you,"),
+        tx("vì thế, Đấng Thánh sắp sinh ra sẽ được gọi là Con Thiên Chúa!", "therefore the holy child to be born will be called the Son of God!"),
       ],
       onComplete: () => {
         this.triggerMaryFiatClimax();
@@ -617,11 +618,11 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
   private triggerMaryFiatClimax() {
     // Mary's Fiat proclamation
     EventBus.emit("dialogue-open", {
-      speaker: "Đức Mẹ Maria",
+      speaker: tx("Đức Mẹ Maria", "Mother Mary"),
       avatarEmoji: "💙",
       lines: [
-        "Vâng, tôi đây là nữ tỳ của Chúa...",
-        "Xin Người thực hiện cho tôi như lời sứ thần nói!",
+        tx("Vâng, tôi đây là nữ tỳ của Chúa...", "Behold, I am the handmaid of the Lord..."),
+        tx("Xin Người thực hiện cho tôi như lời sứ thần nói!", "May it be done to me according to your word!"),
       ],
       onComplete: () => {
         this.performHolySpiritDescendingEffect();
@@ -675,13 +676,13 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
 
     // 3. Outro meditation banner & reflection
     EventBus.emit("dialogue-open", {
-      speaker: "✨ HOÀN THÀNH MẦU NHIỆM THỨ NHẤT ✨",
+      speaker: tx("✨ HOÀN THÀNH MẦU NHIỆM THỨ NHẤT ✨", "✨ FIRST MYSTERY COMPLETE ✨"),
       avatarEmoji: "📿",
       lines: [
-        "CHÚC MỪNG BẠN ĐÃ THẮP SÁNG HẠT MÂN CÔI SỐ 1!",
-        "Mầu Nhiệm Thứ Nhất Năm Sự Vui: Thiên Thần Truyền Tin Cho Đức Bà.",
-        "Ý cầu nguyện & Hoa trái suy niệm: Xin cho được lòng khiêm nhường và luôn biết vâng theo Thánh Ý Thiên Chúa.",
-        "Ngôi Lời đã Nhập Thể trong lòng Đức Trinh Nữ Maria!",
+        tx("CHÚC MỪNG BẠN ĐÃ THẮP SÁNG HẠT MÂN CÔI SỐ 1!", "CONGRATULATIONS! YOU LIT ROSARY BEAD NUMBER 1!"),
+        tx("Mầu Nhiệm Thứ Nhất Năm Sự Vui: Thiên Thần Truyền Tin Cho Đức Bà.", "First Joyful Mystery: The Annunciation."),
+        tx("Ý cầu nguyện & Hoa trái suy niệm: Xin cho được lòng khiêm nhường và luôn biết vâng theo Thánh Ý Thiên Chúa.", "Prayer intention & fruit of the meditation: May we have humility and always follow the will of God."),
+        tx("Ngôi Lời đã Nhập Thể trong lòng Đức Trinh Nữ Maria!", "The Word became flesh in the womb of the Virgin Mary!"),
       ],
       onComplete: () => this.goToNextStage(),
     });
@@ -690,11 +691,11 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
   private talkToMary() {
     if (this.mysteryCompleted) {
       EventBus.emit("dialogue-open", {
-        speaker: "Đức Mẹ Maria",
+        speaker: tx("Đức Mẹ Maria", "Mother Mary"),
         avatarEmoji: "💙",
         lines: [
-          "Linh hồn tôi ngợi khen Đức Chúa, và thần trí tôi hớn hở vui mừng trong Thiên Chúa Đấng Cứu Độ tôi!",
-          "Cảm ơn con đã cùng Mẹ đón nhận Hồng Ân Cứu Độ.",
+          tx("Linh hồn tôi ngợi khen Đức Chúa, và thần trí tôi hớn hở vui mừng trong Thiên Chúa Đấng Cứu Độ tôi!", "My soul proclaims the greatness of the Lord, and my spirit rejoices in God my Savior!"),
+          tx("Cảm ơn con đã cùng Mẹ đón nhận Hồng Ân Cứu Độ.", "Thank you for welcoming the gift of Salvation with me."),
         ],
       });
       return;
@@ -702,21 +703,21 @@ export class Joyful01AnnunciationScene extends BaseMysteryScene {
 
     if (!this.scrollsPlacedOnAltar) {
       EventBus.emit("dialogue-open", {
-        speaker: "Đức Mẹ Maria",
+        speaker: tx("Đức Mẹ Maria", "Mother Mary"),
         avatarEmoji: "💙",
         lines: [
-          "Bình an cho con, người lữ khách nhỏ!",
-          "Mẹ đang chuẩn bị tâm hồn lắng nghe Lời Chúa.",
-          `Con hãy giúp Mẹ tìm lại đủ 3 cuộn sách Lời Chúa đang rơi trong phòng nhé! (Đã có: ${this.scrollsCollectedCount}/3)`,
+          tx("Bình an cho con, người lữ khách nhỏ!", "Peace be with you, little pilgrim!"),
+          tx("Mẹ đang chuẩn bị tâm hồn lắng nghe Lời Chúa.", "I am preparing my heart to listen to God's Word."),
+          tx(`Con hãy giúp Mẹ tìm lại đủ 3 cuộn sách Lời Chúa đang rơi trong phòng nhé! (Đã có: ${this.scrollsCollectedCount}/3)`, `Please help me find the 3 scrolls of God's Word that fell in the room! (Found: ${this.scrollsCollectedCount}/3)`),
         ],
       });
     } else {
       EventBus.emit("dialogue-open", {
-        speaker: "Đức Mẹ Maria",
+        speaker: tx("Đức Mẹ Maria", "Mother Mary"),
         avatarEmoji: "💙",
         lines: [
-          "Sứ thần Gabriel đang hiện diện với lời nhắn từ Trời Cao.",
-          "Con hãy cùng Mẹ lắng nghe và cất lời chào mừng Sứ thần nhé!",
+          tx("Sứ thần Gabriel đang hiện diện với lời nhắn từ Trời Cao.", "The Angel Gabriel is here with a message from Heaven."),
+          tx("Con hãy cùng Mẹ lắng nghe và cất lời chào mừng Sứ thần nhé!", "Listen with me and greet the Angel!"),
         ],
       });
     }

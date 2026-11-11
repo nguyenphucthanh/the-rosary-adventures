@@ -5,6 +5,7 @@ import { registerPassoverTextures } from "@/modules/moses-the-exodus/game/utils/
 import { STAGE6, tr } from "@/modules/moses-the-exodus/data/dialogues";
 import { PAL } from "@/modules/shared/game/utils/pixelArt";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 352;
 const H = 300;
@@ -301,9 +302,9 @@ export class Stage06PassoverNightScene extends BaseExodusScene {
     // the messenger passes over each marked door, one by one
     this.houses.forEach((h, k) => this.time.delayedCall(300 + k * 160, () => this.sparkleBurst(h.x, h.foot - 20, 6)));
     this.time.delayedCall(2200, () =>
-      this.talk("Ấn Dấu thứ 6", STAGE6.outro.map(tr), () =>
-        this.talk("Suy niệm", [tr(STAGE6.lesson)], () =>
-          this.talk("Rời Ai Cập", STAGE6.cutscene.map(tr), () => this.goToNextStage()))));
+      this.talk(tx("Ấn Dấu thứ 6", "Seal 6"), STAGE6.outro.map(tr), () =>
+        this.talk(tx("Suy niệm", "Reflection"), [tr(STAGE6.lesson)], () =>
+          this.talk(tx("Rời Ai Cập", "Leaving Egypt"), STAGE6.cutscene.map(tr), () => this.goToNextStage()))));
   }
 
   // ---------------------------------------------------------------- frame update

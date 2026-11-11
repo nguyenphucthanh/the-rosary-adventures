@@ -8,6 +8,7 @@ import { registerLightTextures } from "@/modules/the-rosary-adventures/game/util
 import { registerCanaTextures } from "@/modules/the-rosary-adventures/game/utils/canaTextureGenerator";
 import { registerGalileeTextures } from "@/modules/the-rosary-adventures/game/utils/galileeTextureGenerator";
 import { registerPassionTextures } from "@/modules/the-rosary-adventures/game/utils/passionTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 560;
@@ -18,14 +19,14 @@ const BELL_AT: [number, number] = [320, 486];
 const ROUNDS = 3;
 
 const SLEEPERS = [
-  { key: "peter", name: "Phêrô", at: [150, 340] as [number, number] },
-  { key: "james", name: "Giacôbê", at: [320, 392] as [number, number] },
+  { key: "peter", name: tx("Phêrô", "Peter"), at: [150, 340] as [number, number] },
+  { key: "james", name: tx("Giacôbê", "James"), at: [320, 392] as [number, number] },
   { key: "john_apostle", name: "Gioan", at: [490, 340] as [number, number] },
 ];
 
 const ROUND_LINES = [
-  ["Chúa Giêsu trở lại, thấy các môn đệ ngủ, liền nói với Phêrô:", "'Anh em không thể thức với Thầy một giờ sao? Hãy tỉnh thức và cầu nguyện, để khỏi sa chước cám dỗ.' (Mt 26, 40-41)", "Các môn đệ buồn ngủ quá, lại thiếp đi rồi. Con hãy rung chuông đánh thức họ lần nữa nhé."],
-  ["Chúa Giêsu lại cầu nguyện: 'Lạy Cha, nếu con không thể tránh chén này mà không uống, thì xin cứ theo ý Cha.' (Mt 26, 42)", "Các môn đệ mắt nặng trĩu, lại thiếp đi. Con hãy đánh thức họ lần thứ ba."],
+  [tx("Chúa Giêsu trở lại, thấy các môn đệ ngủ, liền nói với Phêrô:", "Jesus comes back, finds the disciples asleep, and says to Peter:"), tx("'Anh em không thể thức với Thầy một giờ sao? Hãy tỉnh thức và cầu nguyện, để khỏi sa chước cám dỗ.' (Mt 26, 40-41)", "‘Could you not keep watch with me for one hour? Watch and pray, that you may not undergo the test.’ (Mt 26:40-41)"), tx("Các môn đệ buồn ngủ quá, lại thiếp đi rồi. Con hãy rung chuông đánh thức họ lần nữa nhé.", "The disciples are so sleepy they've dozed off again. Ring the bell to wake them once more!")],
+  [tx("Chúa Giêsu lại cầu nguyện: 'Lạy Cha, nếu con không thể tránh chén này mà không uống, thì xin cứ theo ý Cha.' (Mt 26, 42)", "Jesus prays again: ‘My Father, if it is not possible that this cup pass without my drinking it, your will be done!’ (Mt 26:42)"), tx("Các môn đệ mắt nặng trĩu, lại thiếp đi. Con hãy đánh thức họ lần thứ ba.", "The disciples' eyes are heavy and they doze off again. Wake them for the third time.")],
 ];
 
 export class Sorrowful01GardenScene extends InteractiveScene {
@@ -72,12 +73,12 @@ export class Sorrowful01GardenScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("thuong_01_vuon_cay_dau", [320, 524], {
-      speaker: "Vườn Giếtsêmani",
+      speaker: tx("Vườn Giếtsêmani", "The Garden of Gethsemane"),
       emoji: "🌙",
       lines: [
-        "Mầu Nhiệm Thứ Nhất Năm Sự Thương: Đức Chúa Giêsu Cầu Nguyện Trong Vườn Cây Dầu (Lc 22, 39-46).",
-        "Đêm tối tĩnh mịch, gió rít qua những cành ôliu già. Chúa Giêsu quỳ cầu nguyện, còn ba môn đệ thì ngủ gục dưới gốc cây.",
-        "Hãy nhặt chiếc chuông nhỏ gần chỗ con đứng, rồi rung chuông đánh thức Phêrô, Giacôbê và Gioan nhé.",
+        tx("Mầu Nhiệm Thứ Nhất Năm Sự Thương: Đức Chúa Giêsu Cầu Nguyện Trong Vườn Cây Dầu (Lc 22, 39-46).", "First Sorrowful Mystery: The Agony of Jesus in the Garden of Olives (Lk 22:39-46)."),
+        tx("Đêm tối tĩnh mịch, gió rít qua những cành ôliu già. Chúa Giêsu quỳ cầu nguyện, còn ba môn đệ thì ngủ gục dưới gốc cây.", "The night is still, and the wind whistles through the old olive branches. Jesus kneels in prayer while the three disciples sleep at the foot of the tree."),
+        tx("Hãy nhặt chiếc chuông nhỏ gần chỗ con đứng, rồi rung chuông đánh thức Phêrô, Giacôbê và Gioan nhé.", "Pick up the little bell near where you stand, then ring it to wake Peter, James and John."),
       ],
     });
   }
@@ -126,7 +127,7 @@ export class Sorrowful01GardenScene extends InteractiveScene {
       {
         at: () => BELL_AT,
         r: 34,
-        label: () => "[A] Nhặt chuông nhỏ",
+        label: () => tx("[A] Nhặt chuông nhỏ", "[A] Pick up the little bell"),
         active: () => this.step === 0 && this.lootActive("bell"),
         act: () => {
           this.takeLoot("bell");
@@ -137,32 +138,32 @@ export class Sorrowful01GardenScene extends InteractiveScene {
       ...SLEEPERS.map((s, i) => ({
         at: (): [number, number] => s.at,
         r: 40,
-        label: () => `[A] Rung chuông đánh thức ${s.name}`,
+        label: () => tx(`[A] Rung chuông đánh thức ${s.name}`, `[A] Ring the bell to wake ${s.name}`),
         active: () => this.asleep.has(i),
         act: () => this.wake(i),
       })),
       {
         at: () => JESUS_AT,
         r: 52,
-        label: () => "[A] Lắng nghe Chúa cầu nguyện",
+        label: () => tx("[A] Lắng nghe Chúa cầu nguyện", "[A] Listen to the Lord pray"),
         active: () => this.step < 3,
         act: () =>
-          this.talk("Chúa Giêsu", "🙏", [
-            "'Lạy Cha, nếu Cha muốn, xin cất chén này khỏi con. Tuy nhiên, xin đừng theo ý con, mà xin theo ý Cha.' (Lc 22, 42)",
-            "Người đau đớn lo sợ, mồ hôi như những giọt máu rơi xuống đất. Con hãy ở lại tỉnh thức với Người nhé. (Lc 22, 44)",
+          this.talk(tx("Chúa Giêsu", "Jesus"), "🙏", [
+            tx("'Lạy Cha, nếu Cha muốn, xin cất chén này khỏi con. Tuy nhiên, xin đừng theo ý con, mà xin theo ý Cha.' (Lc 22, 42)", "‘Father, if you are willing, take this cup away from me; still, not my will but yours be done.’ (Lk 22:42)"),
+            tx("Người đau đớn lo sợ, mồ hôi như những giọt máu rơi xuống đất. Con hãy ở lại tỉnh thức với Người nhé. (Lc 22, 44)", "He is in agony and fear, and His sweat becomes like drops of blood falling to the ground. Stay awake with Him! (Lk 22:44)"),
           ]),
       },
       {
         at: () => [ANGEL_AT[0], ANGEL_AT[1] + 22],
         r: 44,
-        label: () => "[A] Nhận chén vâng phục",
+        label: () => tx("[A] Nhận chén vâng phục", "[A] Take the cup of obedience"),
         active: () => this.step === 2 && this.lootActive("chalice"),
         act: () => this.takeLoot("chalice"),
       },
       {
         at: () => [ROCK_AT[0], ROCK_AT[1] + 22],
         r: 44,
-        label: () => "[A] Đặt chén lên phiến đá",
+        label: () => tx("[A] Đặt chén lên phiến đá", "[A] Place the cup on the stone slab"),
         active: () => this.step === 2 && !this.chalice,
         act: () => this.placeChalice(),
       },
@@ -181,7 +182,7 @@ export class Sorrowful01GardenScene extends InteractiveScene {
 
   private wake(i: number) {
     if (this.held?.id !== "bell") {
-      this.talk(SLEEPERS[i].name, "😴", ["Zzz... Con hãy nhặt chiếc chuông nhỏ rồi rung để đánh thức tôi nhé."]);
+      this.talk(SLEEPERS[i].name, "😴", [tx("Zzz... Con hãy nhặt chiếc chuông nhỏ rồi rung để đánh thức tôi nhé.", "Zzz... Pick up the little bell and ring it to wake me.")]);
       return;
     }
     this.asleep.delete(i);
@@ -197,7 +198,7 @@ export class Sorrowful01GardenScene extends InteractiveScene {
     if (this.asleep.size > 0) return;
     this.round++;
     if (this.round < ROUNDS) {
-      this.talk("Chúa Giêsu", "🙏", ROUND_LINES[this.round - 1], () => this.time.delayedCall(1200, () => this.startRound()));
+      this.talk(tx("Chúa Giêsu", "Jesus"), "🙏", ROUND_LINES[this.round - 1], () => this.time.delayedCall(1200, () => this.startRound()));
     } else {
       this.time.delayedCall(500, () => this.angelAppears());
     }
@@ -207,9 +208,9 @@ export class Sorrowful01GardenScene extends InteractiveScene {
     this.step = 2;
     this.dropItem();
     this.talk(
-      "Chúa Giêsu",
+      tx("Chúa Giêsu", "Jesus"),
       "🙏",
-      ["Lần này các môn đệ đã thức cùng Chúa. Chúa Giêsu cầu nguyện thiết tha hơn nữa. (Lc 22, 44)", "Bỗng có một thiên thần từ trời hiện ra, thêm sức cho Người. (Lc 22, 43)"],
+      [tx("Lần này các môn đệ đã thức cùng Chúa. Chúa Giêsu cầu nguyện thiết tha hơn nữa. (Lc 22, 44)", "This time the disciples stayed awake with the Lord. Jesus prays even more earnestly. (Lk 22:44)"), tx("Bỗng có một thiên thần từ trời hiện ra, thêm sức cho Người. (Lc 22, 43)", "Suddenly an angel from heaven appears to Him and strengthens Him. (Lk 22:43)")],
       () => {
         this.cameras.main.flash(500, 255, 245, 200);
         this.angel = this.add.sprite(ANGEL_AT[0], ANGEL_AT[1] - 8, "archangel_gabriel").setOrigin(0.5, 1).setDepth(ANGEL_AT[1]).setAlpha(0).play("garden_angel");
@@ -217,14 +218,14 @@ export class Sorrowful01GardenScene extends InteractiveScene {
         const g = this.add.image(ANGEL_AT[0], ANGEL_AT[1] - 24, "glow_gold").setDepth(DEPTH.LIGHT).setAlpha(0.5);
         this.tweens.add({ targets: g, alpha: 0.8, duration: 800, yoyo: true, repeat: -1 });
         this.spawnLoot("chalice", ANGEL_AT[0], ANGEL_AT[1] + 22, "chalice_empty");
-        this.talk("Thiên Thần", "👼", ["Hãy cầm lấy chén vâng phục này, đặt lên phiến đá bên cạnh Chúa để an ủi Người nhé."]);
+        this.talk(tx("Thiên Thần", "Angel"), "👼", [tx("Hãy cầm lấy chén vâng phục này, đặt lên phiến đá bên cạnh Chúa để an ủi Người nhé.", "Take this cup of obedience and place it on the stone slab beside the Lord to comfort Him.")]);
       }
     );
   }
 
   private placeChalice() {
     if (this.held?.id !== "chalice") {
-      this.talk("Phiến Đá", "🪨", ["Phiến đá này đang chờ chén vâng phục của thiên thần. Con hãy đến nhận chén rồi mang lại đây nhé."]);
+      this.talk(tx("Phiến Đá", "Stone Slab"), "🪨", [tx("Phiến đá này đang chờ chén vâng phục của thiên thần. Con hãy đến nhận chén rồi mang lại đây nhé.", "This slab is waiting for the angel's cup of obedience. Go take the cup and bring it here.")]);
       return;
     }
     this.dropItem();
@@ -232,11 +233,11 @@ export class Sorrowful01GardenScene extends InteractiveScene {
     this.chalice = this.add.image(ROCK_AT[0], ROCK_AT[1] - 14, "chalice_empty").setOrigin(0.5, 1).setDepth(ROCK_AT[1] + 6);
     this.sparkleBurst(ROCK_AT[0], ROCK_AT[1] - 24);
     this.talk(
-      "Chúa Giêsu",
+      tx("Chúa Giêsu", "Jesus"),
       "🙏",
       [
-        "Chúa Giêsu cầm lấy chén vâng phục và thưa cùng Cha: 'Lạy Cha, xin đừng theo ý con, mà xin theo ý Cha.' (Lc 22, 42)",
-        "Đứng dậy, Người nói với các môn đệ: 'Anh em hãy chỗi dậy, chúng ta đi nào!' (Mt 26, 46)",
+        tx("Chúa Giêsu cầm lấy chén vâng phục và thưa cùng Cha: 'Lạy Cha, xin đừng theo ý con, mà xin theo ý Cha.' (Lc 22, 42)", "Jesus takes the cup of obedience and says to the Father: ‘Father, not my will but yours be done.’ (Lk 22:42)"),
+        tx("Đứng dậy, Người nói với các môn đệ: 'Anh em hãy chỗi dậy, chúng ta đi nào!' (Mt 26, 46)", "Rising, He says to the disciples: ‘Get up, let us go!’ (Mt 26:46)"),
       ],
       () => this.finish()
     );
@@ -246,10 +247,10 @@ export class Sorrowful01GardenScene extends InteractiveScene {
     this.time.delayedCall(300, () =>
       this.complete(
         1,
-        "Năm Sự Thương",
-        "Đức Chúa Giêsu Cầu Nguyện Trong Vườn Cây Dầu",
-        "Tỉnh thức, cầu nguyện và vâng phục ý Chúa trong mọi nghịch cảnh.",
-        "Khi buồn khổ hay sợ hãi, hãy nói với Cha trên trời như Chúa Giêsu: 'Xin theo ý Cha'. Cha luôn ở bên bạn!",
+        tx("Năm Sự Thương", "Sorrowful"),
+        tx("Đức Chúa Giêsu Cầu Nguyện Trong Vườn Cây Dầu", "The Agony of Jesus in the Garden of Olives"),
+        tx("Tỉnh thức, cầu nguyện và vâng phục ý Chúa trong mọi nghịch cảnh.", "Stay watchful, pray and obey God's will in every hardship."),
+        tx("Khi buồn khổ hay sợ hãi, hãy nói với Cha trên trời như Chúa Giêsu: 'Xin theo ý Cha'. Cha luôn ở bên bạn!", "When you are sad or afraid, tell the Father in heaven as Jesus did: ‘Your will be done.’ He is always with you!"),
         ["ring_bell_3_rounds", "angel_chalice", "obey_the_father"]
       )
     );

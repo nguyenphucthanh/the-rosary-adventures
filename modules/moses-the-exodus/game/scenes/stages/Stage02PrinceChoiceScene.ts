@@ -3,6 +3,7 @@ import { BaseExodusScene, DEPTH } from "@/modules/moses-the-exodus/game/scenes/B
 import { registerSiteTextures } from "@/modules/moses-the-exodus/game/utils/siteTextures";
 import { STAGE2, tr } from "@/modules/moses-the-exodus/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 760;
 const H = 240;
@@ -230,7 +231,7 @@ export class Stage02PrinceChoiceScene extends BaseExodusScene {
     this.carrying = false;
     audio.sfx("chime");
     this.sparkleBurst(SLAVES[i][0], SLAVES[i][1] - 16, 6);
-    const thanks = () => this.talk("Anh em Híp-ri", [tr(STAGE2.thanks[i])], this.served.every(Boolean) ? () => this.talk(STAGE2.speaker, STAGE2.rescue.map(tr), () => this.beginRescue()) : undefined);
+    const thanks = () => this.talk(tx("Anh em Híp-ri", "Hebrew Brothers"), [tr(STAGE2.thanks[i])], this.served.every(Boolean) ? () => this.talk(STAGE2.speaker, STAGE2.rescue.map(tr), () => this.beginRescue()) : undefined);
     thanks();
   }
 
@@ -286,7 +287,7 @@ export class Stage02PrinceChoiceScene extends BaseExodusScene {
       : [GATES.filter((gx) => this.player.x > gx + 16).length ? GATES.filter((gx) => this.player.x > gx + 16).slice(-1)[0] + 18 : START[1][0], START[1][1]];
     if (this.loseGrace()) return; // out of pips: the base scene already soft-reset to the phase start
     this.carrying = false;
-    this.talk("Lính canh", (this.phase === 0 ? STAGE2.caught : STAGE2.gateCaught).map(tr), () => {
+    this.talk(tx("Lính canh", "Guard"), (this.phase === 0 ? STAGE2.caught : STAGE2.gateCaught).map(tr), () => {
       this.player.setVelocity(0, 0);
       this.player.setPosition(dropAt[0], dropAt[1]);
       this.immune = 1500;
@@ -358,10 +359,10 @@ export class Stage02PrinceChoiceScene extends BaseExodusScene {
     this.running = false;
     audio.sfx("complete");
     this.completeStage();
-    this.talk("Giê-trô", STAGE2.done.map(tr), () =>
-      this.talk("Ấn Dấu thứ 2", STAGE2.outro.map(tr), () =>
-        this.talk("Suy niệm", [tr(STAGE2.lesson)], () =>
-          this.talk("Bốn Mươi Năm Trong Thung Lũng Khiêm Nhường", STAGE2.cutscene.map(tr), () => this.goToNextStage()))));
+    this.talk(tx("Giê-trô", "Jethro"), STAGE2.done.map(tr), () =>
+      this.talk(tx("Ấn Dấu thứ 2", "Seal 2"), STAGE2.outro.map(tr), () =>
+        this.talk(tx("Suy niệm", "Reflection"), [tr(STAGE2.lesson)], () =>
+          this.talk(tx("Bốn Mươi Năm Trong Thung Lũng Khiêm Nhường", "Forty Years in the Valley of Humility"), STAGE2.cutscene.map(tr), () => this.goToNextStage()))));
   }
 
   // ---------------------------------------------------------------- frame update
@@ -370,7 +371,7 @@ export class Stage02PrinceChoiceScene extends BaseExodusScene {
     if (this.finished) return "";
     if (this.phase === 0) return `${tr(STAGE2.phase[0])} ${this.step === 0 ? `(${this.served.filter(Boolean).length}/3)` : ""}`;
     if (this.phase === 1) return `${tr(STAGE2.phase[1])} (${GATES.filter((gx) => this.player.x > gx + 16).length}/3)`;
-    if (!this.watering) return `${tr(STAGE2.waveLabel)} ${Math.min(this.wave + 1, WAVES.length)}/${WAVES.length}: [A] vung gậy`;
+    if (!this.watering) return tx(`${tr(STAGE2.waveLabel)} ${Math.min(this.wave + 1, WAVES.length)}/${WAVES.length}: [A] vung gậy`, `${tr(STAGE2.waveLabel)} ${Math.min(this.wave + 1, WAVES.length)}/${WAVES.length}: [A] swing the staff`);
     return tr(STAGE2.waterLabel).replace("{n}", String(this.filled.filter(Boolean).length));
   }
 

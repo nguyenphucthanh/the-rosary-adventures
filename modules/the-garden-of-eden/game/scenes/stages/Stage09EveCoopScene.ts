@@ -9,6 +9,7 @@ import { tr } from "@/modules/the-garden-of-eden/data/dialogues";
 import { ADAM as ADAM_MAP, EVE as EVE_MAP } from "@/modules/the-garden-of-eden/game/utils/genesisTextures";
 import { type PixelMap, drawMap, makeCanvas } from "@/modules/shared/game/utils/pixelArt";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 /** 4 dirs x 4 steps from one front-facing map; walk steps (1, 3) bob up 1px. */
 const sheetOf = (map: PixelMap) => {
@@ -20,7 +21,7 @@ const sheetOf = (map: PixelMap) => {
 const W = 320;
 const H = 240;
 const EVE = { ...DEFAULT_CHARACTER, name: "E-va", gender: "girl" as const, hairStyle: "wavy", hairColor: "#d97706", outfitColor: "#be185d", accessory: undefined, spriteKey: "eve_partner" };
-const ADAM = { ...DEFAULT_CHARACTER, name: "A-đam", hairColor: "#5b3a1e", outfitColor: "#15803d", accessory: undefined, spriteKey: "adam_partner" };
+const ADAM = { ...DEFAULT_CHARACTER, name: tx("A-đam", "Adam"), hairColor: "#5b3a1e", outfitColor: "#15803d", accessory: undefined, spriteKey: "adam_partner" };
 const RED: [number, number] = [40, 204]; // Red Plate (west bank, south)
 const BLUE: [number, number] = [250, 204]; // Blue Plate (east bank, south)
 const JAR: [number, number] = [110, 204];
@@ -113,12 +114,12 @@ export class Stage09EveCoopScene extends BaseGenesisScene {
     for (const [x, y] of [[ROPE_X, PULLEY[1]], [ROPE_X, BED[1] - 10]]) this.add.rectangle(x - 2, y - 10, 4, 12, 0x5b2a0c).setOrigin(0).setDepth(y + 2);
     this.add.image(PULLEY[0], PULLEY[1], "gen_seed").setOrigin(0.5, 1).setDepth(PULLEY[1]);
     this.bar = this.add.text(W / 2, 12, "", { fontFamily: "Dearpix, monospace", fontSize: "10px", color: "#fde68a", backgroundColor: "#0f172acc", padding: { x: 3, y: 1 }, resolution: 4 }).setOrigin(0.5).setDepth(DEPTH.FX);
-    this.label(RED, "Bàn Đạp Đỏ"); this.label(BLUE, "Bàn Đạp Xanh"); this.label(PULLEY, "Ròng Rọc", -26); this.label(BED, "Cầu Hoa Leo", -22);
+    this.label(RED, tx("Bàn Đạp Đỏ", "Red Pedal")); this.label(BLUE, tx("Bàn Đạp Xanh", "Blue Pedal")); this.label(PULLEY, tx("Ròng Rọc", "Pulley"), -26); this.label(BED, tx("Cầu Hoa Leo", "Vine Bridge"), -22);
 
     this.interactables.push(
-      { x: JAR[0], y: JAR[1], r: 20, label: "[A] Nhặt Bình Nước", active: () => !this.hasJar && !this.jarSent && this.player === this.eve, act: () => this.takeJar() },
-      { x: PULLEY[0], y: PULLEY[1] - 4, r: 24, label: "[A] Đặt bình lên Ròng Rọc", active: () => this.hasJar && this.player === this.eve, act: () => this.sendJar() },
-      { x: BED[0], y: BED[1] - 4, r: 24, label: "[A] Tưới Cầu Hoa Leo", active: () => this.jarSent && !this.watered && this.player === this.adam, act: () => this.water() },
+      { x: JAR[0], y: JAR[1], r: 20, label: tx("[A] Nhặt Bình Nước", "[A] Pick up the Water Jar"), active: () => !this.hasJar && !this.jarSent && this.player === this.eve, act: () => this.takeJar() },
+      { x: PULLEY[0], y: PULLEY[1] - 4, r: 24, label: tx("[A] Đặt bình lên Ròng Rọc", "[A] Put the jar on the Pulley"), active: () => this.hasJar && this.player === this.eve, act: () => this.sendJar() },
+      { x: BED[0], y: BED[1] - 4, r: 24, label: tx("[A] Tưới Cầu Hoa Leo", "[A] Water the Vine Bridge"), active: () => this.jarSent && !this.watered && this.player === this.adam, act: () => this.water() },
     );
   }
 
@@ -132,7 +133,7 @@ export class Stage09EveCoopScene extends BaseGenesisScene {
     this.eve = this.chars[1];
     this.eve.fixedLook = true;
     this.eve.useSheet(sheetOf(EVE_MAP));
-    this.talk("Chúa Thánh Thần", ["Em điều khiển bờ Tây. Nhấn B để chuyển sang E-va ở bờ Đông. Bước 1: đứng lên Bàn Đạp Đỏ để hạ cầu rồi đổi người, cho E-va sang lấy Bình Nước."]);
+    this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), [tx("Em điều khiển bờ Tây. Nhấn B để chuyển sang E-va ở bờ Đông. Bước 1: đứng lên Bàn Đạp Đỏ để hạ cầu rồi đổi người, cho E-va sang lấy Bình Nước.", "You control the west bank. Press B to switch to Eve on the east bank. Step 1: stand on the Red Pedal to lower the bridge, then switch so Eve can fetch the Water Jar.")]);
   }
 
   private takeJar() {
@@ -140,7 +141,7 @@ export class Stage09EveCoopScene extends BaseGenesisScene {
     this.hasJar = true;
     if (this.jarWorld) this.removePickup(this.jarWorld);
     this.jarWorld = undefined;
-    this.talk("E-va", ["Đã có Bình Nước Suối Nguồn! Mang về bờ Đông, đặt lên Ròng Rọc nhé."]);
+    this.talk("E-va", [tx("Đã có Bình Nước Suối Nguồn! Mang về bờ Đông, đặt lên Ròng Rọc nhé.", "You have the Spring Water Jar! Bring it to the east bank and put it on the Pulley.")]);
   }
 
   private sendJar() {
@@ -151,7 +152,7 @@ export class Stage09EveCoopScene extends BaseGenesisScene {
     const t = (props: object, duration: number, onComplete?: () => void) => this.tweens.add({ targets: j, ...props, duration, ease: "Stepped", easeParams: [8], onComplete });
     // slide along the rope: across the creek, up the west bank, then in to the bed
     t({ x: ROPE_X }, 500, () => t({ y: BED[1] - 20 }, 700, () => t({ x: BED[0] + 10, y: BED[1] - 6 }, 300, () => { this.jarOnWall = j; })));
-    this.time.delayedCall(1700, () => this.talk("Chúa Thánh Thần", ["Bình Nước đã sang bờ Tây! Bước 2: A-đam rời Bàn Đạp Đỏ, tưới Cầu Hoa Leo. E-va đứng lên Bàn Đạp Xanh để mở cổng đá cho A-đam."]));
+    this.time.delayedCall(1700, () => this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), [tx("Bình Nước đã sang bờ Tây! Bước 2: A-đam rời Bàn Đạp Đỏ, tưới Cầu Hoa Leo. E-va đứng lên Bàn Đạp Xanh để mở cổng đá cho A-đam.", "The Water Jar has reached the west bank! Step 2: Adam leaves the Red Pedal and waters the Vine Bridge. Eve stands on the Blue Pedal to open the stone gate for Adam.")]));
   }
 
   private water() {
@@ -161,7 +162,7 @@ export class Stage09EveCoopScene extends BaseGenesisScene {
     this.bed?.setFrame(1);
     this.hedge.set(false);
     this.sparkleBurst(BED[0], BED[1] - 10, 8);
-    this.talk("Chúa Thánh Thần", ["Hoa leo nở rộ, hàng rào mở lối! Bước 3: cả hai cùng đứng trên Bệ Ánh Sáng trong 3 giây."]);
+    this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), [tx("Hoa leo nở rộ, hàng rào mở lối! Bước 3: cả hai cùng đứng trên Bệ Ánh Sáng trong 3 giây.", "The vines bloom and the fence opens! Step 3: both stand on the Light Pad for 3 seconds.")]);
   }
 
   private on(p: Player, [x, y]: [number, number], r = 11) {
@@ -182,7 +183,7 @@ export class Stage09EveCoopScene extends BaseGenesisScene {
     this.pads.forEach((p, i) => p.setFrame(this.padsLit[i] ? 1 : 0));
     if (this.padsLit[0] && this.padsLit[1]) {
       this.hold += delta;
-      this.bar?.setText(`Đồng tâm hiệp lực... ${Math.max(0, Math.ceil((HOLD - this.hold) / 1000))}`);
+      this.bar?.setText(tx(`Đồng tâm hiệp lực... ${Math.max(0, Math.ceil((HOLD - this.hold) / 1000))}`, `Working together... ${Math.max(0, Math.ceil((HOLD - this.hold) / 1000))}`));
       if (this.hold >= HOLD) this.finale();
     } else {
       this.hold = 0;

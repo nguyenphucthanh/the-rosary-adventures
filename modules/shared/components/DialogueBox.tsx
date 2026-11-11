@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import EventBus from "@/modules/shared/game/EventBus";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { useT } from "@/modules/shared/i18n";
+import { speakerName } from "@/modules/shared/speakers";
 
 export interface DialogueOption {
   label: string;
@@ -19,6 +21,7 @@ export interface DialogueData {
 }
 
 export default function DialogueBox() {
+  const t = useT();
   const [dialogue, setDialogue] = useState<DialogueData | null>(null);
   const [currentLineIndex, setCurrentLineIndex] = useState<number>(0);
   const [displayedText, setDisplayedText] = useState<string>("");
@@ -152,7 +155,7 @@ export default function DialogueBox() {
           <span className="text-amber-200">
             {dialogue.avatarEmoji || "★"}
           </span>
-          <span>{dialogue.speaker}</span>
+          <span>{speakerName(dialogue.speaker)}</span>
           <span className="text-amber-200">★</span>
         </div>
 
@@ -168,7 +171,7 @@ export default function DialogueBox() {
             className="mt-4 pt-3 border-t-2 border-amber-600/60 flex flex-col gap-2.5"
           >
             <div className="font-pixel text-xs sm:text-sm text-amber-300">
-              CHỌN CÂU TRẢ LỜI CỦA BẠN:
+              {t("CHỌN CÂU TRẢ LỜI CỦA BẠN:", "CHOOSE YOUR ANSWER:")}
             </div>
             {dialogue.options!.map((opt, idx) => (
               <button
@@ -190,11 +193,11 @@ export default function DialogueBox() {
         {/* Footer Guidance */}
         <div className="mt-3 flex items-center justify-between border-t border-slate-700/80 pt-2 font-pixel text-[13px] sm:text-[14px] text-amber-300">
           <span className="text-slate-400">
-            TRANG {currentLineIndex + 1}/{dialogue.lines.length}
+            {t("TRANG", "PAGE")} {currentLineIndex + 1}/{dialogue.lines.length}
           </span>
           {!hasOptions && (
             <span className="flex items-center gap-2 animate-pulse text-amber-400">
-              <span>[ CHẠM HOẶC NHẤN A / SPACE ]</span>
+              <span>{t("[ CHẠM HOẶC NHẤN A / SPACE ]", "[ TAP OR PRESS A / SPACE ]")}</span>
               <span className="text-amber-300 text-sm font-bold">▼</span>
             </span>
           )}

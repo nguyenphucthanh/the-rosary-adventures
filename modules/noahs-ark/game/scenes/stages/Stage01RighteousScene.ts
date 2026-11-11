@@ -4,16 +4,17 @@ import { registerStageTextures } from "@/modules/noahs-ark/game/utils/stageTextu
 import { NOAH_TEXT } from "@/modules/noahs-ark/data/stageText";
 import { tr } from "@/modules/noahs-ark/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 320;
 const H = 240;
 const CONE = { len: 54, half: 0.5 };
 // Conscience Stones (each one lit = a checkpoint)
 const STONES = [
-  { x: 80, y: 214, name: "Ngay Thẳng", line: "Nói thật và làm điều đúng, dù không ai nhìn thấy." },
-  { x: 284, y: 124, name: "Hiền Hòa", line: "Đáp lại lời nặng nề bằng lời dịu dàng." },
-  { x: 56, y: 120, name: "Trung Tín", line: "Giữ lời hứa với Chúa và với mọi người." },
-  { x: 112, y: 46, name: "Cầu Nguyện", line: "Dành thời gian trò chuyện với Chúa mỗi ngày." },
+  { x: 80, y: 214, name: tx("Ngay Thẳng", "Honesty"), line: tx("Nói thật và làm điều đúng, dù không ai nhìn thấy.", "Tell the truth and do what is right, even when no one is watching.") },
+  { x: 284, y: 124, name: tx("Hiền Hòa", "Gentleness"), line: tx("Đáp lại lời nặng nề bằng lời dịu dàng.", "Answer harsh words with gentle ones.") },
+  { x: 56, y: 120, name: tx("Trung Tín", "Faithfulness"), line: tx("Giữ lời hứa với Chúa và với mọi người.", "Keep your promises to God and to everyone.") },
+  { x: 112, y: 46, name: tx("Cầu Nguyện", "Prayer"), line: tx("Dành thời gian trò chuyện với Chúa mỗi ngày.", "Spend time talking with God every day.") },
 ];
 // Faith Walls: shelter from the Tempting Wind (wind blows left → right, so the lee is the right-hand side) and from sight
 const WALLS: [number, number][] = [[130, 206], [236, 212], [200, 130], [96, 134], [170, 50], [40, 52]];
@@ -78,7 +79,7 @@ export class Stage01RighteousScene extends BaseNoahScene {
     STONES.forEach((s, i) => {
       this.stoneS.push(this.add.sprite(s.x, s.y, "noah_pedestal", 0).setOrigin(0.5, 1).setDepth(s.y));
       this.block(s.x, s.y - 4, 12, 8);
-      this.interactables.push({ x: s.x, y: s.y - 6, r: 24, label: `[A] Bệ Đá ${s.name}`, active: () => !this.lit[i], act: () => this.light(i) });
+      this.interactables.push({ x: s.x, y: s.y - 6, r: 24, label: tx(`[A] Bệ Đá ${s.name}`, `[A] Stone Altar ${s.name}`), active: () => !this.lit[i], act: () => this.light(i) });
     });
     WALLS.forEach(([x, y]) => this.prop(x, y, "noah_wall", 16, 6));
     // Prayer Hill: altar, trees, Noah and his family
@@ -86,7 +87,7 @@ export class Stage01RighteousScene extends BaseNoahScene {
     this.add.image(300, 40, "noah_cypress").setOrigin(0.5, 1).setDepth(40);
     for (const [k, dx] of [["noah_wife", -16], ["noah_shem", 10], ["noah_ham", 22]] as const) this.add.sprite(NOAH_AT[0] + dx, NOAH_AT[1] + 34, k).setOrigin(0.5, 1).setDepth(NOAH_AT[1] + 34);
     this.add.sprite(...NOAH_AT, "noah_noah").setOrigin(0.5, 1).setDepth(NOAH_AT[1]);
-    this.interactables.push({ x: NOAH_AT[0], y: NOAH_AT[1] - 6, r: 26, label: "[A] Nói chuyện với ông Nô-ê", active: () => this.lit.every(Boolean) && !this.busy, act: () => this.meetNoah() });
+    this.interactables.push({ x: NOAH_AT[0], y: NOAH_AT[1] - 6, r: 26, label: tx("[A] Nói chuyện với ông Nô-ê", "[A] Talk to Noah"), active: () => this.lit.every(Boolean) && !this.busy, act: () => this.meetNoah() });
 
     if (!this.anims.exists("noah_shadow")) this.anims.create({ key: "noah_shadow", frames: this.anims.generateFrameNumbers("noah_shadow", { start: 0, end: 1 }), frameRate: 3, repeat: -1 });
     PATROLS.forEach((p) => this.shadows.push({ s: this.add.sprite(0, 0, "noah_shadow").setOrigin(0.5, 1).play("noah_shadow"), y: p.y, min: p.min, max: p.max, speed: p.speed, dir: p.dir as 1 | -1, x: p.dir > 0 ? p.min : p.max }));
@@ -114,19 +115,19 @@ export class Stage01RighteousScene extends BaseNoahScene {
     const s = STONES[i];
     this.saveCheckpoint(`stone${i}`, null, s.x, s.y + 6);
     const n = this.lit.filter(Boolean).length;
-    this.talk(`Bệ Đá ${s.name}`, [s.line, `Đã thắp sáng ${n}/4 Bệ Đá Lương Tâm.`], () => {
+    this.talk(tx(`Bệ Đá ${s.name}`, `Stone Altar ${s.name}`), [s.line, tx(`Đã thắp sáng ${n}/4 Bệ Đá Lương Tâm.`, `${n}/4 Conscience Altars lit.`)], () => {
       if (n === 4) {
         this.gate.set(false);
         audio.sfx("door");
-        this.talk("Đồi Cầu Nguyện", ["Cổng lên Đồi Cầu Nguyện đã mở! Ông Nô-ê đang chờ em trên đó."]);
+        this.talk(tx("Đồi Cầu Nguyện", "Prayer Hill"), [tx("Cổng lên Đồi Cầu Nguyện đã mở! Ông Nô-ê đang chờ em trên đó.", "The gate to Prayer Hill is open! Noah is waiting for you up there.")]);
       }
     });
   }
 
   private meetNoah() {
     this.busy = true;
-    this.talk("Thiên Chúa", ["“Nô-ê, Ta thấy ngươi là người công chính giữa những người đồng thời. Cơn hồng thủy sẽ đến. Hãy đóng một con tàu lớn để cứu gia đình ngươi và muôn loài.” (St 6, 13-14)"], () =>
-      this.talk("Ông Nô-ê", ["“Lạy Chúa, con xin vâng. Con sẽ làm đúng như lời Chúa dạy.”"], () => this.finishStage(NOAH_TEXT.s1))
+    this.talk(tx("Thiên Chúa", "God"), [tx("“Nô-ê, Ta thấy ngươi là người công chính giữa những người đồng thời. Cơn hồng thủy sẽ đến. Hãy đóng một con tàu lớn để cứu gia đình ngươi và muôn loài.” (St 6, 13-14)", "“Noah, I see that you are righteous among your generation. The flood is coming. Build a great ark to save your family and all creatures.” (Gen 6:13-14)")], () =>
+      this.talk(tx("Ông Nô-ê", "Noah"), [tx("“Lạy Chúa, con xin vâng. Con sẽ làm đúng như lời Chúa dạy.”", "“Lord, I will obey. I will do just as You command.”")], () => this.finishStage(NOAH_TEXT.s1))
     );
   }
 
@@ -146,7 +147,7 @@ export class Stage01RighteousScene extends BaseNoahScene {
     // Tempting Wind: 9 s cycle — long warning 6.5-8.3 s (shelter spots pulse), gust 8.3-8.9 s
     const ph = (this.time.now - this.t0) % 9000;
     const warning = ph >= 6500 && ph < 8300, gust = ph >= 8300 && ph < 8900;
-    this.warn?.setVisible(warning || gust).setText(warning ? "Gió sắp thổi! Chạy ra sau Tường Đá (bên phải)!" : "Gió thổi!");
+    this.warn?.setVisible(warning || gust).setText(warning ? tx("Gió sắp thổi! Chạy ra sau Tường Đá (bên phải)!", "The wind is coming! Run behind the Stone Wall (on the right)!") : tx("Gió thổi!", "Wind!"));
     this.wind?.clear();
     if (warning && !gust && !cover && (ph / 200 | 0) % 2) { // flash safe spots on the ground
       this.wind?.fillStyle(0xfde68a, 0.35);
@@ -160,7 +161,7 @@ export class Stage01RighteousScene extends BaseNoahScene {
     if (gust && !cover && this.time.now > this.invuln) {
       this.invuln = this.time.now + 1500;
       audio.sfx("wrong");
-      this.talk("Đèn Công Chính", ["Gió đã thổi tắt đèn! Em quay lại Bệ Đá gần nhất để thắp lại."], () => this.resetToCheckpoint());
+      this.talk(tx("Đèn Công Chính", "Lantern of Righteousness"), [tx("Gió đã thổi tắt đèn! Em quay lại Bệ Đá gần nhất để thắp lại.", "The wind blew out the lantern! Go back to the nearest Stone Altar to relight it.")], () => this.resetToCheckpoint());
       return;
     }
 

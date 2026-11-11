@@ -5,6 +5,7 @@ import { registerAnnunciationTextures } from "@/modules/the-rosary-adventures/ga
 import { registerVisitationTextures } from "@/modules/the-rosary-adventures/game/utils/visitationTextureGenerator";
 import { registerInfancyTextures } from "@/modules/the-rosary-adventures/game/utils/infancyTextureGenerator";
 import { registerLightTextures } from "@/modules/the-rosary-adventures/game/utils/lightTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const CELL = 32;
 const COLS = 20;
@@ -83,12 +84,12 @@ export class Luminous01BaptismScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("sang_01_phep_rua", [cx(4), cy(16)], {
-      speaker: "Sông Gio-đan",
+      speaker: tx("Sông Gio-đan", "The River Jordan"),
       emoji: "🌊",
       lines: [
-        "Mầu Nhiệm Thứ Nhất Năm Sự Sáng: Đức Chúa Giêsu Chịu Phép Rửa Tại Sông Gio-đan (Mt 3, 13-17).",
-        "Dòng nước chảy xiết đã cuốn trôi những bậc đá. Thánh Gioan Tẩy Giả đang đứng giữa sông, chờ Chúa Giêsu.",
-        "Hãy đẩy ba tảng đá xuống sông, chỗ cạn trước mặt Thánh Gioan, để làm lối đi cho Chúa nhé!",
+        tx("Mầu Nhiệm Thứ Nhất Năm Sự Sáng: Đức Chúa Giêsu Chịu Phép Rửa Tại Sông Gio-đan (Mt 3, 13-17).", "First Luminous Mystery: The Baptism of Jesus in the Jordan (Mt 3:13-17)."),
+        tx("Dòng nước chảy xiết đã cuốn trôi những bậc đá. Thánh Gioan Tẩy Giả đang đứng giữa sông, chờ Chúa Giêsu.", "The rushing water has swept the stepping stones away. Saint John the Baptist stands in the middle of the river, waiting for Jesus."),
+        tx("Hãy đẩy ba tảng đá xuống sông, chỗ cạn trước mặt Thánh Gioan, để làm lối đi cho Chúa nhé!", "Push three stones into the shallows in front of Saint John to make a path for the Lord!"),
       ],
     });
   }
@@ -288,7 +289,7 @@ export class Luminous01BaptismScene extends InteractiveScene {
     if (this.filled.size === FORD_ROWS.length && !this.pathNoted) {
       this.pathNoted = true;
       this.time.delayedCall(700, () =>
-        this.talk("Sông Gio-đan", "🌊", ["Ba bậc đá đã nằm yên trong lòng sông!", "Lối đi đã mở. Hãy bước qua và gặp Thánh Gioan Tẩy Giả nhé."])
+        this.talk(tx("Sông Gio-đan", "The River Jordan"), "🌊", [tx("Ba bậc đá đã nằm yên trong lòng sông!", "The three stepping stones are settled in the riverbed!"), tx("Lối đi đã mở. Hãy bước qua và gặp Thánh Gioan Tẩy Giả nhé.", "The path is open. Cross over and meet Saint John the Baptist.")])
       );
     }
   }
@@ -300,51 +301,51 @@ export class Luminous01BaptismScene extends InteractiveScene {
       {
         at: () => [cx(FORD_COL), cy(RIVER_BOTTOM + 1)],
         r: 40,
-        label: () => "[A] Nhìn dòng sông",
+        label: () => tx("[A] Nhìn dòng sông", "[A] Look at the river"),
         active: () => this.filled.size < FORD_ROWS.length,
         act: () =>
-          this.talk("Sông Gio-đan", "🌊", [
-            `Nước chảy xiết, không thể lội qua. Đã có ${this.filled.size}/${FORD_ROWS.length} bậc đá.`,
-            "Hãy đẩy các tảng đá sáng lấp lánh vào hàng chỗ cạn trước mặt. Đẩy sang ngang cho thẳng hàng, rồi đẩy thẳng lên phía sông.",
+          this.talk(tx("Sông Gio-đan", "The River Jordan"), "🌊", [
+            tx(`Nước chảy xiết, không thể lội qua. Đã có ${this.filled.size}/${FORD_ROWS.length} bậc đá.`, `The water runs too fast to wade across. ${this.filled.size}/${FORD_ROWS.length} steps are in place.`),
+            tx("Hãy đẩy các tảng đá sáng lấp lánh vào hàng chỗ cạn trước mặt. Đẩy sang ngang cho thẳng hàng, rồi đẩy thẳng lên phía sông.", "Push the sparkling stones into the row of shallows in front of you. Push sideways to line them up, then push straight toward the river."),
           ]),
       },
       {
         at: () => [cx(3), cy(10) + 8],
         r: 44,
-        label: () => "[A] Trò chuyện với người dân",
+        label: () => tx("[A] Trò chuyện với người dân", "[A] Talk to the people"),
         active: () => true,
         act: () =>
-          this.talk("Người Dân", "🧑‍🌾", [
-            "Chúng tôi từ khắp nơi đến đây xưng tội và xin Gioan làm phép rửa. (Mt 3, 5-6)",
-            "Nhưng sóng đã cuốn mất đá bắc ngang sông. Bạn đẩy đá vào chỗ nông nhé: đá nằm được trên đá, đẩy qua là đi được.",
+          this.talk(tx("Người Dân", "Villager"), "🧑‍🌾", [
+            tx("Chúng tôi từ khắp nơi đến đây xưng tội và xin Gioan làm phép rửa. (Mt 3, 5-6)", "We came from everywhere to confess our sins and ask John to baptize us. (Mt 3:5-6)"),
+            tx("Nhưng sóng đã cuốn mất đá bắc ngang sông. Bạn đẩy đá vào chỗ nông nhé: đá nằm được trên đá, đẩy qua là đi được.", "But the waves swept away the stones across the river. Push stones into the shallows: a stone can rest on a stone, and once pushed in you can cross."),
           ]),
       },
       {
         at: () => [cx(16), cy(10) + 8],
         r: 44,
-        label: () => "[A] Trò chuyện với kinh sư",
+        label: () => tx("[A] Trò chuyện với kinh sư", "[A] Talk to the scribe"),
         active: () => true,
         act: () =>
-          this.talk("Một Kinh Sư", "📜", [
-            "Gioan mặc áo lông lạc đà, ăn châu chấu và mật ong rừng. Ông kêu gọi: 'Hãy sám hối!' (Mt 3, 1-4)",
-            "Ông nói sau ông sẽ có Đấng quyền thế hơn ông đến.",
+          this.talk(tx("Một Kinh Sư", "A Scribe"), "📜", [
+            tx("Gioan mặc áo lông lạc đà, ăn châu chấu và mật ong rừng. Ông kêu gọi: 'Hãy sám hối!' (Mt 3, 1-4)", "John wore a garment of camel's hair and ate locusts and wild honey. He called: ‘Repent!’ (Mt 3:1-4)"),
+            tx("Ông nói sau ông sẽ có Đấng quyền thế hơn ông đến.", "He said someone more powerful than he would come after him."),
           ]),
       },
       {
         at: () => JESUS_START,
         r: 46,
-        label: () => "[A] Trò chuyện với Chúa Giêsu",
+        label: () => tx("[A] Trò chuyện với Chúa Giêsu", "[A] Talk to Jesus"),
         active: () => !this.johnMet,
         act: () =>
-          this.talk("Chúa Giêsu", "✨", [
-            "Từ Ga-li-lê, Thầy đến sông Gio-đan để Gioan làm phép rửa cho Thầy. (Mt 3, 13)",
-            this.filled.size < FORD_ROWS.length ? "Khi lối đi qua sông sẵn sàng, Thầy sẽ đi." : "Con cứ đến gặp Gioan trước, Thầy sẽ theo sau.",
+          this.talk(tx("Chúa Giêsu", "Jesus"), "✨", [
+            tx("Từ Ga-li-lê, Thầy đến sông Gio-đan để Gioan làm phép rửa cho Thầy. (Mt 3, 13)", "From Galilee I came to the Jordan to be baptized by John. (Mt 3:13)"),
+            this.filled.size < FORD_ROWS.length ? tx("Khi lối đi qua sông sẵn sàng, Thầy sẽ đi.", "When the path across the river is ready, I will go.") : tx("Con cứ đến gặp Gioan trước, Thầy sẽ theo sau.", "Go meet John first, and I will follow."),
           ]),
       },
       {
         at: () => JOHN_AT,
         r: 52,
-        label: () => "[A] Trò chuyện với Thánh Gioan",
+        label: () => tx("[A] Trò chuyện với Thánh Gioan", "[A] Talk to Saint John"),
         active: () => !this.johnMet,
         act: () => this.meetJohn(),
       },
@@ -354,11 +355,11 @@ export class Luminous01BaptismScene extends InteractiveScene {
   private meetJohn() {
     this.johnMet = true;
     this.talk(
-      "Thánh Gioan Tẩy Giả",
+      tx("Thánh Gioan Tẩy Giả", "Saint John the Baptist"),
       "🐪",
       [
-        "Cảm ơn con đã mở lối! Ta lấy nước làm phép rửa để người ta sám hối. Nhưng Đấng đến sau ta thì quyền thế hơn, ta không đáng xách dép cho Người. (Mt 3, 11)",
-        "Kìa, Người đang đến!",
+        tx("Cảm ơn con đã mở lối! Ta lấy nước làm phép rửa để người ta sám hối. Nhưng Đấng đến sau ta thì quyền thế hơn, ta không đáng xách dép cho Người. (Mt 3, 11)", "Thank you for opening the way! I baptize with water for repentance. But the One who comes after me is mightier than I; I am not worthy to carry His sandals. (Mt 3:11)"),
+        tx("Kìa, Người đang đến!", "Look, He is coming!"),
       ],
       () => this.baptism()
     );
@@ -369,11 +370,11 @@ export class Luminous01BaptismScene extends InteractiveScene {
     const [ex, ey] = JESUS_END;
     this.walk(this.jesus, [[cx(FORD_COL), cy(RIVER_BOTTOM) + 16], [cx(FORD_COL), ey], [ex, ey]], () =>
       this.talk(
-        "Thánh Gioan Tẩy Giả",
+        tx("Thánh Gioan Tẩy Giả", "Saint John the Baptist"),
         "🐪",
-        ["'Chính tôi mới cần được Ngài làm phép rửa, thế mà Ngài lại đến với tôi!' (Mt 3, 14)"],
+        [tx("'Chính tôi mới cần được Ngài làm phép rửa, thế mà Ngài lại đến với tôi!' (Mt 3, 14)", "‘I need to be baptized by you, and yet you are coming to me?’ (Mt 3:14)")],
         () =>
-          this.talk("Chúa Giêsu", "✨", ["'Cứ để như vậy, vì chúng ta nên làm cho trọn đạo công chính.' (Mt 3, 15)"], () => this.heavensOpen())
+          this.talk(tx("Chúa Giêsu", "Jesus"), "✨", [tx("'Cứ để như vậy, vì chúng ta nên làm cho trọn đạo công chính.' (Mt 3, 15)", "‘Allow it now, for thus it is fitting for us to fulfill all righteousness.’ (Mt 3:15)")], () => this.heavensOpen())
       )
     );
   }
@@ -405,9 +406,9 @@ export class Luminous01BaptismScene extends InteractiveScene {
           this.sparkleBurst(jx, jy - 40);
           this.time.delayedCall(500, () =>
             this.talk(
-              "Tiếng Từ Trời",
+              tx("Tiếng Từ Trời", "The Voice from Heaven"),
               "☁️",
-              ["Trời mở ra, Thánh Thần như chim bồ câu đậu xuống trên Người.", "'Đây là Con yêu dấu của Ta, Ta hài lòng về Người.' (Mt 3, 16-17)"],
+              [tx("Trời mở ra, Thánh Thần như chim bồ câu đậu xuống trên Người.", "The heavens open, and the Spirit like a dove descends upon Him."), tx("'Đây là Con yêu dấu của Ta, Ta hài lòng về Người.' (Mt 3, 16-17)", "‘This is my beloved Son, with whom I am well pleased.’ (Mt 3:16-17)")],
               () => this.finish()
             )
           );
@@ -421,10 +422,10 @@ export class Luminous01BaptismScene extends InteractiveScene {
     this.time.delayedCall(300, () =>
       this.complete(
         1,
-        "Năm Sự Sáng",
-        "Đức Chúa Giêsu Chịu Phép Rửa Tại Sông Gio-đan",
-        "Sống xứng đáng với ơn gọi làm con cái Thiên Chúa.",
-        "Nhờ Bí tích Rửa Tội, bạn cũng là con yêu dấu của Cha trên trời. Hãy sống xứng đáng nhé!",
+        tx("Năm Sự Sáng", "Luminous"),
+        tx("Đức Chúa Giêsu Chịu Phép Rửa Tại Sông Gio-đan", "The Baptism of Jesus in the Jordan"),
+        tx("Sống xứng đáng với ơn gọi làm con cái Thiên Chúa.", "Live worthy of your calling as a child of God."),
+        tx("Nhờ Bí tích Rửa Tội, bạn cũng là con yêu dấu của Cha trên trời. Hãy sống xứng đáng nhé!", "Through Baptism you too are a beloved child of the Father in heaven. Live worthy of it!"),
         ["push_stones", "meet_john", "see_dove"]
       )
     );

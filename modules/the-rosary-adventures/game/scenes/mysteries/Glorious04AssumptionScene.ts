@@ -1,6 +1,7 @@
 import { DEPTH } from "@/modules/the-rosary-adventures/game/scenes/BaseMysteryScene";
 import { InteractiveScene } from "@/modules/the-rosary-adventures/game/scenes/InteractiveScene";
 import { registerAllForGlory } from "@/modules/the-rosary-adventures/game/utils/gloryTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 760;
@@ -34,12 +35,12 @@ export class Glorious04AssumptionScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("mung_04_duc_me_len_troi", [320, 700], {
-      speaker: "Mộ Đức Mẹ",
+      speaker: tx("Mộ Đức Mẹ", "Our Lady's Tomb"),
       emoji: "🌸",
       lines: [
-        "Mầu Nhiệm Thứ Tư Năm Sự Mừng: Đức Chúa Trời Cho Đức Bà Lên Trời (Kh 12, 1).",
-        "Các Tông đồ quây quần quanh mộ Mẹ, thơm ngát hoa hồng trắng. Mộ Mẹ trống không, vì Thiên Chúa đã đưa Mẹ về trời cả hồn lẫn xác.",
-        "Hãy nhặt bảy bông huệ trắng đặt vào mộ Mẹ để mở đường hoa lên thiên quốc nhé.",
+        tx("Mầu Nhiệm Thứ Tư Năm Sự Mừng: Đức Chúa Trời Cho Đức Bà Lên Trời (Kh 12, 1).", "Fourth Glorious Mystery: The Assumption of Mary into Heaven (Rev 12:1)."),
+        tx("Các Tông đồ quây quần quanh mộ Mẹ, thơm ngát hoa hồng trắng. Mộ Mẹ trống không, vì Thiên Chúa đã đưa Mẹ về trời cả hồn lẫn xác.", "The Apostles gather around Mary's tomb, fragrant with white roses. Her tomb is empty, because God took her to heaven, body and soul."),
+        tx("Hãy nhặt bảy bông huệ trắng đặt vào mộ Mẹ để mở đường hoa lên thiên quốc nhé.", "Pick up seven white lilies and lay them at Mary's tomb to open a flower path to heaven."),
       ],
     });
   }
@@ -81,26 +82,26 @@ export class Glorious04AssumptionScene extends InteractiveScene {
       ...LILIES.map((l, i) => ({
         at: (): [number, number] => l,
         r: 32,
-        label: () => "[A] Nhặt hoa huệ trắng",
+        label: () => tx("[A] Nhặt hoa huệ trắng", "[A] Pick up a white lily"),
         active: () => !this.placed.has(i) && this.lootActive(`lily${i}`),
         act: () => this.takeLoot(`lily${i}`),
       })),
       {
         at: () => [TOMB_AT[0], TOMB_AT[1] + 12],
         r: 64,
-        label: () => (this.held ? "[A] Đặt hoa vào mộ Mẹ" : "Mộ trống của Mẹ"),
+        label: () => (this.held ? tx("[A] Đặt hoa vào mộ Mẹ", "[A] Lay flowers at Mary's tomb") : tx("Mộ trống của Mẹ", "Mary's empty tomb")),
         active: () => !this.done,
         act: () => this.offer(),
       },
       {
         at: () => [250, 600],
         r: 42,
-        label: () => "[A] Thánh Phêrô",
+        label: () => tx("[A] Thánh Phêrô", "[A] Saint Peter"),
         active: () => !this.done,
         act: () =>
-          this.talk("Thánh Phêrô", "🕊️", [
-            "Chúng tôi đến thăm mộ Mẹ, nhưng mộ trống rồi, chỉ còn hương hoa ngào ngạt.",
-            "Mẹ đã được Thiên Chúa đưa về trời cả hồn lẫn xác. Hãy mang hoa đến dâng Mẹ nhé.",
+          this.talk(tx("Thánh Phêrô", "Saint Peter"), "🕊️", [
+            tx("Chúng tôi đến thăm mộ Mẹ, nhưng mộ trống rồi, chỉ còn hương hoa ngào ngạt.", "We came to visit Mary's tomb, but it is empty, with only a sweet fragrance of flowers."),
+            tx("Mẹ đã được Thiên Chúa đưa về trời cả hồn lẫn xác. Hãy mang hoa đến dâng Mẹ nhé.", "God took Mary to heaven, body and soul. Bring flowers to honor her."),
           ]),
       },
     ];
@@ -110,7 +111,7 @@ export class Glorious04AssumptionScene extends InteractiveScene {
 
   private offer() {
     if (!this.held) {
-      this.talk("Mộ trống của Mẹ", "🌸", ["Hãy nhặt những bông huệ trắng quanh khu vườn, rồi mang đến đặt vào mộ Mẹ nhé."]);
+      this.talk(tx("Mộ trống của Mẹ", "Mary's empty tomb"), "🌸", [tx("Hãy nhặt những bông huệ trắng quanh khu vườn, rồi mang đến đặt vào mộ Mẹ nhé.", "Pick up the white lilies around the garden, then lay them at Mary's tomb.")]);
       return;
     }
     const n = this.placed.size;
@@ -134,7 +135,7 @@ export class Glorious04AssumptionScene extends InteractiveScene {
     RAINBOW.forEach((c, i) => road.fillStyle(c, 0.9).fillRect(298 + i * 6, HEAVEN_H, 6, TOMB_AT[1] - 28 - HEAVEN_H));
     road.setAlpha(0);
     this.tweens.add({ targets: road, alpha: 1, duration: 1200 });
-    this.talk("Đường hoa thiên quốc", "🌈", ["Một cầu vồng ánh sáng bừng lên, dẫn từ mộ Mẹ lên các tầng trời!"], () => this.rise());
+    this.talk(tx("Đường hoa thiên quốc", "The heavenly flower path"), "🌈", [tx("Một cầu vồng ánh sáng bừng lên, dẫn từ mộ Mẹ lên các tầng trời!", "A rainbow of light bursts forth, leading from Mary's tomb up through the heavens!")], () => this.rise());
   }
 
   private rise() {
@@ -153,11 +154,11 @@ export class Glorious04AssumptionScene extends InteractiveScene {
     cam.pan(320, 200, 1600, "Linear");
     this.time.delayedCall(1800, () =>
       this.talk(
-        "Chúa Giêsu",
+        tx("Chúa Giêsu", "Jesus"),
         "🌸",
         [
-          "Chúa Giêsu cúi xuống, nắm lấy bàn tay dịu hiền của Mẹ, đưa Mẹ lên ngai vinh hiển.",
-          "'Người Phụ Nữ mặc áo mặt trời, có vầng trăng dưới chân.' (Kh 12, 1)",
+          tx("Chúa Giêsu cúi xuống, nắm lấy bàn tay dịu hiền của Mẹ, đưa Mẹ lên ngai vinh hiển.", "Jesus bends down, takes His Mother's gentle hand and lifts her to the throne of glory."),
+          tx("'Người Phụ Nữ mặc áo mặt trời, có vầng trăng dưới chân.' (Kh 12, 1)", "‘A woman clothed with the sun, with the moon under her feet.’ (Rev 12:1)"),
         ],
         () => {
           // Mary rises up the rainbow on x=320. Nearing Jesus, he steps right; level with him, she steps left.
@@ -179,9 +180,9 @@ export class Glorious04AssumptionScene extends InteractiveScene {
 
   private talkEnd() {
     this.talk(
-      "Các Thiên Thần",
+      tx("Các Thiên Thần", "The Angels"),
       "👼",
-      ["Mẹ Maria được rước lên trời cả hồn lẫn xác. Mẹ đi trước để chuẩn bị chỗ cho các con cái của Mẹ.", "Hãy hy vọng được cùng Mẹ hưởng hạnh phúc thiên đàng nhé!"],
+      [tx("Mẹ Maria được rước lên trời cả hồn lẫn xác. Mẹ đi trước để chuẩn bị chỗ cho các con cái của Mẹ.", "Mary is taken up to heaven, body and soul. She goes ahead to prepare a place for her children."), tx("Hãy hy vọng được cùng Mẹ hưởng hạnh phúc thiên đàng nhé!", "Hope to share the joy of heaven with her!")],
       () => this.finish()
     );
   }
@@ -190,10 +191,10 @@ export class Glorious04AssumptionScene extends InteractiveScene {
     this.time.delayedCall(300, () =>
       this.complete(
         4,
-        "Năm Sự Mừng",
-        "Đức Chúa Trời Cho Đức Bà Lên Trời",
-        "Ơn chết lành và niềm hy vọng được đoàn tụ với Mẹ trên thiên đàng.",
-        "Mẹ Maria đã về trời và luôn nhìn xuống con. Mỗi ngày hãy đọc một kinh Kính Mừng để xin Mẹ cầu cho con nhé!",
+        tx("Năm Sự Mừng", "Glorious"),
+        tx("Đức Chúa Trời Cho Đức Bà Lên Trời", "The Assumption of Mary into Heaven"),
+        tx("Ơn chết lành và niềm hy vọng được đoàn tụ với Mẹ trên thiên đàng.", "The grace of a happy death and the hope of being reunited with Mary in heaven."),
+        tx("Mẹ Maria đã về trời và luôn nhìn xuống con. Mỗi ngày hãy đọc một kinh Kính Mừng để xin Mẹ cầu cho con nhé!", "Mary is in heaven and always looks down on you. Pray one Hail Mary each day and ask her to pray for you!"),
         ["lily_path_to_heaven", "rainbow_bridge"]
       )
     );

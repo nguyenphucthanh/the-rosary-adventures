@@ -4,6 +4,7 @@ import { InteractiveScene } from "@/modules/the-rosary-adventures/game/scenes/In
 import { registerAnnunciationTextures } from "@/modules/the-rosary-adventures/game/utils/npcTextureGenerator";
 import { registerVisitationTextures } from "@/modules/the-rosary-adventures/game/utils/visitationTextureGenerator";
 import { registerInfancyTextures } from "@/modules/the-rosary-adventures/game/utils/infancyTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 800;
 const H = 600;
@@ -54,12 +55,12 @@ export class Joyful04PresentationScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("vui_04_dang_chua", [400, 560], {
-      speaker: "Đền Thờ Giê-ru-sa-lem",
+      speaker: tx("Đền Thờ Giê-ru-sa-lem", "The Temple in Jerusalem"),
       emoji: "🏛️",
       lines: [
-        "Mầu Nhiệm Thứ Tư: Đức Bà Dâng Đức Chúa Giêsu Vào Đền Thánh (Lc 2, 22-40).",
-        "Theo luật Môsê, cha mẹ đem con đầu lòng lên dâng Chúa. Nhà nghèo thì dâng một đôi bồ câu non.",
-        "Chú bồ câu của Thánh Giuse đã sổng mất! Hãy tìm và bắt lại chú bồ câu trắng nhé.",
+        tx("Mầu Nhiệm Thứ Tư: Đức Bà Dâng Đức Chúa Giêsu Vào Đền Thánh (Lc 2, 22-40).", "Fourth Mystery: The Presentation of Jesus in the Temple (Lk 2:22-40)."),
+        tx("Theo luật Môsê, cha mẹ đem con đầu lòng lên dâng Chúa. Nhà nghèo thì dâng một đôi bồ câu non.", "By the Law of Moses, parents bring their firstborn to present to the Lord. A poor family offers a pair of young doves."),
+        tx("Chú bồ câu của Thánh Giuse đã sổng mất! Hãy tìm và bắt lại chú bồ câu trắng nhé.", "Joseph's dove has escaped! Find and catch the white dove."),
       ],
     });
   }
@@ -140,40 +141,40 @@ export class Joyful04PresentationScene extends InteractiveScene {
       {
         at: () => [this.dove.x, this.dove.y],
         r: 40,
-        label: () => "[A] Bắt chú bồ câu",
+        label: () => tx("[A] Bắt chú bồ câu", "[A] Catch the dove"),
         active: () => !this.hasDove && this.flees >= 2,
         act: () => this.catchDove(),
       },
       {
         at: () => JOSEPH_AT,
         r: 44,
-        label: () => (this.hasDove && !this.doveDelivered ? "[A] Đưa bồ câu cho Thánh Giuse" : "[A] Trò chuyện với Thánh Giuse"),
+        label: () => (this.hasDove && !this.doveDelivered ? tx("[A] Đưa bồ câu cho Thánh Giuse", "[A] Give the dove to Saint Joseph") : tx("[A] Trò chuyện với Thánh Giuse", "[A] Talk to Saint Joseph")),
         active: () => !this.finished,
         act: () => (this.hasDove && !this.doveDelivered ? this.deliverDove() : this.talkToJoseph()),
       },
       {
         at: () => MARY_AT,
         r: 44,
-        label: () => (this.doveDelivered && !this.hasBaby ? "[A] Bế Hài Nhi Giêsu" : "[A] Trò chuyện với Đức Mẹ"),
+        label: () => (this.doveDelivered && !this.hasBaby ? tx("[A] Bế Hài Nhi Giêsu", "[A] Carry the Baby Jesus") : tx("[A] Trò chuyện với Đức Mẹ", "[A] Talk to Mary")),
         active: () => !this.finished,
         act: () => (this.doveDelivered && !this.hasBaby ? this.takeBaby() : this.talkToMary()),
       },
       {
         at: () => SIMEON_AT,
         r: 52,
-        label: () => (this.hasBaby ? "[A] Trao Hài Nhi cho cụ Simêon" : "[A] Chào cụ Simêon"),
+        label: () => (this.hasBaby ? tx("[A] Trao Hài Nhi cho cụ Simêon", "[A] Hand the Baby to Simeon") : tx("[A] Chào cụ Simêon", "[A] Greet Simeon")),
         active: () => !this.finished,
         act: () => (this.hasBaby ? this.simeonBlesses() : this.talkToSimeon()),
       },
       {
         at: () => ANNA_AT,
         r: 44,
-        label: () => "[A] Chào bà Anna",
+        label: () => tx("[A] Chào bà Anna", "[A] Greet Anna"),
         active: () => !this.finished,
         act: () =>
-          this.talk("Bà Anna", "👵", [
-            "Bà Anna là nữ ngôn sứ, đã 84 tuổi. Bà ngày đêm ở trong Đền Thờ, ăn chay và cầu nguyện. (Lc 2, 36-37)",
-            "Bà mỉm cười: 'Chúa sắp cho chúng ta thấy điều kỳ diệu đấy, cháu ạ!'",
+          this.talk(tx("Bà Anna", "Anna"), "👵", [
+            tx("Bà Anna là nữ ngôn sứ, đã 84 tuổi. Bà ngày đêm ở trong Đền Thờ, ăn chay và cầu nguyện. (Lc 2, 36-37)", "Anna was a prophetess, 84 years old. She stayed in the Temple day and night, fasting and praying. (Lk 2:36-37)"),
+            tx("Bà mỉm cười: 'Chúa sắp cho chúng ta thấy điều kỳ diệu đấy, cháu ạ!'", "She smiles: ‘The Lord is about to show us something wonderful, dear child!’"),
           ]),
       },
     ];
@@ -212,15 +213,15 @@ export class Joyful04PresentationScene extends InteractiveScene {
     this.hasDove = true;
     this.dove.setVisible(false);
     this.sparkleBurst(this.dove.x, this.dove.y - 8);
-    this.talk("Chú Bồ Câu", "🕊️", ["Bạn nhẹ nhàng ôm lấy chú bồ câu trắng. Chú hiền lành nằm gọn trong tay bạn.", "Hãy mang chú đến cho Thánh Giuse."]);
+    this.talk(tx("Chú Bồ Câu", "The Dove"), "🕊️", [tx("Bạn nhẹ nhàng ôm lấy chú bồ câu trắng. Chú hiền lành nằm gọn trong tay bạn.", "You gently hold the white dove. It rests calmly in your hands."), tx("Hãy mang chú đến cho Thánh Giuse.", "Take it to Saint Joseph.")]);
   }
 
   private talkToJoseph() {
-    this.talk("Thánh Giuse", "🧔", [
+    this.talk(tx("Thánh Giuse", "Saint Joseph"), "🧔", [
       this.doveDelivered
-        ? "Đôi bồ câu đã sẵn sàng. Con thật tốt bụng! Hãy giúp Mẹ đưa Hài Nhi đến cụ Simêon nhé."
-        : "Luật Môsê dạy người nghèo dâng một đôi chim gáy hoặc đôi bồ câu non. (Lc 2, 24)",
-      ...(this.doveDelivered ? [] : ["Chú bồ câu thứ hai của ta vừa sổng khỏi lồng. Con tìm giúp ta với!", "Chú sợ người lạ, có lẽ phải lại gần vài lần thì chú mới chịu đậu."]),
+        ? tx("Đôi bồ câu đã sẵn sàng. Con thật tốt bụng! Hãy giúp Mẹ đưa Hài Nhi đến cụ Simêon nhé.", "The pair of doves is ready. You are so kind! Help me bring the Baby to Simeon.")
+        : tx("Luật Môsê dạy người nghèo dâng một đôi chim gáy hoặc đôi bồ câu non. (Lc 2, 24)", "The Law of Moses taught the poor to offer a pair of turtledoves or two young pigeons. (Lk 2:24)"),
+      ...(this.doveDelivered ? [] : [tx("Chú bồ câu thứ hai của ta vừa sổng khỏi lồng. Con tìm giúp ta với!", "My second dove just slipped out of its cage. Please help me find it!"), tx("Chú sợ người lạ, có lẽ phải lại gần vài lần thì chú mới chịu đậu.", "It's afraid of strangers; you may need to approach a few times before it will perch.")]),
     ]);
   }
 
@@ -228,28 +229,28 @@ export class Joyful04PresentationScene extends InteractiveScene {
     this.doveDelivered = true;
     this.add.sprite(JOSEPH_AT[0] + 26, JOSEPH_AT[1] - 8, "holy_spirit_dove", 1).setOrigin(0.5, 1).setDepth(JOSEPH_AT[1] + 1);
     this.sparkleBurst(JOSEPH_AT[0] + 26, JOSEPH_AT[1] - 14);
-    this.talk("Thánh Giuse", "🧔", ["Chú bồ câu đã vào lồng an toàn rồi. Cảm ơn con!", "Giờ lễ vật đã đủ. Con ra gặp Đức Mẹ, Mẹ đang bế Hài Nhi Giêsu nhé."]);
+    this.talk(tx("Thánh Giuse", "Saint Joseph"), "🧔", [tx("Chú bồ câu đã vào lồng an toàn rồi. Cảm ơn con!", "The dove is safe in its cage now. Thank you!"), tx("Giờ lễ vật đã đủ. Con ra gặp Đức Mẹ, Mẹ đang bế Hài Nhi Giêsu nhé.", "Now the offering is complete. Go to Mary, who is carrying the Baby Jesus.")]);
   }
 
   private talkToMary() {
-    this.talk("Đức Mẹ Maria", "💙", [
+    this.talk(tx("Đức Mẹ Maria", "Mother Mary"), "💙", [
       this.doveDelivered
-        ? "Con bế giúp Mẹ Hài Nhi nhé. Cụ Simêon đang đợi ở trước bàn thờ, con cẩn thận nha."
-        : "Mẹ đem Con đầu lòng lên Đền Thờ để dâng cho Chúa, đúng như luật đã dạy.",
-      ...(this.doveDelivered ? [] : ["Khi lễ vật của Thánh Giuse đủ, Mẹ sẽ nhờ con đưa Hài Nhi đến cụ Simêon."]),
+        ? tx("Con bế giúp Mẹ Hài Nhi nhé. Cụ Simêon đang đợi ở trước bàn thờ, con cẩn thận nha.", "Please carry the Baby for me. Simeon is waiting in front of the altar. Be careful!")
+        : tx("Mẹ đem Con đầu lòng lên Đền Thờ để dâng cho Chúa, đúng như luật đã dạy.", "I bring my firstborn to the Temple to present Him to the Lord, as the Law teaches."),
+      ...(this.doveDelivered ? [] : [tx("Khi lễ vật của Thánh Giuse đủ, Mẹ sẽ nhờ con đưa Hài Nhi đến cụ Simêon.", "When Joseph's offering is complete, I'll ask you to take the Baby to Simeon.")]),
     ]);
   }
 
   private takeBaby() {
     this.hasBaby = true;
     this.baby.setVisible(true);
-    this.talk("Đức Mẹ Maria", "💙", ["Mẹ tin con. Con hãy bế Hài Nhi thật nhẹ nhàng nhé.", "Hãy đưa Hài Nhi đến cụ Simêon, cụ ở cạnh bàn thờ."]);
+    this.talk(tx("Đức Mẹ Maria", "Mother Mary"), "💙", [tx("Mẹ tin con. Con hãy bế Hài Nhi thật nhẹ nhàng nhé.", "I trust you. Carry the Baby very gently."), tx("Hãy đưa Hài Nhi đến cụ Simêon, cụ ở cạnh bàn thờ.", "Take the Baby to Simeon. He is beside the altar.")]);
   }
 
   private talkToSimeon() {
-    this.talk("Cụ Simêon", "👴", [
-      "Ta là Simêon, một người công chính và đạo đức. Thánh Thần đã báo trước ta sẽ không chết trước khi thấy Đấng Kitô của Chúa. (Lc 2, 25-26)",
-      "Hôm nay Thánh Thần thúc giục ta lên Đền Thờ. Ta đang chờ một điều gì đó...",
+    this.talk(tx("Cụ Simêon", "Simeon"), "👴", [
+      tx("Ta là Simêon, một người công chính và đạo đức. Thánh Thần đã báo trước ta sẽ không chết trước khi thấy Đấng Kitô của Chúa. (Lc 2, 25-26)", "I am Simeon, a righteous and devout man. The Holy Spirit revealed to me that I would not die before seeing the Lord's Messiah. (Lk 2:25-26)"),
+      tx("Hôm nay Thánh Thần thúc giục ta lên Đền Thờ. Ta đang chờ một điều gì đó...", "Today the Spirit moved me to come to the Temple. I am waiting for something..."),
     ]);
   }
 
@@ -267,26 +268,26 @@ export class Joyful04PresentationScene extends InteractiveScene {
 
   private simeonSpeaks() {
     this.talk(
-      "Cụ Simêon",
+      tx("Cụ Simêon", "Simeon"),
       "👴",
       [
-        "Cụ run run đón lấy Hài Nhi trong vòng tay và cất lời ca ngợi Thiên Chúa:",
-        "'Muôn lạy Chúa, giờ đây xin để tôi tớ này được an bình ra đi, vì chính mắt con đã thấy ơn cứu độ.' (Lc 2, 29-30)",
-        "Rồi cụ quay sang Đức Mẹ: 'Một lưỡi gươm sẽ đâm thấu tâm hồn Bà.' (Lc 2, 35)",
+        tx("Cụ run run đón lấy Hài Nhi trong vòng tay và cất lời ca ngợi Thiên Chúa:", "He trembles as he takes the Baby into his arms and praises God:"),
+        tx("'Muôn lạy Chúa, giờ đây xin để tôi tớ này được an bình ra đi, vì chính mắt con đã thấy ơn cứu độ.' (Lc 2, 29-30)", "‘Master, now let Your servant go in peace, for my eyes have seen Your salvation.’ (Lk 2:29-30)"),
+        tx("Rồi cụ quay sang Đức Mẹ: 'Một lưỡi gươm sẽ đâm thấu tâm hồn Bà.' (Lc 2, 35)", "Then he turns to Mary: ‘And you yourself a sword will pierce.’ (Lk 2:35)"),
       ],
       () =>
         this.talk(
-          "Bà Anna",
+          tx("Bà Anna", "Anna"),
           "👵",
-          ["Bà Anna tiến lại, dâng lời tạ ơn Thiên Chúa và nói về Hài Nhi cho mọi người đang mong đợi ơn cứu độ. (Lc 2, 38)"],
+          [tx("Bà Anna tiến lại, dâng lời tạ ơn Thiên Chúa và nói về Hài Nhi cho mọi người đang mong đợi ơn cứu độ. (Lc 2, 38)", "Anna comes forward, gives thanks to God and speaks about the Child to all who are awaiting redemption. (Lk 2:38)")],
           () =>
             this.time.delayedCall(400, () =>
               this.complete(
                 4,
-                "Năm Sự Vui",
-                "Đức Bà Dâng Đức Chúa Giêsu Vào Đền Thánh",
-                "Tinh thần vâng giữ lề luật và sẵn sàng hy sinh hiến tế cho Chúa.",
-                "Đức Mẹ dâng Con yêu quý cho Chúa. Hãy dâng cho Chúa những điều nhỏ bé của con mỗi ngày nhé!",
+                tx("Năm Sự Vui", "Joyful"),
+                tx("Đức Bà Dâng Đức Chúa Giêsu Vào Đền Thánh", "The Presentation of Jesus in the Temple"),
+                tx("Tinh thần vâng giữ lề luật và sẵn sàng hy sinh hiến tế cho Chúa.", "A spirit of obeying the Law and being ready to sacrifice and offer to God."),
+                tx("Đức Mẹ dâng Con yêu quý cho Chúa. Hãy dâng cho Chúa những điều nhỏ bé của con mỗi ngày nhé!", "Mary offers her beloved Son to the Lord. Offer the Lord the little things of each day!"),
                 ["find_dove", "present_child", "simeon_canticle"]
               )
             )

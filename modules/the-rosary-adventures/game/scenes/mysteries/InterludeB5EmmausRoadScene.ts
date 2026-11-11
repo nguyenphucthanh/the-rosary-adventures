@@ -11,6 +11,7 @@ import { registerGalileeTextures } from "@/modules/the-rosary-adventures/game/ut
 import { registerPassionTextures } from "@/modules/the-rosary-adventures/game/utils/passionTextureGenerator";
 import { registerGloryTextures } from "@/modules/the-rosary-adventures/game/utils/gloryTextureGenerator";
 import { registerInterludeTextures } from "@/modules/the-rosary-adventures/game/utils/interludeTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 520;
@@ -83,12 +84,12 @@ export class InterludeB5EmmausRoadScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("mid_b5_duong_emmau", [320, 450], {
-      speaker: "Hai Môn Đệ Emmau",
+      speaker: tx("Hai Môn Đệ Emmau", "The Two Disciples of Emmaus"),
       emoji: "❤️‍🔥",
       lines: [
-        "Chặng Đệm Hành Động: Hành Trình Emmau — Trái Tim Bừng Cháy (Lc 24, 13-35).",
-        "Trên đường chiều về làng Emmau, Chúa Giêsu Phục Sinh cùng đi và giải thích Kinh Thánh khiến lòng hai môn đệ bừng cháy!",
-        "Hãy lách qua những Đám Mây Buồn Bã, thu thập đủ 6 Ngọn Lửa Lời Chúa (❤️‍🔥) và 3 Tấm Bánh Emmau (🍞) rồi đến bàn tiệc cùng Chúa nhé!",
+        tx("Chặng Đệm Hành Động: Hành Trình Emmau — Trái Tim Bừng Cháy (Lc 24, 13-35).", "Action Mid-Stage: The Road to Emmaus — Burning Hearts (Lk 24:13-35)."),
+        tx("Trên đường chiều về làng Emmau, Chúa Giêsu Phục Sinh cùng đi và giải thích Kinh Thánh khiến lòng hai môn đệ bừng cháy!", "On the evening road to the village of Emmaus, the Risen Jesus walks along and explains the Scriptures until the two disciples' hearts burn within them!"),
+        tx("Hãy lách qua những Đám Mây Buồn Bã, thu thập đủ 6 Ngọn Lửa Lời Chúa (❤️‍🔥) và 3 Tấm Bánh Emmau (🍞) rồi đến bàn tiệc cùng Chúa nhé!", "Dodge the Clouds of Sadness, collect 6 Flames of God's Word (❤️‍🔥) and 3 Emmaus Loaves (🍞), then go to the table with the Lord!"),
       ],
     });
     this.syncProgress();
@@ -99,7 +100,7 @@ export class InterludeB5EmmausRoadScene extends InteractiveScene {
       {
         id: "burning_hearts",
         emoji: "❤️‍🔥",
-        label: "LỜI CHÚA",
+        label: tx("LỜI CHÚA", "GOD'S WORD"),
         current: this.heartCount,
         total: HEART_GOAL,
         color: "rose",
@@ -107,7 +108,7 @@ export class InterludeB5EmmausRoadScene extends InteractiveScene {
       {
         id: "emmaus_bread",
         emoji: "🍞",
-        label: "BẺ BÁNH",
+        label: tx("BẺ BÁNH", "BREAD"),
         current: this.loafCount,
         total: LOAF_GOAL,
         color: "amber",
@@ -231,8 +232,8 @@ export class InterludeB5EmmausRoadScene extends InteractiveScene {
         r: 68,
         label: () =>
           this.heartCount >= HEART_GOAL && this.loafCount >= LOAF_GOAL
-            ? "[A] Xin Chúa Giêsu ở lại và Bẻ Bánh!"
-            : `[A] Bàn Tiệc Emmau (${this.heartCount}/${HEART_GOAL} Lời Chúa · ${this.loafCount}/${LOAF_GOAL} Bánh)`,
+            ? tx("[A] Xin Chúa Giêsu ở lại và Bẻ Bánh!", "[A] Ask Jesus to stay and Break the Bread!")
+            : tx(`[A] Bàn Tiệc Emmau (${this.heartCount}/${HEART_GOAL} Lời Chúa · ${this.loafCount}/${LOAF_GOAL} Bánh)`, `[A] Emmaus Table (${this.heartCount}/${HEART_GOAL} Words · ${this.loafCount}/${LOAF_GOAL} Loaves)`),
         active: () => !this.finished,
         act: () => this.breakBreadAtTable(),
       },
@@ -241,9 +242,9 @@ export class InterludeB5EmmausRoadScene extends InteractiveScene {
 
   private breakBreadAtTable() {
     if (this.heartCount < HEART_GOAL || this.loafCount < LOAF_GOAL) {
-      this.talk("Hai Môn Đệ Emmau", "🍞", [
-        "“Mời Ông ở lại với chúng tôi, vì trời đã xế chiều, và ngày sắp tàn.” (Lc 24, 29)",
-        `Con hãy thu thập đủ ${HEART_GOAL} Ngọn Lửa Lời Chúa (${this.heartCount}/${HEART_GOAL}) và ${LOAF_GOAL} Tấm Bánh Emmau (${this.loafCount}/${LOAF_GOAL}) trên đường nhé!`,
+      this.talk(tx("Hai Môn Đệ Emmau", "The Two Disciples of Emmaus"), "🍞", [
+        tx("“Mời Ông ở lại với chúng tôi, vì trời đã xế chiều, và ngày sắp tàn.” (Lc 24, 29)", "“Stay with us, for it is nearly evening and the day is almost over.” (Lk 24:29)"),
+        tx(`Con hãy thu thập đủ ${HEART_GOAL} Ngọn Lửa Lời Chúa (${this.heartCount}/${HEART_GOAL}) và ${LOAF_GOAL} Tấm Bánh Emmau (${this.loafCount}/${LOAF_GOAL}) trên đường nhé!`, `Collect ${HEART_GOAL} Flames of God's Word (${this.heartCount}/${HEART_GOAL}) and ${LOAF_GOAL} Emmaus Loaves (${this.loafCount}/${LOAF_GOAL}) along the way!`),
       ]);
       return;
     }
@@ -258,18 +259,18 @@ export class InterludeB5EmmausRoadScene extends InteractiveScene {
     this.sparkleBurst(320, 140);
 
     this.talk(
-      "Chúa Giêsu Phục Sinh",
+      tx("Chúa Giêsu Phục Sinh", "The Risen Jesus"),
       "✨",
       [
-        "Khi đồng bàn với họ, Chúa Giêsu cầm lấy bánh, dâng lời chúc tụng, và bẻ ra trao cho họ.",
-        "Mắt họ liền mở ra và họ nhận ra Người! Họ bảo nhau: “Dọc đường, khi Người nói chuyện và giải thích Kinh Thánh cho chúng ta, lòng chúng ta đã chẳng bừng cháy lên sao?” (Lc 24, 30-32)",
+        tx("Khi đồng bàn với họ, Chúa Giêsu cầm lấy bánh, dâng lời chúc tụng, và bẻ ra trao cho họ.", "When He was at table with them, Jesus took bread, said the blessing, broke it and gave it to them."),
+        tx("Mắt họ liền mở ra và họ nhận ra Người! Họ bảo nhau: “Dọc đường, khi Người nói chuyện và giải thích Kinh Thánh cho chúng ta, lòng chúng ta đã chẳng bừng cháy lên sao?” (Lc 24, 30-32)", "Their eyes were opened and they recognized Him! They said to each other: “Were not our hearts burning within us while He spoke to us on the way and opened the Scriptures to us?” (Lk 24:30-32)"),
       ],
       () =>
         this.completeInterlude(
-          "CHẶNG ĐỆM B5",
-          "Hành Trình Emmau — Trái Tim Bừng Cháy (Lc 24, 13-35)",
-          "Nhận ra Chúa Giêsu Phục Sinh qua việc lắng nghe Lời Chúa và tham dự Thánh Lễ Bẻ Bánh.",
-          "Hai môn đệ vội vã trở về Giê-ru-sa-lem loan báo Tin Mừng! Giờ đây chúng ta cùng tiến lên Núi Ô-liu trong Chặng 17 nhé!"
+          tx("CHẶNG ĐỆM B5", "MID-STAGE B5"),
+          tx("Hành Trình Emmau — Trái Tim Bừng Cháy (Lc 24, 13-35)", "The Road to Emmaus — Burning Hearts (Lk 24:13-35)"),
+          tx("Nhận ra Chúa Giêsu Phục Sinh qua việc lắng nghe Lời Chúa và tham dự Thánh Lễ Bẻ Bánh.", "Recognize the Risen Jesus by listening to God's Word and taking part in the Eucharist, the Breaking of the Bread."),
+          tx("Hai môn đệ vội vã trở về Giê-ru-sa-lem loan báo Tin Mừng! Giờ đây chúng ta cùng tiến lên Núi Ô-liu trong Chặng 17 nhé!", "The two disciples hurry back to Jerusalem to share the Good News! Now let's go on to the Mount of Olives in Stage 17!")
         )
     );
   }

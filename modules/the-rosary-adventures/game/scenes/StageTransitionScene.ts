@@ -4,6 +4,7 @@ import { INTERLUDES_DATA, MYSTERIES_DATA, SEASONS } from "@/modules/the-rosary-a
 import { STAGE_SCENES } from "@/modules/the-rosary-adventures/data/stages";
 import { loadGame } from "@/modules/the-rosary-adventures/utils/saveManager";
 import { registerAnnunciationTextures } from "@/modules/the-rosary-adventures/game/utils/npcTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const CX = 160;
 const CY = 100;
@@ -75,7 +76,7 @@ export class StageTransitionScene extends Phaser.Scene {
         .setOrigin(0.5);
 
     if (info) {
-      text(22, `${season.labelVi} · CHẶNG ${info.seasonIndex + 1}`, 8, season.color);
+      text(22, tx(`${season.labelVi} · CHẶNG ${info.seasonIndex + 1}`, `${season.labelEn} · STAGE ${info.seasonIndex + 1}`), 8, season.color);
 
       // The decade: five beads, lit = done, pulsing = this one
       const five = MYSTERIES_DATA.filter((m) => m.season === info.season);
@@ -91,7 +92,7 @@ export class StageTransitionScene extends Phaser.Scene {
         if (current) this.tweens.add({ targets: bead, alpha: 0.4, duration: 450, yoyo: true, repeat: -1 });
       });
     } else if (interlude) {
-      text(22, interlude.badgeVi, 8, interlude.kind === "bridge" ? "#38bdf8" : "#4ade80");
+      text(22, tx(interlude.badgeVi, interlude.badgeEn), 8, interlude.kind === "bridge" ? "#38bdf8" : "#4ade80");
       // 3 action stars pulsing in place of beads
       [-18, 0, 18].forEach((dx, i) => {
         const st = this.add.image(CX + dx, 44, "sparkle");
@@ -100,7 +101,7 @@ export class StageTransitionScene extends Phaser.Scene {
     }
 
     const activeItem = (info ?? interlude)!;
-    const title = text(60, activeItem.titleVi.toUpperCase(), 12, "#fde68a").setOrigin(0.5, 0);
+    const title = text(60, tx(activeItem.titleVi, activeItem.titleEn).toUpperCase(), 12, "#fde68a").setOrigin(0.5, 0);
     title.setAlpha(0).y -= 6;
     this.tweens.add({ targets: title, alpha: 1, y: title.y + 6, duration: 500, delay: 250, ease: "Stepped" });
 
@@ -110,15 +111,15 @@ export class StageTransitionScene extends Phaser.Scene {
       const t = text(y, str, 8, color).setOrigin(0.5, 0);
       y += t.height + 8;
     };
-    stack(activeItem.scriptureVi, "#e0e7ff");
+    stack(tx(activeItem.scriptureVi, activeItem.scriptureEn), "#e0e7ff");
     stack(
       sceneKey
-        ? `${interlude ? "Bài học" : "Hoa trái"}: ${activeItem.fruitVi}`
-        : "Chặng này sắp ra mắt. Hẹn gặp lại bạn nhé!",
+        ? tx(`${interlude ? "Bài học" : "Hoa trái"}: ${activeItem.fruitVi}`, `${interlude ? "Lesson" : "Fruit"}: ${activeItem.fruitEn}`)
+        : tx("Chặng này sắp ra mắt. Hẹn gặp lại bạn nhé!", "This stage is coming soon. See you again!"),
       "#fbbf24"
     );
 
-    const prompt = text(y + 6, "CHẠM HOẶC NHẤN SPACE", 8, "#fef08a");
+    const prompt = text(y + 6, tx("CHẠM HOẶC NHẤN SPACE", "TAP OR PRESS SPACE"), 8, "#fef08a");
     this.time.addEvent({ delay: 600, loop: true, callback: () => prompt.setVisible(!prompt.visible) });
 
     // camera: integer zoom only

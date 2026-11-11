@@ -6,6 +6,7 @@ import { registerRephidimTextures } from "@/modules/moses-the-exodus/game/utils/
 import { registerSinaiTextures } from "@/modules/moses-the-exodus/game/utils/sinaiTextures";
 import { STAGE11, tr } from "@/modules/moses-the-exodus/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 // Tall map: summit (top) -> 3 cloud tiers on a narrow stair -> holy boundary at the foot (bottom).
 // Everything interactive sits y <= 490 (bottom 100px is hidden behind the mobile controls) and y >= 96.
@@ -281,8 +282,8 @@ export class Stage11SinaiCommandmentsScene extends BaseExodusScene {
   private won() {
     audio.sfx("complete");
     this.completeStage();
-    this.talk("Ấn Dấu thứ 11", STAGE11.outro.map(tr), () =>
-      this.talk("Suy niệm", [tr(STAGE11.lesson)], () =>
+    this.talk(tx("Ấn Dấu thứ 11", "Seal 11"), STAGE11.outro.map(tr), () =>
+      this.talk(tx("Suy niệm", "Reflection"), [tr(STAGE11.lesson)], () =>
         this.talk("Xi-nai", STAGE11.cutscene.map(tr), () => this.goToNextStage())));
   }
 
@@ -346,7 +347,7 @@ export class Stage11SinaiCommandmentsScene extends BaseExodusScene {
         this.toast(p.x, cfg.y - 16, tr(STAGE11.tier[i]), "#bbf7d0");
         if (i === 0 && !this.joshuaTold) {
           this.joshuaTold = true;
-          this.talk("Giu-suê", STAGE11.joshua.map(tr));
+          this.talk(tx("Giu-suê", "Joshua"), STAGE11.joshua.map(tr));
         }
         if (i === TIERS.length - 1) {
           this.phase = "wait";

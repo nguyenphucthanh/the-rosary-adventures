@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import EventBus from "@/modules/shared/game/EventBus";
+import { useT } from "@/modules/shared/i18n";
 
 export interface VirtualControllerProps {
   className?: string;
@@ -13,6 +14,7 @@ const RADIUS = (BASE - KNOB) / 2; // max knob travel from centre
 const DEAD_ZONE = 0.18; // fraction of RADIUS ignored so a resting thumb does not move the player
 
 function Joystick() {
+  const t = useT();
   const baseRef = useRef<HTMLDivElement>(null);
   const pointerId = useRef<number | null>(null);
   const [knob, setKnob] = useState({ x: 0, y: 0 });
@@ -66,7 +68,7 @@ function Joystick() {
     <div
       ref={baseRef}
       role="application"
-      aria-label="Cần điều khiển di chuyển"
+      aria-label={t("Cần điều khiển di chuyển", "Movement joystick")}
       onPointerDown={(e) => {
         if (pointerId.current !== null) return;
         pointerId.current = e.pointerId;
@@ -123,6 +125,7 @@ function EdgeGuard() {
 export default function VirtualController({
   className = "",
 }: VirtualControllerProps) {
+  const t = useT();
   const [activeButton, setActiveButton] = useState<string | null>(null);
 
   const vibrate = () => {
@@ -158,7 +161,7 @@ export default function VirtualController({
         <div className="flex flex-col items-center">
           <button
             type="button"
-            aria-label="Nút B - Hủy hoặc Menu"
+            aria-label={t("Nút B - Hủy hoặc Menu", "Button B - Cancel or Menu")}
             onPointerDown={() => handleActionPress("B")}
             onPointerUp={() => handleActionRelease("B")}
             onPointerCancel={() => handleActionRelease("B")}
@@ -169,7 +172,7 @@ export default function VirtualController({
             B
           </button>
           <span className="font-pixel text-[24px] text-rose-300 mt-1 uppercase drop-shadow font-bold">
-            HỦY
+            {t("HỦY", "BACK")}
           </span>
         </div>
 
@@ -177,7 +180,7 @@ export default function VirtualController({
         <div className="flex flex-col items-center mb-6">
           <button
             type="button"
-            aria-label="Nút A - Tương tác hoặc Trò chuyện"
+            aria-label={t("Nút A - Tương tác hoặc Trò chuyện", "Button A - Interact or Talk")}
             onPointerDown={() => handleActionPress("A")}
             onPointerUp={() => handleActionRelease("A")}
             onPointerCancel={() => handleActionRelease("A")}
@@ -188,7 +191,7 @@ export default function VirtualController({
             A
           </button>
           <span className="font-pixel text-[26px] text-emerald-300 mt-1 uppercase drop-shadow font-bold">
-            CHỌN
+            {t("CHỌN", "OK")}
           </span>
         </div>
       </div>

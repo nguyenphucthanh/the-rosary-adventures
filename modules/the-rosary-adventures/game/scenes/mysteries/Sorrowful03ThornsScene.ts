@@ -8,6 +8,7 @@ import { registerLightTextures } from "@/modules/the-rosary-adventures/game/util
 import { registerCanaTextures } from "@/modules/the-rosary-adventures/game/utils/canaTextureGenerator";
 import { registerGalileeTextures } from "@/modules/the-rosary-adventures/game/utils/galileeTextureGenerator";
 import { registerPassionTextures } from "@/modules/the-rosary-adventures/game/utils/passionTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 560;
@@ -63,12 +64,12 @@ export class Sorrowful03ThornsScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("thuong_03_doi_mao_gai", [320, 524], {
-      speaker: "Trại Lính La Mã",
+      speaker: tx("Trại Lính La Mã", "The Roman Barracks"),
       emoji: "👑",
       lines: [
-        "Mầu Nhiệm Thứ Ba Năm Sự Thương: Đức Chúa Giêsu Chịu Đội Mão Gai (Mt 27, 27-31).",
-        "Lính La Mã khoác áo choàng cho Chúa, đặt mão gai lên đầu Người và nhạo báng: 'Vạn tuế Vua dân Do Thái!'",
-        "Bọn lính đã vãi gai nhọn chặn lối đi. Con hãy dọn sạch từng chiếc gai để đến gần Chúa nhé.",
+        tx("Mầu Nhiệm Thứ Ba Năm Sự Thương: Đức Chúa Giêsu Chịu Đội Mão Gai (Mt 27, 27-31).", "Third Sorrowful Mystery: The Crowning with Thorns (Mt 27:27-31)."),
+        tx("Lính La Mã khoác áo choàng cho Chúa, đặt mão gai lên đầu Người và nhạo báng: 'Vạn tuế Vua dân Do Thái!'", "The Roman soldiers drape a cloak on Jesus, set a crown of thorns on His head and mock Him: ‘Hail, King of the Jews!’"),
+        tx("Bọn lính đã vãi gai nhọn chặn lối đi. Con hãy dọn sạch từng chiếc gai để đến gần Chúa nhé.", "The soldiers scattered sharp thorns across the path. Clear away each thorn to get close to the Lord."),
       ],
     });
   }
@@ -127,32 +128,32 @@ export class Sorrowful03ThornsScene extends InteractiveScene {
       ...this.thorns.map((t) => ({
         at: (): [number, number] => [t.x, t.y],
         r: 26,
-        label: () => `[A] Nhặt gai (${this.thorns.filter((o) => o.gone).length}/${this.thorns.length})`,
+        label: () => tx(`[A] Nhặt gai (${this.thorns.filter((o) => o.gone).length}/${this.thorns.length})`, `[A] Pick up a thorn (${this.thorns.filter((o) => o.gone).length}/${this.thorns.length})`),
         active: () => !t.gone,
         act: () => this.pickThorn(t),
       })),
       ...MOCKERS.map(([x, y]) => ({
         at: (): [number, number] => [x, y],
         r: 44,
-        label: () => "[A] Nghe lính nói",
+        label: () => tx("[A] Nghe lính nói", "[A] Listen to the soldiers"),
         active: () => this.step < 3,
         act: () =>
-          this.talk("Lính La Mã", "🛡️", [
-            "'Vạn tuế Vua dân Do Thái!' Bọn lính quỳ xuống nhạo báng, nhổ vào Người và lấy cây sậy đánh vào đầu Người. (Mt 27, 29-30)",
-            "Chúa Giêsu không đáp lại. Người im lặng chịu đựng vì yêu thương chúng ta.",
+          this.talk(tx("Lính La Mã", "Roman Soldier"), "🛡️", [
+            tx("'Vạn tuế Vua dân Do Thái!' Bọn lính quỳ xuống nhạo báng, nhổ vào Người và lấy cây sậy đánh vào đầu Người. (Mt 27, 29-30)", "‘Hail, King of the Jews!’ The soldiers kneel to mock Him, spit on Him and strike His head with a reed. (Mt 27:29-30)"),
+            tx("Chúa Giêsu không đáp lại. Người im lặng chịu đựng vì yêu thương chúng ta.", "Jesus does not answer. He suffers in silence out of love for us."),
           ]),
       })),
       {
         at: () => CLOAK_AT,
         r: 36,
-        label: () => "[A] Gấp áo choàng tím",
+        label: () => tx("[A] Gấp áo choàng tím", "[A] Fold the purple cloak"),
         active: () => this.step === 1,
         act: () => this.foldCloak(),
       },
       {
         at: () => JESUS_AT,
         r: 52,
-        label: () => (this.step === 2 ? "[A] Quỳ tôn vinh Chúa" : "[A] Trò chuyện với Chúa Giêsu"),
+        label: () => (this.step === 2 ? tx("[A] Quỳ tôn vinh Chúa", "[A] Kneel and honor the Lord") : tx("[A] Trò chuyện với Chúa Giêsu", "[A] Talk to Jesus")),
         active: () => this.step < 3,
         act: () => (this.step === 2 ? this.honour() : this.talkJesus()),
       },
@@ -167,16 +168,16 @@ export class Sorrowful03ThornsScene extends InteractiveScene {
     if (this.thorns.every((o) => o.gone)) {
       this.step = 1;
       this.time.delayedCall(700, () =>
-        this.talk("Trại Lính", "🌿", ["Con đã dọn sạch những chiếc gai nhọn! Con đường đã thông.", "Ở góc phòng có chiếc áo choàng tím bị vứt dưới đất. Hãy đến gấp lại cho ngay ngắn nhé."])
+        this.talk(tx("Trại Lính", "The Barracks"), "🌿", [tx("Con đã dọn sạch những chiếc gai nhọn! Con đường đã thông.", "You cleared the sharp thorns! The path is open."), tx("Ở góc phòng có chiếc áo choàng tím bị vứt dưới đất. Hãy đến gấp lại cho ngay ngắn nhé.", "In the corner there is a purple cloak thrown on the ground. Go fold it neatly.")])
       );
     }
   }
 
   private talkJesus() {
-    this.talk("Chúa Giêsu", "👑", [
+    this.talk(tx("Chúa Giêsu", "Jesus"), "👑", [
       this.step === 0
-        ? "Chúa Giêsu lặng lẽ nhìn con. Người đội mão gai, tay cầm cây sậy, vẫn hiền hòa như xưa. Con hãy dọn gai trên đường đến gần Người nhé."
-        : "Chúa Giêsu nhìn con bằng ánh mắt dịu dàng. Hãy gấp chiếc áo choàng tím rơi dưới đất để tỏ lòng kính trọng Người nhé.",
+        ? tx("Chúa Giêsu lặng lẽ nhìn con. Người đội mão gai, tay cầm cây sậy, vẫn hiền hòa như xưa. Con hãy dọn gai trên đường đến gần Người nhé.", "Jesus looks at you quietly. He wears the crown of thorns and holds the reed, yet is as gentle as ever. Clear the thorns on the path to get near Him.")
+        : tx("Chúa Giêsu nhìn con bằng ánh mắt dịu dàng. Hãy gấp chiếc áo choàng tím rơi dưới đất để tỏ lòng kính trọng Người nhé.", "Jesus looks at you with tender eyes. Fold the purple cloak lying on the ground to show Him respect."),
     ]);
   }
 
@@ -184,9 +185,9 @@ export class Sorrowful03ThornsScene extends InteractiveScene {
     this.step = 2;
     this.cloak.setTexture("cloak_folded");
     this.sparkleBurst(CLOAK_AT[0], CLOAK_AT[1] - 6);
-    this.talk("Áo Choàng Tím", "🟣", [
-      "Con gấp chiếc áo choàng thật cẩn thận, như gấp một báu vật.",
-      "Bọn lính coi đây là trò hề, nhưng với con, Chúa Giêsu mới là Vua đích thực của tình yêu và sự tha thứ. Hãy đến quỳ tôn vinh Người nhé.",
+    this.talk(tx("Áo Choàng Tím", "The Purple Cloak"), "🟣", [
+      tx("Con gấp chiếc áo choàng thật cẩn thận, như gấp một báu vật.", "You fold the cloak very carefully, like folding a treasure."),
+      tx("Bọn lính coi đây là trò hề, nhưng với con, Chúa Giêsu mới là Vua đích thực của tình yêu và sự tha thứ. Hãy đến quỳ tôn vinh Người nhé.", "The soldiers take this as a joke, but to you Jesus is the true King of love and forgiveness. Go kneel and honor Him."),
     ]);
   }
 
@@ -201,8 +202,8 @@ export class Sorrowful03ThornsScene extends InteractiveScene {
       "Con",
       "🙇",
       [
-        "Con quỳ xuống trước mặt Chúa và thưa: 'Vạn tuế Chúa Giêsu, Vua của con, Vua của tình yêu và tha thứ!'",
-        "Chúa Giêsu mỉm cười hiền hậu. Mão gai trên đầu Người là triều thiên của Vị Vua yêu thương đến cùng.",
+        tx("Con quỳ xuống trước mặt Chúa và thưa: 'Vạn tuế Chúa Giêsu, Vua của con, Vua của tình yêu và tha thứ!'", "You kneel before the Lord and say: ‘Hail Jesus, my King, King of love and forgiveness!’"),
+        tx("Chúa Giêsu mỉm cười hiền hậu. Mão gai trên đầu Người là triều thiên của Vị Vua yêu thương đến cùng.", "Jesus smiles gently. The crown of thorns on His head is the crown of a King who loves to the end."),
       ],
       () => this.finish()
     );
@@ -212,10 +213,10 @@ export class Sorrowful03ThornsScene extends InteractiveScene {
     this.time.delayedCall(300, () =>
       this.complete(
         3,
-        "Năm Sự Thương",
-        "Đức Chúa Giêsu Chịu Đội Mão Gai",
-        "Chịu đựng những hiểu lầm, khinh chê vì lòng trung thành với đức tin.",
-        "Khi có người chê cười vì bạn đi lễ, đọc kinh, hãy mỉm cười và nhớ: Chúa Giêsu cũng từng bị nhạo báng vì yêu thương bạn!",
+        tx("Năm Sự Thương", "Sorrowful"),
+        tx("Đức Chúa Giêsu Chịu Đội Mão Gai", "The Crowning with Thorns"),
+        tx("Chịu đựng những hiểu lầm, khinh chê vì lòng trung thành với đức tin.", "Endure misunderstanding and scorn for the sake of faithfulness to your faith."),
+        tx("Khi có người chê cười vì bạn đi lễ, đọc kinh, hãy mỉm cười và nhớ: Chúa Giêsu cũng từng bị nhạo báng vì yêu thương bạn!", "When someone laughs at you for going to Mass or praying, smile and remember: Jesus was mocked too because He loves you!"),
         ["clear_thorns", "fold_the_cloak", "honour_the_king"]
       )
     );

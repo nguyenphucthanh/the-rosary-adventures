@@ -2,6 +2,7 @@ import * as Phaser from "phaser";
 import { DEPTH } from "@/modules/the-rosary-adventures/game/scenes/BaseMysteryScene";
 import { InteractiveScene } from "@/modules/the-rosary-adventures/game/scenes/InteractiveScene";
 import { registerAllForGlory } from "@/modules/the-rosary-adventures/game/utils/gloryTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 560;
@@ -9,10 +10,10 @@ const JESUS_AT: [number, number] = [320, 250];
 
 /** Four compass symbols, each belongs to the apostles standing on that side of the circle. */
 const DIRS = [
-  { id: "icon_north", name: "ngôi sao phương Bắc", label: "Bắc", from: [90, 470] as [number, number], group: [320, 150] as [number, number], keys: ["peter", "andrew"] },
-  { id: "icon_east", name: "mặt trời phương Đông", label: "Đông", from: [550, 470] as [number, number], group: [510, 250] as [number, number], keys: ["james", "john_apostle"] },
-  { id: "icon_south", name: "đóa hoa phương Nam", label: "Nam", from: [90, 190] as [number, number], group: [320, 360] as [number, number], keys: ["apostle_a", "apostle_b"] },
-  { id: "icon_west", name: "vầng trăng phương Tây", label: "Tây", from: [550, 190] as [number, number], group: [130, 250] as [number, number], keys: ["apostle_c", "apostle_d"] },
+  { id: "icon_north", name: tx("ngôi sao phương Bắc", "the North Star"), label: tx("Bắc", "North"), from: [90, 470] as [number, number], group: [320, 150] as [number, number], keys: ["peter", "andrew"] },
+  { id: "icon_east", name: tx("mặt trời phương Đông", "the rising sun"), label: tx("Đông", "East"), from: [550, 470] as [number, number], group: [510, 250] as [number, number], keys: ["james", "john_apostle"] },
+  { id: "icon_south", name: tx("đóa hoa phương Nam", "the southern flower"), label: "Nam", from: [90, 190] as [number, number], group: [320, 360] as [number, number], keys: ["apostle_a", "apostle_b"] },
+  { id: "icon_west", name: tx("vầng trăng phương Tây", "the western moon"), label: tx("Tây", "West"), from: [550, 190] as [number, number], group: [130, 250] as [number, number], keys: ["apostle_c", "apostle_d"] },
 ];
 
 export class Glorious02AscensionScene extends InteractiveScene {
@@ -42,12 +43,12 @@ export class Glorious02AscensionScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("mung_02_len_troi", [320, 500], {
-      speaker: "Núi Cây Dầu",
+      speaker: tx("Núi Cây Dầu", "The Mount of Olives"),
       emoji: "☁️",
       lines: [
-        "Mầu Nhiệm Thứ Hai Năm Sự Mừng: Đức Chúa Giêsu Lên Trời Vinh Hiển (Cv 1, 6-11).",
-        "Bình minh rực rỡ trên đỉnh Núi Cây Dầu. Chúa Giêsu sai các Tông đồ: 'Anh em hãy đi giảng dạy cho muôn dân.' (Mt 28, 19)",
-        "Hãy nhặt bốn biểu tượng của bốn phương trời và trao cho bốn nhóm Tông đồ nhé.",
+        tx("Mầu Nhiệm Thứ Hai Năm Sự Mừng: Đức Chúa Giêsu Lên Trời Vinh Hiển (Cv 1, 6-11).", "Second Glorious Mystery: The Ascension of Jesus (Acts 1:6-11)."),
+        tx("Bình minh rực rỡ trên đỉnh Núi Cây Dầu. Chúa Giêsu sai các Tông đồ: 'Anh em hãy đi giảng dạy cho muôn dân.' (Mt 28, 19)", "A radiant dawn on top of the Mount of Olives. Jesus sends out the Apostles: ‘Go and teach all nations.’ (Mt 28:19)"),
+        tx("Hãy nhặt bốn biểu tượng của bốn phương trời và trao cho bốn nhóm Tông đồ nhé.", "Pick up the four symbols of the four directions and give them to the four groups of Apostles."),
       ],
     });
   }
@@ -96,26 +97,26 @@ export class Glorious02AscensionScene extends InteractiveScene {
       ...DIRS.map((d) => ({
         at: (): [number, number] => d.from,
         r: 34,
-        label: () => `[A] Nhặt ${d.name}`,
+        label: () => tx(`[A] Nhặt ${d.name}`, `[A] Pick up ${d.name}`),
         active: () => !this.given.has(d.id) && this.lootActive(d.id),
         act: () => this.takeLoot(d.id),
       })),
       ...DIRS.map((d) => ({
         at: (): [number, number] => [d.group[0], d.group[1] + 8],
         r: 40,
-        label: () => (this.held ? `[A] Trao cho nhóm phương ${d.label}` : `Các Tông đồ phương ${d.label}`),
+        label: () => (this.held ? tx(`[A] Trao cho nhóm phương ${d.label}`, `[A] Give to the ${d.label} group`) : tx(`Các Tông đồ phương ${d.label}`, `The Apostles of the ${d.label}`)),
         active: () => !this.given.has(d.id),
         act: () => this.give(d),
       })),
       {
         at: () => JESUS_AT,
         r: 50,
-        label: () => "[A] Chúa Giêsu",
+        label: () => tx("[A] Chúa Giêsu", "[A] Jesus"),
         active: () => !this.done,
         act: () =>
-          this.talk("Chúa Giêsu", "☁️", [
-            "Anh em sẽ nhận được sức mạnh của Thánh Thần và làm chứng về Thầy ở Giêrusalem, khắp xứ Giuđê, Samari, cho đến tận cùng trái đất. (Cv 1, 8)",
-            `Con đã trao ${this.given.size}/4 biểu tượng. Hãy trao đủ bốn phương trời nhé.`,
+          this.talk(tx("Chúa Giêsu", "Jesus"), "☁️", [
+            tx("Anh em sẽ nhận được sức mạnh của Thánh Thần và làm chứng về Thầy ở Giêrusalem, khắp xứ Giuđê, Samari, cho đến tận cùng trái đất. (Cv 1, 8)", "You will receive power when the Holy Spirit comes upon you, and you will be my witnesses in Jerusalem, in all Judea and Samaria, and to the ends of the earth. (Acts 1:8)"),
+            tx(`Con đã trao ${this.given.size}/4 biểu tượng. Hãy trao đủ bốn phương trời nhé.`, `You gave ${this.given.size}/4 symbols. Give all four directions.`),
           ]),
       },
     ];
@@ -125,11 +126,11 @@ export class Glorious02AscensionScene extends InteractiveScene {
 
   private give(d: (typeof DIRS)[number]) {
     if (!this.held) {
-      this.talk(`Phương ${d.label}`, "🧭", [`Các Tông đồ phương ${d.label} đang chờ ${d.name}. Hãy nhặt biểu tượng trên đồi mang đến đây nhé.`]);
+      this.talk(tx(`Phương ${d.label}`, `${d.label}`), "🧭", [tx(`Các Tông đồ phương ${d.label} đang chờ ${d.name}. Hãy nhặt biểu tượng trên đồi mang đến đây nhé.`, `The Apostles of the ${d.label} are waiting for ${d.name}. Pick up the symbol on the hill and bring it here.`)]);
       return;
     }
     if (this.held.id !== d.id) {
-      this.talk(`Phương ${d.label}`, "🧭", [`Chưa đúng rồi. Nhóm này ở phương ${d.label}, cần ${d.name}. Hãy xem tên dưới mỗi nhóm nhé.`]);
+      this.talk(tx(`Phương ${d.label}`, `${d.label}`), "🧭", [tx(`Chưa đúng rồi. Nhóm này ở phương ${d.label}, cần ${d.name}. Hãy xem tên dưới mỗi nhóm nhé.`, `Not right. This group is in the ${d.label} and needs ${d.name}. Check the name under each group.`)]);
       return;
     }
     this.given.add(d.id);
@@ -138,14 +139,14 @@ export class Glorious02AscensionScene extends InteractiveScene {
     this.tweens.add({ targets: icon, y: icon.y - 3, duration: 700, yoyo: true, repeat: -1, ease: "Stepped", easeParams: [3] });
     this.sparkleBurst(d.group[0], d.group[1] - 28);
     const last = this.given.size === DIRS.length;
-    this.talk(`Tông đồ phương ${d.label}`, "🕊️", [`Chúng tôi sẽ mang Tin Mừng đến phương ${d.label}!`], last ? () => this.ascend() : undefined);
+    this.talk(tx(`Tông đồ phương ${d.label}`, `Apostle of the ${d.label}`), "🕊️", [tx(`Chúng tôi sẽ mang Tin Mừng đến phương ${d.label}!`, `We will carry the Good News to the ${d.label}!`)], last ? () => this.ascend() : undefined);
   }
 
   private ascend() {
     this.done = true;
     this.cloud.setAlpha(1);
     this.tweens.add({ targets: this.cloud, y: this.cloud.y - 6, duration: 600, yoyo: true, repeat: -1, ease: "Stepped", easeParams: [3] });
-    this.talk("Chúa Giêsu", "☁️", ["Chúa giơ tay chúc lành cho các môn đệ... rồi từ từ được cất lên, một đám mây khuất mắt các ông. (Cv 1, 9)"], () => {
+    this.talk(tx("Chúa Giêsu", "Jesus"), "☁️", [tx("Chúa giơ tay chúc lành cho các môn đệ... rồi từ từ được cất lên, một đám mây khuất mắt các ông. (Cv 1, 9)", "The Lord raises His hands in blessing over the disciples... then slowly is lifted up, and a cloud hides Him from their sight. (Acts 1:9)")], () => {
       this.tweens.add({ targets: [this.jesus, this.cloud], y: "-=190", alpha: { from: 1, to: 0 }, duration: 3200, ease: "Stepped", easeParams: [20] });
       this.cameras.main.flash(900, 255, 255, 220);
       this.time.delayedCall(3400, () => this.angels());
@@ -160,11 +161,11 @@ export class Glorious02AscensionScene extends InteractiveScene {
     }
     this.time.delayedCall(900, () =>
       this.talk(
-        "Hai Thiên Thần",
+        tx("Hai Thiên Thần", "Two Angels"),
         "👼",
         [
-          "'Hỡi người Ga-li-lê, sao còn đứng nhìn trời? Đức Giêsu này vừa lên trời sẽ ngự đến cùng một thể ấy.' (Cv 1, 11)",
-          "Hãy hướng lòng về quê trời và hăng say loan báo Tin Mừng nhé!",
+          tx("'Hỡi người Ga-li-lê, sao còn đứng nhìn trời? Đức Giêsu này vừa lên trời sẽ ngự đến cùng một thể ấy.' (Cv 1, 11)", "‘Men of Galilee, why do you stand looking up at the sky? This Jesus who has been taken up will come in the same way.’ (Acts 1:11)"),
+          tx("Hãy hướng lòng về quê trời và hăng say loan báo Tin Mừng nhé!", "Turn your heart toward heaven and eagerly proclaim the Good News!"),
         ],
         () => this.finish()
       )
@@ -175,10 +176,10 @@ export class Glorious02AscensionScene extends InteractiveScene {
     this.time.delayedCall(300, () =>
       this.complete(
         2,
-        "Năm Sự Mừng",
-        "Đức Chúa Giêsu Lên Trời Vinh Hiển",
-        "Luôn hướng lòng về quê trời và hăng say thi hành sứ mạng loan báo Tin Mừng.",
-        "Chúa đã về trời chuẩn bị chỗ cho chúng ta. Hãy kể cho bạn bè nghe về Chúa Giêsu nhé!",
+        tx("Năm Sự Mừng", "Glorious"),
+        tx("Đức Chúa Giêsu Lên Trời Vinh Hiển", "The Ascension of Jesus in Glory"),
+        tx("Luôn hướng lòng về quê trời và hăng say thi hành sứ mạng loan báo Tin Mừng.", "Always keep your heart set on heaven and eagerly carry out the mission of proclaiming the Good News."),
+        tx("Chúa đã về trời chuẩn bị chỗ cho chúng ta. Hãy kể cho bạn bè nghe về Chúa Giêsu nhé!", "The Lord has gone to heaven to prepare a place for us. Tell your friends about Jesus!"),
         ["mission_four_directions", "angels_promise"]
       )
     );

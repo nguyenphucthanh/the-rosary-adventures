@@ -5,6 +5,7 @@ import { registerRephidimTextures } from "@/modules/moses-the-exodus/game/utils/
 import { registerTabernacleTextures } from "@/modules/moses-the-exodus/game/utils/tabernacleTextures";
 import { STAGE13, tr, type L } from "@/modules/moses-the-exodus/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 // Tall map (top -> bottom): Holy of Holies, Holy Place, courtyard. Looking "up" is looking west, so NORTH is on the right.
 // Interactive things sit y >= 100 and y <= 510 (the bottom 90px hide behind the mobile controls).
@@ -157,7 +158,7 @@ export class Stage13TabernacleGloryScene extends BaseExodusScene {
     this.interactables.push({ x: 176, y: 148, r: 30, label: () => tr(STAGE13.ark), active: () => this.step === 2 && !this.busy && !!this.carry, act: () => this.arkPlace() });
     this.interactables.push({ x: 176, y: 90, r: 26, label: () => tr(STAGE13.veil), active: () => this.step === 2 && !this.busy && !this.carry && !this.veilHung, act: () => this.hangVeil() });
     this.interactables.push({ x: 176, y: 508, r: 28, label: () => tr(STAGE13.gate), active: () => this.step === 3 && !this.busy && !this.gateHung, act: () => this.hangGate() });
-    this.interactables.push({ x: MOSES_P[0], y: MOSES_P[1] - 4, r: 24, label: "[A] Môi-sê", active: () => !this.busy && !this.carry, act: () => this.remind() });
+    this.interactables.push({ x: MOSES_P[0], y: MOSES_P[1] - 4, r: 24, label: tx("[A] Môi-sê", "[A] Moses"), active: () => !this.busy && !this.carry, act: () => this.remind() });
 
     this.carryImg = this.add.image(0, 0, "tb_altar").setDepth(DEPTH.FX).setVisible(false);
     this.label = this.add.text(0, 0, "", { fontFamily: "Dearpix, monospace", fontSize: "10px", color: "#fde68a", backgroundColor: "#0f172acc", padding: { x: 3, y: 1 }, align: "center", resolution: 4 }).setOrigin(0.5, 0).setDepth(DEPTH.UI);
@@ -409,14 +410,14 @@ export class Stage13TabernacleGloryScene extends BaseExodusScene {
     banks.forEach((b, i) => this.tweens.add({ targets: b, y: b.y + 90, alpha: BANKS[i][5], duration: 2400, delay: i * 200, ease: "Stepped", easeParams: [8] }));
     this.tweens.add({ targets: light, alpha: 0.45, duration: 2400, ease: "Stepped", easeParams: [6] });
     this.time.delayedCall(1600, () => { audio.sfx("bless"); this.cameras.main.flash(900, 255, 244, 200); this.sparkleBurst(176, 130, 16); this.sparkleBurst(176, 240, 16); });
-    this.time.delayedCall(3200, () => this.talk("Vinh Quang Chúa", STAGE13.glory.map(tr), () => this.won()));
+    this.time.delayedCall(3200, () => this.talk(tx("Vinh Quang Chúa", "The Glory of the Lord"), STAGE13.glory.map(tr), () => this.won()));
   }
 
   private won() {
     audio.sfx("complete");
     this.completeStage();
-    this.talk("Ấn Dấu thứ 13", STAGE13.outro.map(tr), () =>
-      this.talk("Suy niệm", [tr(STAGE13.lesson)], () => this.bridge(0)));
+    this.talk(tx("Ấn Dấu thứ 13", "Seal 13"), STAGE13.outro.map(tr), () =>
+      this.talk(tx("Suy niệm", "Reflection"), [tr(STAGE13.lesson)], () => this.bridge(0)));
   }
 
   /** Narrative bridge to the Promised Land: a tinted full-map card with the people of the scene, one dialogue each. */

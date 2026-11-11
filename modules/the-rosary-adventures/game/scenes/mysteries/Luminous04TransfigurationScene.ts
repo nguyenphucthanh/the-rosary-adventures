@@ -6,6 +6,7 @@ import { registerVisitationTextures } from "@/modules/the-rosary-adventures/game
 import { registerInfancyTextures } from "@/modules/the-rosary-adventures/game/utils/infancyTextureGenerator";
 import { registerLightTextures } from "@/modules/the-rosary-adventures/game/utils/lightTextureGenerator";
 import { registerGalileeTextures } from "@/modules/the-rosary-adventures/game/utils/galileeTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 720;
@@ -19,9 +20,9 @@ const BANDS: [number, number][] = [[500, 80], [380, 80], [260, 70]];
 const TORCHES: [number, number][] = [[200, 625], [440, 490], [200, 375]];
 /** Tent sites: each wants one symbol. */
 const SITES = [
-  { x: 170, y: 118, item: "icon_tablet", label: "Môsê", name: "bia Luật" },
-  { x: 320, y: 100, item: "icon_cross", label: "Thiên Chúa", name: "thánh giá vàng" },
-  { x: 470, y: 118, item: "icon_flame", label: "Êlia", name: "ngọn lửa ngôn sứ" },
+  { x: 170, y: 118, item: "icon_tablet", label: tx("Môsê", "Moses"), name: tx("bia Luật", "Tablet of the Law") },
+  { x: 320, y: 100, item: "icon_cross", label: tx("Thiên Chúa", "God"), name: tx("thánh giá vàng", "golden cross") },
+  { x: 470, y: 118, item: "icon_flame", label: tx("Êlia", "Elijah"), name: tx("ngọn lửa ngôn sứ", "prophetic flame") },
 ];
 const SYMBOLS: [string, number, number][] = [["icon_tablet", 90, 226], ["icon_cross", 550, 226], ["icon_flame", 320, 244]];
 
@@ -68,12 +69,12 @@ export class Luminous04TransfigurationScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("sang_04_bien_hinh", [320, 684], {
-      speaker: "Núi Tabor",
+      speaker: tx("Núi Tabor", "Mount Tabor"),
       emoji: "☀️",
       lines: [
-        "Mầu Nhiệm Thứ Tư Năm Sự Sáng: Đức Chúa Giêsu Biến Hình Trên Núi Tabor (Mt 17, 1-8).",
-        "Chúa dẫn Phêrô, Giacôbê và Gioan lên núi cao. Sương mù dày che kín lối đi.",
-        "Hãy thắp ba ngọn đuốc cổ để xua tan sương mù và leo lên đỉnh núi nhé!",
+        tx("Mầu Nhiệm Thứ Tư Năm Sự Sáng: Đức Chúa Giêsu Biến Hình Trên Núi Tabor (Mt 17, 1-8).", "Fourth Luminous Mystery: The Transfiguration of Jesus on Mount Tabor (Mt 17:1-8)."),
+        tx("Chúa dẫn Phêrô, Giacôbê và Gioan lên núi cao. Sương mù dày che kín lối đi.", "Jesus leads Peter, James and John up a high mountain. Thick fog hides the path."),
+        tx("Hãy thắp ba ngọn đuốc cổ để xua tan sương mù và leo lên đỉnh núi nhé!", "Light the three ancient torches to clear the fog and climb to the summit!"),
       ],
     });
   }
@@ -140,34 +141,34 @@ export class Luminous04TransfigurationScene extends InteractiveScene {
       ...TORCHES.map(([x, y], i) => ({
         at: (): [number, number] => [x, y],
         r: 36,
-        label: () => "[A] Thắp đuốc",
+        label: () => tx("[A] Thắp đuốc", "[A] Light the torch"),
         active: () => !this.lit.has(i),
         act: () => this.lightTorch(i),
       })),
       ...SYMBOLS.map(([id, x, y]) => ({
         at: (): [number, number] => [x, y],
         r: 32,
-        label: () => "[A] Nhặt biểu tượng",
+        label: () => tx("[A] Nhặt biểu tượng", "[A] Pick up the symbol"),
         active: () => this.tentsOn && this.lootActive(id),
         act: () => this.takeLoot(id),
       })),
       ...SITES.map((s, i) => ({
         at: (): [number, number] => [s.x, s.y + 14],
         r: 40,
-        label: () => (this.held ? `[A] Đặt vào lều ${s.label}` : `[A] Lều ${s.label}`),
+        label: () => (this.held ? tx(`[A] Đặt vào lều ${s.label}`, `[A] Place in the ${s.label} tent`) : tx(`[A] Lều ${s.label}`, `[A] ${s.label} tent`)),
         active: () => this.tentsOn && !this.placed.has(i),
         act: () => this.placeSymbol(i),
       })),
       {
         at: (): [number, number] => [242, 214],
         r: 44,
-        label: () => "[A] Trò chuyện với Phêrô",
+        label: () => tx("[A] Trò chuyện với Phêrô", "[A] Talk to Peter"),
         active: () => this.summit && !this.finished,
         act: () =>
-          this.talk("Thánh Phêrô", "🎣", [
+          this.talk(tx("Thánh Phêrô", "Saint Peter"), "🎣", [
             this.tentsOn
-              ? "Xin giúp con dựng ba lều: một cho Thầy, một cho Môsê, một cho Êlia. Hãy đặt đúng biểu tượng vào từng lều nhé. (Mt 17, 4)"
-              : "Con sợ quá...",
+              ? tx("Xin giúp con dựng ba lều: một cho Thầy, một cho Môsê, một cho Êlia. Hãy đặt đúng biểu tượng vào từng lều nhé. (Mt 17, 4)", "Please help me set up three tents: one for You, one for Moses, one for Elijah. Place the right symbol in each tent. (Mt 17:4)")
+              : tx("Con sợ quá...", "I'm so scared..."),
           ]),
       },
     ];
@@ -186,7 +187,7 @@ export class Luminous04TransfigurationScene extends InteractiveScene {
     this.tweens.killTweensOf(rect);
     this.tweens.add({ targets: rect, alpha: 0, duration: 900, ease: "Stepped", easeParams: [5], onComplete: () => rect.destroy() });
     if (this.lit.size === TORCHES.length) {
-      this.time.delayedCall(900, () => this.talk("Núi Tabor", "☀️", ["Sương mù đã tan! Con đường lên đỉnh núi đã sáng.", "Hãy leo lên gặp Chúa Giêsu và ba môn đệ nhé."]));
+      this.time.delayedCall(900, () => this.talk(tx("Núi Tabor", "Mount Tabor"), "☀️", [tx("Sương mù đã tan! Con đường lên đỉnh núi đã sáng.", "The fog has cleared! The path to the summit is bright."), tx("Hãy leo lên gặp Chúa Giêsu và ba môn đệ nhé.", "Climb up to meet Jesus and the three disciples.")]));
     }
   }
 
@@ -195,12 +196,12 @@ export class Luminous04TransfigurationScene extends InteractiveScene {
     if (!this.summit && this.player && this.player.y < SUMMIT_Y) {
       this.summit = true;
       this.talk(
-        "Thánh Phêrô",
+        tx("Thánh Phêrô", "Saint Peter"),
         "🎣",
         [
-          "Chúa Giêsu biến đổi hình dạng trước mặt các môn đệ: mặt Người chói lọi như mặt trời, áo Người trắng như ánh sáng. (Mt 17, 2)",
-          "Môsê và Êlia hiện ra đàm đạo với Người. 'Thưa Thầy, chúng con ở đây thật tốt! Xin dựng ba lều.' (Mt 17, 3-4)",
-          "Hãy nhặt ba biểu tượng trên đỉnh núi và đặt vào ba lều: bia Luật cho Môsê, ngọn lửa cho Êlia, thánh giá vàng cho Thiên Chúa.",
+          tx("Chúa Giêsu biến đổi hình dạng trước mặt các môn đệ: mặt Người chói lọi như mặt trời, áo Người trắng như ánh sáng. (Mt 17, 2)", "Jesus was transfigured before the disciples: His face shone like the sun and His clothes became white as light. (Mt 17:2)"),
+          tx("Môsê và Êlia hiện ra đàm đạo với Người. 'Thưa Thầy, chúng con ở đây thật tốt! Xin dựng ba lều.' (Mt 17, 3-4)", "Moses and Elijah appear and talk with Him. ‘Lord, it is good for us to be here! Let us make three tents.’ (Mt 17:3-4)"),
+          tx("Hãy nhặt ba biểu tượng trên đỉnh núi và đặt vào ba lều: bia Luật cho Môsê, ngọn lửa cho Êlia, thánh giá vàng cho Thiên Chúa.", "Pick up the three symbols on the summit and place them in the three tents: the Tablet of the Law for Moses, the flame for Elijah, the golden cross for God."),
         ],
         () => {
           this.tentsOn = true;
@@ -213,11 +214,11 @@ export class Luminous04TransfigurationScene extends InteractiveScene {
   private placeSymbol(i: number) {
     const s = SITES[i];
     if (!this.held) {
-      this.talk("Lều " + s.label, "⛺", [`Lều này chờ ${s.name}. Hãy nhặt biểu tượng trên đỉnh núi mang đến nhé.`]);
+      this.talk(tx("Lều ", "Tent ") + s.label, "⛺", [tx(`Lều này chờ ${s.name}. Hãy nhặt biểu tượng trên đỉnh núi mang đến nhé.`, `This tent is waiting for ${s.name}. Pick up the symbol on the summit and bring it here.`)]);
       return;
     }
     if (this.held.id !== s.item) {
-      this.talk("Lều " + s.label, "⛺", [`Chưa đúng rồi. Lều của ${s.label} cần ${s.name}.`]);
+      this.talk(tx("Lều ", "Tent ") + s.label, "⛺", [tx(`Chưa đúng rồi. Lều của ${s.label} cần ${s.name}.`, `Not right. The ${s.label} tent needs ${s.name}.`)]);
       return;
     }
     this.placed.add(i);
@@ -245,9 +246,9 @@ export class Luminous04TransfigurationScene extends InteractiveScene {
     this.tweens.add({ targets: cloud, alpha: 0.95, y: 60, duration: 1600, ease: "Stepped", easeParams: [8] });
     this.time.delayedCall(2000, () =>
       this.talk(
-        "Tiếng Từ Đám Mây",
+        tx("Tiếng Từ Đám Mây", "The Voice from the Cloud"),
         "☁️",
-        ["Một đám mây sáng ngời bao phủ các ngài, và có tiếng phán: (Mt 17, 5)", "'Đây là Con yêu dấu của Ta, Ta hài lòng về Người. Hãy vâng nghe lời Người!'"],
+        [tx("Một đám mây sáng ngời bao phủ các ngài, và có tiếng phán: (Mt 17, 5)", "A bright cloud covers them, and a voice says: (Mt 17:5)"), tx("'Đây là Con yêu dấu của Ta, Ta hài lòng về Người. Hãy vâng nghe lời Người!'", "‘This is my beloved Son, with whom I am well pleased. Listen to Him!’")],
         () => this.finish()
       )
     );
@@ -257,10 +258,10 @@ export class Luminous04TransfigurationScene extends InteractiveScene {
     this.time.delayedCall(300, () =>
       this.complete(
         4,
-        "Năm Sự Sáng",
-        "Đức Chúa Giêsu Biến Hình Trên Núi Tabor",
-        "Say mê lắng nghe Lời Chúa và chiêm ngắm vinh quang Nước Trời.",
-        "Hãy dành thời gian lắng nghe Chúa Giêsu mỗi ngày, vì Người là Con yêu dấu của Cha!",
+        tx("Năm Sự Sáng", "Luminous"),
+        tx("Đức Chúa Giêsu Biến Hình Trên Núi Tabor", "The Transfiguration of Jesus on Mount Tabor"),
+        tx("Say mê lắng nghe Lời Chúa và chiêm ngắm vinh quang Nước Trời.", "Listen eagerly to God's Word and contemplate the glory of the Kingdom."),
+        tx("Hãy dành thời gian lắng nghe Chúa Giêsu mỗi ngày, vì Người là Con yêu dấu của Cha!", "Make time to listen to Jesus every day, because He is the Father's beloved Son!"),
         ["light_torches", "three_tents", "hear_the_voice"]
       )
     );

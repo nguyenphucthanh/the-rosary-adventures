@@ -5,6 +5,7 @@ import { registerVoyageTextures } from "@/modules/noahs-ark/game/utils/voyageTex
 import { NOAH_TEXT } from "@/modules/noahs-ark/data/stageText";
 import { tr } from "@/modules/noahs-ark/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 180; // narrow portrait deck: fits a 360px phone at the normal zoom 2, so details stay big
 const H = 240;
@@ -23,12 +24,12 @@ const CRATE_Y = [102, 148]; // between the stall rows, never level with an anima
 const STALLS = [[26, 80], [26, 125], [26, 170], [154, 80], [154, 125], [154, 170]] as const;
 const ANIMALS = ["noah_sheep", "noah_rabbit", "noah_turtle", "noah_deer", "noah_zebra", "noah_lion"];
 const ITEMS = [
-  { key: "hay", tex: "noah_hay", need: "noah_need_hay", x: 60, label: "[A] Lấy Bó Cỏ Khô" },
-  { key: "lamp", tex: "noah_lamp", need: "noah_need_lamp", x: 90, label: "[A] Lấy Đèn Dầu" },
-  { key: "blanket", tex: "noah_blanket", need: "noah_need_blanket", x: 120, label: "[A] Lấy Chăn Rơm" },
+  { key: "hay", tex: "noah_hay", need: "noah_need_hay", x: 60, label: tx("[A] Lấy Bó Cỏ Khô", "[A] Take a bundle of hay") },
+  { key: "lamp", tex: "noah_lamp", need: "noah_need_lamp", x: 90, label: tx("[A] Lấy Đèn Dầu", "[A] Take an oil lamp") },
+  { key: "blanket", tex: "noah_blanket", need: "noah_need_blanket", x: 120, label: tx("[A] Lấy Chăn Rơm", "[A] Take a straw blanket") },
 ] as const;
 
-const NEED_NAMES = ["BÓ CỎ", "ĐÈN DẦU", "CHĂN RƠM"];
+const NEED_NAMES = ["BÓ CỎ", tx("ĐÈN DẦU", "OIL LAMP"), tx("CHĂN RƠM", "STRAW BLANKET")];
 
 interface Need { item: number; since: number; bubble: Phaser.GameObjects.Image }
 
@@ -91,7 +92,7 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
       this.add.image(x, y, "noah_stall").setDepth(DEPTH.RUG);
       this.add.image(x, y + 12, ANIMALS[i], 0).setOrigin(0.5, 1).setDepth(y + 12);
       this.interactables.push({ x, y, r: 30, // centred on the stall: works from inside the straw cage or anywhere near it; nearest one wins
-         label: () => { const n = this.needs[i]; return n ? (this.held === n.item ? "[A] Chăm sóc con thú" : `Cần ${NEED_NAMES[n.item]} – lấy ở kệ trên`) : ""; }, active: () => this.running && !!this.needs[i], act: () => this.care(i) });
+         label: () => { const n = this.needs[i]; return n ? (this.held === n.item ? tx("[A] Chăm sóc con thú", "[A] Care for the animal") : tx(`Cần ${NEED_NAMES[n.item]} – lấy ở kệ trên`, `Needs ${NEED_NAMES[n.item]} – get it from the shelf above`)) : ""; }, active: () => this.running && !!this.needs[i], act: () => this.care(i) });
     });
     // supplies shelf
     this.add.rectangle(45, 28, 90, 14, 0x5b2a0c).setOrigin(0).setDepth(DEPTH.RUG + 1);
@@ -111,7 +112,7 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
     // crates
     CRATE_Y.forEach((y, i) => {
       this.crates.push(this.add.image(this.sides[i] < 0 ? AISLE_L : AISLE_R, y, "noah_crate").setOrigin(0.5, 1).setDepth(y));
-      this.interactables.push({ x: this.sides[i] < 0 ? AISLE_L : AISLE_R, y: y - 6, r: 12, label: () => (this.sides[i] < 0 ? "[A] Đẩy thùng sang Phải" : "[A] Đẩy thùng sang Trái"), active: () => this.running, act: () => this.shove(i) });
+      this.interactables.push({ x: this.sides[i] < 0 ? AISLE_L : AISLE_R, y: y - 6, r: 12, label: () => (this.sides[i] < 0 ? tx("[A] Đẩy thùng sang Phải", "[A] Push the crate to the right") : tx("[A] Đẩy thùng sang Trái", "[A] Push the crate to the left")), active: () => this.running, act: () => this.shove(i) });
     });
     this.heldImg = this.add.image(0, 0, "noah_hay").setDepth(DEPTH.FX).setVisible(false);
     this.hud = this.add.graphics().setDepth(DEPTH.UI);
@@ -169,7 +170,7 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
     if (!need) return;
     if (this.held !== need.item) {
       audio.sfx("wrong");
-      this.msg = `Con thú cần ${NEED_NAMES[need.item]}!`;
+      this.msg = tx(`Con thú cần ${NEED_NAMES[need.item]}!`, `The animal needs ${NEED_NAMES[need.item]}!`);
       this.msgUntil = this.time.now + 2000;
       return;
     }
@@ -186,14 +187,14 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
   private endLeg() {
     this.running = false;
     audio.sfx("bless");
-    if (this.leg === 0) this.talk("Ông Nô-ê", NOAH_TEXT.s5.leg.map(tr), () => this.startLeg(1));
+    if (this.leg === 0) this.talk(tx("Ông Nô-ê", "Noah"), NOAH_TEXT.s5.leg.map(tr), () => this.startLeg(1));
     else this.finishStage(NOAH_TEXT.s5);
   }
 
   private fail(lines: typeof NOAH_TEXT.s5.tipped) {
     this.running = false;
     audio.sfx("wrong");
-    this.talk("Con Tàu", lines.map(tr), () => this.resetToCheckpoint());
+    this.talk(tx("Con Tàu", "The Ark"), lines.map(tr), () => this.resetToCheckpoint());
   }
 
   update(time?: number, delta = 16) {
@@ -249,10 +250,10 @@ export class Stage05ArkVoyageScene extends BaseNoahScene {
     const nx = x + Math.round(((Phaser.Math.Clamp(this.tilt, -1, 1) + 1) / 2) * w);
     g.fillStyle(0xffffff, 1).fillRect(nx - 1, y - 3, 3, 14);
     if (this.dangerT > 0) g.fillStyle(0xdc2626, 1).fillRect(x, y - 6, Math.round((w * this.dangerT) / DANGER_FAIL_MS), 2);
-    this.label?.setText(this.running ? `Chặng ${this.leg + 1}/2 – chăm sóc ${this.cares}/${CARES_PER_LEG * 2}` : "");
+    this.label?.setText(this.running ? tx(`Chặng ${this.leg + 1}/2 – chăm sóc ${this.cares}/${CARES_PER_LEG * 2}`, `Leg ${this.leg + 1}/2 – care ${this.cares}/${CARES_PER_LEG * 2}`) : "");
     const msg = this.time.now < this.msgUntil;
     const show = this.running && (msg || this.warnDir !== 0);
     this.warn?.setVisible(show);
-    if (show) this.warn?.setText(msg ? this.msg : this.warnDir < 0 ? "<< SÓNG ĐÁNH TRÁI <<" : ">> SÓNG ĐÁNH PHẢI >>");
+    if (show) this.warn?.setText(msg ? this.msg : this.warnDir < 0 ? tx("<< SÓNG ĐÁNH TRÁI <<", "<< WAVE FROM THE LEFT <<") : tx(">> SÓNG ĐÁNH PHẢI >>", ">> WAVE FROM THE RIGHT >>"));
   }
 }

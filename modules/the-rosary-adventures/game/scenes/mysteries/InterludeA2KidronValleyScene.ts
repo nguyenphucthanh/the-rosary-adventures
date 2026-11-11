@@ -9,6 +9,7 @@ import { registerLightTextures } from "@/modules/the-rosary-adventures/game/util
 import { registerGalileeTextures } from "@/modules/the-rosary-adventures/game/utils/galileeTextureGenerator";
 import { registerPassionTextures } from "@/modules/the-rosary-adventures/game/utils/passionTextureGenerator";
 import { registerInterludeTextures } from "@/modules/the-rosary-adventures/game/utils/interludeTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 520;
@@ -74,12 +75,12 @@ export class InterludeA2KidronValleyScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("bridge_a2_suoi_kidron", [320, 440], {
-      speaker: "Thung Lũng Suối Kidron",
+      speaker: tx("Thung Lũng Suối Kidron", "Kidron Valley"),
       emoji: "🏮",
       lines: [
-        "Cầu Nối Mùa Sáng → Mùa Thương: Đêm Vượt Suối Kidron (Ga 18, 1).",
-        "“Nói xong những lời đó, Đức Giêsu đi ra cùng với các môn đệ, sang bên kia suối Kít-rôn; ở đó có một thửa vườn.”",
-        "Đêm tối lạnh lẽo, con hãy cầm chiếc đèn dầu đi trước, chạm vào các Đom Đóm Sáng để giữ đèn luôn rực rỡ và dọn sạch 10 Bụi Gai trên đường nhé!",
+        tx("Cầu Nối Mùa Sáng → Mùa Thương: Đêm Vượt Suối Kidron (Ga 18, 1).", "Season Bridge Luminous → Sorrowful: Night Crossing of the Kidron Valley (Jn 18:1)."),
+        tx("“Nói xong những lời đó, Đức Giêsu đi ra cùng với các môn đệ, sang bên kia suối Kít-rôn; ở đó có một thửa vườn.”", "“After he had said this, Jesus went out with his disciples across the Kidron valley. There was a garden there.”"),
+        tx("Đêm tối lạnh lẽo, con hãy cầm chiếc đèn dầu đi trước, chạm vào các Đom Đóm Sáng để giữ đèn luôn rực rỡ và dọn sạch 10 Bụi Gai trên đường nhé!", "The night is cold. Carry the oil lamp in front, touch the Glowing Fireflies to keep the lamp bright, and clear the 10 Thorn Bushes from the path!"),
       ],
     });
     this.holdItem("kidron_lantern", "kidron_lantern");
@@ -91,7 +92,7 @@ export class InterludeA2KidronValleyScene extends InteractiveScene {
       {
         id: "kidron_brambles",
         emoji: "🌿",
-        label: "BỤI GAI",
+        label: tx("BỤI GAI", "THORNS"),
         current: this.clearedCount,
         total: BRAMBLES_GOAL,
         color: "emerald",
@@ -99,7 +100,7 @@ export class InterludeA2KidronValleyScene extends InteractiveScene {
       {
         id: "kidron_lantern",
         emoji: "🏮",
-        label: "ĐÈN DẦU",
+        label: tx("ĐÈN DẦU", "OIL LAMP"),
         current: Math.round(this.lanternEnergy),
         total: 100,
         suffix: "%",
@@ -193,8 +194,8 @@ export class InterludeA2KidronValleyScene extends InteractiveScene {
         r: 68,
         label: () =>
           this.clearedCount >= BRAMBLES_GOAL
-            ? "[A] Cùng Chúa Giêsu bước vào Vườn Cây Dầu"
-            : `[A] Chúa Giêsu (Đã dọn ${this.clearedCount}/${BRAMBLES_GOAL} bụi gai)`,
+            ? tx("[A] Cùng Chúa Giêsu bước vào Vườn Cây Dầu", "[A] Enter the Garden of Olives with Jesus")
+            : tx(`[A] Chúa Giêsu (Đã dọn ${this.clearedCount}/${BRAMBLES_GOAL} bụi gai)`, `[A] Jesus (Cleared ${this.clearedCount}/${BRAMBLES_GOAL} thorn bushes)`),
         active: () => !this.finished,
         act: () => this.reachGethsemane(),
       },
@@ -203,8 +204,8 @@ export class InterludeA2KidronValleyScene extends InteractiveScene {
 
   private reachGethsemane() {
     if (this.clearedCount < BRAMBLES_GOAL) {
-      this.talk("Chúa Giêsu", "🏮", [
-        `Đường đêm còn vướng gai nhọn. Con hãy dùng ánh đèn dọn hết ${BRAMBLES_GOAL} Bụi Gai (${this.clearedCount}/${BRAMBLES_GOAL}) để các môn đệ đi qua an toàn nhé.`,
+      this.talk(tx("Chúa Giêsu", "Jesus"), "🏮", [
+        tx(`Đường đêm còn vướng gai nhọn. Con hãy dùng ánh đèn dọn hết ${BRAMBLES_GOAL} Bụi Gai (${this.clearedCount}/${BRAMBLES_GOAL}) để các môn đệ đi qua an toàn nhé.`, `The night path is still full of sharp thorns. Use the lamp light to clear all ${BRAMBLES_GOAL} Thorn Bushes (${this.clearedCount}/${BRAMBLES_GOAL}) so the disciples can pass safely.`),
       ]);
       return;
     }
@@ -216,10 +217,10 @@ export class InterludeA2KidronValleyScene extends InteractiveScene {
 
     this.time.delayedCall(400, () =>
       this.completeInterlude(
-        "CẦU NỐI MÙA A2",
-        "Đêm Vượt Suối Kidron (Ga 18, 1)",
-        "Giữ ngọn đèn đức tin và lòng mến luôn cháy sáng để đồng hành với Chúa trong những lúc gian nan.",
-        "Con đường qua suối Kidron đã quang đãng. Giờ đây chúng ta bước vào Năm Sự Thương cùng Chúa Giêsu trong Vườn Cây Dầu!"
+        tx("CẦU NỐI MÙA A2", "SEASON BRIDGE A2"),
+        tx("Đêm Vượt Suối Kidron (Ga 18, 1)", "Night Crossing of the Kidron Valley (Jn 18:1)"),
+        tx("Giữ ngọn đèn đức tin và lòng mến luôn cháy sáng để đồng hành với Chúa trong những lúc gian nan.", "Keep the lamp of faith and love burning so you can walk with the Lord through hard times."),
+        tx("Con đường qua suối Kidron đã quang đãng. Giờ đây chúng ta bước vào Năm Sự Thương cùng Chúa Giêsu trong Vườn Cây Dầu!", "The path across the Kidron is clear. Now we enter the Sorrowful Mysteries with Jesus in the Garden of Olives!")
       )
     );
   }

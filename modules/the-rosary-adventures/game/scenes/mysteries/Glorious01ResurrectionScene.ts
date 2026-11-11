@@ -3,6 +3,7 @@ import audio from "@/modules/shared/game/audio/AudioManager";
 import { DEPTH } from "@/modules/the-rosary-adventures/game/scenes/BaseMysteryScene";
 import { InteractiveScene } from "@/modules/the-rosary-adventures/game/scenes/InteractiveScene";
 import { registerAllForGlory } from "@/modules/the-rosary-adventures/game/utils/gloryTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const GARDEN_H = 560;
@@ -19,9 +20,9 @@ const MAGDALENE_AT: [number, number] = [170, 330];
 
 /** The grave-cloths scattered in the tomb; each goes to the tidy corner on the bench. */
 const CLOTHS = [
-  { id: "linen_a", key: "linen", name: "dải băng vải", at: [190, 740] as [number, number] },
-  { id: "linen_b", key: "linen", name: "dải băng vải", at: [450, 700] as [number, number] },
-  { id: "head_cloth", key: "linen", name: "khăn che đầu Chúa", at: [250, 650] as [number, number] },
+  { id: "linen_a", key: "linen", name: tx("dải băng vải", "linen strips"), at: [190, 740] as [number, number] },
+  { id: "linen_b", key: "linen", name: tx("dải băng vải", "linen strips"), at: [450, 700] as [number, number] },
+  { id: "head_cloth", key: "linen", name: tx("khăn che đầu Chúa", "the Lord's head cloth"), at: [250, 650] as [number, number] },
 ];
 
 export class Glorious01ResurrectionScene extends InteractiveScene {
@@ -53,12 +54,12 @@ export class Glorious01ResurrectionScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("mung_01_phuc_sinh", [320, 470], {
-      speaker: "Khu Vườn Sáng Sớm",
+      speaker: tx("Khu Vườn Sáng Sớm", "The Early Morning Garden"),
       emoji: "🌅",
       lines: [
-        "Mầu Nhiệm Thứ Nhất Năm Sự Mừng: Đức Chúa Giêsu Sống Lại Từ Cõi Chết (Mt 28, 1-10).",
-        "Sáng sớm tinh sương, tảng đá lớn đã bị lăn ra khỏi mộ. Quân lính canh ngã gục, và ngôi mộ trống không.",
-        "Hãy bước vào trong mộ, gom các dải băng vải và gấp khăn che đầu Chúa để sang một góc nhé.",
+        tx("Mầu Nhiệm Thứ Nhất Năm Sự Mừng: Đức Chúa Giêsu Sống Lại Từ Cõi Chết (Mt 28, 1-10).", "First Glorious Mystery: The Resurrection of Jesus (Mt 28:1-10)."),
+        tx("Sáng sớm tinh sương, tảng đá lớn đã bị lăn ra khỏi mộ. Quân lính canh ngã gục, và ngôi mộ trống không.", "At the crack of dawn the great stone has been rolled from the tomb. The guards have fallen, and the tomb is empty."),
+        tx("Hãy bước vào trong mộ, gom các dải băng vải và gấp khăn che đầu Chúa để sang một góc nhé.", "Step into the tomb, gather the linen strips and fold the Lord's head cloth into a corner."),
       ],
     });
   }
@@ -130,14 +131,14 @@ export class Glorious01ResurrectionScene extends InteractiveScene {
       {
         at: () => DOOR_IN,
         r: 40,
-        label: () => "[A] Bước vào ngôi mộ trống",
+        label: () => tx("[A] Bước vào ngôi mộ trống", "[A] Enter the empty tomb"),
         active: () => true,
         act: () => this.teleport(CHAMBER_IN),
       },
       {
         at: () => EXIT_AT,
         r: 30,
-        label: () => "[A] Ra khỏi mộ",
+        label: () => tx("[A] Ra khỏi mộ", "[A] Leave the tomb"),
         active: () => true,
         act: () => {
           this.teleport(OUT_AT);
@@ -148,26 +149,26 @@ export class Glorious01ResurrectionScene extends InteractiveScene {
       ...CLOTHS.map((c) => ({
         at: (): [number, number] => c.at,
         r: 32,
-        label: () => `[A] Nhặt ${c.name}`,
+        label: () => tx(`[A] Nhặt ${c.name}`, `[A] Pick up ${c.name}`),
         active: () => !this.tidy.has(c.id) && this.lootActive(c.id),
         act: () => this.takeLoot(c.id),
       })),
       {
         at: () => [BENCH_AT[0], BENCH_AT[1] + 10],
         r: 40,
-        label: () => (this.held ? "[A] Xếp gọn vào góc" : "Góc xếp khăn"),
+        label: () => (this.held ? tx("[A] Xếp gọn vào góc", "[A] Fold it into the corner") : tx("Góc xếp khăn", "Folding corner")),
         active: () => !this.tidied,
         act: () => this.fold(),
       },
       {
         at: () => MAGDALENE_AT,
         r: 44,
-        label: () => "[A] Bà Maria Mađalêna",
+        label: () => tx("[A] Bà Maria Mađalêna", "[A] Mary Magdalene"),
         active: () => !this.met,
         act: () =>
-          this.talk("Maria Mađalêna", "💜", this.tidied
-            ? ["Con thấy khăn liệm được gấp gọn riêng một chỗ. Chính Thầy đã sống lại rồi! (Ga 20, 7)", "Hãy ra vườn tìm Thầy, Người đang đợi con."]
-            : ["Mẹ mang dầu thơm đến xức xác Thầy, mà mộ lại trống không... Con vào xem trong mộ giúp Mẹ nhé."]),
+          this.talk(tx("Maria Mađalêna", "Mary Magdalene"), "💜", this.tidied
+            ? [tx("Con thấy khăn liệm được gấp gọn riêng một chỗ. Chính Thầy đã sống lại rồi! (Ga 20, 7)", "You saw the burial cloth folded neatly in a place by itself. The Master has truly risen! (Jn 20:7)"), tx("Hãy ra vườn tìm Thầy, Người đang đợi con.", "Go to the garden and look for the Master. He is waiting for you.")]
+            : [tx("Mẹ mang dầu thơm đến xức xác Thầy, mà mộ lại trống không... Con vào xem trong mộ giúp Mẹ nhé.", "I brought perfumed oil to anoint the Lord's body, but the tomb is empty... Please go in and look inside for me.")]),
       },
     ];
     this.hint(MAGDALENE_AT[0], MAGDALENE_AT[1] - 38);
@@ -179,7 +180,7 @@ export class Glorious01ResurrectionScene extends InteractiveScene {
 
   private fold() {
     if (!this.held) {
-      this.talk("Góc xếp khăn", "🧺", ["Hãy nhặt các dải băng vải và khăn che đầu rải trong mộ, rồi mang đến góc này nhé."]);
+      this.talk(tx("Góc xếp khăn", "Folding corner"), "🧺", [tx("Hãy nhặt các dải băng vải và khăn che đầu rải trong mộ, rồi mang đến góc này nhé.", "Pick up the linen strips and the head cloth lying in the tomb, then bring them to this corner.")]);
       return;
     }
     const id = this.held.id;
@@ -192,14 +193,14 @@ export class Glorious01ResurrectionScene extends InteractiveScene {
       .setDepth(BENCH_AT[1] + 1);
     this.sparkleBurst(folded.x, folded.y - 6);
     if (n < CLOTHS.length) {
-      this.talk("Ngôi mộ trống", "🕊️", [`Con đã gấp gọn ${n}/${CLOTHS.length} vật. Còn vài thứ nữa.`]);
+      this.talk(tx("Ngôi mộ trống", "The empty tomb"), "🕊️", [tx(`Con đã gấp gọn ${n}/${CLOTHS.length} vật. Còn vài thứ nữa.`, `You folded ${n}/${CLOTHS.length} items. A few more to go.`)]);
       return;
     }
     this.tidied = true;
     this.shade.setAlpha(0.05);
-    this.talk("Ngôi mộ trống", "🕊️", [
-      "Khăn che đầu được cuốn riêng ở một chỗ, không để chung với băng vải. (Ga 20, 7)",
-      "Chúa không còn ở trong mộ nữa. Người đã sống lại! Hãy ra vườn xem sao.",
+    this.talk(tx("Ngôi mộ trống", "The empty tomb"), "🕊️", [
+      tx("Khăn che đầu được cuốn riêng ở một chỗ, không để chung với băng vải. (Ga 20, 7)", "The head cloth was rolled up in a place by itself, not with the linen strips. (Jn 20:7)"),
+      tx("Chúa không còn ở trong mộ nữa. Người đã sống lại! Hãy ra vườn xem sao.", "The Lord is no longer in the tomb. He is risen! Go to the garden and see."),
     ]);
   }
 
@@ -217,12 +218,12 @@ export class Glorious01ResurrectionScene extends InteractiveScene {
     this.sparkleBurst(JESUS_AT[0], JESUS_AT[1] - 20);
     this.time.delayedCall(1100, () =>
       this.talk(
-        "Chúa Giêsu Phục Sinh",
+        tx("Chúa Giêsu Phục Sinh", "The Risen Jesus"),
         "🌅",
         [
-          "Chúa Giêsu hiện ra, vinh hiển, các dấu đinh sáng lấp lánh trên tay chân. Người gọi: 'Maria!'",
-          "Người nói: 'Đừng sợ! Hãy đi báo tin cho anh em Thầy.' (Mt 28, 10)",
-          "Chúa đã chiến thắng sự chết. Hãy vui mừng và báo tin vui cho mọi người nhé!",
+          tx("Chúa Giêsu hiện ra, vinh hiển, các dấu đinh sáng lấp lánh trên tay chân. Người gọi: 'Maria!'", "Jesus appears in glory, the nail marks shining on His hands and feet. He calls: ‘Mary!’"),
+          tx("Người nói: 'Đừng sợ! Hãy đi báo tin cho anh em Thầy.' (Mt 28, 10)", "He says: ‘Do not be afraid! Go and tell my brothers.’ (Mt 28:10)"),
+          tx("Chúa đã chiến thắng sự chết. Hãy vui mừng và báo tin vui cho mọi người nhé!", "The Lord has conquered death. Rejoice and share the good news with everyone!"),
         ],
         () => this.finish()
       )
@@ -233,10 +234,10 @@ export class Glorious01ResurrectionScene extends InteractiveScene {
     this.time.delayedCall(300, () =>
       this.complete(
         1,
-        "Năm Sự Mừng",
-        "Đức Chúa Giêsu Sống Lại Từ Cõi Chết",
-        "Niềm tin vững vàng vào sự phục sinh và niềm hy vọng bất diệt vượt qua sự chết.",
-        "Chúa đã sống lại! Khi buồn hay sợ, hãy nhớ: tình yêu mạnh hơn sự chết. Alleluia!",
+        tx("Năm Sự Mừng", "Glorious"),
+        tx("Đức Chúa Giêsu Sống Lại Từ Cõi Chết", "The Resurrection of Jesus"),
+        tx("Niềm tin vững vàng vào sự phục sinh và niềm hy vọng bất diệt vượt qua sự chết.", "Firm faith in the resurrection and an unfailing hope that overcomes death."),
+        tx("Chúa đã sống lại! Khi buồn hay sợ, hãy nhớ: tình yêu mạnh hơn sự chết. Alleluia!", "The Lord is risen! When you feel sad or afraid, remember: love is stronger than death. Alleluia!"),
         ["fold_linen", "meet_risen_lord"]
       )
     );

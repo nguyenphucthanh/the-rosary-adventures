@@ -5,6 +5,7 @@ import { STAGE_TEXT } from "@/modules/the-garden-of-eden/data/stageText";
 import { tr } from "@/modules/the-garden-of-eden/data/dialogues";
 import EventBus from "@/modules/shared/game/EventBus";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const T = 16;
 const COLS = 29;
@@ -240,7 +241,7 @@ export class Stage03LandScene extends BaseGenesisScene {
       break;
     }
     if (!route.length) {
-      if (notReady) this.talk("Hạt Giống Đại Thụ", ["Hạt giống chưa đến lúc nảy mầm. Hãy phủ xanh mọi ô khác trước, ô này đi cuối cùng nhé!"]);
+      if (notReady) this.talk(tx("Hạt Giống Đại Thụ", "Great Tree Seed"), [tx("Hạt giống chưa đến lúc nảy mầm. Hãy phủ xanh mọi ô khác trước, ô này đi cuối cùng nhé!", "The seed isn't ready to sprout yet. Turn every other tile green first, and this one last!")]);
       return;
     }
     this.moving = true;
@@ -273,7 +274,7 @@ export class Stage03LandScene extends BaseGenesisScene {
   private arrived(crush: boolean) {
     const k = this.island[this.gy][this.gx];
     if (crush) {
-      this.talk("Cây non bị dập", ["Ôi, cây non bị dập mất rồi! Hãy gieo lại đảo này, lần này đi cẩn thận hơn nhé."], () => this.resetToCheckpoint());
+      this.talk(tx("Cây non bị dập", "Sapling crushed"), [tx("Ôi, cây non bị dập mất rồi! Hãy gieo lại đảo này, lần này đi cẩn thận hơn nhé.", "Oh no, the sapling was crushed! Replant this island and step more carefully this time.")], () => this.resetToCheckpoint());
       return;
     }
     if (k < 0) return; // on a bridge
@@ -294,6 +295,6 @@ export class Stage03LandScene extends BaseGenesisScene {
     }
     this.bridgeOpen[k] = true;
     this.bridgeImgs[k].forEach((img, i) => this.tweens.add({ targets: img, alpha: 1, duration: 300, delay: i * 250 }));
-    this.talk("Cuộn Sách Sáng Thế", ["Hòn đảo đã phủ xanh! Một cây cầu đá hiện ra, hãy sang đảo kế tiếp nhé."]);
+    this.talk(tx("Cuộn Sách Sáng Thế", "The Genesis Scroll"), [tx("Hòn đảo đã phủ xanh! Một cây cầu đá hiện ra, hãy sang đảo kế tiếp nhé.", "The island is green! A stone bridge appears. Cross to the next island.")]);
   }
 }

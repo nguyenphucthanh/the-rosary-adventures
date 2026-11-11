@@ -3,6 +3,7 @@ import { BaseGenesisScene, DEPTH } from "@/modules/the-garden-of-eden/game/scene
 import { registerPrologueTextures } from "@/modules/the-garden-of-eden/game/utils/prologueTextures";
 import { PROLOGUE, tr } from "@/modules/the-garden-of-eden/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const ROOM_W = 320;
 const ROOM_H = 240;
@@ -37,7 +38,7 @@ export class PrologueScene extends BaseGenesisScene {
     this.hasCan = this.watered = this.bookOpen = false;
     this.got = [false, false, false];
     this.pieces = [null, null, null];
-    this.intro = { illustration: "prologue", speaker: "Trang Sách Đầu Tiên", lines: PROLOGUE.intro.map(tr) };
+    this.intro = { illustration: "prologue", speaker: tx("Trang Sách Đầu Tiên", "The First Page"), lines: PROLOGUE.intro.map(tr) };
     super.create();
   }
 
@@ -82,18 +83,18 @@ export class PrologueScene extends BaseGenesisScene {
           this.hasCan = true;
           audio.sfx("pickup");
           if (this.can) this.removePickup(this.can);
-          this.talk("Bình tưới", PROLOGUE.canPicked.map(tr));
+          this.talk(tx("Bình tưới", "Watering can"), PROLOGUE.canPicked.map(tr));
         },
       },
       {
-        x: PLANT[0], y: PLANT[1] - 6, r: 34, label: "[A] Chậu cây non", active: () => !this.watered,
-        act: () => (this.hasCan ? this.water() : this.talk("Chậu cây", PROLOGUE.plantNoCan.map(tr))),
+        x: PLANT[0], y: PLANT[1] - 6, r: 34, label: tx("[A] Chậu cây non", "[A] Seedling pot"), active: () => !this.watered,
+        act: () => (this.hasCan ? this.water() : this.talk(tx("Chậu cây", "Plant pot"), PROLOGUE.plantNoCan.map(tr))),
       },
-      { x: DESK[0], y: DESK[1] - 4, r: 38, label: "[A] Cuốn Kinh Thánh", active: () => !this.bookOpen, act: () => this.desk() },
+      { x: DESK[0], y: DESK[1] - 4, r: 38, label: tx("[A] Cuốn Kinh Thánh", "[A] The Bible"), active: () => !this.bookOpen, act: () => this.desk() },
     ];
     PIECE_AT.forEach(([x, y], i) => {
       this.interactables.push({
-        x, y: y - 6, r: 24, label: "[A] Mảnh dấu trang", active: () => !!this.pieces[i] && !this.got[i],
+        x, y: y - 6, r: 24, label: tx("[A] Mảnh dấu trang", "[A] Bookmark piece"), active: () => !!this.pieces[i] && !this.got[i],
         act: () => this.collect(i),
       });
     });
@@ -104,7 +105,7 @@ export class PrologueScene extends BaseGenesisScene {
     audio.sfx("bless");
     this.plant?.setTexture("plant_bloom");
     this.sparkleBurst(PLANT[0], PLANT[1] - 14);
-    this.talk("Chậu cây", PROLOGUE.plantWater.map(tr), () => {
+    this.talk(tx("Chậu cây", "Plant pot"), PROLOGUE.plantWater.map(tr), () => {
       PIECE_AT.forEach(([x, y], i) => {
         this.pieces[i] = this.pickup(x, y, `bookmark_${i}`);
         this.sparkleBurst(x, y - 6, 6);
@@ -117,13 +118,13 @@ export class PrologueScene extends BaseGenesisScene {
     audio.sfx("pickup");
     const img = this.pieces[i];
     if (img) this.removePickup(img);
-    this.talk("Dấu trang", [tr(PROLOGUE.pieceFound) + tr(PROLOGUE.pieces[i])]);
+    this.talk(tx("Dấu trang", "Bookmark"), [tr(PROLOGUE.pieceFound) + tr(PROLOGUE.pieces[i])]);
   }
 
   private desk() {
     const n = this.got.filter(Boolean).length;
-    if (!this.watered) return this.talk("Kinh Thánh", PROLOGUE.deskNotYet.map(tr));
-    if (n < 3) return this.talk("Kinh Thánh", [tr(PROLOGUE.deskPartial).replace("{n}", String(n))]);
+    if (!this.watered) return this.talk(tx("Kinh Thánh", "Bible"), PROLOGUE.deskNotYet.map(tr));
+    if (n < 3) return this.talk(tx("Kinh Thánh", "Bible"), [tr(PROLOGUE.deskPartial).replace("{n}", String(n))]);
     this.arrange([]);
   }
 
@@ -132,7 +133,7 @@ export class PrologueScene extends BaseGenesisScene {
     const left = [0, 1, 2].filter((i) => !order.includes(i));
     if (left.length === 1) return this.openBook();
     this.talk(
-      "Cuốn Kinh Thánh",
+      tx("Cuốn Kinh Thánh", "The Bible"),
       [tr(order.length ? PROLOGUE.deskNext : PROLOGUE.deskStart)],
       undefined,
       left.map((i) => ({
@@ -143,7 +144,7 @@ export class PrologueScene extends BaseGenesisScene {
             this.arrange([...order, i]);
           } else {
             audio.sfx("wrong");
-            this.talk("Cuốn Kinh Thánh", PROLOGUE.deskWrong.map(tr));
+            this.talk(tx("Cuốn Kinh Thánh", "The Bible"), PROLOGUE.deskWrong.map(tr));
           }
         },
       }))
@@ -156,7 +157,7 @@ export class PrologueScene extends BaseGenesisScene {
     this.cameras.main.flash(500, 255, 244, 180);
     audio.sfx("bless");
     this.galaxyRise(DESK[0] - 6, DESK[1] - 18);
-    this.talk("Trang Sách Đầu Tiên", PROLOGUE.bookOpens.map(tr), () => this.spiritAppears());
+    this.talk(tx("Trang Sách Đầu Tiên", "The First Page"), PROLOGUE.bookOpens.map(tr), () => this.spiritAppears());
   }
 
   /** Stepped violet/blue motes rising from the page. */
@@ -176,9 +177,9 @@ export class PrologueScene extends BaseGenesisScene {
     this.sparkleBurst(DESK[0] - 6, DESK[1] - 24);
     this.glideTo(dove, ALTAR[0] - 28, ALTAR[1] + 20);
     this.time.delayedCall(1500, () =>
-      this.talk("Chúa Thánh Thần", PROLOGUE.spirit.map(tr), () => {
+      this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), PROLOGUE.spirit.map(tr), () => {
         this.completeStage();
-        this.talk("Suy niệm", [tr(PROLOGUE.lesson)], () => this.goToNextStage());
+        this.talk(tx("Suy niệm", "Reflection"), [tr(PROLOGUE.lesson)], () => this.goToNextStage());
       })
     );
   }

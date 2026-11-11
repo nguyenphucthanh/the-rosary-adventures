@@ -5,6 +5,7 @@ import { InteractiveScene } from "@/modules/the-rosary-adventures/game/scenes/In
 import { registerAnnunciationTextures } from "@/modules/the-rosary-adventures/game/utils/npcTextureGenerator";
 import { registerVisitationTextures } from "@/modules/the-rosary-adventures/game/utils/visitationTextureGenerator";
 import { registerInfancyTextures } from "@/modules/the-rosary-adventures/game/utils/infancyTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 800;
 const H = 600;
@@ -53,12 +54,12 @@ export class Joyful05FindingScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("vui_05_tim_chua", [400, 500], {
-      speaker: "Phố Giê-ru-sa-lem",
+      speaker: tx("Phố Giê-ru-sa-lem", "The Streets of Jerusalem"),
       emoji: "🏙️",
       lines: [
-        "Mầu Nhiệm Thứ Năm: Đức Bà Tìm Được Đức Chúa Giêsu Trong Đền Thờ (Lc 2, 41-52).",
-        "Dịp lễ Vượt Qua, phố xá đông nghẹt. Đức Mẹ và Thánh Giuse đã đi cả ngày đường mới nhận ra Chúa Giêsu không đi cùng đoàn.",
-        "Hãy hỏi thăm người trong phố, rồi tìm cuộn sách đúng để mở cổng Đền Thờ nhé!",
+        tx("Mầu Nhiệm Thứ Năm: Đức Bà Tìm Được Đức Chúa Giêsu Trong Đền Thờ (Lc 2, 41-52).", "Fifth Mystery: The Finding of Jesus in the Temple (Lk 2:41-52)."),
+        tx("Dịp lễ Vượt Qua, phố xá đông nghẹt. Đức Mẹ và Thánh Giuse đã đi cả ngày đường mới nhận ra Chúa Giêsu không đi cùng đoàn.", "At the Passover feast the streets are packed. Mary and Joseph traveled a whole day before realizing Jesus was not with the caravan."),
+        tx("Hãy hỏi thăm người trong phố, rồi tìm cuộn sách đúng để mở cổng Đền Thờ nhé!", "Ask the people in the street, then find the right scroll to open the Temple gate!"),
       ],
     });
   }
@@ -141,90 +142,90 @@ export class Joyful05FindingScene extends InteractiveScene {
       {
         at: () => MERCHANT_AT,
         r: 46,
-        label: () => "[A] Hỏi thương nhân",
+        label: () => tx("[A] Hỏi thương nhân", "[A] Ask the merchant"),
         active: () => true,
         act: () => this.askMerchant(),
       },
       {
         at: () => SWEEPER_AT,
         r: 46,
-        label: () => "[A] Hỏi người quét sân",
+        label: () => tx("[A] Hỏi người quét sân", "[A] Ask the sweeper"),
         active: () => true,
         act: () => this.askSweeper(),
       },
       {
         at: () => [this.mary.x, this.mary.y],
         r: 44,
-        label: () => "[A] Trò chuyện với Đức Mẹ",
+        label: () => tx("[A] Trò chuyện với Đức Mẹ", "[A] Talk to Mary"),
         active: () => !this.finished,
-        act: () => this.talkToParents("Đức Mẹ Maria", "💙", "Con ơi, con đang ở đâu? Mẹ lo lắm! Xin con giúp Mẹ hỏi thăm khắp phố nhé."),
+        act: () => this.talkToParents(tx("Đức Mẹ Maria", "Mother Mary"), "💙", tx("Con ơi, con đang ở đâu? Mẹ lo lắm! Xin con giúp Mẹ hỏi thăm khắp phố nhé.", "My child, where are you? I'm so worried! Please help me ask around the whole street.")),
       },
       {
         at: () => [this.joseph.x, this.joseph.y],
         r: 44,
-        label: () => "[A] Trò chuyện với Thánh Giuse",
+        label: () => tx("[A] Trò chuyện với Thánh Giuse", "[A] Talk to Saint Joseph"),
         active: () => !this.finished,
-        act: () => this.talkToParents("Thánh Giuse", "🧔", "Đã ba ngày tìm kiếm rồi. Hãy hỏi những người buôn bán và quét dọn, họ để ý mọi chuyện trong phố."),
+        act: () => this.talkToParents(tx("Thánh Giuse", "Saint Joseph"), "🧔", tx("Đã ba ngày tìm kiếm rồi. Hãy hỏi những người buôn bán và quét dọn, họ để ý mọi chuyện trong phố.", "Three days of searching already. Ask the merchants and the sweepers; they notice everything in the street.")),
       },
       {
         at: () => [GATE[0], GATE[1] + 26],
         r: 50,
-        label: () => "[A] Gõ cổng Đền Thờ",
+        label: () => tx("[A] Gõ cổng Đền Thờ", "[A] Knock on the Temple gate"),
         active: () => !this.gateOpen,
         act: () => this.knockGate(),
       },
       {
         at: () => JESUS_AT,
         r: 60,
-        label: () => "[A] Nói chuyện với Chúa Giêsu",
+        label: () => tx("[A] Nói chuyện với Chúa Giêsu", "[A] Talk to Jesus"),
         active: () => this.gateOpen && !this.finished,
-        act: () => (this.maryArrived ? this.climax() : this.talk("Cổng Đền Thờ", "🏛️", ["Hãy đợi Đức Mẹ và Thánh Giuse vào cùng nhé."])),
+        act: () => (this.maryArrived ? this.climax() : this.talk(tx("Cổng Đền Thờ", "Temple Gate"), "🏛️", [tx("Hãy đợi Đức Mẹ và Thánh Giuse vào cùng nhé.", "Wait for Mary and Joseph to come in with you.")])),
       },
     ];
   }
 
   private talkToParents(speaker: string, emoji: string, line: string) {
-    this.talk(speaker, emoji, this.gateOpen ? ["Chúa Giêsu đây rồi! Cảm tạ Chúa!"] : [line]);
+    this.talk(speaker, emoji, this.gateOpen ? [tx("Chúa Giêsu đây rồi! Cảm tạ Chúa!", "Here is Jesus! Thanks be to God!")] : [line]);
   }
 
   private askMerchant() {
     this.askedMerchant = true;
-    this.talk("Thương Nhân", "🧑‍🌾", [
-      "(Bạn hỏi:) Chú ơi, chú có thấy một cậu bé thông thái không ạ?",
-      "À, cậu bé 12 tuổi, nói chuyện đĩnh đạc lắm phải không? Chú thấy cậu ấy đi về phía Đền Thờ đằng kia.",
-      "Chú nghe nói các kinh sư ngồi ở thềm Đền Thờ. Cứ đến gõ cổng xem sao!",
+    this.talk(tx("Thương Nhân", "Merchant"), "🧑‍🌾", [
+      tx("(Bạn hỏi:) Chú ơi, chú có thấy một cậu bé thông thái không ạ?", "(You ask:) Sir, have you seen a very wise boy?"),
+      tx("À, cậu bé 12 tuổi, nói chuyện đĩnh đạc lắm phải không? Chú thấy cậu ấy đi về phía Đền Thờ đằng kia.", "Ah, a 12-year-old boy who speaks with such dignity? I saw him heading toward the Temple over there."),
+      tx("Chú nghe nói các kinh sư ngồi ở thềm Đền Thờ. Cứ đến gõ cổng xem sao!", "I heard the scribes sit on the Temple steps. Go knock on the gate and see!"),
     ]);
   }
 
   private askSweeper() {
     this.askedSweeper = true;
-    this.talk("Người Quét Sân", "🧹", [
-      "(Bạn hỏi:) Bác ơi, bác có thấy một cậu bé thông thái không ạ?",
-      "Có đấy! Cậu bé vào thư phòng Kinh Luật, ngồi nghe và hỏi các kinh sư. Ai cũng ngạc nhiên! (Lc 2, 46-47)",
-      "Nhưng các ông ấy chỉ mở cổng cho ai biết đúng Lời Chúa trong cuộn sách thôi.",
+    this.talk(tx("Người Quét Sân", "Sweeper"), "🧹", [
+      tx("(Bạn hỏi:) Bác ơi, bác có thấy một cậu bé thông thái không ạ?", "(You ask:) Sir, have you seen a very wise boy?"),
+      tx("Có đấy! Cậu bé vào thư phòng Kinh Luật, ngồi nghe và hỏi các kinh sư. Ai cũng ngạc nhiên! (Lc 2, 46-47)", "Yes! The boy went into the Law study room, sitting and listening and questioning the scribes. Everyone was amazed! (Lk 2:46-47)"),
+      tx("Nhưng các ông ấy chỉ mở cổng cho ai biết đúng Lời Chúa trong cuộn sách thôi.", "But those men only open the gate to someone who knows the right Word of God in the scroll."),
     ]);
   }
 
   private knockGate() {
     if (!this.askedMerchant || !this.askedSweeper) {
-      this.talk("Cổng Đền Thờ", "🚪", [
-        "Cổng Đền Thờ đóng im ỉm. Bạn chưa biết gõ ở đâu, hỏi ai.",
-        `Hãy hỏi thăm trong phố trước đã (${Number(this.askedMerchant) + Number(this.askedSweeper)}/2): thương nhân và người quét sân.`,
+      this.talk(tx("Cổng Đền Thờ", "Temple Gate"), "🚪", [
+        tx("Cổng Đền Thờ đóng im ỉm. Bạn chưa biết gõ ở đâu, hỏi ai.", "The Temple gate stays shut. You don't yet know where to knock or whom to ask."),
+        tx(`Hãy hỏi thăm trong phố trước đã (${Number(this.askedMerchant) + Number(this.askedSweeper)}/2): thương nhân và người quét sân.`, `Ask around the street first (${Number(this.askedMerchant) + Number(this.askedSweeper)}/2): the merchant and the sweeper.`),
       ]);
       return;
     }
     const correct = {
-      label: "Cuộn ngôn sứ Mica: 'Hỡi Bê-lem, từ ngươi sẽ xuất hiện Đấng cai trị Ít-ra-en.' (Mk 5, 1)",
+      label: tx("Cuộn ngôn sứ Mica: 'Hỡi Bê-lem, từ ngươi sẽ xuất hiện Đấng cai trị Ít-ra-en.' (Mk 5, 1)", "Scroll of the Prophet Micah: ‘But you, Bethlehem, from you shall come forth the ruler of Israel.’ (Mic 5:1)"),
       onSelect: () => this.openGate(),
     };
-    const wrongA = { label: "Cuộn sổ ghi giá bánh và dầu ở chợ.", onSelect: () => this.wrongScroll() };
-    const wrongB = { label: "Cuộn bản đồ đường đi đến Rô-ma.", onSelect: () => this.wrongScroll() };
+    const wrongA = { label: tx("Cuộn sổ ghi giá bánh và dầu ở chợ.", "A scroll listing the prices of bread and oil at the market."), onSelect: () => this.wrongScroll() };
+    const wrongB = { label: tx("Cuộn bản đồ đường đi đến Rô-ma.", "A map scroll of the road to Rome."), onSelect: () => this.wrongScroll() };
     this.talk(
-      "Các Kinh Sư",
+      tx("Các Kinh Sư", "The Scribes"),
       "📜",
       [
-        "Sau cổng vọng ra tiếng các kinh sư: 'Ai biết Đấng Cứu Thế sẽ sinh ra ở đâu?'",
-        "Bạn nhìn xuống ba cuộn sách trong tay. Hãy chọn cuộn sách đúng!",
+        tx("Sau cổng vọng ra tiếng các kinh sư: 'Ai biết Đấng Cứu Thế sẽ sinh ra ở đâu?'", "From behind the gate come the scribes' voices: ‘Who knows where the Messiah will be born?’"),
+        tx("Bạn nhìn xuống ba cuộn sách trong tay. Hãy chọn cuộn sách đúng!", "You look down at the three scrolls in your hands. Choose the right scroll!"),
       ],
       undefined,
       [wrongA, correct, wrongB]
@@ -234,11 +235,11 @@ export class Joyful05FindingScene extends InteractiveScene {
   private wrongScroll() {
     audio.sfx("wrong");
     this.talk(
-      "Các Kinh Sư",
+      tx("Các Kinh Sư", "The Scribes"),
       "📜",
-      ["Cuộn sách ấy không nói về Đấng Cứu Thế. Hãy nhớ lại lời ngôn sứ về thành Bê-lem..."],
+      [tx("Cuộn sách ấy không nói về Đấng Cứu Thế. Hãy nhớ lại lời ngôn sứ về thành Bê-lem...", "That scroll isn't about the Savior. Remember the prophet's words about the town of Bethlehem...")],
       undefined,
-      [{ label: "Cuộn ngôn sứ Mica: 'Hỡi Bê-lem, từ ngươi sẽ xuất hiện Đấng cai trị Ít-ra-en.' (Mk 5, 1)", onSelect: () => this.openGate() }]
+      [{ label: tx("Cuộn ngôn sứ Mica: 'Hỡi Bê-lem, từ ngươi sẽ xuất hiện Đấng cai trị Ít-ra-en.' (Mk 5, 1)", "Scroll of the Prophet Micah: ‘But you, Bethlehem, from you shall come forth the ruler of Israel.’ (Mic 5:1)"), onSelect: () => this.openGate() }]
     );
   }
 
@@ -249,11 +250,11 @@ export class Joyful05FindingScene extends InteractiveScene {
     this.porch.forEach((s) => s.setVisible(true));
     this.sparkleBurst(GATE[0], GATE[1] - 30);
     this.talk(
-      "Các Kinh Sư",
+      tx("Các Kinh Sư", "The Scribes"),
       "📜",
       [
-        "Đúng rồi! Cổng Đền Thờ từ từ mở ra.",
-        "Bên trong, giữa các bậc thầy luật, một cậu bé đang ngồi nghe và đặt câu hỏi. Ai nấy đều ngạc nhiên về trí hiểu biết của Cậu. (Lc 2, 47)",
+        tx("Đúng rồi! Cổng Đền Thờ từ từ mở ra.", "Right! The Temple gate slowly opens."),
+        tx("Bên trong, giữa các bậc thầy luật, một cậu bé đang ngồi nghe và đặt câu hỏi. Ai nấy đều ngạc nhiên về trí hiểu biết của Cậu. (Lc 2, 47)", "Inside, among the teachers of the Law, a boy sits listening and asking questions. Everyone is amazed at His understanding. (Lk 2:47)"),
       ],
       () => {
         this.walk(this.mary, [[400, 290], [400, 200], [366, 128]], () => (this.maryArrived = true));
@@ -266,30 +267,30 @@ export class Joyful05FindingScene extends InteractiveScene {
     this.finished = true;
     this.sparkleBurst(JESUS_AT[0], JESUS_AT[1] - 20);
     this.talk(
-      "Đức Mẹ Maria",
+      tx("Đức Mẹ Maria", "Mother Mary"),
       "💙",
-      ["Mẹ bước tới, nghẹn ngào: 'Con ơi, sao con làm cho cha mẹ phải vất vả thế này? Cha con và mẹ đây đã phải cực lòng tìm con!' (Lc 2, 48)"],
+      [tx("Mẹ bước tới, nghẹn ngào: 'Con ơi, sao con làm cho cha mẹ phải vất vả thế này? Cha con và mẹ đây đã phải cực lòng tìm con!' (Lc 2, 48)", "Mary steps forward, choking with emotion: ‘Son, why have You done this to us? Your father and I have been looking for You in great anguish!’ (Lk 2:48)")],
       () =>
         this.talk(
-          "Chúa Giêsu",
+          tx("Chúa Giêsu", "Jesus"),
           "✨",
-          ["'Sao cha mẹ lại tìm con? Cha mẹ không biết là con phải lo việc của Cha con sao?' (Lc 2, 49)"],
+          [tx("'Sao cha mẹ lại tìm con? Cha mẹ không biết là con phải lo việc của Cha con sao?' (Lc 2, 49)", "‘Why were you looking for me? Did you not know that I must be in my Father's house?’ (Lk 2:49)")],
           () =>
             this.talk(
-              "Lời Chúa",
+              tx("Lời Chúa", "The Word of God"),
               "📖",
               [
-                "Rồi Người cùng cha mẹ trở về Nadarét và hằng vâng phục các ngài. (Lc 2, 51)",
-                "Còn Mẹ Người thì ghi nhớ tất cả những điều ấy trong lòng. (Lc 2, 51)",
+                tx("Rồi Người cùng cha mẹ trở về Nadarét và hằng vâng phục các ngài. (Lc 2, 51)", "Then He went down with them and came to Nazareth, and was obedient to them. (Lk 2:51)"),
+                tx("Còn Mẹ Người thì ghi nhớ tất cả những điều ấy trong lòng. (Lc 2, 51)", "His mother kept all these things in her heart. (Lk 2:51)"),
               ],
               () =>
                 this.time.delayedCall(400, () =>
                   this.complete(
                     5,
-                    "Năm Sự Vui",
-                    "Đức Bà Tìm Được Đức Chúa Giêsu Trong Đền Thờ",
-                    "Luôn tha thiết tìm kiếm Chúa và đặt việc Chúa lên trên hết.",
-                    "Đức Mẹ không bỏ cuộc cho đến khi tìm thấy Chúa. Hãy luôn tìm kiếm Chúa mỗi ngày nhé!",
+                    tx("Năm Sự Vui", "Joyful"),
+                    tx("Đức Bà Tìm Được Đức Chúa Giêsu Trong Đền Thờ", "The Finding of Jesus in the Temple"),
+                    tx("Luôn tha thiết tìm kiếm Chúa và đặt việc Chúa lên trên hết.", "Always seek the Lord earnestly and put the Lord's work above everything."),
+                    tx("Đức Mẹ không bỏ cuộc cho đến khi tìm thấy Chúa. Hãy luôn tìm kiếm Chúa mỗi ngày nhé!", "Mary did not give up until she found Jesus. Seek the Lord every day!"),
                     ["ask_merchant", "ask_sweeper", "choose_scroll", "find_jesus"]
                   )
                 )

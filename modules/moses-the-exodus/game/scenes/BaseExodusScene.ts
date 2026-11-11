@@ -8,6 +8,7 @@ import { PAL } from "@/modules/shared/game/utils/pixelArt";
 import { tr, type L } from "@/modules/moses-the-exodus/data/dialogues";
 import EventBus from "@/modules/shared/game/EventBus";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 /** Depth layers. World objects use their foot y (y-sorting) between RUG and WALL. */
 export const DEPTH = { FLOOR: 0, RUG: 1, LIGHT: 2, WALL: 2000, FX: 5000, UI: 9000, INTRO: 20000 };
@@ -191,8 +192,8 @@ export class BaseExodusScene extends Phaser.Scene {
     const info = EXODUS_STAGES.find((g) => g.key === this.stageKey);
     audio.sfx("complete");
     this.completeStage();
-    this.talk(info ? `Ấn Dấu thứ ${info.index + 1}` : "Suy niệm", text.outro.map(tr), () =>
-      this.talk("Suy niệm", [tr(text.lesson)], () => this.goToNextStage())
+    this.talk(info ? tx(`Ấn Dấu thứ ${info.index + 1}`, `Seal ${info.index + 1}`) : tx("Suy niệm", "Reflection"), text.outro.map(tr), () =>
+      this.talk(tx("Suy niệm", "Reflection"), [tr(text.lesson)], () => this.goToNextStage())
     );
   }
 
@@ -200,7 +201,7 @@ export class BaseExodusScene extends Phaser.Scene {
   protected goToNextStage() {
     const next = nextSceneAfter(this.stageKey);
     if (!next) {
-      this.talk("Hai Bia Đá Giao Ước", ["Những chặng tiếp theo của hành trình đang được đóng... Hãy quay lại sau nhé!"]);
+      this.talk(tx("Hai Bia Đá Giao Ước", "Tablets of the Covenant"), [tx("Những chặng tiếp theo của hành trình đang được đóng... Hãy quay lại sau nhé!", "The next stages of the journey are still being built... Come back soon!")]);
       return;
     }
     const cam = this.cameras.main;

@@ -4,6 +4,7 @@ import { DEPTH } from "@/modules/the-rosary-adventures/game/scenes/BaseMysterySc
 import { InteractiveScene } from "@/modules/the-rosary-adventures/game/scenes/InteractiveScene";
 import { registerAllForGlory } from "@/modules/the-rosary-adventures/game/utils/gloryTextureGenerator";
 import { registerInterludeTextures } from "@/modules/the-rosary-adventures/game/utils/interludeTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 520;
@@ -65,12 +66,12 @@ export class InterludeB6BeautifulGateScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("mid_b6_cua_dep", [320, 440], {
-      speaker: "Thánh Phê-rô & Gio-an",
+      speaker: tx("Thánh Phê-rô & Gio-an", "Saints Peter & John"),
       emoji: "🕊️",
       lines: [
-        "Chặng Đệm Hành Động: Phép Lạ Cửa Đẹp & Chứng Nhân Tin Mừng (Cv 3, 1-10).",
-        "Đầy tràn Chúa Thánh Thần, Phê-rô nói với người què ở Cửa Đẹp: “Vàng bạc thì tôi không có; nhưng cái tôi có, tôi cho anh đây: nhân danh Đức Giêsu Kitô, anh hãy đứng dậy mà đi!” (Cv 3, 6)",
-        "Hãy thu thập 6 Ơn Thánh Thần (🕊️) quanh sân Đền Thờ và đến chia sẻ [A] cho 3 người đang mong đợi (mỗi người cần 2 Ơn Thánh) để họ nhảy mừng ca tụng Chúa nhé!",
+        tx("Chặng Đệm Hành Động: Phép Lạ Cửa Đẹp & Chứng Nhân Tin Mừng (Cv 3, 1-10).", "Action Mid-Stage: The Miracle at the Beautiful Gate & Witnesses of the Good News (Acts 3:1-10)."),
+        tx("Đầy tràn Chúa Thánh Thần, Phê-rô nói với người què ở Cửa Đẹp: “Vàng bạc thì tôi không có; nhưng cái tôi có, tôi cho anh đây: nhân danh Đức Giêsu Kitô, anh hãy đứng dậy mà đi!” (Cv 3, 6)", "Filled with the Holy Spirit, Peter says to the lame man at the Beautiful Gate: “I have neither silver nor gold, but what I do have I give you: in the name of Jesus Christ, rise and walk!” (Acts 3:6)"),
+        tx("Hãy thu thập 6 Ơn Thánh Thần (🕊️) quanh sân Đền Thờ và đến chia sẻ [A] cho 3 người đang mong đợi (mỗi người cần 2 Ơn Thánh) để họ nhảy mừng ca tụng Chúa nhé!", "Collect 6 Gifts of the Spirit (🕊️) around the Temple courtyard and share them with [A] the 3 people waiting (each needs 2 Gifts) so they can leap and praise God!"),
       ],
     });
     this.syncProgress();
@@ -81,7 +82,7 @@ export class InterludeB6BeautifulGateScene extends InteractiveScene {
       {
         id: "grace_sparks",
         emoji: "🕊️",
-        label: "ƠN THÁNH",
+        label: tx("ƠN THÁNH", "GIFTS"),
         current: this.graceCount,
         total: GRACE_GOAL,
         color: "sky",
@@ -89,7 +90,7 @@ export class InterludeB6BeautifulGateScene extends InteractiveScene {
       {
         id: "witnesses",
         emoji: "🙌",
-        label: "CHỨNG NHÂN",
+        label: tx("CHỨNG NHÂN", "WITNESSES"),
         current: this.witnessCount,
         total: WITNESS_GOAL,
         color: "emerald",
@@ -155,9 +156,9 @@ export class InterludeB6BeautifulGateScene extends InteractiveScene {
 
     // 3 Waiting villagers who need healing & Good News
     const villagerDefs: [string, string, number, number][] = [
-      ["mourner", "Người Què Ở Cửa Đẹp", 175, 250],
-      ["hungry", "Người Đói Khát Lời Chúa", 465, 250],
-      ["prisoner", "Người Buồn Phiền", 320, 355],
+      ["mourner", tx("Người Què Ở Cửa Đẹp", "The Lame Man at the Beautiful Gate"), 175, 250],
+      ["hungry", tx("Người Đói Khát Lời Chúa", "The Man Hungry for God's Word"), 465, 250],
+      ["prisoner", tx("Người Buồn Phiền", "The Sorrowful Man"), 320, 355],
     ];
     for (const [key, name, x, y] of villagerDefs) {
       const glow = this.add.image(x, y - 10, "glow_small").setDepth(DEPTH.LIGHT).setAlpha(0.45);
@@ -200,8 +201,8 @@ export class InterludeB6BeautifulGateScene extends InteractiveScene {
       label: () => {
         const needed = (this.witnessCount + 1) * 2;
         return this.graceCount >= needed
-          ? `[A] Trao Ơn Thánh cho ${v.name}!`
-          : `[A] ${v.name} (Cần ${needed} Ơn Thánh — hiện có ${this.graceCount}/${GRACE_GOAL})`;
+          ? tx(`[A] Trao Ơn Thánh cho ${v.name}!`, `[A] Give a Gift of the Spirit to ${v.name}!`)
+          : tx(`[A] ${v.name} (Cần ${needed} Ơn Thánh — hiện có ${this.graceCount}/${GRACE_GOAL})`, `[A] ${v.name} (Needs ${needed} Gifts — you have ${this.graceCount}/${GRACE_GOAL})`);
       },
       active: () => !this.finished && !v.blessed,
       act: () => this.blessVillager(idx),
@@ -214,8 +215,8 @@ export class InterludeB6BeautifulGateScene extends InteractiveScene {
         r: 64,
         label: () =>
           this.witnessCount >= WITNESS_GOAL
-            ? "[A] Cùng Thánh Phê-rô & Gio-an ca tụng Chúa!"
-            : `[A] Thánh Phê-rô & Gio-an (${this.graceCount}/${GRACE_GOAL} Ơn Thánh · ${this.witnessCount}/${WITNESS_GOAL} Chứng Nhân)`,
+            ? tx("[A] Cùng Thánh Phê-rô & Gio-an ca tụng Chúa!", "[A] Praise God with Saints Peter & John!")
+            : tx(`[A] Thánh Phê-rô & Gio-an (${this.graceCount}/${GRACE_GOAL} Ơn Thánh · ${this.witnessCount}/${WITNESS_GOAL} Chứng Nhân)`, `[A] Saints Peter & John (${this.graceCount}/${GRACE_GOAL} Gifts · ${this.witnessCount}/${WITNESS_GOAL} Witnesses)`),
         active: () => !this.finished,
         act: () => this.talkToApostles(),
       },
@@ -229,7 +230,7 @@ export class InterludeB6BeautifulGateScene extends InteractiveScene {
     const needed = (this.witnessCount + 1) * 2;
     if (this.graceCount < needed) {
       this.talk(v.name, "🙏", [
-        `Xin hãy thu thập thêm Ơn Thánh Thần quanh sân Đền Thờ (${this.graceCount}/${needed} Ơn Thánh cần cho phép lạ này) rồi quay lại giúp tôi nhé!`,
+        tx(`Xin hãy thu thập thêm Ơn Thánh Thần quanh sân Đền Thờ (${this.graceCount}/${needed} Ơn Thánh cần cho phép lạ này) rồi quay lại giúp tôi nhé!`, `Please collect more Gifts of the Spirit around the Temple courtyard (${this.graceCount}/${needed} Gifts needed for this miracle) and come back to help me!`),
       ]);
       return;
     }
@@ -253,9 +254,9 @@ export class InterludeB6BeautifulGateScene extends InteractiveScene {
     });
 
     const quotes = [
-      "Anh đứng phắt dậy, bước đi được; rồi cùng hai ông tiến vào Đền Thờ, vừa đi vừa nhảy nhót và ca tụng Thiên Chúa! (Cv 3, 8)",
-      "Tạ ơn Chúa Giêsu Phục Sinh! Lời Chúa đã lấp đầy tâm hồn con bằng niềm vui và bình an!",
-      "Alleluia! Nhờ quyền năng Chúa Thánh Thần, con đã được chữa lành để làm chứng nhân Tin Mừng!",
+      tx("Anh đứng phắt dậy, bước đi được; rồi cùng hai ông tiến vào Đền Thờ, vừa đi vừa nhảy nhót và ca tụng Thiên Chúa! (Cv 3, 8)", "He jumped up and walked; then he entered the Temple with them, walking and leaping and praising God! (Acts 3:8)"),
+      tx("Tạ ơn Chúa Giêsu Phục Sinh! Lời Chúa đã lấp đầy tâm hồn con bằng niềm vui và bình an!", "Thanks be to the Risen Jesus! God's Word has filled my heart with joy and peace!"),
+      tx("Alleluia! Nhờ quyền năng Chúa Thánh Thần, con đã được chữa lành để làm chứng nhân Tin Mừng!", "Alleluia! By the power of the Holy Spirit, I have been healed to be a witness of the Good News!"),
     ];
 
     this.talk(v.name, "🙌", [quotes[idx] ?? quotes[0]], () => {
@@ -267,9 +268,9 @@ export class InterludeB6BeautifulGateScene extends InteractiveScene {
 
   private talkToApostles() {
     if (this.witnessCount < WITNESS_GOAL || this.graceCount < GRACE_GOAL) {
-      this.talk("Thánh Phê-rô & Gio-an", "🕊️", [
-        "“Vàng bạc thì tôi không có; nhưng cái tôi có, tôi cho anh đây: nhân danh Đức Giêsu Kitô người Na-da-rét, anh hãy đứng dậy mà đi!” (Cv 3, 6)",
-        `Con hãy thu thập đủ ${GRACE_GOAL} Ơn Thánh (${this.graceCount}/${GRACE_GOAL}) và trao cho cả ${WITNESS_GOAL} người đang đợi (${this.witnessCount}/${WITNESS_GOAL}) nhé!`,
+      this.talk(tx("Thánh Phê-rô & Gio-an", "Saints Peter & John"), "🕊️", [
+        tx("“Vàng bạc thì tôi không có; nhưng cái tôi có, tôi cho anh đây: nhân danh Đức Giêsu Kitô người Na-da-rét, anh hãy đứng dậy mà đi!” (Cv 3, 6)", "“I have neither silver nor gold, but what I do have I give you: in the name of Jesus Christ the Nazorean, rise and walk!” (Acts 3:6)"),
+        tx(`Con hãy thu thập đủ ${GRACE_GOAL} Ơn Thánh (${this.graceCount}/${GRACE_GOAL}) và trao cho cả ${WITNESS_GOAL} người đang đợi (${this.witnessCount}/${WITNESS_GOAL}) nhé!`, `Collect all ${GRACE_GOAL} Gifts (${this.graceCount}/${GRACE_GOAL}) and give them to all ${WITNESS_GOAL} people waiting (${this.witnessCount}/${WITNESS_GOAL})!`),
       ]);
       return;
     }
@@ -283,10 +284,10 @@ export class InterludeB6BeautifulGateScene extends InteractiveScene {
     this.sparkleBurst(320, 128);
     this.time.delayedCall(400, () =>
       this.completeInterlude(
-        "CHẶNG ĐỆM B6",
-        "Phép Lạ Cửa Đẹp & Chứng Nhân Tin Mừng (Cv 3, 1-10)",
-        "Can đảm chia sẻ niềm vui và tình thương của Chúa Giêsu cho mọi người xung quanh.",
-        "Khắp sân Đền Thờ vang dội tiếng ca khen Thiên Chúa! Giờ đây chúng ta cùng bước vào Chặng 19 chiêm ngắm Đức Mẹ Lên Trời nhé!"
+        tx("CHẶNG ĐỆM B6", "MID-STAGE B6"),
+        tx("Phép Lạ Cửa Đẹp & Chứng Nhân Tin Mừng (Cv 3, 1-10)", "The Miracle at the Beautiful Gate & Witnesses of the Good News (Acts 3:1-10)"),
+        tx("Can đảm chia sẻ niềm vui và tình thương của Chúa Giêsu cho mọi người xung quanh.", "Courageously share the joy and love of Jesus with everyone around you."),
+        tx("Khắp sân Đền Thờ vang dội tiếng ca khen Thiên Chúa! Giờ đây chúng ta cùng bước vào Chặng 19 chiêm ngắm Đức Mẹ Lên Trời nhé!", "The whole Temple courtyard rings with praise of God! Now we enter Stage 19 to contemplate Our Lady's Assumption!")
       )
     );
   }

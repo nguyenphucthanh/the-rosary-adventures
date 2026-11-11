@@ -4,6 +4,7 @@ import { registerSiteTextures } from "@/modules/moses-the-exodus/game/utils/site
 import { registerSeaTextures } from "@/modules/moses-the-exodus/game/utils/seaTextures";
 import { STAGE7, tr } from "@/modules/moses-the-exodus/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 352;
 const H = 300;
@@ -320,9 +321,9 @@ export class Stage07RedSeaCrossingScene extends BaseExodusScene {
       this.dawn?.setFillStyle(0xfde68a, 0.2);
       this.completeStage();
       this.time.delayedCall(900, () =>
-        this.talk("Ấn Dấu thứ 7", STAGE7.outro.map(tr), () =>
-          this.talk("Suy niệm", [tr(STAGE7.lesson)], () =>
-            this.talk("Bờ bên kia", STAGE7.cutscene.map(tr), () => this.goToNextStage()))));
+        this.talk(tx("Ấn Dấu thứ 7", "Seal 7"), STAGE7.outro.map(tr), () =>
+          this.talk(tx("Suy niệm", "Reflection"), [tr(STAGE7.lesson)], () =>
+            this.talk(tx("Bờ bên kia", "The Far Shore"), STAGE7.cutscene.map(tr), () => this.goToNextStage()))));
     });
   }
 

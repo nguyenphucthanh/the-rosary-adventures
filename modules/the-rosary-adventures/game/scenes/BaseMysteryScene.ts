@@ -5,6 +5,7 @@ import { MYSTERY_KEYS, MysteryProgress, SaveData } from "@/modules/the-rosary-ad
 import { loadGame, updateSave } from "@/modules/the-rosary-adventures/utils/saveManager";
 import { EPILOGUE_SCENE, nextMysteryKey, nextStageKey } from "@/modules/the-rosary-adventures/data/stages";
 import EventBus from "@/modules/shared/game/EventBus";
+import { t as tx } from "@/modules/shared/i18n";
 
 /** Depth layers. World objects between RUG and WALL use their foot y (y-sorting). */
 export const DEPTH = { FLOOR: 0, RUG: 1, LIGHT: 2, WALL: 2000, FX: 5000, UI: 9000 };
@@ -131,7 +132,7 @@ export class BaseMysteryScene extends Phaser.Scene {
       .text(
         centerX,
         centerY + 180,
-        "🌿 VƯỜN CẦU NGUYỆN NAZARETH 🌿\n(Dùng phím mũi tên / D-pad cảm ứng để di chuyển)",
+        tx("🌿 VƯỜN CẦU NGUYỆN NAZARETH 🌿\n(Dùng phím mũi tên / D-pad cảm ứng để di chuyển)", "🌿 NAZARETH PRAYER GARDEN 🌿\n(Use the arrow keys / touch D-pad to move)"),
         {
           fontFamily: "'Dearpix', monospace",
           fontSize: "52px",
@@ -288,11 +289,11 @@ export class BaseMysteryScene extends Phaser.Scene {
     if (dist < 90) {
       // Near Altar: Trigger prayer reflection
       EventBus.emit("dialogue-open", {
-        speaker: "Bàn Thờ Cầu Nguyện",
+        speaker: tx("Bàn Thờ Cầu Nguyện", "Prayer Altar"),
         lines: [
-          "Bình an cho bạn, Lữ Khách nhỏ!",
-          "Nơi đây lưu giữ ánh sáng của 20 Mầu Nhiệm Mân Côi.",
-          "Hãy vững lòng tin và chuẩn bị bước vào Mầu Nhiệm Thứ Nhất: Thiên Thần Truyền Tin.",
+          tx("Bình an cho bạn, Lữ Khách nhỏ!", "Peace be with you, little Pilgrim!"),
+          tx("Nơi đây lưu giữ ánh sáng của 20 Mầu Nhiệm Mân Côi.", "This place keeps the light of the 20 Mysteries of the Rosary."),
+          tx("Hãy vững lòng tin và chuẩn bị bước vào Mầu Nhiệm Thứ Nhất: Thiên Thần Truyền Tin.", "Take heart and get ready to enter the First Mystery: the Annunciation."),
         ],
       });
     }

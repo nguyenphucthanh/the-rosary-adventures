@@ -4,6 +4,7 @@ import { PAL, PixelMap, makeCanvas, rect, drawMap } from "@/modules/shared/game/
 import { registerAnnunciationTextures } from "@/modules/the-rosary-adventures/game/utils/npcTextureGenerator";
 import { loadGame } from "@/modules/the-rosary-adventures/utils/saveManager";
 import { PROLOGUE_SCENE, resumeMysteryKey } from "@/modules/the-rosary-adventures/data/stages";
+import { t as tx } from "@/modules/shared/i18n";
 
 /**
  * Entrance screen. Drawn in a 320x180 virtual canvas centred on (CX, CY);
@@ -214,7 +215,7 @@ export class TitleScene extends Phaser.Scene {
 
     const t1 = shadowed(CX, 17, "THE ROSARY", 16, "#fde68a", "#78350f");
     const t2 = shadowed(CX, 41, "ADVENTURES", 16, "#fbbf24", "#78350f");
-    shadowed(CX, 62, "20 Mầu Nhiệm Mân Côi", 8, "#e0e7ff", "#1e1b4b");
+    shadowed(CX, 62, tx("20 Mầu Nhiệm Mân Côi", "The 20 Mysteries of the Rosary"), 8, "#e0e7ff", "#1e1b4b");
 
     // title drops in by whole pixels
     [t1, t2].forEach((t, i) => {
@@ -223,7 +224,7 @@ export class TitleScene extends Phaser.Scene {
     });
 
     const prompt = this.add
-      .text(CX, 176, "CHẠM HOẶC NHẤN SPACE ĐỂ BẮT ĐẦU", style(8, "#fef08a"))
+      .text(CX, 176, tx("CHẠM HOẶC NHẤN SPACE ĐỂ BẮT ĐẦU", "TAP OR PRESS SPACE TO START"), style(8, "#fef08a"))
       .setOrigin(0.5)
       .setDepth(10);
     this.time.addEvent({ delay: 600, loop: true, callback: () => prompt.setVisible(!prompt.visible) });

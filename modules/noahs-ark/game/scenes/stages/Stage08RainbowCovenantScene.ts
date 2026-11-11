@@ -5,6 +5,7 @@ import { registerVoyageTextures, SPECTRUM } from "@/modules/noahs-ark/game/utils
 import { NOAH_TEXT } from "@/modules/noahs-ark/data/stageText";
 import { tr } from "@/modules/noahs-ark/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 240;
 const H = 360;
@@ -87,16 +88,16 @@ export class Stage08RainbowCovenantScene extends BaseNoahScene {
       this.add.tileSprite(0, y - 6, W, 12, "noah_water").setOrigin(0).setDepth(DEPTH.RUG);
       this.block(54, y, 108, 12); this.block(186, y, 108, 12);
       this.bridges.push(this.door(120, y, 24, 12, "noah_water", true));
-      this.interactables.push({ x: 120, y: y + (i ? 4 : 0), r: 24, label: "[A] Bắc ván qua suối", active: () => this.plank && !this.bridgeDone[i], act: () => this.bridge(i) });
+      this.interactables.push({ x: 120, y: y + (i ? 4 : 0), r: 24, label: tx("[A] Bắc ván qua suối", "[A] Lay the plank across the stream"), active: () => this.plank && !this.bridgeDone[i], act: () => this.bridge(i) });
     });
     PLANKS.forEach(([x, y], i) => {
       this.plankImgs.push(this.pickup(x, y, "noah_wood"));
-      this.interactables.push({ x, y: y - 4, r: 18, label: "[A] Nhặt ván gỗ", active: () => !!this.plankImgs[i] && !this.plank, act: () => this.takePlank(i) });
+      this.interactables.push({ x, y: y - 4, r: 18, label: tx("[A] Nhặt ván gỗ", "[A] Pick up the plank"), active: () => !!this.plankImgs[i] && !this.plank, act: () => this.takePlank(i) });
     });
     // stones
     STONES.forEach(([x, y], i) => {
       this.stoneImgs.push(this.pickup(x, y, "noah_stone"));
-      this.interactables.push({ x, y: y - 4, r: 18, label: "[A] Nhặt Viên Đá Tinh Tuyền", active: () => !!this.stoneImgs[i], act: () => this.collect(i) });
+      this.interactables.push({ x, y: y - 4, r: 18, label: tx("[A] Nhặt Viên Đá Tinh Tuyền", "[A] Pick up the Pure Stone"), active: () => !!this.stoneImgs[i], act: () => this.collect(i) });
     });
     // gentle animals on the hill (idle, two-frame step)
     const pets: [string, number, number][] = [["noah_sheep", 60, 305], ["noah_zebra", 190, 252], ["noah_deer", 52, 168]];
@@ -159,7 +160,7 @@ export class Stage08RainbowCovenantScene extends BaseNoahScene {
     const fire = this.add.image(ALTAR[0], ALTAR[1] - 30, "noah_glow_gold").setDepth(ALTAR[1] + 1).setAlpha(0.6);
     this.tweens.add({ targets: fire, alpha: 0.9, duration: 700, yoyo: true, repeat: -1, ease: "Stepped", easeParams: [3] });
     this.cameras.main.flash(500, 255, 244, 180);
-    this.talk("Ông Nô-ê", NOAH_TEXT.s8.stones.map(tr), () => this.startPhase2());
+    this.talk(tx("Ông Nô-ê", "Noah"), NOAH_TEXT.s8.stones.map(tr), () => this.startPhase2());
   }
 
   // ---------------------------------------------------------------- phase 2: the seven colours
@@ -173,10 +174,10 @@ export class Stage08RainbowCovenantScene extends BaseNoahScene {
       this.arrows.push(this.add.sprite(x, y - 26, "noah_arrow", this.face[i]).setDepth(DEPTH.FX - 2));
       this.block(x, y - 4, 12, 8);
       this.sparkleBurst(x, y - 10, 6);
-      this.interactables.push({ x, y: y - 4, r: 20, label: "[A] Xoay Trụ Tinh Thể", active: () => this.phase === 2 && !this.busy, act: () => this.turn(i) });
+      this.interactables.push({ x, y: y - 4, r: 20, label: tx("[A] Xoay Trụ Tinh Thể", "[A] Turn the Crystal Pillar"), active: () => this.phase === 2 && !this.busy, act: () => this.turn(i) });
     });
     this.saveCheckpoint("phase2", null, this.player.x, this.player.y);
-    this.talk("Chúa Thánh Thần", NOAH_TEXT.s8.phase2.map(tr), () => this.trace());
+    this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), NOAH_TEXT.s8.phase2.map(tr), () => this.trace());
     this.spawnDove(120, 296);
   }
 
@@ -235,7 +236,7 @@ export class Stage08RainbowCovenantScene extends BaseNoahScene {
     const v = this.cameras.main.worldView; // pin the hint to the camera's safe area, not the map
     this.label?.setPosition(Math.round(v.centerX), Math.round(v.y) + this.safeInsetTop() + 4);
     this.label?.setText(
-      this.phase === 1 ? `Đá tinh tuyền ${this.got}/${STONES.length}${this.plank ? " – đang cầm ván gỗ" : ""}` : this.lit ? `Tia sáng: ${NOAH_TEXT.s8.colours[this.lit - 1]}` : "Hãy xoay các Trụ Tinh Thể"
+      this.phase === 1 ? tx(`Đá tinh tuyền ${this.got}/${STONES.length}${this.plank ? " – đang cầm ván gỗ" : ""}`, `Pure stones ${this.got}/${STONES.length}${this.plank ? " – carrying a plank" : ""}`) : this.lit ? tx(`Tia sáng: ${tr(NOAH_TEXT.s8.colours[this.lit - 1])}`, `Light ray: ${tr(NOAH_TEXT.s8.colours[this.lit - 1])}`) : tx("Hãy xoay các Trụ Tinh Thể", "Turn the Crystal Pillars")
     );
   }
 }

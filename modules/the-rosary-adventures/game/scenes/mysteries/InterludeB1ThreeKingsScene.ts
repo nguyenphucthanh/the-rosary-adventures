@@ -6,6 +6,7 @@ import { registerAnnunciationTextures } from "@/modules/the-rosary-adventures/ga
 import { registerVisitationTextures } from "@/modules/the-rosary-adventures/game/utils/visitationTextureGenerator";
 import { registerInfancyTextures } from "@/modules/the-rosary-adventures/game/utils/infancyTextureGenerator";
 import { registerInterludeTextures } from "@/modules/the-rosary-adventures/game/utils/interludeTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 520;
@@ -61,13 +62,13 @@ export class InterludeB1ThreeKingsScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("mid_b1_ba_vua", [320, 380], {
-      speaker: "Ba Vua Phương Đông",
+      speaker: tx("Ba Vua Phương Đông", "The Three Kings of the East"),
       emoji: "🐪",
       lines: [
-        "Chặng Đệm Hành Động: Hành Trình Ba Vua Theo Ánh Sao (Mt 2, 1-12).",
-        "“Chúng tôi đã thấy ngôi sao của Người xuất hiện bên phương Đông, nên chúng tôi đến bái lạy Người.” (Mt 2, 2)",
-        "Ngôi Sao Bethlehem đang thả xuống những hạt ánh sao và lễ vật Vàng, Nhũ Hương, Mộc Dược!",
-        "Hãy di chuyển khắp đường sa mạc để hứng đủ 8 Ánh Sao & Lễ Vật trước khi chúng chạm cát biến mất nhé!",
+        tx("Chặng Đệm Hành Động: Hành Trình Ba Vua Theo Ánh Sao (Mt 2, 1-12).", "Action Mid-Stage: The Journey of the Three Kings Following the Star (Mt 2:1-12)."),
+        tx("“Chúng tôi đã thấy ngôi sao của Người xuất hiện bên phương Đông, nên chúng tôi đến bái lạy Người.” (Mt 2, 2)", "“We saw his star at its rising and have come to worship him.” (Mt 2:2)"),
+        tx("Ngôi Sao Bethlehem đang thả xuống những hạt ánh sao và lễ vật Vàng, Nhũ Hương, Mộc Dược!", "The Star of Bethlehem is dropping starlight and gifts of Gold, Frankincense and Myrrh!"),
+        tx("Hãy di chuyển khắp đường sa mạc để hứng đủ 8 Ánh Sao & Lễ Vật trước khi chúng chạm cát biến mất nhé!", "Move across the desert road to catch all 8 Star Lights & Gifts before they touch the sand and vanish!"),
       ],
     });
     this.syncProgress();
@@ -78,7 +79,7 @@ export class InterludeB1ThreeKingsScene extends InteractiveScene {
       {
         id: "magi_gifts",
         emoji: "⭐",
-        label: "LỄ VẬT",
+        label: tx("LỄ VẬT", "GIFTS"),
         current: this.caught,
         total: GOAL,
         color: "amber",
@@ -159,12 +160,12 @@ export class InterludeB1ThreeKingsScene extends InteractiveScene {
       {
         at: () => [320, 122],
         r: 64,
-        label: () => "[A] Trò chuyện với Ba Vua",
+        label: () => tx("[A] Trò chuyện với Ba Vua", "[A] Talk to the Three Kings"),
         active: () => !this.finished,
         act: () =>
-          this.talk("Ba Vua Phương Đông", "👑", [
-            "Vàng tôn vinh Chúa là Vua, Nhũ hương tuyên xưng Chúa là Thiên Chúa, Mộc dược tiên báo cuộc khổ nạn cứu độ.",
-            `Con đã thu thập được ${this.caught}/${GOAL} Ánh Sao & Lễ Vật rồi. Cố lên nhé!`,
+          this.talk(tx("Ba Vua Phương Đông", "The Three Kings of the East"), "👑", [
+            tx("Vàng tôn vinh Chúa là Vua, Nhũ hương tuyên xưng Chúa là Thiên Chúa, Mộc dược tiên báo cuộc khổ nạn cứu độ.", "Gold honors Jesus as King, frankincense proclaims Him God, and myrrh foretells His saving passion."),
+            tx(`Con đã thu thập được ${this.caught}/${GOAL} Ánh Sao & Lễ Vật rồi. Cố lên nhé!`, `You have collected ${this.caught}/${GOAL} Star Lights & Gifts. Keep going!`),
           ]),
       },
     ];
@@ -255,10 +256,10 @@ export class InterludeB1ThreeKingsScene extends InteractiveScene {
     this.sparkleBurst(320, 140);
     this.time.delayedCall(500, () =>
       this.completeInterlude(
-        "CHẶNG ĐỆM B1",
-        "Hành Trình Ba Vua Theo Ánh Sao (Mt 2, 1-12)",
-        "Kiên trì bước theo ánh sáng Lời Chúa và dâng lên Chúa tấm lòng thảo hiếu mỗi ngày.",
-        "Ba Vua đã dâng Vàng, Nhũ Hương và Mộc Dược cho Chúa Hài Đồng. Giờ đây chúng ta cùng tiến lên Đền Thờ Giê-ru-sa-lem nhé!"
+        tx("CHẶNG ĐỆM B1", "MID-STAGE B1"),
+        tx("Hành Trình Ba Vua Theo Ánh Sao (Mt 2, 1-12)", "The Journey of the Three Kings Following the Star (Mt 2:1-12)"),
+        tx("Kiên trì bước theo ánh sáng Lời Chúa và dâng lên Chúa tấm lòng thảo hiếu mỗi ngày.", "Persevere in following the light of God's Word and offer the Lord a loving heart every day."),
+        tx("Ba Vua đã dâng Vàng, Nhũ Hương và Mộc Dược cho Chúa Hài Đồng. Giờ đây chúng ta cùng tiến lên Đền Thờ Giê-ru-sa-lem nhé!", "The Three Kings offered Gold, Frankincense and Myrrh to the Child Jesus. Now let's head on to the Temple in Jerusalem!")
       )
     );
   }

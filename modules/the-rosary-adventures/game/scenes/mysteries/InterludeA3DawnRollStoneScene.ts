@@ -4,6 +4,7 @@ import { DEPTH } from "@/modules/the-rosary-adventures/game/scenes/BaseMysterySc
 import { InteractiveScene } from "@/modules/the-rosary-adventures/game/scenes/InteractiveScene";
 import { registerAllForGlory } from "@/modules/the-rosary-adventures/game/utils/gloryTextureGenerator";
 import { registerInterludeTextures } from "@/modules/the-rosary-adventures/game/utils/interludeTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 500;
@@ -67,12 +68,12 @@ export class InterludeA3DawnRollStoneScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("bridge_a3_binh_minh", [320, 410], {
-      speaker: "Rạng Đông Ngày Thứ Nhất Trong Tuần",
+      speaker: tx("Rạng Đông Ngày Thứ Nhất Trong Tuần", "Dawn on the First Day of the Week"),
       emoji: "🌅",
       lines: [
-        "Cầu Nối Mùa Thương → Mùa Mừng: Ánh Bình Minh Phục Sinh (Mt 28, 2).",
-        "“Và kìa, đất rung chuyển dữ dội: thiên thần Chúa từ trời xuống, đến lăn tảng đá ra, rồi ngồi lên trên.”",
-        "Đêm tối Thứ Sáu Tuần Thánh đang qua đi! Hãy chạy quanh khu vườn hứng đủ 8 Tia Sáng Bình Minh để xua tan bóng đêm, rồi cùng Thiên Thần lăn tảng đá ra khỏi cửa mộ nhé!",
+        tx("Cầu Nối Mùa Thương → Mùa Mừng: Ánh Bình Minh Phục Sinh (Mt 28, 2).", "Season Bridge Sorrowful → Glorious: The Dawn of the Resurrection (Mt 28:2)."),
+        tx("“Và kìa, đất rung chuyển dữ dội: thiên thần Chúa từ trời xuống, đến lăn tảng đá ra, rồi ngồi lên trên.”", "“And behold, there was a great earthquake; for an angel of the Lord descended from heaven and came and rolled back the stone and sat upon it.”"),
+        tx("Đêm tối Thứ Sáu Tuần Thánh đang qua đi! Hãy chạy quanh khu vườn hứng đủ 8 Tia Sáng Bình Minh để xua tan bóng đêm, rồi cùng Thiên Thần lăn tảng đá ra khỏi cửa mộ nhé!", "The dark night of Good Friday is passing! Run around the garden to catch all 8 Dawn Rays and drive away the darkness, then roll the stone from the tomb with the Angel!"),
       ],
     });
     this.syncProgress();
@@ -83,7 +84,7 @@ export class InterludeA3DawnRollStoneScene extends InteractiveScene {
       {
         id: "dawn_rays",
         emoji: "🌅",
-        label: "TIA SÁNG",
+        label: tx("TIA SÁNG", "RAYS"),
         current: this.caught,
         total: GOAL,
         color: "amber",
@@ -91,7 +92,7 @@ export class InterludeA3DawnRollStoneScene extends InteractiveScene {
       {
         id: "roll_stone",
         emoji: "🪨",
-        label: "LĂN ĐÁ",
+        label: tx("LĂN ĐÁ", "ROLL STONE"),
         current: this.stoneRolled ? 1 : 0,
         total: 1,
         color: "emerald",
@@ -162,8 +163,8 @@ export class InterludeA3DawnRollStoneScene extends InteractiveScene {
         r: 78,
         label: () =>
           this.caught >= GOAL
-            ? "[A] Cùng Thiên Thần lăn tảng đá cửa mộ!"
-            : `[A] Thiên Thần Chúa (Cần ${this.caught}/${GOAL} Tia Sáng)`,
+            ? tx("[A] Cùng Thiên Thần lăn tảng đá cửa mộ!", "[A] Roll the tomb stone away with the Angel!")
+            : tx(`[A] Thiên Thần Chúa (Cần ${this.caught}/${GOAL} Tia Sáng)`, `[A] Angel of the Lord (Needs ${this.caught}/${GOAL} Rays)`),
         active: () => !this.finished,
         act: () => this.rollTombStone(),
       },
@@ -186,8 +187,8 @@ export class InterludeA3DawnRollStoneScene extends InteractiveScene {
 
   private rollTombStone() {
     if (this.caught < GOAL) {
-      this.talk("Thiên Thần Chúa", "👼", [
-        `Hãy thu thập đủ ${GOAL} Tia Sáng Bình Minh (${this.caught}/${GOAL}) để xua tan bóng đêm trước khi lăn tảng đá nhé!`,
+      this.talk(tx("Thiên Thần Chúa", "Angel of the Lord"), "👼", [
+        tx(`Hãy thu thập đủ ${GOAL} Tia Sáng Bình Minh (${this.caught}/${GOAL}) để xua tan bóng đêm trước khi lăn tảng đá nhé!`, `Collect all ${GOAL} Dawn Rays (${this.caught}/${GOAL}) to chase away the darkness before rolling the stone!`),
       ]);
       return;
     }
@@ -211,10 +212,10 @@ export class InterludeA3DawnRollStoneScene extends InteractiveScene {
         this.sparkleBurst(TOMB_X, TOMB_Y - 12);
         this.time.delayedCall(500, () =>
           this.completeInterlude(
-            "CẦU NỐI MÙA A3",
-            "Ánh Bình Minh Phục Sinh (Mt 28, 2)",
-            "Niềm hy vọng Phục Sinh xóa tan mọi bóng tối đau khổ và mở ra sự sống đời đời.",
-            "Tảng đá lớn đã lăn ra, bình minh Phục Sinh bừng sáng! Hãy bước vào Năm Sự Mừng vinh hiển!"
+            tx("CẦU NỐI MÙA A3", "SEASON BRIDGE A3"),
+            tx("Ánh Bình Minh Phục Sinh (Mt 28, 2)", "The Dawn of the Resurrection (Mt 28:2)"),
+            tx("Niềm hy vọng Phục Sinh xóa tan mọi bóng tối đau khổ và mở ra sự sống đời đời.", "The hope of the Resurrection scatters all the darkness of suffering and opens the way to eternal life."),
+            tx("Tảng đá lớn đã lăn ra, bình minh Phục Sinh bừng sáng! Hãy bước vào Năm Sự Mừng vinh hiển!", "The great stone is rolled away and the Easter dawn shines! Step into the glorious Glorious Mysteries!")
           )
         );
       },

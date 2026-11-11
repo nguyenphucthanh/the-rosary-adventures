@@ -4,6 +4,7 @@ import { registerStageTextures } from "@/modules/the-garden-of-eden/game/utils/s
 import { STAGE_TEXT } from "@/modules/the-garden-of-eden/data/stageText";
 import { tr } from "@/modules/the-garden-of-eden/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 320;
 const H = 240;
@@ -12,12 +13,12 @@ const CY = 120;
 const R = 70;
 // six Nature Pads, one per day of work: hexagon around the Holy Hill
 const PADS = [
-  { name: "Chuông Ánh Sáng", note: 72, x: CX, y: CY - R },
-  { name: "Trống Gió Trời", note: 74, x: CX + 61, y: CY - 35 },
-  { name: "Đàn Cây Cối", note: 76, x: CX + 61, y: CY + 35 },
-  { name: "Chuông Sao Đêm", note: 79, x: CX, y: CY + R },
-  { name: "Sáo Chim Biển", note: 81, x: CX - 61, y: CY + 35 },
-  { name: "Tiếng Ca Con Người", note: 84, x: CX - 61, y: CY - 35 },
+  { name: tx("Chuông Ánh Sáng", "Bell of Light"), note: 72, x: CX, y: CY - R },
+  { name: tx("Trống Gió Trời", "Drum of the Sky Wind"), note: 74, x: CX + 61, y: CY - 35 },
+  { name: tx("Đàn Cây Cối", "Harp of the Trees"), note: 76, x: CX + 61, y: CY + 35 },
+  { name: tx("Chuông Sao Đêm", "Bell of the Night Stars"), note: 79, x: CX, y: CY + R },
+  { name: tx("Sáo Chim Biển", "Flute of the Sea Birds"), note: 81, x: CX - 61, y: CY + 35 },
+  { name: tx("Tiếng Ca Con Người", "Song of Mankind"), note: 84, x: CX - 61, y: CY - 35 },
 ];
 const ROUNDS = [4, 6, 8]; // notes per movement
 const GAP = [760, 650, 470]; // ms between demo notes: movement 3 is faster
@@ -97,7 +98,7 @@ export class Stage07SabbathScene extends BaseGenesisScene {
   private playback() {
     this.state = "listen";
     this.idx = 0;
-    this.say(`Chương ${this.round + 1}: ${ROUNDS[this.round]} nốt. Lắng nghe...`);
+    this.say(tx(`Chương ${this.round + 1}: ${ROUNDS[this.round]} nốt. Lắng nghe...`, `Movement ${this.round + 1}: ${ROUNDS[this.round]} notes. Listen...`));
     this.seq.forEach((pad, k) =>
       this.time.delayedCall(900 + k * GAP[this.round], () => {
         if (this.dove) this.glideTo(this.dove, PADS[pad].x, PADS[pad].y - 26, 200);
@@ -107,7 +108,7 @@ export class Stage07SabbathScene extends BaseGenesisScene {
     this.time.delayedCall(900 + this.seq.length * GAP[this.round] + 300, () => {
       if (this.dove) this.glideTo(this.dove, CX, CY - 30, 600);
       this.state = "play";
-      this.say("Đến lượt em! Gõ lại giai điệu.");
+      this.say(tx("Đến lượt em! Gõ lại giai điệu.", "Your turn! Tap the melody back."));
     });
   }
 
@@ -127,7 +128,7 @@ export class Stage07SabbathScene extends BaseGenesisScene {
     if (i !== this.seq[this.idx]) { // wrong note: the music stops and the melody is played again
       this.state = "listen";
       audio.sfx("wrong");
-      this.say("Chưa đúng. Hãy lắng nghe lại nhé!");
+      this.say(tx("Chưa đúng. Hãy lắng nghe lại nhé!", "Not quite. Listen again!"));
       this.time.delayedCall(1000, () => this.playback());
       return;
     }
@@ -139,7 +140,7 @@ export class Stage07SabbathScene extends BaseGenesisScene {
       this.say("");
       this.time.delayedCall(500, () => {
         audio.sfx("chime");
-        this.talk("Chúa Thánh Thần", [`Tuyệt vời! Chương ${this.round} đã trọn vẹn. Chương tiếp theo dài hơn, em sẵn sàng chưa?`], () => this.startRound());
+        this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), [tx(`Tuyệt vời! Chương ${this.round} đã trọn vẹn. Chương tiếp theo dài hơn, em sẵn sàng chưa?`, `Wonderful! Movement ${this.round} is complete. The next one is longer. Ready?`)], () => this.startRound());
       });
       return;
     }
@@ -148,7 +149,7 @@ export class Stage07SabbathScene extends BaseGenesisScene {
 
   private finale() {
     this.state = "done";
-    this.say("Bản Giao Hưởng Tạ Ơn");
+    this.say(tx("Bản Giao Hưởng Tạ Ơn", "Symphony of Thanks"));
     PADS.forEach((_, i) => this.time.delayedCall(i * 220, () => this.light(i, 900)));
     this.time.delayedCall(PADS.length * 220 + 300, () => {
       audio.sfx("bless");

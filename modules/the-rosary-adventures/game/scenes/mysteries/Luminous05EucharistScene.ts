@@ -7,6 +7,7 @@ import { registerInfancyTextures } from "@/modules/the-rosary-adventures/game/ut
 import { registerLightTextures } from "@/modules/the-rosary-adventures/game/utils/lightTextureGenerator";
 import { registerCanaTextures } from "@/modules/the-rosary-adventures/game/utils/canaTextureGenerator";
 import { registerGalileeTextures } from "@/modules/the-rosary-adventures/game/utils/galileeTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 512;
@@ -16,10 +17,10 @@ const JESUS_AT: [number, number] = [456, 238];
 const PLATE: [number, number] = [292, 210];
 const CHALICE: [number, number] = [366, 210];
 const LOOT: Record<string, [string, number, number, string]> = {
-  basin: ["basin", 70, 340, "thau đồng"],
-  towel: ["towel", 570, 340, "khăn thắt lưng"],
-  wheat: ["wheat", 80, 430, "bông lúa miến"],
-  grapes: ["grapes", 560, 430, "chùm nho"],
+  basin: ["basin", 70, 340, tx("thau đồng", "copper basin")],
+  towel: ["towel", 570, 340, tx("khăn thắt lưng", "waist cloth")],
+  wheat: ["wheat", 80, 430, tx("bông lúa miến", "ear of wheat")],
+  grapes: ["grapes", 560, 430, tx("chùm nho", "bunch of grapes")],
 };
 const APOSTLES = ["peter", "andrew", "james", "john_apostle", "apostle_a", "apostle_b", "apostle_c", "mourner", "hungry", "prisoner", "shepherd", "scribe"];
 
@@ -63,12 +64,12 @@ export class Luminous05EucharistScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("sang_05_thanh_the", [320, 456], {
-      speaker: "Phòng Tiệc Ly",
+      speaker: tx("Phòng Tiệc Ly", "The Upper Room"),
       emoji: "🍞",
       lines: [
-        "Mầu Nhiệm Thứ Năm Năm Sự Sáng: Đức Chúa Giêsu Lập Bí Tích Thánh Thể (Lc 22, 14-20).",
-        "Đêm Lễ Vượt Qua, Chúa Giêsu cùng mười hai Tông đồ quây quần trong căn phòng trên lầu cao.",
-        "Hãy đến gặp Chúa Giêsu ở đầu bàn tiệc nhé.",
+        tx("Mầu Nhiệm Thứ Năm Năm Sự Sáng: Đức Chúa Giêsu Lập Bí Tích Thánh Thể (Lc 22, 14-20).", "Fifth Luminous Mystery: Jesus Institutes the Eucharist (Lk 22:14-20)."),
+        tx("Đêm Lễ Vượt Qua, Chúa Giêsu cùng mười hai Tông đồ quây quần trong căn phòng trên lầu cao.", "On Passover night, Jesus and the Twelve Apostles gather in the upstairs room."),
+        tx("Hãy đến gặp Chúa Giêsu ở đầu bàn tiệc nhé.", "Go meet Jesus at the head of the banquet table."),
       ],
     });
   }
@@ -118,7 +119,7 @@ export class Luminous05EucharistScene extends InteractiveScene {
   private defineInteractables() {
     const loot = (id: string, show: () => boolean) => {
       const [, x, y, name] = LOOT[id];
-      return { at: (): [number, number] => [x, y], r: 32, label: () => `[A] Nhặt ${name}`, active: () => show() && this.lootActive(id), act: () => this.takeLoot(id) };
+      return { at: (): [number, number] => [x, y], r: 32, label: () => tx(`[A] Nhặt ${name}`, `[A] Pick up ${name}`), active: () => show() && this.lootActive(id), act: () => this.takeLoot(id) };
     };
     this.interactables = [
       loot("basin", () => this.step === 1),
@@ -128,23 +129,23 @@ export class Luminous05EucharistScene extends InteractiveScene {
       {
         at: () => JESUS_AT,
         r: 52,
-        label: () => "[A] Trò chuyện với Chúa Giêsu",
+        label: () => tx("[A] Trò chuyện với Chúa Giêsu", "[A] Talk to Jesus"),
         active: () => this.step < 3,
         act: () => this.jesus(),
       },
       {
         at: () => [PLATE[0], 256],
         r: 40,
-        label: () => "[A] Đĩa bánh",
+        label: () => tx("[A] Đĩa bánh", "[A] Plate of bread"),
         active: () => this.step === 2 && !this.plated,
-        act: () => this.serve("wheat", "Đĩa bánh", "🥖", "bông lúa miến"),
+        act: () => this.serve("wheat", tx("Đĩa bánh", "Plate of bread"), "🥖", tx("bông lúa miến", "ear of wheat")),
       },
       {
         at: () => [CHALICE[0], 256],
         r: 40,
-        label: () => "[A] Chén thánh",
+        label: () => tx("[A] Chén thánh", "[A] Holy chalice"),
         active: () => this.step === 2 && !this.poured,
-        act: () => this.serve("grapes", "Chén thánh", "🍷", "chùm nho"),
+        act: () => this.serve("grapes", tx("Chén thánh", "Holy chalice"), "🍷", tx("chùm nho", "bunch of grapes")),
       },
     ];
   }
@@ -152,12 +153,12 @@ export class Luminous05EucharistScene extends InteractiveScene {
   private jesus() {
     if (this.step === 0) {
       this.talk(
-        "Chúa Giêsu",
+        tx("Chúa Giêsu", "Jesus"),
         "✨",
         [
-          "'Thầy hết sức mong muốn ăn bữa Vượt Qua này với anh em trước khi chịu khổ hình.' (Lc 22, 15)",
-          "Trước bữa ăn, Thầy muốn rửa chân cho anh em, để làm gương phục vụ. (Ga 13, 14-15)",
-          "Con hãy tìm giúp Thầy chiếc thau đồng và chiếc khăn thắt lưng nhé.",
+          tx("'Thầy hết sức mong muốn ăn bữa Vượt Qua này với anh em trước khi chịu khổ hình.' (Lc 22, 15)", "‘I have eagerly desired to eat this Passover with you before I suffer.’ (Lk 22:15)"),
+          tx("Trước bữa ăn, Thầy muốn rửa chân cho anh em, để làm gương phục vụ. (Ga 13, 14-15)", "Before the meal, I want to wash your feet to set an example of service. (Jn 13:14-15)"),
+          tx("Con hãy tìm giúp Thầy chiếc thau đồng và chiếc khăn thắt lưng nhé.", "Please find the copper basin and the waist cloth for Me."),
         ],
         () => {
           this.step = 1;
@@ -174,23 +175,23 @@ export class Luminous05EucharistScene extends InteractiveScene {
         this.dropItem();
         this.sparkleBurst(JESUS_AT[0], JESUS_AT[1] - 20);
         if (this.delivered.size === 2) this.washFeet();
-        else this.talk("Chúa Giêsu", "✨", [`Cảm ơn con! Còn thiếu ${id === "basin" ? "chiếc khăn thắt lưng" : "chiếc thau đồng"} nữa.`]);
+        else this.talk(tx("Chúa Giêsu", "Jesus"), "✨", [tx(`Cảm ơn con! Còn thiếu ${id === "basin" ? "chiếc khăn thắt lưng" : "chiếc thau đồng"} nữa.`, `Thank you! We still need ${id === "basin" ? "the waist cloth" : "the copper basin"}.`)]);
         return;
       }
-      this.talk("Chúa Giêsu", "✨", ["Thầy cần chiếc thau đồng và chiếc khăn thắt lưng. Con hãy nhặt và mang đến cho Thầy nhé."]);
+      this.talk(tx("Chúa Giêsu", "Jesus"), "✨", [tx("Thầy cần chiếc thau đồng và chiếc khăn thắt lưng. Con hãy nhặt và mang đến cho Thầy nhé.", "I need the copper basin and the waist cloth. Please pick them up and bring them to Me.")]);
       return;
     }
-    this.talk("Chúa Giêsu", "✨", ["Con hãy đặt bông lúa miến lên đĩa bánh và chùm nho vào chén thánh trên bàn tiệc nhé."]);
+    this.talk(tx("Chúa Giêsu", "Jesus"), "✨", [tx("Con hãy đặt bông lúa miến lên đĩa bánh và chùm nho vào chén thánh trên bàn tiệc nhé.", "Place the ear of wheat on the plate of bread and the bunch of grapes in the chalice on the banquet table.")]);
   }
 
   private washFeet() {
     this.talk(
-      "Chúa Giêsu",
+      tx("Chúa Giêsu", "Jesus"),
       "✨",
       [
-        "Chúa Giêsu cởi áo ngoài, thắt khăn, đổ nước vào thau và rửa chân cho các môn đệ. (Ga 13, 4-5)",
-        "'Thầy là Chúa, là Thầy mà còn rửa chân cho anh em, thì anh em cũng phải rửa chân cho nhau.' (Ga 13, 14)",
-        "Bây giờ con hãy chuẩn bị bàn tiệc: nhặt lúa miến đặt lên đĩa bánh, nhặt chùm nho đặt vào chén thánh.",
+        tx("Chúa Giêsu cởi áo ngoài, thắt khăn, đổ nước vào thau và rửa chân cho các môn đệ. (Ga 13, 4-5)", "Jesus takes off His outer garment, ties a towel around Himself, pours water into a basin and washes the disciples' feet. (Jn 13:4-5)"),
+        tx("'Thầy là Chúa, là Thầy mà còn rửa chân cho anh em, thì anh em cũng phải rửa chân cho nhau.' (Ga 13, 14)", "‘If I, the Lord and Master, have washed your feet, you ought to wash one another's feet.’ (Jn 13:14)"),
+        tx("Bây giờ con hãy chuẩn bị bàn tiệc: nhặt lúa miến đặt lên đĩa bánh, nhặt chùm nho đặt vào chén thánh.", "Now prepare the banquet table: pick up the wheat and place it on the plate of bread, pick up the grapes and place them in the chalice."),
       ],
       () => {
         this.step = 2;
@@ -202,7 +203,7 @@ export class Luminous05EucharistScene extends InteractiveScene {
 
   private serve(id: string, speaker: string, emoji: string, name: string) {
     if (this.held?.id !== id) {
-      this.talk(speaker, emoji, [`Nơi này đang chờ ${name}. Hãy nhặt ${name} trong phòng mang đến nhé.`]);
+      this.talk(speaker, emoji, [tx(`Nơi này đang chờ ${name}. Hãy nhặt ${name} trong phòng mang đến nhé.`, `This place is waiting for ${name}. Find ${name} in the room and bring it here.`)]);
       return;
     }
     this.dropItem();
@@ -224,12 +225,12 @@ export class Luminous05EucharistScene extends InteractiveScene {
     this.tweens.add({ targets: glow, alpha: 0.35, duration: 700, yoyo: true, repeat: -1 });
     this.cameras.main.flash(400, 255, 240, 200);
     this.talk(
-      "Chúa Giêsu",
+      tx("Chúa Giêsu", "Jesus"),
       "🍞",
       [
-        "Người cầm lấy bánh, tạ ơn, bẻ ra trao cho các môn đệ và nói: (Lc 22, 19)",
-        "'Này là Mình Thầy, hiến tế vì anh em. Anh em hãy làm việc này mà tưởng nhớ đến Thầy.'",
-        "Rồi Người cầm chén rượu: 'Này là chén Máu Thầy, đổ ra vì anh em, giao ước mới.' (Lc 22, 20)",
+        tx("Người cầm lấy bánh, tạ ơn, bẻ ra trao cho các môn đệ và nói: (Lc 22, 19)", "He took bread, gave thanks, broke it and gave it to the disciples, saying: (Lk 22:19)"),
+        tx("'Này là Mình Thầy, hiến tế vì anh em. Anh em hãy làm việc này mà tưởng nhớ đến Thầy.'", "‘This is my Body, which will be given for you. Do this in memory of me.’"),
+        tx("Rồi Người cầm chén rượu: 'Này là chén Máu Thầy, đổ ra vì anh em, giao ước mới.' (Lc 22, 20)", "Then He took the cup: ‘This cup is the new covenant in my Blood, which will be shed for you.’ (Lk 22:20)"),
       ],
       () => this.finish()
     );
@@ -239,10 +240,10 @@ export class Luminous05EucharistScene extends InteractiveScene {
     this.time.delayedCall(300, () =>
       this.complete(
         5,
-        "Năm Sự Sáng",
-        "Đức Chúa Giêsu Lập Bí Tích Thánh Thể",
-        "Lòng yêu mến Bí tích Thánh Thể và tinh thần phục vụ hiến thân.",
-        "Mỗi Thánh Lễ, Chúa Giêsu trao chính mình cho bạn. Hãy yêu mến Thánh Thể và phục vụ mọi người nhé!",
+        tx("Năm Sự Sáng", "Luminous"),
+        tx("Đức Chúa Giêsu Lập Bí Tích Thánh Thể", "Jesus Institutes the Eucharist"),
+        tx("Lòng yêu mến Bí tích Thánh Thể và tinh thần phục vụ hiến thân.", "Love for the Eucharist and a spirit of self-giving service."),
+        tx("Mỗi Thánh Lễ, Chúa Giêsu trao chính mình cho bạn. Hãy yêu mến Thánh Thể và phục vụ mọi người nhé!", "At every Mass, Jesus gives Himself to you. Love the Eucharist and serve everyone!"),
         ["wash_feet", "bread_and_wine", "last_supper"]
       )
     );

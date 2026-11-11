@@ -8,6 +8,7 @@ import { registerInfancyTextures } from "@/modules/the-rosary-adventures/game/ut
 import { registerLightTextures } from "@/modules/the-rosary-adventures/game/utils/lightTextureGenerator";
 import { registerGalileeTextures } from "@/modules/the-rosary-adventures/game/utils/galileeTextureGenerator";
 import { registerInterludeTextures } from "@/modules/the-rosary-adventures/game/utils/interludeTextureGenerator";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 500;
@@ -68,12 +69,12 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
     this.defineInteractables();
 
     this.begin("mid_b3_dep_yen_bao_to", [320, 270], {
-      speaker: "Biển Hồ Galilê Giữa Cơn Bão",
+      speaker: tx("Biển Hồ Galilê Giữa Cơn Bão", "The Sea of Galilee in the Storm"),
       emoji: "⛵",
       lines: [
-        "Chặng Đệm Hành Động: Chúa Dẹp Yên Bão Tố (Mc 4, 35-41).",
-        "Một cơn lốc lớn nổi lên, sóng ập vào thuyền! Các môn đệ hoảng sợ, còn Chúa Giêsu vẫn đang ở đằng lái.",
-        "Hãy chạy trên boong thuyền, lách qua những con sóng trắng, thu thập đủ 6 Mỏ Neo Đức Tin phát sáng rồi ra đuôi thuyền đánh thức Chúa Giêsu đang ngủ nhé!",
+        tx("Chặng Đệm Hành Động: Chúa Dẹp Yên Bão Tố (Mc 4, 35-41).", "Action Mid-Stage: Jesus Calms the Storm (Mk 4:35-41)."),
+        tx("Một cơn lốc lớn nổi lên, sóng ập vào thuyền! Các môn đệ hoảng sợ, còn Chúa Giêsu vẫn đang ở đằng lái.", "A great squall rises and waves crash into the boat! The disciples are terrified, while Jesus is still at the stern."),
+        tx("Hãy chạy trên boong thuyền, lách qua những con sóng trắng, thu thập đủ 6 Mỏ Neo Đức Tin phát sáng rồi ra đuôi thuyền đánh thức Chúa Giêsu đang ngủ nhé!", "Run across the deck, dodge the white waves, collect 6 glowing Anchors of Faith, then go to the stern and wake the sleeping Jesus!"),
       ],
     });
     this.syncProgress();
@@ -84,7 +85,7 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
       {
         id: "faith_anchors",
         emoji: "⚓",
-        label: "MỎ NEO",
+        label: tx("MỎ NEO", "ANCHORS"),
         current: this.collectedCount,
         total: GOAL,
         color: "sky",
@@ -92,7 +93,7 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
       {
         id: "calm_storm",
         emoji: "⛵",
-        label: "DẸP BÃO",
+        label: tx("DẸP BÃO", "CALM STORM"),
         current: calmed ? 1 : 0,
         total: 1,
         color: "amber",
@@ -177,8 +178,8 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
         r: 56,
         label: () =>
           this.collectedCount >= GOAL
-            ? "[A] Cầu xin Chúa Giêsu dẹp yên bão tố!"
-            : `[A] Chúa Giêsu (${this.collectedCount}/${GOAL} Mỏ Neo)`,
+            ? tx("[A] Cầu xin Chúa Giêsu dẹp yên bão tố!", "[A] Ask Jesus to calm the storm!")
+            : tx(`[A] Chúa Giêsu (${this.collectedCount}/${GOAL} Mỏ Neo)`, `[A] Jesus (${this.collectedCount}/${GOAL} Anchors)`),
         active: () => !this.finished,
         act: () => this.talkToJesus(),
       },
@@ -187,8 +188,8 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
 
   private talkToJesus() {
     if (this.collectedCount < GOAL) {
-      this.talk("Chúa Giêsu", "⛵", [
-        `Hãy vững lòng tin! Con hãy thu thập đủ ${GOAL} Mỏ Neo Đức Tin (${this.collectedCount}/${GOAL}) rồi quay lại đây nhé.`,
+      this.talk(tx("Chúa Giêsu", "Jesus"), "⛵", [
+        tx(`Hãy vững lòng tin! Con hãy thu thập đủ ${GOAL} Mỏ Neo Đức Tin (${this.collectedCount}/${GOAL}) rồi quay lại đây nhé.`, `Take heart! Collect all ${GOAL} Anchors of Faith (${this.collectedCount}/${GOAL}) and come back here.`),
       ]);
       return;
     }
@@ -203,18 +204,18 @@ export class InterludeB3CalmingStormScene extends InteractiveScene {
     this.sparkleBurst(320, 380);
 
     this.talk(
-      "Chúa Giêsu",
+      tx("Chúa Giêsu", "Jesus"),
       "✨",
       [
-        "Chúa Giêsu thức dậy, ngăm đe gió và truyền cho biển: “Im đi! Câm đi!”",
-        "Gió liền tắt, và biển lặng như tờ! Người nói: “Sao nhát thế? Làm sao mà anh em vẫn chưa có lòng tin?” (Mc 4, 39-40)",
+        tx("Chúa Giêsu thức dậy, ngăm đe gió và truyền cho biển: “Im đi! Câm đi!”", "Jesus wakes up, rebukes the wind and says to the sea: “Quiet! Be still!”"),
+        tx("Gió liền tắt, và biển lặng như tờ! Người nói: “Sao nhát thế? Làm sao mà anh em vẫn chưa có lòng tin?” (Mc 4, 39-40)", "The wind dies down and the sea is completely calm! He says: “Why are you so afraid? Do you still have no faith?” (Mk 4:39-40)"),
       ],
       () =>
         this.completeInterlude(
-          "CHẶNG ĐỆM B3",
-          "Chúa Dẹp Yên Bão Tố (Mc 4, 35-41)",
-          "Luôn cậy trông và cầu nguyện với Chúa Giêsu mỗi khi gặp nỗi sợ hãi hay khó khăn.",
-          "Mặt hồ đã bình yên rực rỡ ánh nắng! Giờ đây chúng ta cùng theo Chúa Giêsu tiến lên đỉnh núi Tabor nhé!"
+          tx("CHẶNG ĐỆM B3", "MID-STAGE B3"),
+          tx("Chúa Dẹp Yên Bão Tố (Mc 4, 35-41)", "Jesus Calms the Storm (Mk 4:35-41)"),
+          tx("Luôn cậy trông và cầu nguyện với Chúa Giêsu mỗi khi gặp nỗi sợ hãi hay khó khăn.", "Always trust and pray to Jesus whenever you meet fear or difficulty."),
+          tx("Mặt hồ đã bình yên rực rỡ ánh nắng! Giờ đây chúng ta cùng theo Chúa Giêsu tiến lên đỉnh núi Tabor nhé!", "The lake is calm and bright with sunshine! Now let's follow Jesus up Mount Tabor!")
         )
     );
   }

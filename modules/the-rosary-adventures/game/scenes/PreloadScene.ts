@@ -1,5 +1,6 @@
 import * as Phaser from "phaser";
 import { EventBus } from "@/modules/shared/game/EventBus";
+import { t as tx } from "@/modules/shared/i18n";
 
 export class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -17,7 +18,7 @@ export class PreloadScene extends Phaser.Scene {
     const progressBar = this.add.graphics();
 
     // Loading Text
-    const loadingText = this.add.text(width / 2, height / 2 - 50, "Đang tải dữ liệu...", {
+    const loadingText = this.add.text(width / 2, height / 2 - 50, tx("Đang tải dữ liệu...", "Loading data..."), {
       fontFamily: "'Dearpix', monospace",
       fontSize: "52px",
       color: "#ffffff",

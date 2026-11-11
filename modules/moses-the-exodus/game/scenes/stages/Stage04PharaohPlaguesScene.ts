@@ -4,6 +4,7 @@ import { registerSiteTextures } from "@/modules/moses-the-exodus/game/utils/site
 import { registerPlagueTextures } from "@/modules/moses-the-exodus/game/utils/plagueTextures";
 import { STAGE4, tr } from "@/modules/moses-the-exodus/data/dialogues";
 import audio from "@/modules/shared/game/audio/AudioManager";
+import { t as tx } from "@/modules/shared/i18n";
 
 const W = 640;
 const H = 240;
@@ -264,7 +265,7 @@ export class Stage04PharaohPlaguesScene extends BaseExodusScene {
     this.sparkleBurst(SHIELD_C[0], SHIELD_C[1], 12);
     this.magicians.forEach((m, i) => this.tweens.add({ targets: m, x: m.x + 10, duration: 300, yoyo: true, ease: "Stepped", easeParams: [2], delay: i * 80 }));
     const lines = r === 0 ? STAGE4.round1Done : r === 1 ? STAGE4.round2Done : STAGE4.pharaoh;
-    this.time.delayedCall(700, () => this.talk(r === 0 ? "Thuật sĩ" : STAGE4.speaker, lines.map(tr), () => (r < 2 ? this.startPhase(r + 1) : this.won())));
+    this.time.delayedCall(700, () => this.talk(r === 0 ? tx("Thuật sĩ", "Magician") : STAGE4.speaker, lines.map(tr), () => (r < 2 ? this.startPhase(r + 1) : this.won())));
   }
 
   private won() {
@@ -272,9 +273,9 @@ export class Stage04PharaohPlaguesScene extends BaseExodusScene {
     this.running = false;
     audio.sfx("complete");
     this.completeStage();
-    this.talk("Ấn Dấu thứ 4", STAGE4.outro.map(tr), () =>
-      this.talk("Suy niệm", [tr(STAGE4.lesson)], () =>
-        this.talk("Trước Đêm Tối Dày Đặc", STAGE4.cutscene.map(tr), () => this.goToNextStage())));
+    this.talk(tx("Ấn Dấu thứ 4", "Seal 4"), STAGE4.outro.map(tr), () =>
+      this.talk(tx("Suy niệm", "Reflection"), [tr(STAGE4.lesson)], () =>
+        this.talk(tx("Trước Đêm Tối Dày Đặc", "Before the Thick Darkness"), STAGE4.cutscene.map(tr), () => this.goToNextStage())));
   }
 
   // ---------------------------------------------------------------- smoke rings
