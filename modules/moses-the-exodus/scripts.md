@@ -366,6 +366,12 @@
 * **Khoảnh khắc Mầu nhiệm & Bài học suy niệm (Outro):**
   * Ngay khi bức màn cổng sân được treo lên hoàn tất công trình, **Đám Mây Vinh Quang Của Đức Chúa** từ trời ngự xuống bao phủ Lều Hội Ngộ và ánh sáng vinh quang của Chúa tràn ngập Nhà Tạm! Ban ngày Đám Mây của Chúa ở trên Nhà Tạm, ban đêm có Lửa ở trong mây trước mắt toàn nhà Ít-ra-en trên mọi chặng đường họ đi (`Xh 40, 38`). Ấn Dấu thứ 13 hoàn tất trọn vẹn **Hai Bia Đá Hành Trình (13/13 Ấn Dấu)**!
   * *Hoa trái suy niệm:* Thiên Chúa cao cả trên trời nhưng lại yêu thương muốn **ở gần bên cạnh con người** ("Emmanuel – Thiên Chúa ở cùng chúng ta"); Nhà Tạm và Hòm Bia Giao Ước xưa chính là hình ảnh báo trước về **Chúa Giêsu ngự thật trong Nhà Tạm Bí tích Thánh Thể** tại mỗi nhà thờ hôm nay, và về **Đức Trinh Nữ Maria – Hòm Bia Giao Ước Mới**.
+* **🎬 Hoạt cảnh chuyển tiếp kết màn (Narrative Bridge): Hành Trình Về Đất Hứa & Lời Chúc Lành Của Môi-sê (`Đnl 34; Gs 1–3`)**
+  * *Bối cảnh:* Sau khi Nhà Tạm được dựng nên, dân Ít-ra-en tiếp tục hành trình suốt 40 năm trong hoang địa dưới sự dẫn dắt của Cột Mây và Cột Lửa. Giờ đây, đoàn dân đã tiến sát bờ cõi Đất Hứa bên kia sông Gio-đan.
+  * *Hoạt cảnh & Lời dẫn ngắn gọn:*
+    1. **Đỉnh Núi Nê-vô (`Nebo`):** Ông Môi-sê đã 120 tuổi nhưng mắt không mờ, khí lực không giảm. Chúa đưa ông lên đỉnh núi Nê-vô và chỉ cho ông thấy toàn cảnh Đất Hứa màu mỡ ngút ngàn: *"Đây là đất Ta đã thề hứa với Áp-ra-ham, I-xa-ác và Gia-cóp... Ta cho ngươi nhìn thấy tận mắt, nhưng ngươi sẽ không qua đó"* (`Đnl 34, 4`).
+    2. **Trao truyền sứ mạng cho Giu-suê:** Môi-sê đặt tay lên Giu-suê, trao gậy và chúc lành: *"Hãy mạnh bạo và can trường, vì chính ngươi sẽ cùng với dân này đi vào đất Đức Chúa đã thề... Đức Chúa sẽ đi trước ngươi, Người sẽ ở cùng ngươi, Người không bỏ rơi ngươi đâu"* (`Đnl 31, 7-8`). Ông Môi-sê an nghỉ trong sự thánh thiện và tình thương của Chúa.
+    3. **Tiến vào Đất Hứa:** Giu-suê lãnh đạo toàn dân tiến bước. Khi bàn chân các tư tế khiêng Hòm Bia Giao Ước chạm vào mép nước sông Gio-đan, dòng nước liền rẽ đôi như năm xưa ở Biển Đỏ. Toàn dân Ít-ra-en hân hoan bước qua đất khô tiến vào Đất Hứa – hoàn tất trọn vẹn hành trình Xuất Hành 40 năm của dân Chúa.
 
 ---
 

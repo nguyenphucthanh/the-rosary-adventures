@@ -529,3 +529,69 @@ export const STAGE10 = {
     { vi: "Đoàn dân tiến tới chân núi Xi-nai, nơi Chúa sẽ ban Giao Ước. (Xh 19, 1-2)", en: "The people reach the foot of Mount Sinai, where the Lord will give the Covenant. (Ex 19:1-2)" },
   ] as L[],
 };
+
+export const STAGE11 = {
+  speaker: "Môi-sê",
+  intro: [
+    { vi: "“Núi Xi-nai toàn khối bốc khói, vì Đức Chúa ngự xuống trên đó trong lửa... Bấy giờ Thiên Chúa phán tất cả những lời sau đây: ‘Ta là Đức Chúa, Thiên Chúa của ngươi, Đấng đã đưa ngươi ra khỏi đất Ai Cập, khỏi cảnh nô lệ. Ngươi không được có thần nào khác đối nghịch với Ta...’” (Xh 19, 18; 20, 1-3)", en: "“Mount Sinai was wrapped in smoke, for the Lord descended upon it in fire... Then God spoke all these words: ‘I am the Lord your God, who brought you out of Egypt, out of the house of slavery. You shall have no other gods before me...’” (Ex 19:18; 20:1-3)" },
+    { vi: "Hãy giúp dân đứng đúng ranh giới thánh, rồi cùng Môi-sê leo lên đỉnh núi nhé!", en: "Help the people keep to the holy boundary, then climb the mountain with Moses!" },
+  ] as L[],
+  start: [
+    { vi: "Môi-sê: “Chúa dặn ta đặt ranh giới quanh chân núi, để dân đứng xa và kính cẩn. Con hãy đến từng chỗ có vòng sáng và [A] cắm cột mốc nhé. Có 4 cột!”", en: "Moses: “The Lord told me to set a boundary around the foot of the mountain so the people stand back with reverence. Go to each glowing ring and [A] plant a marker. There are 4!”" },
+  ] as L[],
+  site: { vi: "[A] Cắm cột mốc ranh giới", en: "[A] Plant a boundary marker" } as L,
+  planted: { vi: "Đã cắm", en: "Planted" } as L,
+  markers: { vi: "Cột mốc", en: "Markers" } as L,
+  climbIntro: [
+    { vi: "Môi-sê: “Đủ bốn cột rồi! Giờ ta lên núi. Mây sấm và lửa thánh chắn ngang lối đi. Đứng chờ cho tới khi nghe TIẾNG TÙ VÀ vang lên và mây tách ra, rồi mới bước qua. Mây khép lại là sẽ bị đẩy xuống đó!”", en: "Moses: “All four markers are set! Now we climb. Storm clouds and holy fire block the path. Wait until you hear the SHOFAR and the clouds part, then step through. When they close, you will be pushed back!”" },
+  ] as L[],
+  waitHorn: { vi: "Chờ tiếng tù và!", en: "Wait for the shofar!" } as L,
+  zapped: { vi: "Mây khép lại rồi!", en: "The clouds closed!" } as L,
+  tier: [
+    { vi: "Qua tầng mây thứ nhất", en: "First cloud passed" },
+    { vi: "Qua tầng mây thứ hai", en: "Second cloud passed" },
+    { vi: "Qua tầng mây thứ ba", en: "Third cloud passed" },
+  ] as L[],
+  climbHud: { vi: "Leo núi", en: "Climbing" } as L,
+  joshua: [
+    { vi: "Giu-suê: “Ta chờ ở đây. Chỉ mình Môi-sê và con được lên tiếp. Đi cẩn thận nhé!”", en: "Joshua: “I will wait here. Only Moses and you may go further. Be careful!”" },
+  ] as L[],
+  summit: [
+    { vi: "Môi-sê: “Đỉnh Xi-nai! Thiên Chúa phán và chúng ta nghe: đây là MƯỜI ĐIỀU RĂN. Có 10 phiến chữ ánh sáng. Hãy nhặt từng phiến bằng [A], rồi đặt vào đúng Bia Đá theo thứ tự từ Điều Thứ Nhất đến Điều Thứ Mười.”", en: "Moses: “The summit of Sinai! God spoke and we listened: these are the TEN COMMANDMENTS. There are 10 light tablets. Pick each one up with [A], then place it on the right Stone in order, from the First to the Tenth.”" },
+    { vi: "Môi-sê: “Nhớ nhé: Bia thứ nhất có 3 điều nói về việc mến Chúa. Bia thứ hai có 7 điều nói về việc yêu người.”", en: "Moses: “Remember: the first Stone holds 3 commandments about loving God. The second Stone holds 7 about loving people.”" },
+  ] as L[],
+  slab: { vi: "[A] Nhặt Phiến Chữ Ánh Sáng", en: "[A] Pick up a Light Tablet" } as L,
+  bia1: { vi: "[A] Đặt vào Bia I (Mến Chúa)", en: "[A] Place on Stone I (Love God)" } as L,
+  bia2: { vi: "[A] Đặt vào Bia II (Yêu người)", en: "[A] Place on Stone II (Love people)" } as L,
+  needSlab: { vi: "Cần Phiến Chữ", en: "Needs a tablet" } as L,
+  bia1Name: { vi: "Bia I", en: "Stone I" } as L,
+  bia2Name: { vi: "Bia II", en: "Stone II" } as L,
+  engraved: { vi: "Đã khắc", en: "Engraved" } as L,
+  right: { vi: "Đúng rồi!", en: "Right!" } as L,
+  wrong: { vi: "Chưa đúng chỗ!", en: "Not the right place!" } as L,
+  /** One tablet per commandment, in order. `bia` = 0 (Stone I) or 1 (Stone II). `hint` shows when it is placed wrongly. */
+  tablets: [
+    { bia: 0, text: { vi: "Thờ một Thiên Chúa", en: "Worship one God" }, hint: { vi: "Điều đầu tiên: “Ngươi không được có thần nào khác đối nghịch với Ta.” (Xh 20, 3). Thuộc Bia I, và là điều ĐẦU của cả mười điều.", en: "The very first: “You shall have no other gods before me.” (Ex 20:3). Stone I, and first of all ten." } },
+    { bia: 0, text: { vi: "Chớ kêu tên Chúa vô cớ", en: "Do not misuse God's name" }, hint: { vi: "“Ngươi không được dùng danh Đức Chúa mà làm điều vô ích.” (Xh 20, 7). Thuộc Bia I, sau điều thờ phượng.", en: "“You shall not misuse the name of the Lord.” (Ex 20:7). Stone I, after worship." } },
+    { bia: 0, text: { vi: "Giữ ngày Chúa Nhật", en: "Keep the Lord's Day" }, hint: { vi: "“Hãy nhớ ngày Sa-bát mà coi là ngày thánh.” (Xh 20, 8). Thuộc Bia I, điều cuối của Bia này.", en: "“Remember the Sabbath day and keep it holy.” (Ex 20:8). Stone I, its last commandment." } },
+    { bia: 1, text: { vi: "Thảo kính cha mẹ", en: "Honour your parents" }, hint: { vi: "“Hãy thảo kính cha mẹ.” (Xh 20, 12). Mở đầu Bia II: bắt đầu yêu người từ ngay trong gia đình.", en: "“Honour your father and mother.” (Ex 20:12). Opens Stone II: love people starting at home." } },
+    { bia: 1, text: { vi: "Chớ giết người", en: "Do not kill" }, hint: { vi: "“Ngươi không được giết người.” (Xh 20, 13). Bia II, tôn trọng sự sống, không đánh đập, không thù ghét.", en: "“You shall not murder.” (Ex 20:13). Stone II: respect life, no hitting, no hatred." } },
+    { bia: 1, text: { vi: "Giữ trong sạch", en: "Keep purity" }, hint: { vi: "“Ngươi không được ngoại tình.” (Xh 20, 14). Bia II, giữ thân thể và tâm hồn trong sạch.", en: "“You shall not commit adultery.” (Ex 20:14). Stone II: keep body and heart pure." } },
+    { bia: 1, text: { vi: "Chớ lấy của người", en: "Do not steal" }, hint: { vi: "“Ngươi không được trộm cắp.” (Xh 20, 15). Bia II, tôn trọng đồ của người khác.", en: "“You shall not steal.” (Ex 20:15). Stone II: respect what belongs to others." } },
+    { bia: 1, text: { vi: "Chớ làm chứng dối", en: "Do not lie" }, hint: { vi: "“Ngươi không được làm chứng gian hại người đồng loại.” (Xh 20, 16). Bia II, sống thành thật.", en: "“You shall not bear false witness.” (Ex 20:16). Stone II: be truthful." } },
+    { bia: 1, text: { vi: "Giữ tâm hồn trong sáng", en: "Keep a clear heart" }, hint: { vi: "“Ngươi không được ham muốn vợ (chồng) người đồng loại.” (Xh 20, 17). Bia II, giữ lòng trong sáng.", en: "“You shall not covet your neighbour's wife.” (Ex 20:17). Stone II: keep the heart clear." } },
+    { bia: 1, text: { vi: "Chớ tham của người", en: "Do not covet" }, hint: { vi: "“Ngươi không được ham muốn nhà cửa, của cải của người đồng loại.” (Xh 20, 17). Điều CUỐI cùng của Bia II.", en: "“You shall not covet your neighbour's house or goods.” (Ex 20:17). The very last of Stone II." } },
+  ] as { bia: 0 | 1; text: L; hint: L }[],
+  flyBack: { vi: "Phiến chữ bay về chỗ cũ", en: "The tablet flies back" } as L,
+  allDone: [
+    { vi: "Hai Bia Đá tỏa sáng rực rỡ! Đây không phải xiềng xích cấm đoán, mà là CON ĐƯỜNG TỰ DO VÀ HẠNH PHÚC Chúa Cha trao để bảo vệ dân Người khỏi rơi lại vào cảnh nô lệ tội lỗi.", en: "The two Stones shine brightly! They are not chains of prohibition but the PATH OF FREEDOM AND HAPPINESS the Father gives to keep his people from falling back into the slavery of sin." },
+  ] as L[],
+  hud: { vi: "Điều Răn đã khắc", en: "Engraved" } as L,
+  outro: [
+    { vi: "Thiên Chúa viết Mười Điều Răn lên hai bia đá bằng chính ngón tay của Người (Xh 31, 18). Ấn Dấu thứ 11 khắc sáng!", en: "God wrote the Ten Commandments on two tablets of stone with his own finger (Ex 31:18). The 11th Seal shines!" },
+  ] as L[],
+  lesson: { vi: "Hãy thuộc lòng và sống Mười Điều Răn mỗi ngày, tóm lại trong hai điều răn trọng nhất: Mến Chúa hết lòng và Yêu người thân cận như chính mình (Mt 22, 37-40).", en: "Learn the Ten Commandments by heart and live them every day, summed up in the two greatest: love God with all your heart and love your neighbour as yourself (Mt 22:37-40)." } as L,
+  cutscene: [
+    { vi: "Môi-sê ở lại trên núi lâu quá, dưới chân núi dân chúng bắt đầu sốt ruột... (Xh 32, 1)", en: "Moses stays so long on the mountain that the people at its foot grow restless... (Ex 32:1)" },
+  ] as L[],
+};
