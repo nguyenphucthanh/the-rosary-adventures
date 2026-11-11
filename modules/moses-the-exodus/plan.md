@@ -211,32 +211,32 @@ export interface ExodusSaveData {
     * **Âm nền (Ambience):** `["wind"]` — gió sấm chớp cuồn cuộn trên đỉnh núi thánh.
     * **Mặt sàn (Surface):** `stone` (vách đá dốc đứng núi Xi-nai).
     * **Hiệu ứng (SFX):** `shofar` (kèn sừng cừu trầm hùng triệu tập toàn dân), `pickup` (đón nhận từng giới răn), `chime` (khắc xong một điều răn), `bless` (Hai Bia Đá Mười Điều Răn hoàn tất rực sáng).
-* [ ] **Stage 12 (`Stage12GoldenCalfMercyScene`):** *Bi Kịch Bê Vàng & Lời Chuyển Cầu Của Môi-sê (`Xh 32, 1-34`; `34, 1-10`)* ([Chi tiết](./scripts.md#stage-12-bi-kịch-bê-vàng--lời-chuyển-cầu-của-môi-sê-xh-32-1-34-34-1-10))
-  * [ ] 🖼️ Ảnh mở màn: `intro-12.png` (Mảnh vỡ tượng bê vàng tan tành; Môi-sê đẽo lại hai bia đá mới và tha thiết cầu bầu).
-  * [ ] Gameplay (**Idol Purge & Intercession Path Puzzle**): Dẹp lò khói mê muội bê vàng, đẽo lại 2 Bia Đá mới và cầu bầu xin Chúa thứ tha.
-  * [ ] 🎵 Âm thanh & Nhạc nền:
+* [x] **Stage 12 (`Stage12GoldenCalfMercyScene`):** *Bi Kịch Bê Vàng & Lời Chuyển Cầu Của Môi-sê (`Xh 32, 1-34`; `34, 1-10`)* ([Chi tiết](./scripts.md#stage-12-bi-kịch-bê-vàng--lời-chuyển-cầu-của-môi-sê-xh-32-1-34-34-1-10))
+  * [x] 🖼️ Ảnh mở màn: `intro-12.png` (Mảnh vỡ tượng bê vàng tan tành; Môi-sê đẽo lại hai bia đá mới và tha thiết cầu bầu).
+  * [x] Gameplay (**Idol Purge & Intercession Path Puzzle**): Dẹp lò khói mê muội bê vàng, đẽo lại 2 Bia Đá mới và cầu bầu xin Chúa thứ tha.
+  * [x] 🎵 Âm thanh & Nhạc nền:
     * **Nhạc nền (BGM):** `sorrowful` (Contrition & Intercession for Mercy 56 BPM, A minor) — xót xa trước lỗi lầm, nhưng tha thiết lời cầu bầu tin tưởng vào Lòng Thương Xót vô biên.
     * **Âm nền (Ambience):** `["fire", "wind"]` — tàn tro tượng bê vàng bị tiêu hủy & gió sa mạc ai oán.
     * **Mặt sàn (Surface):** `sand` (chân núi Xi-nai & nơi đóng trại).
     * **Hiệu ứng (SFX):** `staff` (đập tan tượng bê vàng & dẹp lò khói mê muội), `chime` (đẽo lại 2 Bia Đá mới), `bless` (Chúa mạc khải Ta Là Đấng Từ Bi Nhân Hậu).
-* [ ] **Stage 13 (`Stage13TabernacleGloryScene`):** *Dựng Nhà Tạm & Vinh Quang Chúa Ngự Xuống (`Xh 35 – 40`)* ([Chi tiết](./scripts.md#stage-13-dựng-nhà-tạm--vinh-quang-chúa-ngự-xuống-xh-35--40))
-  * [ ] 🖼️ Ảnh mở màn: `intro-13.png` (Nhà Tạm hoàn thành uy nghiêm; Đám Mây Vinh Quang Shekinah ngự xuống bao phủ).
-  * [ ] Gameplay (**Sanctuary Blueprint Assembly Finale**): Lắp đặt 3 không gian Nhà Tạm (Sân Ngoài, Nơi Thánh, Nơi Cực Thánh) đón vinh quang Chúa.
-  * [ ] 🎬 Cutscene chuyển tiếp then chốt (**Hành Trình Về Đất Hứa & Lời Chúc Lành Của Môi-sê** – `Đnl 34; Gs 1–3`):
+* [x] **Stage 13 (`Stage13TabernacleGloryScene`):** *Dựng Nhà Tạm & Vinh Quang Chúa Ngự Xuống (`Xh 35 – 40`)* ([Chi tiết](./scripts.md#stage-13-dựng-nhà-tạm--vinh-quang-chúa-ngự-xuống-xh-35--40))
+  * [x] 🖼️ Ảnh mở màn: `intro-13.png` (Nhà Tạm hoàn thành uy nghiêm; Đám Mây Vinh Quang Shekinah ngự xuống bao phủ).
+  * [x] Gameplay (**Sanctuary Blueprint Assembly Finale**): Lắp đặt 3 không gian Nhà Tạm (Sân Ngoài, Nơi Thánh, Nơi Cực Thánh) đón vinh quang Chúa.
+  * [x] 🎬 Cutscene chuyển tiếp then chốt (**Hành Trình Về Đất Hứa & Lời Chúc Lành Của Môi-sê** – `Đnl 34; Gs 1–3`):
     * Kể ngắn gọn hành trình 40 năm hoang địa hoàn tất: Đám Mây, Cột Lửa và Hòm Bia Giao Ước đồng hành che chở dân Chúa qua bao thử thách gian nan.
     * Trên đỉnh núi Nê-vô (`Nebo`), ông Môi-sê dù tuổi cao mắt vẫn tinh tường, được Chúa đưa lên ngắm nhìn toàn cảnh Đất Hứa Ca-na-an chan hòa sữa và mật. Môi-sê đặt tay chúc lành, trao gậy và trao phó sứ mạng cho dũng tướng Giu-suê kế nhiệm.
     * Giu-suê cùng các tư tế khiêng Hòm Bia Giao Ước dẫn toàn dân rẽ nước sông Gio-đan, hân hoan đặt chân vào Đất Hứa – hoàn tất trọn vẹn lời đoan thệ Thiên Chúa đã hứa với các tổ phụ Áp-ra-ham, I-xa-ác và Gia-cóp trước khi bước vào Màn Kết Epilogue.
-  * [ ] 🎵 Âm thanh & Nhạc nền:
+  * [x] 🎵 Âm thanh & Nhạc nền:
     * **Nhạc nền (BGM):** `tabernacle` (Tabernacle of the Covenant 96 BPM, G major) — rạng rỡ, trang trọng, thánh ca phụng vụ tạ ơn Chúa đến ở giữa con người.
     * **Âm nền (Ambience):** `["crowd", "wind"]` — toàn dân kính cẩn vây quanh Nhà Tạm đón mừng vinh quang Chúa.
     * **Mặt sàn (Surface):** `stone` (sân Nơi Thánh & Nơi Cực Thánh).
     * **Hiệu ứng (SFX):** `shofar` (khai mạc đại lễ cung hiến Nhà Tạm), `pickup` (lắp ráp Chân Đèn 7 Ngọn, Bàn Thờ Hương, Hòm Bia Giao Ước), `chime` (hoàn tất một gian phòng), `bless` / `complete` (Đám Mây Vinh Quang Shekinah ngự xuống bao phủ).
 
 ### Giai đoạn 6: Khúc Vĩ Thanh (Epilogue) & Kiểm định Chất lượng
-* [ ] **Màn Kết (`EpilogueScene`):** *Cuộc Vượt Qua Mới Của Chúa Giêsu (`Xh 12; Ga 6, 32-35; 1 Cr 10, 1-4`)* ([Chi tiết](./scripts.md#màn-kết-cuộc-vượt-qua-mới-của-chúa-giêsu-xh-12-ga-6-32-35-1-cr-10-1-4))
-  * [ ] 🖼️ Ảnh mở màn: `intro-end.png` (Căn phòng bình minh; Kinh Thánh Xuất Hành mở bên Hai Bia Đá, Hòm Bia, Tàu Nô-ê, Cuộn Sáng Thế và Chuỗi Mân Côi).
-  * [ ] Gameplay: 3 kết nối đức tin của Người Lữ Hành Tự Do (Chiên Vượt Qua & Biển Đỏ $\rightarrow$ Chúa Giêsu & Bí tích Rửa Tội; Mân-na $\rightarrow$ Thánh Thể; Mười Điều Răn $\rightarrow$ Giới răn Yêu Thương).
-  * [ ] 🎵 Âm thanh & Nhạc nền:
+* [x] **Màn Kết (`EpilogueScene`):** *Cuộc Vượt Qua Mới Của Chúa Giêsu (`Xh 12; Ga 6, 32-35; 1 Cr 10, 1-4`)* ([Chi tiết](./scripts.md#màn-kết-cuộc-vượt-qua-mới-của-chúa-giêsu-xh-12-ga-6-32-35-1-cr-10-1-4))
+  * [x] 🖼️ Ảnh mở màn: `intro-end.png` (Căn phòng bình minh; Kinh Thánh Xuất Hành mở bên Hai Bia Đá, Hòm Bia, Tàu Nô-ê, Cuộn Sáng Thế và Chuỗi Mân Côi).
+  * [x] Gameplay: 3 kết nối đức tin của Người Lữ Hành Tự Do (Chiên Vượt Qua & Biển Đỏ $\rightarrow$ Chúa Giêsu & Bí tích Rửa Tội; Mân-na $\rightarrow$ Thánh Thể; Mười Điều Răn $\rightarrow$ Giới răn Yêu Thương).
+  * [x] 🎵 Âm thanh & Nhạc nền:
     * **Nhạc nền (BGM):** `lullaby` (The New Passover in Christ 70 BPM, C major) — trọn vẹn, bình an, khúc kết thúc hành trình lữ hành đức tin.
     * **Âm nền (Ambience):** `["crickets"]` — căn phòng bình yên buổi sớm.
     * **Mặt sàn (Surface):** `wood` (sàn phòng ngủ).

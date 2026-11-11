@@ -595,3 +595,219 @@ export const STAGE11 = {
     { vi: "Môi-sê ở lại trên núi lâu quá, dưới chân núi dân chúng bắt đầu sốt ruột... (Xh 32, 1)", en: "Moses stays so long on the mountain that the people at its foot grow restless... (Ex 32:1)" },
   ] as L[],
 };
+
+/** Stage 12 (Xh 32, 1-34; 34, 1-10): the golden calf, the carving of two new tablets, Moses' intercession. */
+export const STAGE12 = {
+  speaker: "Môi-sê",
+  intro: [
+    { vi: "“Dân thấy ông Môi-sê cứ ở mãi trên núi chưa xuống, liền tụ họp quanh ông A-ha-rôn... làm thành một con bê đúc... Ông Môi-sê khẩn khoản nài xin Đức Chúa, Thiên Chúa của ông... Đức Chúa đi qua trước mặt ông và xướng lên: ‘Đức Chúa! Đức Chúa! Thiên Chúa nhân hậu và từ bi, hay nén giận, giàu nhân nghĩa và thành tín!’” (Xh 32, 1.4.11; 34, 6)", en: "“When the people saw that Moses was delayed in coming down, they gathered around Aaron... and made a molten calf... Moses implored the Lord his God... The Lord passed before him and proclaimed: ‘The Lord, the Lord, a God merciful and gracious, slow to anger, abounding in love and faithfulness!’” (Ex 32:1.4.11; 34:6)" },
+    { vi: "Hãy giúp Môi-sê dẹp tan khói mê muội của bê vàng, đẽo lại hai bia đá mới và mang lên núi để cầu xin Chúa thứ tha nhé!", en: "Help Moses clear the smoke of the golden calf, carve two new tablets and carry them up the mountain to ask the Lord's forgiveness!" },
+  ] as L[],
+  start: [
+    { vi: "Môi-sê: “Dân đã để cái bê vàng chiếm chỗ của Chúa trong lòng. Khói từ bốn lò đúc làm họ mê muội, và những VÒNG SÓNG MÊ MUỘI tỏa ra từ bệ tượng. Con hãy bước qua khe hở của vòng sóng, đến từng lò và [A] gạt đổ nó. Rồi ta sẽ đập tan bệ tượng!”", en: "Moses: “The people let a calf take the Lord's place in their hearts. Smoke from four furnaces has dazed them, and RINGS OF DELUSION spread from the statue's base. Slip through the gaps in the rings, go to each furnace and [A] knock it over. Then we will smash the statue's base!”" },
+  ] as L[],
+  forge: { vi: "[A] Gạt đổ lò đúc vàng", en: "[A] Topple the gold furnace" } as L,
+  forgeOut: { vi: "Lò đã tắt", en: "Furnace out" } as L,
+  forgeHud: { vi: "Lò đúc đã tắt", en: "Furnaces out" } as L,
+  forgesDone: [{ vi: "Môi-sê: “Cả bốn lò đã tắt! Giờ hãy đập tan bệ tượng bê vàng ở giữa trại.”", en: "Moses: “All four furnaces are out! Now smash the golden calf's base in the middle of the camp.”" }] as L[],
+  calfLocked: { vi: "Hãy tắt hết bốn lò đúc trước đã!", en: "Put out all four furnaces first!" } as L,
+  calf: { vi: "[A] Đập tan bệ tượng bê vàng", en: "[A] Smash the golden calf's base" } as L,
+  smashed: [
+    { vi: "Bệ tượng vỡ tan. Môi-sê: “Khói tan rồi. Nhìn xem, dân đang tỉnh lại và ăn năn.”", en: "The base shatters. Moses: “The smoke is gone. Look, the people are waking up and are sorry.”" },
+    { vi: "Môi-sê: “Giờ ta phải xin Chúa thứ tha và nối lại Giao Ước. Chúa bảo ta đẽo hai bia đá mới. Cổng lên lán thợ đá đã mở, hãy theo ta!”", en: "Moses: “Now we must ask the Lord to forgive and renew the Covenant. He told me to carve two new tablets. The gate to the stonecutters' shelter is open, follow me!”" },
+  ] as L[],
+  ringHit: { vi: "Sóng mê muội!", en: "Wave of delusion!" } as L,
+  carveIntro: [
+    { vi: "Môi-sê: “Đây là phiến đá nguyên khối. Con hãy nhìn BIA MẪU bên cạnh, rồi [A] gọt bỏ những ô đá thừa để được đúng hình bia. Đừng gọt vào phần lõi nhé, đá sẽ nứt và ta phải bắt đầu lại!”", en: "Moses: “Here is a block of solid stone. Look at the MODEL TABLET beside it, then [A] chip away the extra cells to get the right shape. Do not chip the core, or the stone will crack and we must start again!”" },
+  ] as L[],
+  chip: { vi: "[A] Gọt ô đá này", en: "[A] Chip this cell" } as L,
+  chipOk: { vi: "Gọt đúng!", en: "Well chipped!" } as L,
+  cracked: [
+    { vi: "Rắc! Con gọt vào phần lõi nên đá nứt rồi. Môi-sê: “Đừng lo, ta lấy khối đá mới cho con thử lại. Hãy so với Bia Mẫu thật kỹ nhé.”", en: "Crack! You chipped the core and the stone split. Moses: “Do not worry, here is a fresh block to try again. Compare it carefully with the model.”" },
+  ] as L[],
+  stoneDone: [
+    { vi: "Phiến đá thứ nhất đã xong! Còn một phiến nữa.", en: "The first tablet is done! One more to go." },
+    { vi: "Phiến đá thứ hai đã xong!", en: "The second tablet is done!" },
+  ] as L[],
+  carveHud: { vi: "Bia đã đẽo", en: "Tablets carved" } as L,
+  model: { vi: "Bia mẫu", en: "Model" } as L,
+  carryUp: [
+    { vi: "Môi-sê: “Hai bia đá mới đã sẵn sàng! Giờ ta mang chúng lên hốc đá Xi-nai ngay lúc rạng đông. Gió lốc sa mạc sẽ cản bước: khi bụi gió cuốn lên, con đi chậm lại. Hãy chờ gió lặng rồi hãy bước qua.”", en: "Moses: “The two new tablets are ready! Now we carry them up to the rock cleft on Sinai at dawn. The desert whirlwind will slow you: when the dust rises you move slowly. Wait for the wind to calm, then step through.”" },
+  ] as L[],
+  gust: { vi: "Gió lốc! Chờ gió lặng.", en: "Whirlwind! Wait for it to calm." } as L,
+  climbHud: { vi: "Mang bia lên núi", en: "Carrying the tablets up" } as L,
+  niche: { vi: "[A] Đặt hai bia đá, cầu bầu cho dân", en: "[A] Set down the tablets and intercede for the people" } as L,
+  atNiche: [
+    { vi: "Môi-sê quỳ xuống, đặt hai bia đá mới trước Chúa. Đây là lúc ông cầu bầu cho dân, như một người mục tử sẵn sàng chịu phạt thay cho đoàn chiên của mình (Xh 32, 32).", en: "Moses kneels and lays the two new tablets before the Lord. This is the moment he intercedes for the people, a shepherd ready to bear the penalty for his flock (Ex 32:32)." },
+    { vi: "Con hãy giúp Môi-sê chọn lời cầu xin đúng nhé.", en: "Help Moses choose the right prayer." },
+  ] as L[],
+  prayer: [
+    { label: { vi: "Xin Chúa nhớ lời hứa với Áp-ra-ham, I-xa-ác, Gia-cóp và tha thứ cho dân", en: "Lord, remember your promise to Abraham, Isaac and Jacob and forgive the people" }, right: true },
+    { label: { vi: "Xin Chúa bỏ dân này, chỉ chọn riêng con thôi", en: "Lord, abandon this people and choose only me" }, right: false },
+    { label: { vi: "Xin Chúa cho dân làm lại con bê vàng cho đẹp hơn", en: "Lord, let the people make a nicer golden calf" }, right: false },
+  ] as { label: L; right: boolean }[],
+  prayerWrong: [
+    { vi: "Môi-sê lắc đầu: “Không phải thế. Ta không bao giờ bỏ dân của mình, và cũng không xin Chúa cho họ thờ thần giả. Hãy xin lòng thương xót!”", en: "Moses shakes his head: “Not so. I will never abandon my people, nor ask the Lord to let them serve a false god. Ask for mercy!”" },
+  ] as L[],
+  mercy: [
+    { vi: "Đức Chúa đi qua trước mặt ông Môi-sê và xướng lên: “Đức Chúa! Đức Chúa! Thiên Chúa nhân hậu và từ bi, hay nén giận, giàu nhân nghĩa và thành tín!” (Xh 34, 6)", en: "The Lord passed before Moses and proclaimed: “The Lord, the Lord, a God merciful and gracious, slow to anger, abounding in love and faithfulness!” (Ex 34:6)" },
+    { vi: "Chúa tha thứ cho dân và viết lại Mười Điều Răn lên hai bia đá mới. Khi Môi-sê xuống núi, da mặt ông tỏa sáng vì đã chuyện trò với Chúa (Xh 34, 29)!", en: "The Lord forgives the people and writes the Ten Commandments again on the two new tablets. When Moses comes down, his face shines because he has spoken with the Lord (Ex 34:29)!" },
+  ] as L[],
+  outro: [
+    { vi: "Ấn Dấu thứ 12 khắc sáng! Nhờ lời cầu bầu của Môi-sê, Giao Ước được nối lại.", en: "The 12th Seal shines! Through Moses' intercession the Covenant is renewed." },
+  ] as L[],
+  lesson: { vi: "Đừng để tiền bạc, trò chơi hay bất cứ “thần tượng” nào chiếm chỗ của Chúa trong lòng. Hãy học Môi-sê cầu nguyện cho người khác và tin vào Lòng Thương Xót vô biên của Thiên Chúa.", en: "Never let money, games or any “idol” take God's place in your heart. Learn from Moses to pray for others and to trust God's boundless mercy." } as L,
+  cutscene: [
+    { vi: "Giao Ước được nối lại. Toàn dân tự nguyện dâng vàng bạc, vải quý để dựng một Nơi Thánh cho Chúa ngự giữa họ... (Xh 35, 4-29)", en: "The Covenant is renewed. The whole people freely offer gold, silver and fine cloth to build a Sanctuary where the Lord may dwell among them... (Ex 35:4-29)" },
+  ] as L[],
+};
+
+/** Stage 13 (Xh 35 – 40): raise the Tabernacle in three spaces, then the Glory of the Lord and the bridge to the Promised Land. */
+export const STAGE13 = {
+  speaker: "Môi-sê",
+  intro: [
+    { vi: "“Họ sẽ làm cho Ta một Nơi Thánh, và Ta sẽ ở giữa họ... Ông Môi-sê hoàn tất công việc. Bấy giờ đám mây bao phủ Lều Hội Ngộ, và vinh quang Đức Chúa tràn ngập Nhà Tạm.” (Xh 25, 8; 40, 33-34)", en: "“Let them make me a sanctuary, that I may dwell among them... So Moses finished the work. Then the cloud covered the Tent of Meeting, and the glory of the Lord filled the Tabernacle.” (Ex 25:8; 40:33-34)" },
+    { vi: "Dân Ít-ra-en đã dâng nhiều đến mức ông Môi-sê phải bảo ngừng mang thêm (Xh 36, 5-6). Hãy cùng Môi-sê, Bơ-xan-ên và Ô-hô-li-áp dựng Nhà Tạm đúng như Chúa chỉ trên núi!", en: "The Israelites gave so much that Moses told them to stop bringing more (Ex 36:5-6). Help Moses, Bezalel and Oholiab raise the Tabernacle just as the Lord showed on the mountain!" },
+  ] as L[],
+  start: [
+    { vi: "Môi-sê: “Nhà Tạm có ba nơi: SÂN NGOÀI, NƠI THÁNH và NƠI CỰC THÁNH. Ta bắt đầu ở sân ngoài: kéo ròng rọc dựng ba hàng rào vải gai, đặt Bàn Thờ Lễ Toàn Thiêu trước cửa lều, rồi đặt Chậu Đồng giữa bàn thờ và lều, và đổ đầy nước thanh tẩy.”", en: "Moses: “The Tabernacle has three spaces: the OUTER COURTYARD, the HOLY PLACE and the HOLY OF HOLIES. We begin in the courtyard: pull the pulleys to raise three linen fences, set the Altar of Burnt Offering before the tent door, then place the Bronze Basin between the altar and the tent, and fill it with water.”" },
+  ] as L[],
+  pulley: { vi: "[A] Kéo ròng rọc dựng hàng rào", en: "[A] Pull the pulley to raise the fence" } as L,
+  pulleyHud: { vi: "Hàng rào", en: "Fences" } as L,
+  pickItem: { vi: "[A] Nhấc lên", en: "[A] Pick up" } as L,
+  slotHere: { vi: "[A] Đặt vào đây", en: "[A] Set it here" } as L,
+  needItem: { vi: "Hãy nhấc một thánh vật lên trước", en: "Pick up a sacred item first" } as L,
+  springHint: { vi: "[A] Múc nước suối", en: "[A] Draw spring water" } as L,
+  haveWater: { vi: "Đã múc nước", en: "Water drawn" } as L,
+  laverFirst: { vi: "Hãy đặt Chậu Đồng trước đã", en: "Place the Bronze Basin first" } as L,
+  pourHint: { vi: "[A] Đổ nước vào Chậu Đồng", en: "[A] Pour water into the Basin" } as L,
+  washHint: { vi: "[A] Rửa tay trước khi vào Nơi Thánh", en: "[A] Wash your hands before the Holy Place" } as L,
+  washNeedWater: { vi: "Chậu còn khô. Hãy múc nước suối đổ vào chậu.", en: "The basin is dry. Draw spring water and pour it in." } as L,
+  washed: { vi: "Đã thanh tẩy", en: "Washed" } as L,
+  courtDone: [
+    { vi: "Môi-sê: “Sân Ngoài đã xong! A-ha-rôn và các tư tế sẽ rửa tay chân ở Chậu Đồng trước khi vào Lều. Con cũng rửa tay rồi vào Nơi Thánh nhé.”", en: "Moses: “The Courtyard is done! Aaron and the priests will wash hands and feet at the Basin before entering the Tent. Wash your hands too, then enter the Holy Place.”" },
+  ] as L[],
+  gateLocked: { vi: "Hãy rửa tay ở Chậu Đồng trước", en: "Wash your hands at the Basin first" } as L,
+  wrongSpot: [
+    { vi: "Môi-sê nhẹ nhàng nhắc: “Chưa đúng chỗ rồi con. Hãy xem lại chỉ dẫn trong Xh 40.”", en: "Moses gently reminds you: “That is not the right place yet. Look again at the instructions in Exodus 40.”" },
+  ] as L[],
+  courtHints: {
+    altar: { vi: "Bàn Thờ Lễ Toàn Thiêu đặt ngay trước cửa Lều Hội Ngộ. (Xh 40, 6)", en: "The Altar of Burnt Offering goes right before the door of the Tent of Meeting. (Ex 40:6)" },
+    laver: { vi: "Chậu Đồng đặt giữa Lều Hội Ngộ và bàn thờ, rồi đổ nước vào. (Xh 40, 7)", en: "The Basin goes between the Tent of Meeting and the altar, with water in it. (Ex 40:7)" },
+  } as Record<"altar" | "laver", L>,
+  holyIntro: [
+    { vi: "Môi-sê: “Nơi Thánh: nhớ phương hướng nhé! Lều quay về hướng đông, con bước vào là nhìn về phía tây. BÀN BÁNH TIẾN đặt phía BẮC (bên phải con), CHÂN ĐÈN VÀNG phía NAM (bên trái con), còn BÀN THỜ HƯƠNG ở CHÍNH GIỮA, ngay trước bức màn.”", en: "Moses: “The Holy Place: mind the directions! The tent faces east, so as you enter you look west. The TABLE OF BREAD goes on the NORTH side (your right), the GOLDEN LAMPSTAND on the SOUTH (your left), and the ALTAR OF INCENSE in the very CENTRE, right before the veil.”" },
+  ] as L[],
+  tableHint: { vi: "Bàn Bánh Tiến đặt ở phía Bắc (bên phải khi bước vào). (Xh 40, 22)", en: "The Table of Bread goes on the north side (your right as you enter). (Ex 40:22)" } as L,
+  lampHint: { vi: "Chân Đèn Vàng đặt ở phía Nam, đối diện bàn bánh (bên trái). (Xh 40, 24)", en: "The Golden Lampstand goes on the south side, facing the table (your left). (Ex 40:24)" } as L,
+  incenseHint: { vi: "Bàn Thờ Hương Vàng đặt chính giữa, ngay trước bức màn. (Xh 40, 26)", en: "The Golden Altar of Incense goes in the centre, right before the veil. (Ex 40:26)" } as L,
+  compassN: { vi: "BẮC", en: "N" } as L,
+  compassS: { vi: "NAM", en: "S" } as L,
+  lampsIntro: [
+    { vi: "Môi-sê: “Giờ thắp bảy ngọn đèn dầu ô-liu. Hãy bắt đầu từ NGỌN GIỮA, rồi sáng dần ra hai bên: phải, trái, phải, trái.”", en: "Moses: “Now light the seven olive-oil lamps. Start from the MIDDLE lamp, then spread outward: right, left, right, left.”" },
+  ] as L[],
+  lamp: { vi: "[A] Thắp ngọn đèn", en: "[A] Light the lamp" } as L,
+  lampWrong: { vi: "Sai thứ tự! Bắt đầu lại từ ngọn giữa.", en: "Wrong order! Begin again from the middle." } as L,
+  lampsHud: { vi: "Đèn đã thắp", en: "Lamps lit" } as L,
+  incense: { vi: "[A] Đốt hương thơm", en: "[A] Burn the incense" } as L,
+  incenseFirst: { vi: "Hãy thắp bảy ngọn đèn trước", en: "Light the seven lamps first" } as L,
+  holyDone: [
+    { vi: "Môi-sê: “Nơi Thánh đã xong, hương thơm bay lên như lời cầu nguyện của dân. Giờ đến Nơi Cực Thánh, nơi cất giữ Hòm Bia Giao Ước.”", en: "Moses: “The Holy Place is complete; the incense rises like the prayers of the people. Now the Holy of Holies, where the Ark of the Covenant rests.”" },
+  ] as L[],
+  holiesIntro: [
+    { vi: "Môi-sê: “Nơi Cực Thánh! Hãy cung kính rước Hai Bia Đá Chứng Ước đặt vào lòng Hòm Bia, rồi đặt Nắp Xá Tội có hai thần Kê-ru-bim bằng vàng lên trên, và căng Bức Màn Thánh phía sau.”", en: "Moses: “The Holy of Holies! Reverently carry the two Tablets of the Testimony into the Ark, then set the Mercy Seat with its two golden cherubim on top, and stretch the holy Veil behind.”" },
+  ] as L[],
+  tablets: { vi: "[A] Rước Hai Bia Đá Chứng Ước", en: "[A] Carry the Tablets of the Testimony" } as L,
+  seat: { vi: "[A] Nhấc Nắp Xá Tội", en: "[A] Lift the Mercy Seat" } as L,
+  ark: { vi: "[A] Đặt vào Hòm Bia", en: "[A] Place in the Ark" } as L,
+  arkFirst: { vi: "Hãy đặt Hai Bia Đá vào Hòm Bia trước, rồi mới đặt Nắp Xá Tội.", en: "Put the Tablets in the Ark first, then the Mercy Seat." } as L,
+  veil: { vi: "[A] Căng Bức Màn Thánh", en: "[A] Hang the holy Veil" } as L,
+  veilFirst: { vi: "Hãy đặt xong Hòm Bia trước", en: "Finish the Ark first" } as L,
+  holiesDone: [
+    { vi: "Môi-sê: “Hòm Bia đã yên vị! Giờ chỉ còn treo tấm màn cổng sân ở lối vào, nơi con đã bước vào lúc đầu.”", en: "Moses: “The Ark is in place! Only the courtyard gate curtain remains, at the entrance where you first came in.”" },
+  ] as L[],
+  gate: { vi: "[A] Treo màn cổng sân", en: "[A] Hang the courtyard gate curtain" } as L,
+  gateFirst: { vi: "Hãy hoàn tất Nơi Cực Thánh trước", en: "Finish the Holy of Holies first" } as L,
+  stepHud: [
+    { vi: "Sân Ngoài", en: "Courtyard" },
+    { vi: "Nơi Thánh", en: "Holy Place" },
+    { vi: "Nơi Cực Thánh", en: "Holy of Holies" },
+    { vi: "Màn cổng sân", en: "Gate curtain" },
+  ] as L[],
+  glory: [
+    { vi: "Ngay khi bức màn cổng sân được treo xong, Đám Mây Vinh Quang của Đức Chúa từ trời ngự xuống bao phủ Lều Hội Ngộ, và vinh quang Chúa tràn ngập Nhà Tạm! (Xh 40, 34)", en: "As soon as the courtyard curtain was hung, the Cloud of the Lord's Glory came down and covered the Tent of Meeting, and the glory of the Lord filled the Tabernacle! (Ex 40:34)" },
+    { vi: "Ban ngày Đám Mây của Chúa ở trên Nhà Tạm, ban đêm có Lửa ở trong mây, trước mắt toàn nhà Ít-ra-en trên mọi chặng đường họ đi. (Xh 40, 38)", en: "By day the cloud of the Lord was over the Tabernacle, and by night there was fire in it, in the sight of all the house of Israel on all their journeys. (Ex 40:38)" },
+  ] as L[],
+  outro: [
+    { vi: "Ấn Dấu thứ 13 khắc sáng! Hai Bia Đá Hành Trình đã đủ 13/13 Ấn Dấu!", en: "The 13th Seal shines! The Journey Tablets now hold all 13/13 Seals!" },
+  ] as L[],
+  lesson: { vi: "Thiên Chúa cao cả trên trời nhưng muốn ở gần con người (Emmanuel, Thiên Chúa ở cùng chúng ta). Nhà Tạm xưa báo trước Chúa Giêsu ngự thật trong Nhà Tạm Thánh Thể nơi nhà thờ, và Đức Trinh Nữ Maria, Hòm Bia Giao Ước Mới.", en: "God is great in heaven yet wants to be near us (Emmanuel, God with us). The ancient Tabernacle foreshadows Jesus truly present in the Eucharist in every church, and the Virgin Mary, the New Ark of the Covenant." } as L,
+  bridge: [
+    { speaker: "Hoang địa", lines: [
+      { vi: "Sau khi Nhà Tạm được dựng nên, dân Ít-ra-en tiếp tục hành trình suốt 40 năm trong hoang địa, dưới sự dẫn dắt của Cột Mây và Cột Lửa, với Hòm Bia Giao Ước đồng hành che chở. Giờ đây đoàn dân đã tiến sát bờ cõi Đất Hứa bên kia sông Gio-đan.", en: "After the Tabernacle was raised, Israel kept travelling for 40 years in the wilderness, led by the pillar of cloud and fire, with the Ark of the Covenant going with them. Now the people stand at the edge of the Promised Land beyond the Jordan." },
+    ] as L[] },
+    { speaker: "Đỉnh núi Nê-vô", lines: [
+      { vi: "Ông Môi-sê đã 120 tuổi nhưng mắt không mờ, khí lực không giảm. Chúa đưa ông lên đỉnh núi Nê-vô và chỉ cho ông thấy toàn cảnh Đất Hứa: “Đây là đất Ta đã thề hứa với Áp-ra-ham, I-xa-ác và Gia-cóp... Ta cho ngươi nhìn thấy tận mắt, nhưng ngươi sẽ không qua đó.” (Đnl 34, 4)", en: "Moses was 120 years old, yet his eyes were not dim and his strength had not left him. The Lord brought him up Mount Nebo and showed him the whole Promised Land: “This is the land I swore to Abraham, Isaac and Jacob... I let you see it with your eyes, but you shall not cross over.” (Dt 34:4)" },
+    ] as L[] },
+    { speaker: "Môi-sê và Giu-suê", lines: [
+      { vi: "Môi-sê đặt tay lên Giu-suê, trao gậy và chúc lành: “Hãy mạnh bạo và can trường... Đức Chúa sẽ đi trước ngươi, Người sẽ ở cùng ngươi, Người không bỏ rơi ngươi đâu.” (Đnl 31, 7-8) Rồi ông Môi-sê an nghỉ trong tình thương của Chúa.", en: "Moses laid his hands on Joshua, handed him the staff and blessed him: “Be strong and courageous... The Lord himself goes before you; he will be with you; he will not leave you.” (Dt 31:7-8) Then Moses rested in the Lord's love." },
+    ] as L[] },
+    { speaker: "Sông Gio-đan", lines: [
+      { vi: "Giu-suê lãnh đạo toàn dân tiến bước. Khi chân các tư tế khiêng Hòm Bia Giao Ước chạm mép nước sông Gio-đan, dòng nước liền rẽ đôi như năm xưa ở Biển Đỏ. Toàn dân hân hoan bước qua đất khô, tiến vào Đất Hứa. (Gs 3, 15-17) Hành trình Xuất Hành đã trọn vẹn!", en: "Joshua led the people on. When the feet of the priests carrying the Ark touched the edge of the Jordan, the waters parted as at the Red Sea long ago. The whole people crossed joyfully on dry ground into the Promised Land. (Josh 3:15-17) The Exodus journey is complete!" },
+    ] as L[] },
+  ],
+};
+
+/** Epilogue (Xh 12; Ga 6, 32-35; 1 Cr 10, 1-4): the Holy Spirit helps the child see how the Exodus points to Jesus. */
+export const EPILOGUE = {
+  speaker: "Chúa Thánh Thần",
+  intro: [
+    { vi: "“Lề Luật đã được Thiên Chúa ban qua ông Môi-sê, còn ân sủng và sự thật thì nhờ Đức Giê-su Ki-tô mà có.” (Ga 1, 17)", en: "“The law was given through Moses; grace and truth came through Jesus Christ.” (Jn 1:17)" },
+    { vi: "Bình minh yên bình trong căn phòng nhỏ. Cuốn Kinh Thánh Xuất Hành mở bên Hai Bia Đá, Hòm Bia, Tàu Nô-ê, Cuộn Sáng Thế và Chuỗi Mân Côi, nối Cựu Ước sang Tân Ước.", en: "A calm dawn in the little room. The Book of Exodus lies open beside the Two Tablets, the Ark, Noah's Ark, the Genesis scroll and the Rosary, joining the Old Testament to the New." },
+  ] as L[],
+  start: [
+    { vi: "Chúa Thánh Thần: “Con yêu dấu, con đã đi hết hành trình Xuất Hành! Giờ hãy cùng Ta xây ba nhịp cầu nối Cựu Ước với Chúa Giêsu. Đến từng chỗ có ánh sáng nhé!”", en: "Holy Spirit: “Dear child, you have walked the whole Exodus journey! Now let us build three bridges joining the Old Testament to Jesus. Go to each place that shines!”" },
+  ] as L[],
+  dove: { vi: "[A] Chúa Thánh Thần", en: "[A] Holy Spirit" } as L,
+  bridgeHud: { vi: "Nhịp cầu", en: "Bridges" } as L,
+  spots: [
+    { vi: "[A] Bản Đồ Biển Đỏ", en: "[A] The Red Sea map" },
+    { vi: "[A] Bàn học: Mân-na và nước từ đá", en: "[A] Desk: manna and water from the rock" },
+    { vi: "[A] Góc cầu nguyện", en: "[A] Prayer corner" },
+  ] as L[],
+  order: { vi: "Hãy đi theo thứ tự các nhịp cầu: bản đồ, bàn học, rồi góc cầu nguyện.", en: "Follow the bridges in order: map, desk, then prayer corner." } as L,
+  q1: { vi: "Chúa Thánh Thần: “Máu chiên bôi trên khung cửa cứu dân khỏi chết, và cuộc vượt qua Biển Đỏ báo trước về mầu nhiệm nào?”", en: "Holy Spirit: “The lamb's blood on the doorposts saved the people from death, and the crossing of the Red Sea. What mystery do they foretell?”" } as L,
+  a1: [
+    { label: { vi: "Chúa Giêsu, Chiên Thiên Chúa chịu chết trên Thập Giá, và Bí tích Rửa Tội đưa ta từ nô lệ tội lỗi sang tự do của con cái Chúa", en: "Jesus, the Lamb of God who died on the Cross, and Baptism, which brings us from slavery to sin into the freedom of God's children" }, right: true },
+    { label: { vi: "Chỉ là một câu chuyện xưa, không liên quan gì đến chúng ta", en: "Just an old story that has nothing to do with us" }, right: false },
+    { label: { vi: "Báo trước một cuộc đua thuyền trên sông Nin", en: "A boat race on the Nile" }, right: false },
+  ] as { label: L; right: boolean }[],
+  q2: { vi: "Chúa Thánh Thần: “Bánh Mân-na từ trời nuôi dân suốt 40 năm, và nước chảy ra từ tảng đá Khô-rép. Những điều ấy giúp con nhớ đến ơn lành nào mỗi khi đi lễ?”", en: "Holy Spirit: “Manna from heaven fed the people for 40 years, and water flowed from the rock at Horeb. What blessing do they bring to mind each time you go to Mass?”" } as L,
+  a2: [
+    { label: { vi: "Bí tích Thánh Thể: chính Mình và Máu Chúa Giêsu là Bánh Hằng Sống nuôi linh hồn ta trên đường về Quê Trời (Ga 6, 35)", en: "The Eucharist: the Body and Blood of Jesus, the Bread of Life that feeds our souls on the way to our heavenly home (Jn 6:35)" }, right: true },
+    { label: { vi: "Món bánh ngon trong bữa tiệc sinh nhật", en: "A tasty cake at a birthday party" }, right: false },
+    { label: { vi: "Cách xếp hàng mua nước ở giếng", en: "How to queue for water at the well" }, right: false },
+  ] as { label: L; right: boolean }[],
+  q3: { vi: "Chúa Thánh Thần: “Giờ hãy đặt Hai Bia Đá Hành Trình (13/13 Ấn Dấu) cạnh Cuộn Sáng Thế, Hải Đồ Nô-ê và Chuỗi Mân Côi. Con quyết tâm điều gì?”", en: "Holy Spirit: “Now set the Journey Tablets (13/13 Seals) beside the Genesis scroll, Noah's chart and the Rosary. What do you resolve?”" } as L,
+  a3: [
+    { label: { vi: "Vâng giữ Mười Điều Răn và năng viếng Chúa Giêsu Thánh Thể đang ngự trong Nhà Tạm nơi nhà thờ", en: "To keep the Ten Commandments and often visit Jesus in the Eucharist in the church tabernacle" }, right: true },
+    { label: { vi: "Cất Hai Bia Đá vào ngăn kéo và quên đi", en: "Put the Tablets in a drawer and forget them" }, right: false },
+    { label: { vi: "Chỉ giữ những điều răn nào dễ", en: "Keep only the easy commandments" }, right: false },
+  ] as { label: L; right: boolean }[],
+  wrong: [
+    { vi: "Chúa Thánh Thần mỉm cười dịu dàng: “Chưa đúng đâu con. Hãy nhớ lại hành trình của chúng ta và thử lại nhé.”", en: "The Holy Spirit smiles gently: “Not quite, dear child. Remember our journey and try again.”" },
+  ] as L[],
+  right: [
+    { vi: "Chúa Thánh Thần: “Đúng rồi! Một nhịp cầu nữa đã nối xong.”", en: "Holy Spirit: “Yes! Another bridge is joined.”" },
+    { vi: "Chúa Thánh Thần: “Con nhìn thấy rồi: nhịp cầu thứ hai nối xong!”", en: "Holy Spirit: “You see it: the second bridge is joined!”" },
+    { vi: "Chúa Thánh Thần: “Ba nhịp cầu đã nối trọn!”", en: "Holy Spirit: “All three bridges are joined!”" },
+  ] as L[],
+  finale: [
+    { vi: "Hai Bia Đá Hành Trình tỏa sáng cạnh Cuộn Sáng Thế, Hải Đồ Nô-ê và Chuỗi Mân Côi. Từ Sáng Thế, qua Xuất Hành, đến Chúa Giêsu Ki-tô: một chương trình cứu độ duy nhất của Thiên Chúa.", en: "The Journey Tablets shine beside the Genesis scroll, Noah's chart and the Rosary. From Creation through the Exodus to Jesus Christ: one single plan of salvation from God." },
+    { vi: "Chúa Thánh Thần: “Hãy sống tự do khỏi những thói hư tật xấu, vâng giữ Mười Điều Răn và yêu mến Bí tích Thánh Thể. Ta luôn ở cùng con!”", en: "Holy Spirit: “Live free from bad habits, keep the Ten Commandments and love the Eucharist. I am always with you!”" },
+  ] as L[],
+  lesson: { vi: "Tri ân công trình cứu độ kỳ diệu của Thiên Chúa, trải dài từ Sáng Thế và Xuất Hành đến Chúa Giêsu Ki-tô.", en: "Give thanks for God's wonderful work of salvation, from Creation and the Exodus to Jesus Christ." } as L,
+  theEnd: [
+    { vi: "HOÀN THÀNH HÀNH TRÌNH XUẤT HÀNH! Cảm ơn con đã cùng Môi-sê đi qua 13 chặng đường. Chúc con luôn bình an trong Chúa!", en: "EXODUS JOURNEY COMPLETE! Thank you for walking the 13 stages with Moses. May you always be at peace in the Lord!" },
+  ] as L[],
+};

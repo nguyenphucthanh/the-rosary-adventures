@@ -12,6 +12,9 @@ import { Stage09MannaQuailScene } from "@/modules/moses-the-exodus/game/scenes/s
 import { Stage11SinaiCommandmentsScene } from "@/modules/moses-the-exodus/game/scenes/stages/Stage11SinaiCommandmentsScene";
 import { Stage10RephidimHandsScene } from "@/modules/moses-the-exodus/game/scenes/stages/Stage10RephidimHandsScene";
 import { Stage07RedSeaCrossingScene } from "@/modules/moses-the-exodus/game/scenes/stages/Stage07RedSeaCrossingScene";
+import { Stage12GoldenCalfMercyScene } from "@/modules/moses-the-exodus/game/scenes/stages/Stage12GoldenCalfMercyScene";
+import { Stage13TabernacleGloryScene } from "@/modules/moses-the-exodus/game/scenes/stages/Stage13TabernacleGloryScene";
+import { EpilogueScene } from "@/modules/moses-the-exodus/game/scenes/stages/EpilogueScene";
 import { PrologueScene } from "@/modules/moses-the-exodus/game/scenes/stages/PrologueScene";
 
 export const createGameConfig = (parent: string | HTMLElement): Phaser.Types.Core.GameConfig => ({
@@ -22,6 +25,5 @@ export const createGameConfig = (parent: string | HTMLElement): Phaser.Types.Cor
   backgroundColor: "#0f172a",
   physics: { default: "arcade", arcade: { gravity: { x: 0, y: 0 }, debug: false } },
   scale: { mode: Phaser.Scale.RESIZE, autoCenter: Phaser.Scale.CENTER_BOTH, width: "100%", height: "100%" },
-  // ponytail: add Stage04..Stage13 and EpilogueScene here as they are built.
-  scene: [BootScene, PreloadScene, PrologueScene, Stage01NileBasketScene, Stage02PrinceChoiceScene, Stage03BurningBushScene, Stage04PharaohPlaguesScene, Stage05GoshenLightScene, Stage06PassoverNightScene, Stage07RedSeaCrossingScene, Stage08MiriamMaraScene, Stage09MannaQuailScene, Stage10RephidimHandsScene, Stage11SinaiCommandmentsScene],
+  scene: [BootScene, PreloadScene, PrologueScene, Stage01NileBasketScene, Stage02PrinceChoiceScene, Stage03BurningBushScene, Stage04PharaohPlaguesScene, Stage05GoshenLightScene, Stage06PassoverNightScene, Stage07RedSeaCrossingScene, Stage08MiriamMaraScene, Stage09MannaQuailScene, Stage10RephidimHandsScene, Stage11SinaiCommandmentsScene, Stage12GoldenCalfMercyScene, Stage13TabernacleGloryScene, EpilogueScene],
 });

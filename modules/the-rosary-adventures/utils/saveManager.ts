@@ -1,6 +1,6 @@
 import { SaveData, createInitialSaveData } from "@/modules/the-rosary-adventures/types/game";
 
-const STORAGE_KEY_PREFIX = "rosary_adventure_save_";
+export const STORAGE_KEY_PREFIX = "rosary_adventure_save_";
 export const DEFAULT_SAVE_SLOT = "slot_1";
 
 /**
