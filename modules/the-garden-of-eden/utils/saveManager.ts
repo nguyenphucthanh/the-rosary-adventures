@@ -1,6 +1,6 @@
 import { GenesisSaveData, createInitialSaveData } from "@/modules/the-garden-of-eden/types/game";
 
-const STORAGE_KEY = "garden_of_eden_save_v1";
+export const STORAGE_KEY = "garden_of_eden_save_v1";
 
 export function validateSaveData(data: unknown): data is GenesisSaveData {
   const d = data as Partial<GenesisSaveData> | null;

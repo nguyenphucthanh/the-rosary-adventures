@@ -1,6 +1,6 @@
 import { NoahSaveData, createInitialSaveData } from "@/modules/noahs-ark/types/game";
 
-const STORAGE_KEY = "noahs_ark_save_v1";
+export const STORAGE_KEY = "noahs_ark_save_v1";
 
 export function validateSaveData(data: unknown): data is NoahSaveData {
   const d = data as Partial<NoahSaveData> | null;
