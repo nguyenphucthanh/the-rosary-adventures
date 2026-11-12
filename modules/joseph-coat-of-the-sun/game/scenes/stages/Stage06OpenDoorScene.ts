@@ -12,7 +12,7 @@ const TOP = 56; // walkable band y 56..200
 const BOTTOM = 200;
 const DOOR_DX = [28, 88, 148];
 const WHITE = [1, 0, 2, 1]; // which of the 3 doors is the white-light one, per hall
-const SHADOW_SPEED = [20, 23, 26, 29];
+const SHADOW_SPEED = [48, 58, 68, 80]; // px/s vs player 140
 
 /** Stage 6 (St 39, 7-20): 4 halls, 3 doors each. Open the WHITE light door; red doors are temptations; a slow dark shadow chases Joseph. */
 export class Stage06OpenDoorScene extends BaseJosephScene {
@@ -20,6 +20,7 @@ export class Stage06OpenDoorScene extends BaseJosephScene {
   private running = false;
   private finished = false;
   private shadow!: Phaser.GameObjects.Image;
+  private aura!: Phaser.GameObjects.Image;
   private shadowFreeze = 0;
 
   constructor() {
@@ -48,6 +49,7 @@ export class Stage06OpenDoorScene extends BaseJosephScene {
     this.add.rectangle(0, 0, W, 8, 0x0f172a).setOrigin(0).setDepth(DEPTH.FLOOR);
     this.add.rectangle(0, TOP - 8, W, 4, 0x000000, 0.3).setOrigin(0).setDepth(DEPTH.FLOOR + 1);
     this.add.rectangle(0, 0, W, H, 0x1e1b4b, 0.22).setOrigin(0).setDepth(DEPTH.LIGHT); // dusky palace
+    this.wallBelow(0, W, BOTTOM + 4, "joseph_brick");
     this.block(W / 2, TOP / 2, W, TOP);
     this.block(W / 2, (BOTTOM + 4 + H) / 2, W, H - BOTTOM - 4);
     this.block(8, H / 2, 16, H);
@@ -85,7 +87,10 @@ export class Stage06OpenDoorScene extends BaseJosephScene {
       });
     }
 
-    this.shadow = this.add.image(0, 0, "joseph_shadow").setOrigin(0.5, 1).setAlpha(0.8).setVisible(false);
+    // violet pulsing aura so the shadow reads against the dusky floor
+    this.aura = this.add.image(0, 0, "joseph_glow_dark").setVisible(false);
+    this.tweens.add({ targets: this.aura, alpha: { from: 0.55, to: 1 }, duration: 500, yoyo: true, repeat: -1, ease: "Stepped", easeParams: [3] });
+    this.shadow = this.add.image(0, 0, "joseph_shadow").setOrigin(0.5, 1).setVisible(false);
   }
 
   protected onStageStart() {
@@ -154,6 +159,7 @@ export class Stage06OpenDoorScene extends BaseJosephScene {
 
   update(time?: number, delta = 16) {
     super.update(time, delta);
+    this.aura.setPosition(this.shadow.x, this.shadow.y - 12).setDepth(this.shadow.y - 1).setVisible(this.shadow.visible);
     if (!this.running || this.finished || this.dialogueOpen) return;
     this.shadowFreeze -= delta;
     if (this.shadowFreeze > 0) return;

@@ -42,14 +42,13 @@ const GAMES = [
     tags: [l("12 màn chơi", "12 stages"), l("Đa thể loại", "Mixed genres"), l("Sa-mu-en", "Samuel")],
     image: "/games/king-david.png",
   },
-  // TODO: re-enable when Joseph – The Coat of the Sun is ready (needs cover /games/joseph-coat-of-the-sun.png)
-  // {
-  //   href: "/joseph-coat-of-the-sun",
-  //   title: "Joseph – The Coat of the Sun",
-  //   blurb: l("Giuse chiếc áo mặt trời: từ giấc mơ ở Hếp-rôn, bị bán sang Ai-cập, ngục tù đến ngôi tể tướng và lời tha thứ, qua 12 màn chơi đa thể loại.", "Joseph and the coat of the sun: from the dreams of Hebron, sold into Egypt and prison, to the governor's seat and forgiveness, in 12 mixed-genre stages."),
-  //   tags: [l("12 màn chơi", "12 stages"), l("Đa thể loại", "Mixed genres"), l("Sáng Thế", "Genesis")],
-  //   image: "/games/joseph-coat-of-the-sun.png",
-  // },
+  {
+    href: "/joseph-coat-of-the-sun",
+    title: "Joseph – The Coat of the Sun",
+    blurb: l("Giuse chiếc áo mặt trời: từ giấc mơ ở Hếp-rôn, bị bán sang Ai-cập, ngục tù đến ngôi tể tướng và lời tha thứ, qua 12 màn chơi đa thể loại.", "Joseph and the coat of the sun: from the dreams of Hebron, sold into Egypt and prison, to the governor's seat and forgiveness, in 12 mixed-genre stages."),
+    tags: [l("12 màn chơi", "12 stages"), l("Đa thể loại", "Mixed genres"), l("Sáng Thế", "Genesis")],
+    image: "/games/joseph-coat-of-the-sun.png",
+  },
 ];
 
 export default function Home() {

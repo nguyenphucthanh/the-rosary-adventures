@@ -53,6 +53,12 @@ export const PAL: Record<string, string> = {
   X: "#0369a1", // water shade
   j: "#fde68a", // sand / cream fur
   N: "#a3e635", // lime
+  lawn: "#4ade80", // light lawn (reads apart from tree-canopy green)
+  lawnD: "#22c55e", // lawn tufts
+  field: "#166534", // dark valley ground (contrasts with sacks and skin)
+  fieldD: "#14532d",
+  dirt: "#a8773a", // darker famine-ground sand (contrasts with sacks)
+  dirtD: "#8a5f2c",
   K: "#0b1020", // night sky
   L: "#1e1b4b", // indigo sky
   Z: "#4c1d95", // deep violet

@@ -46,10 +46,11 @@ export class Stage12GoshenScene extends BaseJosephScene {
     // morning sky + fertile Goshen pasture with a sandy road
     [[0x0ea5e9, 0, 12], [0x38bdf8, 12, 12], [0xfde68a, 24, 14]].forEach(([c, y, h]) => this.add.rectangle(0, y, W, h, c).setOrigin(0).setDepth(DEPTH.FLOOR));
     this.add.tileSprite(0, 36, W, H - 36, "joseph_grass").setOrigin(0).setDepth(DEPTH.FLOOR);
-    this.add.tileSprite(0, 108, 470, 48, "joseph_sand").setOrigin(0).setDepth(DEPTH.FLOOR + 1);
-    this.add.tileSprite(460, 60, 180, 150, "joseph_sand").setOrigin(0).setDepth(DEPTH.FLOOR + 1).setAlpha(0.55);
+    this.add.tileSprite(0, 108, 470, 48, "joseph_dirt").setOrigin(0).setDepth(DEPTH.FLOOR + 1);
+    this.add.tileSprite(460, 60, 180, 150, "joseph_dirt").setOrigin(0).setDepth(DEPTH.FLOOR + 1).setAlpha(0.55);
     this.add.rectangle(0, TOP - 8, W, 4, 0x000000, 0.18).setOrigin(0).setDepth(DEPTH.FLOOR + 2);
     this.add.rectangle(0, 0, W, H, 0xfef08a, 0.08).setOrigin(0).setDepth(DEPTH.LIGHT);
+    this.wallBelow(0, W, BOTTOM + 4, "joseph_cliff");
     this.block(W / 2, TOP / 2, W, TOP);
     this.block(W / 2, (BOTTOM + 4 + H) / 2, W, H - BOTTOM - 4);
     this.block(8, H / 2, 16, H);

@@ -55,6 +55,7 @@ export class Stage04DesertCaravanScene extends BaseJosephScene {
     this.add.tileSprite(0, 40, W, H - 40, "joseph_sand").setOrigin(0).setDepth(DEPTH.FLOOR);
     this.add.rectangle(0, TOP - 8, W, 4, 0x000000, 0.18).setOrigin(0).setDepth(DEPTH.FLOOR + 1);
     this.add.rectangle(0, 0, W, H, 0xfef08a, 0.07).setOrigin(0).setDepth(DEPTH.LIGHT);
+    this.wallBelow(0, W, BOTTOM, "joseph_dune"); // golden dune ridge
     this.block(W / 2, TOP / 2, W, TOP);
     this.block(W / 2, (BOTTOM + H) / 2, W, H - BOTTOM);
     this.block(8, H / 2, 16, H);

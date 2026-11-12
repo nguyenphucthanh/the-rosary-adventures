@@ -49,10 +49,11 @@ export class Stage09GranariesScene extends BaseJosephScene {
     // Nile at the top, green valley below
     [[0x38bdf8, 0, 14], [0xbae6fd, 14, 10]].forEach(([c, y, h]) => this.add.rectangle(0, y, W, h, c).setOrigin(0).setDepth(DEPTH.FLOOR));
     this.add.tileSprite(0, 24, W, 36, "joseph_pool").setOrigin(0).setDepth(DEPTH.FLOOR);
-    this.add.tileSprite(0, TOP - 4, W, H - TOP + 4, "joseph_grass").setOrigin(0).setDepth(DEPTH.FLOOR);
-    this.add.tileSprite(0, 140, W, 60, "joseph_wheat").setOrigin(0).setDepth(DEPTH.FLOOR + 1).setAlpha(0.8);
+    this.add.tileSprite(0, TOP - 4, W, H - TOP + 4, "joseph_field").setOrigin(0).setDepth(DEPTH.FLOOR);
+    this.add.tileSprite(0, 140, W, 60, "joseph_wheat").setOrigin(0).setDepth(DEPTH.FLOOR + 1).setTint(0xa8c24a).setAlpha(0.9); // fresh green-gold wheat strip
     this.add.rectangle(0, TOP - 8, W, 4, 0x000000, 0.25).setOrigin(0).setDepth(DEPTH.FLOOR + 1);
     this.add.rectangle(0, 0, W, H, 0xfef08a, 0.05).setOrigin(0).setDepth(DEPTH.LIGHT);
+    this.wallBelow(0, W, BOTTOM + 4, "joseph_brick");
     this.block(W / 2, TOP / 2, W, TOP);
     this.block(W / 2, (BOTTOM + 4 + H) / 2, W, H - BOTTOM - 4);
     this.block(8, H / 2, 16, H);

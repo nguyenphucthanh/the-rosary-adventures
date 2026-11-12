@@ -93,7 +93,7 @@ export class BaseJosephScene extends Phaser.Scene {
     this.updateHint();
     this.updateBanner();
     this.updateCompanion(delta);
-    this.carryImg?.setPosition(Math.round(this.player.x), Math.round(this.player.y - 26)).setDepth(this.player.y + 20);
+    this.carryImg?.setPosition(Math.round(this.player.x) + 10, Math.round(this.player.y + 10)).setDepth(this.player.y + 20);
   }
 
   // ---------------------------------------------------------------- HUD banner, companion, collision mask
@@ -124,6 +124,12 @@ export class BaseJosephScene extends Phaser.Scene {
   protected setCarry(key: string | null) {
     this.carryImg?.destroy();
     this.carryImg = key ? this.add.image(0, 0, key).setOrigin(0.5, 1) : undefined;
+  }
+
+  /** Impassable wall strip below the walkable band (so blocked ground never looks like floor). */
+  protected wallBelow(x0: number, w: number, y0: number, tile = "joseph_cliff") {
+    this.add.tileSprite(x0, y0, w, this.worldHeight - y0, tile).setOrigin(0).setDepth(DEPTH.FLOOR + 1);
+    this.add.rectangle(x0, y0, w, 2, 0x000000, 0.35).setOrigin(0).setDepth(DEPTH.FLOOR + 2);
   }
 
   protected companion?: Phaser.GameObjects.Image;

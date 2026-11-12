@@ -61,6 +61,7 @@ export class Stage05PotipharHouseScene extends BaseJosephScene {
     this.add.rectangle(0, 0, W, 8, 0x0f172a).setOrigin(0).setDepth(DEPTH.FLOOR);
     this.add.rectangle(0, TOP - 8, W, 4, 0x000000, 0.25).setOrigin(0).setDepth(DEPTH.FLOOR + 1);
     this.add.rectangle(0, 0, W, H, 0xfef08a, 0.05).setOrigin(0).setDepth(DEPTH.LIGHT);
+    this.wallBelow(0, W, BOTTOM + 4, "joseph_brick");
     this.block(W / 2, TOP / 2, W, TOP);
     this.block(W / 2, (BOTTOM + 4 + H) / 2, W, H - BOTTOM - 4);
     this.block(8, H / 2, 16, H);
@@ -77,7 +78,8 @@ export class Stage05PotipharHouseScene extends BaseJosephScene {
     this.block(400, 82, 56, 26);
     this.add.image(364, 100, "joseph_palm").setOrigin(0.5, 1).setDepth(100);
     this.add.image(452, 98, "joseph_palm").setOrigin(0.5, 1).setDepth(98);
-    this.add.image(GARDEN[0] + 12, GARDEN[1] + 6, "joseph_palm").setOrigin(0.5, 1).setDepth(GARDEN[1] + 6);
+    this.add.image(GARDEN[0], GARDEN[1] + 16, "joseph_garden").setOrigin(0.5, 1).setDepth(GARDEN[1] + 16); // flower bed to water
+    this.litGlow(GARDEN[0], GARDEN[1] + 4, 12, "joseph_glow_sky");
     // kitchen: oven, shelf (cups), table + Potiphar
     this.prop(236, 92, "joseph_oven", 26, 8);
     this.add.image(SHELF[0], SHELF[1] - 14, "joseph_cup").setOrigin(0.5, 1).setDepth(SHELF[1]);
@@ -87,7 +89,8 @@ export class Stage05PotipharHouseScene extends BaseJosephScene {
     // storeroom stacks + yard sacks
     for (const [x, y] of [[STORE_STACK[0] - 10, STORE_STACK[1]], [STORE_STACK[0] + 8, STORE_STACK[1] - 2], [STORE_STACK[0], STORE_STACK[1] - 14]]) this.add.image(x, y, "joseph_sack").setOrigin(0.5, 1).setDepth(y);
     for (const [x, y] of [[YARD_SACKS[0] - 8, YARD_SACKS[1]], [YARD_SACKS[0] + 8, YARD_SACKS[1] + 2]]) this.add.image(x, y, "joseph_sack").setOrigin(0.5, 1).setDepth(y);
-    for (const x of [30, 120]) this.add.image(x, 190, "joseph_pillar").setOrigin(0.5, 1).setDepth(190);
+    // grain storehouse: two granaries flank the stack
+    for (const x of [30, 112]) this.prop(x, 100, "joseph_granary", 30, 8);
     this.litGlow(292, 170, 26, "joseph_glow_gold");
 
     // interactables for every ticket: pick up at `from`, drop at `to`

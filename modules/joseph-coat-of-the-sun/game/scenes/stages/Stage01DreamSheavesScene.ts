@@ -67,6 +67,8 @@ export class Stage01DreamSheavesScene extends BaseJosephScene {
     this.add.rectangle(0, TOP - 8, W, 4, 0x000000, 0.25).setOrigin(0).setDepth(DEPTH.FLOOR);
     this.add.rectangle(0, 0, W, H, 0xfef08a, 0.06).setOrigin(0).setDepth(DEPTH.LIGHT);
 
+    this.wallBelow(0, W, BOTTOM + 4);
+
     // colliders: top, bottom, left, right
     this.block(W / 2, TOP / 2, W, TOP);
     this.block(W / 2, (BOTTOM + 4 + H) / 2, W, H - BOTTOM - 4);

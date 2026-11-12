@@ -8,6 +8,12 @@ import { STORAGE_KEY as NOAH_KEY } from "@/modules/noahs-ark/utils/saveManager";
 import { GENESIS_STAGE_KEYS } from "@/modules/the-garden-of-eden/types/game";
 import { GENESIS_STAGES } from "@/modules/the-garden-of-eden/data/stagesData";
 import { STORAGE_KEY as EDEN_KEY } from "@/modules/the-garden-of-eden/utils/saveManager";
+import { JOSEPH_STAGE_KEYS } from "@/modules/joseph-coat-of-the-sun/types/game";
+import { JOSEPH_STAGES } from "@/modules/joseph-coat-of-the-sun/data/stagesData";
+import { STORAGE_KEY as JOSEPH_KEY } from "@/modules/joseph-coat-of-the-sun/utils/saveManager";
+import { DAVID_STAGE_KEYS } from "@/modules/king-david/types/game";
+import { DAVID_STAGES } from "@/modules/king-david/data/stagesData";
+import { STORAGE_KEY as DAVID_KEY } from "@/modules/king-david/utils/saveManager";
 import { MYSTERY_KEYS } from "@/modules/the-rosary-adventures/types/game";
 import { MYSTERIES_DATA } from "@/modules/the-rosary-adventures/data/mysteries";
 import { DEFAULT_SAVE_SLOT, STORAGE_KEY_PREFIX as ROSARY_PREFIX } from "@/modules/the-rosary-adventures/utils/saveManager";
@@ -27,7 +33,7 @@ export interface GameCfg {
   read(parsed: unknown): SaveView | null;
 }
 
-/** Moses, Noah and Eden share one save shape; only the seal field name differs. */
+/** Moses, Noah, Eden, Joseph and David share one save shape; only the seal field name differs. */
 function stageGame(o: { id: string; title: string; route: string; storageKey: string; keys: readonly string[]; labels: Record<string, string>; sealField: string }): GameCfg {
   const sealed = o.keys.filter((k) => k.startsWith("stage_"));
   return {
@@ -66,6 +72,15 @@ const eden = stageGame({
   labels: { prologue_trang_sach_dau: "Prologue", epilogue_khu_vuon_tam_hon: "Epilogue", ...Object.fromEntries(GENESIS_STAGES.map((s) => [s.key, `Stage ${s.index + 1}: ${s.titleVi}`])) },
 });
 
+const joseph = stageGame({
+  id: "joseph", title: "Joseph – The Coat of the Sun", route: "/joseph-coat-of-the-sun", storageKey: JOSEPH_KEY, keys: JOSEPH_STAGE_KEYS, sealField: "rayLit",
+  labels: { prologue_chiec_ao_ban_do: "Prologue", epilogue_giuse_va_chua_gie_su: "Epilogue", ...Object.fromEntries(JOSEPH_STAGES.map((s) => [s.key, `Stage ${s.index + 1}: ${s.titleVi}`])) },
+});
+const david = stageGame({
+  id: "david", title: "King David – Shepherd & King", route: "/king-david", storageKey: DAVID_KEY, keys: DAVID_STAGE_KEYS, sealField: "psalmSealLit",
+  labels: { prologue_dan_hac_nguoi_muc_tu: "Prologue", epilogue_con_vua_davit: "Epilogue", ...Object.fromEntries(DAVID_STAGES.map((s) => [s.key, `Stage ${s.index + 1}: ${s.titleVi}`])) },
+});
+
 const rosary: GameCfg = {
   id: "rosary", title: "The Rosary Adventures", route: "/the-rosary-adventures", storageKey: `${ROSARY_PREFIX}${DEFAULT_SAVE_SLOT}`,
   stages: MYSTERIES_DATA.map((m) => ({ key: m.key, label: `${m.index + 1}. ${m.seasonLabelVi} – ${m.titleVi}` })),
@@ -86,5 +101,5 @@ const rosary: GameCfg = {
   },
 };
 
-export const GAMES: GameCfg[] = [moses, noah, eden, rosary];
+export const GAMES: GameCfg[] = [moses, noah, eden, joseph, david, rosary];
 export { DEFAULT_CHARACTER };

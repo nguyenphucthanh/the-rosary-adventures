@@ -107,9 +107,14 @@ export function registerJosephTextures(scene: Phaser.Scene) {
 
   // Ground tiles (16x16)
   still("joseph_grass", 16, 16, (c) => {
-    rect(c, 0, 0, 16, 16, PAL.g);
-    for (const [x, y] of [[2, 3], [9, 2], [13, 7], [5, 11], [11, 13]]) rect(c, x, y, 2, 1, PAL.G);
+    rect(c, 0, 0, 16, 16, PAL.lawn); // lighter than the tree-canopy green (PAL.g)
+    for (const [x, y] of [[2, 3], [9, 2], [13, 7], [5, 11], [11, 13]]) rect(c, x, y, 2, 1, PAL.lawnD);
     rect(c, 7, 6, 1, 1, PAL.N);
+  });
+  still("joseph_field", 16, 16, (c) => { // dark farmland ground (stage 9)
+    rect(c, 0, 0, 16, 16, PAL.field);
+    for (const [x, y] of [[2, 3], [9, 2], [13, 7], [5, 11], [11, 13]]) rect(c, x, y, 2, 1, PAL.fieldD);
+    rect(c, 7, 6, 1, 1, PAL.G);
   });
   still("joseph_wheat", 16, 16, (c) => {
     rect(c, 0, 0, 16, 16, PAL.j);
@@ -119,6 +124,11 @@ export function registerJosephTextures(scene: Phaser.Scene) {
     rect(c, 0, 0, 16, 16, PAL.Q);
     for (const [x, y, w] of [[2, 3, 3], [9, 1, 2], [12, 8, 3], [4, 11, 2], [10, 14, 3]]) rect(c, x, y, w, 1, PAL.J);
     rect(c, 7, 6, 1, 1, PAL.Y);
+  });
+  still("joseph_dirt", 16, 16, (c) => { // darker dry ground (stage 10)
+    rect(c, 0, 0, 16, 16, PAL.dirt);
+    for (const [x, y, w] of [[2, 3, 3], [9, 1, 2], [12, 8, 3], [4, 11, 2], [10, 14, 3]]) rect(c, x, y, w, 1, PAL.dirtD);
+    rect(c, 7, 6, 1, 1, PAL.Q);
   });
   still("joseph_stone", 16, 16, (c) => {
     rect(c, 0, 0, 16, 16, PAL.a);
@@ -135,6 +145,11 @@ export function registerJosephTextures(scene: Phaser.Scene) {
     rect(c, 0, 0, 16, 16, PAL.A);
     for (const y of [3, 9, 14]) rect(c, 0, y, 16, 2, PAL.D);
     for (const [x, y] of [[2, 1], [9, 5], [5, 11]]) rect(c, x, y, 4, 2, PAL.a);
+  });
+  still("joseph_dune", 16, 16, (c) => { // golden dune ridge (impassable)
+    rect(c, 0, 0, 16, 16, PAL.y);
+    rect(c, 0, 0, 16, 2, PAL.l); rect(c, 0, 5, 16, 2, PAL.Y); rect(c, 0, 11, 16, 2, PAL.Y);
+    for (const [x, y] of [[3, 3], [10, 8], [5, 14]]) rect(c, x, y, 3, 1, PAL.l);
   });
   still("joseph_pool", 16, 16, (c) => { // oasis water
     rect(c, 0, 0, 16, 16, PAL.x);
@@ -227,6 +242,14 @@ export function registerJosephTextures(scene: Phaser.Scene) {
     for (const x of [5, 9, 14, 18]) rect(c, x, 11, 1, 4, PAL.D);
     rect(c, 19, 5, 1, 1, PAL.e); rect(c, 16, 2, 2, 2, PAL.D); for (const x of [6, 9, 12]) rect(c, x, 7, 1, 3, PAL.D);
   });
+  still("joseph_garden", 48, 20, (c) => { // flower bed (watering target)
+    rect(c, 2, 18, 44, 2, PAL.z);
+    rect(c, 0, 8, 48, 10, PAL.o); rect(c, 0, 15, 48, 3, PAL.O); rect(c, 0, 8, 48, 1, PAL.M);
+    [[6, PAL.r], [17, PAL.y], [28, PAL.i], [39, PAL.r]].forEach(([x, col]) => {
+      rect(c, x as number + 1, 5, 1, 6, PAL.G); rect(c, x as number - 2, 6, 3, 2, PAL.g); rect(c, x as number + 2, 7, 3, 2, PAL.g);
+      rect(c, x as number - 1, 1, 4, 4, col as string); rect(c, x as number, 2, 2, 2, PAL.l);
+    });
+  });
   still("joseph_vine", 14, 18, (c) => {
     rect(c, 2, 16, 10, 2, PAL.z);
     rect(c, 6, 2, 2, 12, PAL.o); rect(c, 3, 3, 4, 3, PAL.g); rect(c, 8, 7, 4, 3, PAL.G);
@@ -262,5 +285,6 @@ export function registerJosephTextures(scene: Phaser.Scene) {
   if (!tex.exists("sparkle")) still("sparkle", 7, 7, (c) => { rect(c, 3, 0, 1, 7, PAL.l); rect(c, 0, 3, 7, 1, PAL.l); rect(c, 2, 2, 3, 3, PAL.w); });
   tex.addCanvas("joseph_glow_gold", glowCanvas(16, PAL.y));
   tex.addCanvas("joseph_glow_red", glowCanvas(16, PAL.r));
+  tex.addCanvas("joseph_glow_dark", glowCanvas(22, PAL.v));
   tex.addCanvas("joseph_glow_sky", glowCanvas(16, PAL.x));
 }

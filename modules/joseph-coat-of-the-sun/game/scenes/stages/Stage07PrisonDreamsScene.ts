@@ -54,6 +54,7 @@ export class Stage07PrisonDreamsScene extends BaseJosephScene {
     this.add.rectangle(0, 0, W, 8, 0x05060d).setOrigin(0).setDepth(DEPTH.FLOOR);
     this.add.rectangle(0, TOP - 8, W, 4, 0x000000, 0.3).setOrigin(0).setDepth(DEPTH.FLOOR + 1);
     this.add.rectangle(0, 0, W, H, 0x0f172a, 0.35).setOrigin(0).setDepth(DEPTH.LIGHT); // dim prison
+    this.wallBelow(0, W, BOTTOM + 4, "joseph_cliff");
     this.block(W / 2, TOP / 2, W, TOP);
     this.block(W / 2, (BOTTOM + 4 + H) / 2, W, H - BOTTOM - 4);
     this.block(8, H / 2, 16, H);

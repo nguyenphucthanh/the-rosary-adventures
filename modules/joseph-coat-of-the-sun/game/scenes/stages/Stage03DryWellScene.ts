@@ -62,6 +62,7 @@ export class Stage03DryWellScene extends BaseJosephScene {
     this.add.tileSprite(0, TOP - 4, PASTURE_W, H - TOP + 4, "joseph_grass").setOrigin(0).setDepth(DEPTH.FLOOR);
     this.add.rectangle(0, TOP - 8, PASTURE_W, 4, 0x000000, 0.25).setOrigin(0).setDepth(DEPTH.FLOOR);
     this.add.rectangle(0, 0, PASTURE_W, H, 0xfef08a, 0.05).setOrigin(0).setDepth(DEPTH.LIGHT);
+    this.wallBelow(0, PASTURE_W, BOTTOM + 4);
     this.block(PASTURE_W / 2, TOP / 2, PASTURE_W, TOP);
     this.block(PASTURE_W / 2, (BOTTOM + 4 + H) / 2, PASTURE_W, H - BOTTOM - 4);
     this.block(8, H / 2, 16, H);
@@ -118,7 +119,7 @@ export class Stage03DryWellScene extends BaseJosephScene {
 
   private hide(b: Brother) {
     b.state = "hidden";
-    b.spr.setVisible(false);
+    b.spr.clearTint().setVisible(false);
   }
 
   /** The brother in reach of the player, if any (prayer calms him). */
@@ -130,6 +131,7 @@ export class Stage03DryWellScene extends BaseJosephScene {
     const b = this.nearBrother();
     if (!b) return;
     b.state = "away";
+    b.spr.clearTint();
     this.calmed++;
     audio.sfx("chime");
     this.sparkleBurst(Math.round(this.player.x), Math.round(this.player.y - 8), 8);
@@ -179,10 +181,29 @@ export class Stage03DryWellScene extends BaseJosephScene {
     this.finished = true;
     this.running = false;
     this.setBanner("");
+    this.player.setMovementLock(true);
     audio.sfx("bless");
-    this.cameras.main.flash(400, 255, 244, 190);
-    this.sparkleBurst(CHAMBER_SPAWN[0], 130, 12);
-    this.finishStage(STAGE3);
+    // the 3 pieces are knotted into one rope that drops from the opening; Joseph then climbs it
+    const x = CHAMBER_SPAWN[0] - 1, top = CH.y + 8, bottom = 150, seg = Math.round((bottom - top) / 3);
+    for (let i = 0; i < 3; i++) {
+      this.time.delayedCall(i * 350, () => {
+        const y0 = top + i * seg, h = i === 2 ? bottom - y0 : seg;
+        this.add.rectangle(x, y0, 3, h, 0xd6a84a).setOrigin(0).setDepth(DEPTH.RUG + 2);
+        this.add.rectangle(x + 2, y0, 1, h, 0x92400e).setOrigin(0).setDepth(DEPTH.RUG + 2);
+        if (i > 0) this.add.rectangle(x - 2, y0 - 2, 7, 4, 0x7c2d12).setOrigin(0).setDepth(DEPTH.RUG + 3); // knot
+        audio.sfx("pickup");
+        this.sparkleBurst(x + 1, y0 + 2, 4);
+      });
+    }
+    this.time.delayedCall(1200, () => {
+      this.tweens.add({
+        targets: this.player, y: CH.y + 24, duration: 1300,
+        onComplete: () => {
+          this.cameras.main.flash(400, 255, 244, 190);
+          this.finishStage(STAGE3);
+        },
+      });
+    });
   }
 
   update(time?: number, delta = 16) {
@@ -206,7 +227,7 @@ export class Stage03DryWellScene extends BaseJosephScene {
         b.state = "approach";
         b.x = PASTURE_W - 24;
         b.y = SPAWN_YS[this.calmed % SPAWN_YS.length];
-        b.spr.setTexture(BROTHER_KEYS[this.calmed % BROTHER_KEYS.length]).setVisible(true);
+        b.spr.setTexture(BROTHER_KEYS[this.calmed % BROTHER_KEYS.length]).setVisible(true).setTint(0xff7a7a); // red = angry, heading for Joseph
         this.spawnTimer = 1400;
       }
     }
@@ -216,7 +237,7 @@ export class Stage03DryWellScene extends BaseJosephScene {
       const tx2 = b.state === "approach" ? this.player.x : PASTURE_W - 12;
       const ty = b.state === "approach" ? this.player.y : b.y;
       const d = Phaser.Math.Distance.Between(b.x, b.y, tx2, ty);
-      const step = ((b.state === "approach" ? 30 : 60) * delta) / 1000;
+      const step = ((b.state === "approach" ? 55 : 110) * delta) / 1000;
       if (d > 1) {
         b.x = Math.round(b.x + ((tx2 - b.x) / d) * Math.min(step, d));
         b.y = Math.round(b.y + ((ty - b.y) / d) * Math.min(step, d));
@@ -224,6 +245,7 @@ export class Stage03DryWellScene extends BaseJosephScene {
       b.spr.setPosition(b.x, b.y).setDepth(b.y).setFlipX(tx2 < b.x);
       if (b.state === "away" && b.x >= PASTURE_W - 16) this.hide(b);
       if (b.state === "approach" && d < 14) {
+        b.spr.clearTint();
         b.state = "away"; // he reached Joseph: peace slips, he storms off and returns later
         this.startle(b);
         this.loseGrace();
