@@ -1,4 +1,4 @@
-# KẾ HOẠCH DỰ ÁN: MOSES – THE EXODUS (MÔI-SÊ & HÀNH TRÌNH XUẤT HÀNH)
+# KẾ HOẠCH DỰ ÁN: MOSES – THE EXODUS (MÔ-SÊ & HÀNH TRÌNH XUẤT HÀNH)
 
 ## 1. TỔNG QUAN DỰ ÁN
 * **Tên Module:** `modules/moses-the-exodus` (Route: `/moses-the-exodus`).
@@ -6,8 +6,8 @@
 * **Mục tiêu:** Giúp thiếu nhi và người chơi tìm hiểu Sách Xuất Hành (`Xh 1–20; 32–40`) – từ chiếc thúng cói trên sông Nin, lựa chọn của hoàng tử bên công trường nô lệ, giếng nước Ma-đi-an, Bụi Cây Bốc Cháy trên núi Khô-rép, Mười Tai Ương Ai Cập, Đêm Lễ Vượt Qua, phép lạ Rẽ Nước Biển Đỏ, Bánh Mân-na trong hoang địa đến Mười Điều Răn trên đỉnh Xi-nai và Nhà Tạm Giao Ước – qua **13 màn chơi chính** (+ Prologue & Epilogue) với **13 thể loại gameplay khác nhau**.
 * **Điểm nhấn thiết kế:**
   1. **🖼️ Màn Hình Minh Họa Tĩnh Mở Màn (`StageIntroIllustration`):** Khi bắt đầu mỗi màn chơi và mở hộp thoại dẫn nhập (Intro Dialogue), vùng màn hình hiển thị một **bức tranh minh họa tĩnh toàn cảnh (Storybook Illustration)** được nạp trực tiếp từ thư mục ảnh dựng sẵn `modules/moses-the-exodus/images/intro-*.png`. Sau khi kết thúc hội thoại mở màn, màn hình chuyển cảnh mượt mà (Fade / Pixel Wipe) vào bản đồ Top-down.
-  2. **🎮 Đa thể loại (Multi-Genre) & Cơ chế Checkpoint (Soft Reset):** Mỗi Stage sở hữu một luật chơi riêng (điều tiết dòng chảy sông Nin đưa thúng cói, lén lút giải cứu công trường nô lệ & bảo vệ giếng nước Ma-đi-an, bước trên đất thánh & thực hành 3 dấu lạ, đấu phép quyền năng trước Pha-ra-ô, giữ đèn sáng đất Gô-sen giữa bóng tối dày đặc, chuẩn bị Lễ Vượt Qua & bôi máu chiên lên khung cửa, giương gậy rẽ nước Biển Đỏ & chặn chiến xa, gõ trống cơm theo nhịp & làm ngọt nước Ma-ra, thu hoạch Mân-na theo khẩu phần ngày thường/Sa-bát, đập đá Khô-rép & nâng tay Môi-sê cầu nguyện trên đồi, vượt sấm chớp lên đỉnh Xi-nai đón Hai Bia Đá Mười Điều Răn, đập tan tượng bê vàng & chuyển cầu, lắp ráp Nhà Tạm Giao Ước). Đi sai bước hoặc chạm chướng ngại sẽ lùi về Checkpoint gần nhất.
-  3. **🎬 Chuỗi Hoạt Cảnh Kể Chuyện Liền Mạch (Narrative Storyline Bridges):** Giữa các giai đoạn lịch sử luôn có các đoạn cutscene kể chuyện sâu sắc, giải thích tâm lý nhân vật, nguồn gốc mâu thuẫn hoàng gia và sự chuyển biến đức tin của Môi-sê từ một hoàng tử kiêu hãnh sang người mục tử khiêm nhu nhất trần gian.
+  2. **🎮 Đa thể loại (Multi-Genre) & Cơ chế Checkpoint (Soft Reset):** Mỗi Stage sở hữu một luật chơi riêng (điều tiết dòng chảy sông Nin đưa thúng cói, lén lút giải cứu công trường nô lệ & bảo vệ giếng nước Ma-đi-an, bước trên đất thánh & thực hành 3 dấu lạ, đấu phép quyền năng trước Pha-ra-ô, giữ đèn sáng đất Gô-sen giữa bóng tối dày đặc, chuẩn bị Lễ Vượt Qua & bôi máu chiên lên khung cửa, giương gậy rẽ nước Biển Đỏ & chặn chiến xa, gõ trống cơm theo nhịp & làm ngọt nước Ma-ra, thu hoạch Mân-na theo khẩu phần ngày thường/Sa-bát, đập đá Khô-rép & nâng tay Mô-sê cầu nguyện trên đồi, vượt sấm chớp lên đỉnh Xi-nai đón Hai Bia Đá Mười Điều Răn, đập tan tượng bê vàng & chuyển cầu, lắp ráp Nhà Tạm Giao Ước). Đi sai bước hoặc chạm chướng ngại sẽ lùi về Checkpoint gần nhất.
+  3. **🎬 Chuỗi Hoạt Cảnh Kể Chuyện Liền Mạch (Narrative Storyline Bridges):** Giữa các giai đoạn lịch sử luôn có các đoạn cutscene kể chuyện sâu sắc, giải thích tâm lý nhân vật, nguồn gốc mâu thuẫn hoàng gia và sự chuyển biến đức tin của Mô-sê từ một hoàng tử kiêu hãnh sang người mục tử khiêm nhu nhất trần gian.
 * **Kịch bản chi tiết:** Đồng bộ tuyệt đối theo tài liệu [`scripts.md`](./scripts.md).
 
 ---
@@ -43,7 +43,7 @@
         BaseExodusScene.ts          # Base scene: hiển thị ảnh tĩnh mở màn overlay, Checkpoint reset, Co-op/Stamina hooks
         stages/                     # PrologueScene + Stage01..Stage13 + EpilogueScene
       utils/
-        exodusTextures.ts           # NPC (Môi-sê, A-ha-rôn, Mi-ri-am, Giu-suê, Pha-ra-ô), Bụi Cây Cháy, Cột Mây/Lửa, Hòm Bia, Chân Đèn 7 Ngọn
+        exodusTextures.ts           # NPC (Mô-sê, A-ha-rôn, Mi-ri-am, Giô-suê, Pha-ra-ô), Bụi Cây Cháy, Cột Mây/Lửa, Hòm Bia, Chân Đèn 7 Ngọn
   ```
 
 ---
@@ -105,12 +105,12 @@ export interface ExodusSaveData {
 * [x] Xây dựng `BaseExodusScene.ts`:
   * [x] Chế độ **Intro Storybook Illustration Overlay**: Khi vào màn, hiển thị ảnh minh họa tĩnh toàn cảnh nạp từ `images/intro-*.png` có viền khung trang trọng trong suốt lúc hộp thoại dẫn nhập đang mở; khi đóng hộp thoại dẫn nhập thì thực hiện hiệu ứng chuyển cảnh (Fade / Pixel Wipe) mở ra bản đồ Top-down.
   * [x] Hệ thống **Checkpoint / Soft Reset**: API `this.saveCheckpoint(id, state)` và `this.resetToCheckpoint()` kèm hiệu ứng lóe sáng nhẹ + âm báo khích lệ khi người chơi cần thử lại.
-  * [x] Hỗ trợ **Grace Pips (3 Giọt Bình An)** và cơ chế **Cây Gậy Môi-sê (`[A]`)** đa năng theo từng màn chơi (hook `useStaff()` + hiệu ứng `swingStaff()`).
-* [x] Xây dựng `exodusTextures.ts`: Sprite Môi-sê (lúc bé trong thúng cói, lúc hoàng tử Ai Cập, lúc chăn chiên ở Ma-đi-an, và lúc cầm gậy lãnh đạo dân), chị Mi-ri-am cầm trống cơm, anh A-ha-rôn, dũng tướng Giu-suê, Công chúa Ai Cập, vua Pha-ra-ô, chiến xa Ai Cập, Bụi Cây Bốc Cháy, Cột Mây – Cột Lửa, Chiên Vượt Qua, Bánh Mân-na, Hai Bia Đá, Hòm Bia Giao Ước và Chân Đèn 7 Ngọn đúng chuẩn lưới chibi 32×32 / 16px tile grid.
+  * [x] Hỗ trợ **Grace Pips (3 Giọt Bình An)** và cơ chế **Cây Gậy Mô-sê (`[A]`)** đa năng theo từng màn chơi (hook `useStaff()` + hiệu ứng `swingStaff()`).
+* [x] Xây dựng `exodusTextures.ts`: Sprite Mô-sê (lúc bé trong thúng cói, lúc hoàng tử Ai Cập, lúc chăn chiên ở Ma-đi-an, và lúc cầm gậy lãnh đạo dân), chị Mi-ri-am cầm trống cơm, anh A-ha-rôn, dũng tướng Giô-suê, Công chúa Ai Cập, vua Pha-ra-ô, chiến xa Ai Cập, Bụi Cây Bốc Cháy, Cột Mây – Cột Lửa, Chiên Vượt Qua, Bánh Mân-na, Hai Bia Đá, Hòm Bia Giao Ước và Chân Đèn 7 Ngọn đúng chuẩn lưới chibi 32×32 / 16px tile grid.
 
 ### Giai đoạn 3: Khúc Dạo Đầu (Prologue)
 * [x] **Màn Mở Đầu (`PrologueScene`):** *Bản Đồ Sa Mạc & Cây Gậy Người Mục Tử (`Xh 3, 10-12`)* ([Chi tiết](./scripts.md#màn-mở-đầu-bản-đồ-sa-mạc--cây-gậy-người-mục-tử-xh-3-10-12))
-  * [x] 🖼️ Ảnh mở màn: `intro-start.png` (Đôi bàn tay mở sách Xuất Hành bên ngọn đèn bàn, hiện lên bóng hình Cột Lửa dẫn đường giữa sa mạc đêm và Cây Gậy Môi-sê rực sáng).
+  * [x] 🖼️ Ảnh mở màn: `intro-start.png` (Đôi bàn tay mở sách Xuất Hành bên ngọn đèn bàn, hiện lên bóng hình Cột Lửa dẫn đường giữa sa mạc đêm và Cây Gậy Mô-sê rực sáng).
   * [x] Bản đồ & Gameplay: Phòng nhỏ buổi tối ấm áp, thắp ngọn đèn bàn học, ghép 3 mảnh bản đồ cổ (*Ai Cập $\rightarrow$ Biển Đỏ $\rightarrow$ Núi Xi-nai*) và nhận **Hai Bia Đá Hành Trình (0/13 Ấn Dấu)**.
   * [x] 🎵 Âm thanh & Nhạc nền:
     * **Nhạc nền (BGM):** `lullaby` (Music-box lullaby 70 BPM, C major) — không khí ấm áp, tĩnh lặng bên bàn học.
@@ -120,25 +120,25 @@ export interface ExodusSaveData {
 
 ### Giai đoạn 4: Phần 1 – Tiếng Kêu Thấu Trời & Cuộc Giải Thoát Khỏi Ai Cập (`Stages 1–7`)
 * [x] **Stage 1 (`Stage01NileBasketScene`):** *Chiếc Thúng Cói Trên Sông Nin (`Xh 1, 22 – 2, 10`)* ([Chi tiết](./scripts.md#stage-1-chiếc-thúng-cói-trên-sông-nin-xh-1-22--2-10))
-  * [x] 🖼️ Ảnh mở màn: `intro-1.png` (Bờ sông Nin rợp bóng sậy xanh; chiếc thúng cói chở bé Môi-sê trôi về phía Công chúa Pha-ra-ô).
+  * [x] 🖼️ Ảnh mở màn: `intro-1.png` (Bờ sông Nin rợp bóng sậy xanh; chiếc thúng cói chở bé Mô-sê trôi về phía Công chúa Pha-ra-ô).
   * [x] Gameplay (**River Current Routing & Stealth Escort**): Cùng chị Mi-ri-am chạy dọc bờ sậy gạt lá sen/cửa nước điều hướng thúng cói tránh cá sấu, xoáy nước và lính tuần tra.
-  * [x] 🎬 Cutscene chuyển tiếp: Môi-sê lớn lên trong hoàng cung Ai Cập bên cạnh thái tử.
+  * [x] 🎬 Cutscene chuyển tiếp: Mô-sê lớn lên trong hoàng cung Ai Cập bên cạnh thái tử.
   * [x] 🎵 Âm thanh & Nhạc nền:
     * **Nhạc nền (BGM):** `nile` (Papyrus Basket on the Nile 80 BPM, D minor / F major) — giai điệu sông Nin hiền hòa, êm dịu che chở chiếc thúng cói.
     * **Âm nền (Ambience):** `["wind", "birds"]` — gió bờ sông & tiếng chim nước ríu rít bên rặng sậy.
     * **Mặt sàn (Surface):** `grass` (đường mòn cỏ mềm ven sông).
     * **Hiệu ứng (SFX):** `splash` (nước vỗ nhẹ & rẽ nhánh sậy), `pickup` (gạt lá sen/cửa nước), `chime` (thúng trôi đúng luồng), `wrong` (gặp chướng ngại/xoáy nước).
 * [x] **Stage 2 (`Stage02PrinceChoiceScene`):** *Lựa Chọn Của Hoàng Tử & Giếng Nước Ma-đi-an (`Xh 2, 11-25`)* ([Chi tiết](./scripts.md#stage-2-lựa-chọn-của-hoàng-tử--giếng-nước-ma-đi-an-xh-2-11-25-cv-7-22-29-dt-11-24-27))
-  * [x] 🖼️ Ảnh mở màn: `intro-2.png` (Hoàng tử Môi-sê can thiệp cứu người nô lệ bên công trường Ai Cập & giếng nước Ma-đi-an thanh bình).
+  * [x] 🖼️ Ảnh mở màn: `intro-2.png` (Hoàng tử Mô-sê can thiệp cứu người nô lệ bên công trường Ai Cập & giếng nước Ma-đi-an thanh bình).
   * [x] Gameplay (**Stealth Rescue & Well Defense**): Lén tiếp tế nước cho nô lệ, can thiệp cứu đồng bào; trốn thoát lệnh truy nã hoàng gia; và đẩy lùi đám mục đồng giúp 7 người con gái ông Giê-trô.
-  * [x] 🎬 Cutscene chuyển tiếp then chốt (**40 Năm Trong Thung Lũng Khiêm Nhường**): Môi-sê sống 40 năm bình dị làm mục tử chăn chiên chốn hoang vu; tiếng rên xiết của dân nô lệ thấu tới trời cao.
+  * [x] 🎬 Cutscene chuyển tiếp then chốt (**40 Năm Trong Thung Lũng Khiêm Nhường**): Mô-sê sống 40 năm bình dị làm mục tử chăn chiên chốn hoang vu; tiếng rên xiết của dân nô lệ thấu tới trời cao.
   * [x] 🎵 Âm thanh & Nhạc nền:
     * **Nhạc nền (BGM):** `crafting` (Ark Carpentry & Midian Well Defense 108 BPM, G major) — nhịp điệu cần mẫn, quả cảm, dứt khoát giải cứu đồng bào.
     * **Âm nền (Ambience):** `["wind"]` — gió sa mạc khô rát thổi qua công trường gạch đá.
     * **Mặt sàn (Surface):** `sand` (bãi cát hoang địa & công trường).
     * **Hiệu ứng (SFX):** `staff` (dùng gậy xua đuổi đám mục đồng quấy rối), `pickup` (tiếp tế bình nước), `chime` (cứu người thành công), `door` (cổng thành trốn thoát).
 * [x] **Stage 3 (`Stage03BurningBushScene`):** *Bụi Cây Bốc Cháy Trên Núi Khô-rép (`Xh 3, 1 – 4, 17`)* ([Chi tiết](./scripts.md#stage-3-bụi-cây-bốc-cháy-trên-núi-khô-rép-xh-3-1--4-17))
-  * [x] 🖼️ Ảnh mở màn: `intro-3.png` (Bụi gai rực lửa thánh thiêng trên sườn núi Khô-rép; Môi-sê cởi dép quỳ trước Đấng *"TA LÀ ĐẤNG HẰNG HỮU"*).
+  * [x] 🖼️ Ảnh mở màn: `intro-3.png` (Bụi gai rực lửa thánh thiêng trên sườn núi Khô-rép; Mô-sê cởi dép quỳ trước Đấng *"TA LÀ ĐẤNG HẰNG HỮU"*).
   * [x] Gameplay (**Sacred Ground Puzzle & 3 Staff Signs**): Cởi dép bước trên đất thánh và thực hành 3 dấu lạ Chúa trao.
   * [x] 🎵 Âm thanh & Nhạc nền:
     * **Nhạc nền (BGM):** `sabbath` (Holy Ground & Sacred Rest 64 BPM, G major) — thánh thiêng, tĩnh lặng sâu thẳm trước nhan Thiên Chúa.
@@ -146,7 +146,7 @@ export interface ExodusSaveData {
     * **Mặt sàn (Surface):** `sand` (đất thánh sườn núi).
     * **Hiệu ứng (SFX):** `bless` (cởi dép bước trên đất thánh), `staff` (3 dấu lạ gậy hóa rắn, tay phong hủi), `chime` (đón nhận thánh danh Ta Là Đấng Hằng Hữu).
 * [x] **Stage 4 (`Stage04PharaohPlaguesScene`):** *Đối Diện Pha-ra-ô & Các Dấu Lạ Cảnh Báo (`Xh 7, 14 – 9, 35`)* ([Chi tiết](./scripts.md#stage-4-đối-diện-pha-ra-ô--các-dấu-lạ-cảnh-báo-xh-7-14--9-35))
-  * [x] 🖼️ Ảnh mở màn: `intro-4.png` (Đại điện cung điện Ai Cập; Môi-sê và A-ha-rôn đối diện Pha-ra-ô cứng lòng).
+  * [x] 🖼️ Ảnh mở màn: `intro-4.png` (Đại điện cung điện Ai Cập; Mô-sê và A-ha-rôn đối diện Pha-ra-ô cứng lòng).
   * [x] Gameplay (**Tactical Staff Channelling & Barrier Break**): Né bẫy ảo thuật và kích hoạt 3 đợt Dấu Lạ phá vỡ Khiên Kiêu Ngạo của Pha-ra-ô.
   * [x] 🎵 Âm thanh & Nhạc nền:
     * **Nhạc nền (BGM):** `serpent` (Serpent & Confrontation at Court 88 BPM, C minor) — căng thẳng, nửa cung bí hiểm, quyền năng Thiên Chúa đối đầu sự cứng lòng của vua Ai Cập.
@@ -165,7 +165,7 @@ export interface ExodusSaveData {
   * [x] 🖼️ Ảnh mở màn: `intro-6.png` (Đêm trăng tròn; gia đình quây quần bên bàn tiệc Chiên Vượt Qua; máu chiên trên khung cửa tỏa hào quang).
   * [x] Gameplay (**Preparation Crafting & Doorpost Marking**): Chuẩn bị bàn tiệc Vượt Qua và cầm chùm kinh giới bôi máu chiên lên 10 khung cửa nhà dân trước nửa đêm.
   * [x] 🎵 Âm thanh & Nhạc nền:
-    * **Nhạc nền (BGM):** `sorrowful` (Passover Vigil & Sacrificial Lamb 56 BPM, A minor) — chậm rãi, trang nghiêm, canh thức thánh trong đêm thiên sứ lướt qua.
+    * **Nhạc nền (BGM):** `sorrowful` (Passover Vigil & Sacrificial Lamb 56 BPM, A minor) — chậm rãi, trang nghiêm, canh thức thánh trong đêm sứ thần lướt qua.
     * **Âm nền (Ambience):** `["crickets"]` — tiếng dế đêm tĩnh mịch trước giờ Xuất Hành.
     * **Mặt sàn (Surface):** `wood` (sàn gỗ trong nhà gia đình).
     * **Hiệu ứng (SFX):** `pickup` (chuẩn bị bánh không men & nhành kinh giới), `chime` (bôi máu chiên lên khung cửa), `bless` (khung cửa tỏa hào quang che chở), `wrong` (bánh bị ủ men).
@@ -196,23 +196,23 @@ export interface ExodusSaveData {
     * **Mặt sàn (Surface):** `sand` (cát hoang địa phủ Mân-na).
     * **Hiệu ứng (SFX):** `pickup` (nhặt hạt Mân-na vào thùng), `chime` (đầy khẩu phần ô-me một lều), `wrong` (tham lam thu quá mức hoặc nắng gắt làm tan).
 * [x] **Stage 10 (`Stage10RephidimHandsScene`):** *Đập Đá Rê-phi-đim & Đôi Tay Cầu Nguyện Trên Đồi (`Xh 17, 1-16`)* ([Chi tiết](./scripts.md#stage-10-đập-đá-rê-phi-đim--đôi-tay-cầu-nguyện-trên-đồi-xh-17-1-16))
-  * [x] 🖼️ Ảnh mở màn: `intro-10.png` (Nước tuôn từ tảng đá Khô-rép; A-ha-rôn và Khua nâng đỡ đôi tay Môi-sê cầu nguyện).
-  * [x] Gameplay (**Rock-Strike Timing & Prayer-Hands Support Co-op**): Căn nhịp đập đá mở suối nước và phối hợp đỡ đôi tay Môi-sê giơ cao.
+  * [x] 🖼️ Ảnh mở màn: `intro-10.png` (Nước tuôn từ tảng đá Khô-rép; A-ha-rôn và Khua nâng đỡ đôi tay Mô-sê cầu nguyện).
+  * [x] Gameplay (**Rock-Strike Timing & Prayer-Hands Support Co-op**): Căn nhịp đập đá mở suối nước và phối hợp đỡ đôi tay Mô-sê giơ cao.
   * [x] 🎵 Âm thanh & Nhạc nền:
     * **Nhạc nền (BGM):** `exodus` (Battle of Rephidim & Striking the Rock 126 BPM, D minor) — kiên cường, dồn dập, sức mạnh của lời cầu nguyện kiên trì và hiệp thông nâng đỡ.
     * **Âm nền (Ambience):** `["wind"]` — gió lộng trên đỉnh đồi Rê-phi-đim.
     * **Mặt sàn (Surface):** `stone` (đỉnh đồi đá Khô-rép).
-    * **Hiệu ứng (SFX):** `staff` (gậy đập vào tảng đá Khô-rép), `splash` (dòng suối tuôn trào mát lành), `bless` (A-ha-rôn & Khua nâng đôi tay Môi-sê), `wrong` (đôi tay mỏi hạ xuống).
+    * **Hiệu ứng (SFX):** `staff` (gậy đập vào tảng đá Khô-rép), `splash` (dòng suối tuôn trào mát lành), `bless` (A-ha-rôn & Khua nâng đôi tay Mô-sê), `wrong` (đôi tay mỏi hạ xuống).
 * [x] **Stage 11 (`Stage11SinaiCommandmentsScene`):** *Mười Điều Răn Trên Đỉnh Xi-nai (`Xh 19, 16 – 20, 21`)* ([Chi tiết](./scripts.md#stage-11-mười-điều-răn-trên-đỉnh-xi-nai-xh-19-16--20-21))
-  * [x] 🖼️ Ảnh mở màn: `intro-11.png` (Đỉnh Xi-nai rực lửa thánh; Môi-sê đón nhận Hai Bia Đá Mười Điều Răn).
+  * [x] 🖼️ Ảnh mở màn: `intro-11.png` (Đỉnh Xi-nai rực lửa thánh; Mô-sê đón nhận Hai Bia Đá Mười Điều Răn).
   * [x] Gameplay (**Mountain Ascent & Ten Commandments Tablet Matching**): Leo núi Xi-nai và sắp xếp đúng thứ tự 10 Điều Răn vào Hai Bia Đá.
   * [x] 🎵 Âm thanh & Nhạc nền:
     * **Nhạc nền (BGM):** `sinai` (Mount Sinai & The Ten Tablets 104 BPM, C major) — uy nghi, tráng lệ, kèn tù và vang rền trên đỉnh núi sương khói đón nhận Lời Giao Ước.
     * **Âm nền (Ambience):** `["wind"]` — gió sấm chớp cuồn cuộn trên đỉnh núi thánh.
     * **Mặt sàn (Surface):** `stone` (vách đá dốc đứng núi Xi-nai).
     * **Hiệu ứng (SFX):** `shofar` (kèn sừng cừu trầm hùng triệu tập toàn dân), `pickup` (đón nhận từng giới răn), `chime` (khắc xong một điều răn), `bless` (Hai Bia Đá Mười Điều Răn hoàn tất rực sáng).
-* [x] **Stage 12 (`Stage12GoldenCalfMercyScene`):** *Bi Kịch Bê Vàng & Lời Chuyển Cầu Của Môi-sê (`Xh 32, 1-34`; `34, 1-10`)* ([Chi tiết](./scripts.md#stage-12-bi-kịch-bê-vàng--lời-chuyển-cầu-của-môi-sê-xh-32-1-34-34-1-10))
-  * [x] 🖼️ Ảnh mở màn: `intro-12.png` (Mảnh vỡ tượng bê vàng tan tành; Môi-sê đẽo lại hai bia đá mới và tha thiết cầu bầu).
+* [x] **Stage 12 (`Stage12GoldenCalfMercyScene`):** *Bi Kịch Bê Vàng & Lời Chuyển Cầu Của Mô-sê (`Xh 32, 1-34`; `34, 1-10`)* ([Chi tiết](./scripts.md#stage-12-bi-kịch-bê-vàng--lời-chuyển-cầu-của-mô-sê-xh-32-1-34-34-1-10))
+  * [x] 🖼️ Ảnh mở màn: `intro-12.png` (Mảnh vỡ tượng bê vàng tan tành; Mô-sê đẽo lại hai bia đá mới và tha thiết cầu bầu).
   * [x] Gameplay (**Idol Purge & Intercession Path Puzzle**): Dẹp lò khói mê muội bê vàng, đẽo lại 2 Bia Đá mới và cầu bầu xin Chúa thứ tha.
   * [x] 🎵 Âm thanh & Nhạc nền:
     * **Nhạc nền (BGM):** `sorrowful` (Contrition & Intercession for Mercy 56 BPM, A minor) — xót xa trước lỗi lầm, nhưng tha thiết lời cầu bầu tin tưởng vào Lòng Thương Xót vô biên.
@@ -222,10 +222,10 @@ export interface ExodusSaveData {
 * [x] **Stage 13 (`Stage13TabernacleGloryScene`):** *Dựng Nhà Tạm & Vinh Quang Chúa Ngự Xuống (`Xh 35 – 40`)* ([Chi tiết](./scripts.md#stage-13-dựng-nhà-tạm--vinh-quang-chúa-ngự-xuống-xh-35--40))
   * [x] 🖼️ Ảnh mở màn: `intro-13.png` (Nhà Tạm hoàn thành uy nghiêm; Đám Mây Vinh Quang Shekinah ngự xuống bao phủ).
   * [x] Gameplay (**Sanctuary Blueprint Assembly Finale**): Lắp đặt 3 không gian Nhà Tạm (Sân Ngoài, Nơi Thánh, Nơi Cực Thánh) đón vinh quang Chúa.
-  * [x] 🎬 Cutscene chuyển tiếp then chốt (**Hành Trình Về Đất Hứa & Lời Chúc Lành Của Môi-sê** – `Đnl 34; Gs 1–3`):
+  * [x] 🎬 Cutscene chuyển tiếp then chốt (**Hành Trình Về Đất Hứa & Lời Chúc Lành Của Mô-sê** – `Đnl 34; Gs 1–3`):
     * Kể ngắn gọn hành trình 40 năm hoang địa hoàn tất: Đám Mây, Cột Lửa và Hòm Bia Giao Ước đồng hành che chở dân Chúa qua bao thử thách gian nan.
-    * Trên đỉnh núi Nê-vô (`Nebo`), ông Môi-sê dù tuổi cao mắt vẫn tinh tường, được Chúa đưa lên ngắm nhìn toàn cảnh Đất Hứa Ca-na-an chan hòa sữa và mật. Môi-sê đặt tay chúc lành, trao gậy và trao phó sứ mạng cho dũng tướng Giu-suê kế nhiệm.
-    * Giu-suê cùng các tư tế khiêng Hòm Bia Giao Ước dẫn toàn dân rẽ nước sông Gio-đan, hân hoan đặt chân vào Đất Hứa – hoàn tất trọn vẹn lời đoan thệ Thiên Chúa đã hứa với các tổ phụ Áp-ra-ham, I-xa-ác và Gia-cóp trước khi bước vào Màn Kết Epilogue.
+    * Trên đỉnh núi Nê-vô (`Nebo`), ông Mô-sê dù tuổi cao mắt vẫn tinh tường, được Chúa đưa lên ngắm nhìn toàn cảnh Đất Hứa Ca-na-an chan hòa sữa và mật. Mô-sê đặt tay chúc lành, trao gậy và trao phó sứ mạng cho dũng tướng Giô-suê kế nhiệm.
+    * Giô-suê cùng các tư tế khiêng Hòm Bia Giao Ước dẫn toàn dân rẽ nước sông Gio-đan, hân hoan đặt chân vào Đất Hứa – hoàn tất trọn vẹn lời đoan thệ Thiên Chúa đã hứa với các tổ phụ Áp-ra-ham, I-xa-ác và Gia-cóp trước khi bước vào Màn Kết Epilogue.
   * [x] 🎵 Âm thanh & Nhạc nền:
     * **Nhạc nền (BGM):** `tabernacle` (Tabernacle of the Covenant 96 BPM, G major) — rạng rỡ, trang trọng, thánh ca phụng vụ tạ ơn Chúa đến ở giữa con người.
     * **Âm nền (Ambience):** `["crowd", "wind"]` — toàn dân kính cẩn vây quanh Nhà Tạm đón mừng vinh quang Chúa.

@@ -347,7 +347,7 @@ export class Stage11SinaiCommandmentsScene extends BaseExodusScene {
         this.toast(p.x, cfg.y - 16, tr(STAGE11.tier[i]), "#bbf7d0");
         if (i === 0 && !this.joshuaTold) {
           this.joshuaTold = true;
-          this.talk(tx("Giu-suê", "Joshua"), STAGE11.joshua.map(tr));
+          this.talk(tx("Giô-suê", "Joshua"), STAGE11.joshua.map(tr));
         }
         if (i === TIERS.length - 1) {
           this.phase = "wait";

@@ -218,7 +218,7 @@ export interface DavidSaveData {
     * **Mặt sàn (Surface):** `stone` (đại lộ đá Giê-ru-sa-lem & Lều Thánh Xi-on).
     * **Hiệu ứng (SFX):** `shofar` (tiếng kèn sừng cừu vang dội), `tambourine` (nhịp múa tạ ơn), `bless` / `complete` (Hòm Bia an vị trong Lều Thánh & Lời Hứa Vương Quốc Vĩnh Cửu).
 * [x] **Màn Kết (`EpilogueScene`):** *Con Vua Đa-vít – Vị Vua Tình Yêu Muôn Đời (`Lc 1, 32-33; Ga 10, 11; Kh 22, 16`)* ([Chi tiết](./scripts.md#màn-kết-con-vua-đa-vít--vị-vua-tình-yêu-muôn-đời-lc-1-32-33-ga-10-11))
-  * [x] 🖼️ Ảnh mở màn: `intro-end.png` (Căn phòng bình minh; Kinh Thánh mở bên Cây Đàn Hạc & Vương Miện Đa-vít, Hai Bia Đá Môi-sê, Tàu Nô-ê, Cuộn Sáng Thế và Chuỗi Mân Côi).
+  * [x] 🖼️ Ảnh mở màn: `intro-end.png` (Căn phòng bình minh; Kinh Thánh mở bên Cây Đàn Hạc & Vương Miện Đa-vít, Hai Bia Đá Mô-sê, Tàu Nô-ê, Cuộn Sáng Thế và Chuỗi Mân Côi).
   * [x] Gameplay: 3 kết nối đức tin của Người Mục Tử & Vị Vua Tình Yêu (Mục tử chăn chiên Bê-lem $\rightarrow$ Chúa Giêsu Mục Tử Nhân Lành; Đàn hạc Thánh Vịnh & Lòng khoan dung $\rightarrow$ Đời sống cầu nguyện và tha thứ; Ngai vàng Đa-vít $\rightarrow$ Chúa Giêsu Con Vua Đa-vít trị vì muôn đời).
   * [x] 🎵 Âm thanh & Nhạc nền:
     * **Nhạc nền (BGM):** `lullaby` (Son of David, King Forever 70 BPM, C major) — trọn vẹn, bình an, khúc kết thúc hành trình đức tin.

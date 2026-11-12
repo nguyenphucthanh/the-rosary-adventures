@@ -158,7 +158,7 @@ export class Stage13TabernacleGloryScene extends BaseExodusScene {
     this.interactables.push({ x: 176, y: 148, r: 30, label: () => tr(STAGE13.ark), active: () => this.step === 2 && !this.busy && !!this.carry, act: () => this.arkPlace() });
     this.interactables.push({ x: 176, y: 90, r: 26, label: () => tr(STAGE13.veil), active: () => this.step === 2 && !this.busy && !this.carry && !this.veilHung, act: () => this.hangVeil() });
     this.interactables.push({ x: 176, y: 508, r: 28, label: () => tr(STAGE13.gate), active: () => this.step === 3 && !this.busy && !this.gateHung, act: () => this.hangGate() });
-    this.interactables.push({ x: MOSES_P[0], y: MOSES_P[1] - 4, r: 24, label: tx("[A] Môi-sê", "[A] Moses"), active: () => !this.busy && !this.carry, act: () => this.remind() });
+    this.interactables.push({ x: MOSES_P[0], y: MOSES_P[1] - 4, r: 24, label: tx("[A] Mô-sê", "[A] Moses"), active: () => !this.busy && !this.carry, act: () => this.remind() });
 
     this.carryImg = this.add.image(0, 0, "tb_altar").setDepth(DEPTH.FX).setVisible(false);
     this.label = this.add.text(0, 0, "", { fontFamily: "Dearpix, monospace", fontSize: "10px", color: "#fde68a", backgroundColor: "#0f172acc", padding: { x: 3, y: 1 }, align: "center", resolution: 4 }).setOrigin(0.5, 0).setDepth(DEPTH.UI);

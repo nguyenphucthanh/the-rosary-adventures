@@ -29,7 +29,7 @@ Paste each prompt into an image generator. Each one is self-contained (style lin
 
 ## [ ] Cover. Game Cover Card (`public/games/moses-the-exodus.png`) — *TODO*
 
-Detailed 16-bit pixel art game cover illustration, 16:9 landscape (1200x630), dithered gradients, limited retro palette, 3-4 tone shading per object, clean pixel edges, no anti-aliasing, warm reverent children's storybook RPG mood. In the centre, bearded Moses stands on a rocky promontory raising his wooden shepherd's staff as the Red Sea parts into two towering walls of sparkling turquoise water with a dry golden path between them. In the background rises glowing Mount Sinai crowned with heavenly fire, a towering Pillar of Fire, and a radiant white dove in the starry indigo sky. At the top centre in bold retro 8-bit golden pixel typography: "MOSES - THE EXODUS" with a smaller pixel subtitle below: "Môi-sê & Hành Trình Xuất Hành".
+Detailed 16-bit pixel art game cover illustration, 16:9 landscape (1200x630), dithered gradients, limited retro palette, 3-4 tone shading per object, clean pixel edges, no anti-aliasing, warm reverent children's storybook RPG mood. In the centre, bearded Moses stands on a rocky promontory raising his wooden shepherd's staff as the Red Sea parts into two towering walls of sparkling turquoise water with a dry golden path between them. In the background rises glowing Mount Sinai crowned with heavenly fire, a towering Pillar of Fire, and a radiant white dove in the starry indigo sky. At the top centre in bold retro 8-bit golden pixel typography: "MOSES - THE EXODUS" with a smaller pixel subtitle below: "Mô-sê & Hành Trình Xuất Hành".
 
 ---
 

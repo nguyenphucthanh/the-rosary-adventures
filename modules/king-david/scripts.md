@@ -366,7 +366,7 @@
   * *Câu Lời Chúa chủ đề:* *"Chính Tôi là Mục Tử nhân lành. Mục Tử nhân lành hy sinh mạng sống mình cho đoàn chiên... Ta là Chồi Lộc và là Dòng Dõi của Đa-vít, là Sao Mai sáng ngời!"* (`Ga 10, 11; Kh 22, 16`).
 * **🖼️ Ảnh Minh Họa Mở Màn:**
   * *File ảnh:* `modules/king-david/images/intro-end.png`
-  * *Bối cảnh:* Căn phòng nhỏ lúc bình minh rạng rỡ; cuốn Kinh Thánh mở cạnh Cây Đàn Hạc & Vương Miện Đa-vít, Hai Bia Đá Môi-sê, Tàu Nô-ê, Cuộn Sáng Thế và Chuỗi Mân Côi, kết nối trọn vẹn cậu bé chăn chiên Bê-lem với Chúa Giêsu – Mục Tử Nhân Lành và Vua Vũ Trụ.
+  * *Bối cảnh:* Căn phòng nhỏ lúc bình minh rạng rỡ; cuốn Kinh Thánh mở cạnh Cây Đàn Hạc & Vương Miện Đa-vít, Hai Bia Đá Mô-sê, Tàu Nô-ê, Cuộn Sáng Thế và Chuỗi Mân Côi, kết nối trọn vẹn cậu bé chăn chiên Bê-lem với Chúa Giêsu – Mục Tử Nhân Lành và Vua Vũ Trụ.
 * **Bản đồ Top-Down & Nhân vật:**
   * Căn phòng nhỏ ấm cúng của Lữ khách.
   * Nhân vật: Lữ khách nhỏ tuổi, Đức Chúa Thánh Thần.

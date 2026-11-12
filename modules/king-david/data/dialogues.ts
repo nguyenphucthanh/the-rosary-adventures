@@ -1096,7 +1096,7 @@ export const EPILOGUE = {
   } as L,
   finale: [
     {
-      vi: "Cây Đàn Hạc & Vương Miện Đa-vít tỏa sáng rực rỡ bên cạnh Hai Bia Đá Môi-sê, Hải Đồ Nô-ê, Cuộn Sáng Thế và Chuỗi Mân Côi!",
+      vi: "Cây Đàn Hạc & Vương Miện Đa-vít tỏa sáng rực rỡ bên cạnh Hai Bia Đá Mô-sê, Hải Đồ Nô-ê, Cuộn Sáng Thế và Chuỗi Mân Côi!",
       en: "The Harp & Crown of David shines radiantly beside the Two Tablets of Moses, Noah's Chart, the Genesis Scroll, and the Rosary!",
     },
     {
