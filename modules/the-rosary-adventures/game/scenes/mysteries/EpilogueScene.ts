@@ -140,15 +140,11 @@ export class EpilogueScene extends BedroomScene {
       this.talk(tx("Chúa Thánh Thần", "Holy Spirit"), "🕊️", [
         tx("Chúa Thánh Thần bay đến, tỏa ánh sáng ấm áp bao quanh em và trao tặng Hoa Trái Thánh Thần: Bác ái, Hoan lạc, Bình an. (Gl 5, 22)", "The Holy Spirit flies to you, wraps you in warm light and gives you the Fruits of the Holy Spirit: Charity, Joy, Peace. (Gal 5:22)"),
         tx("“Con yêu dấu, mỗi khi con lần hạt Mân Côi, Ta luôn ở đây để dẫn con đến với Chúa Giêsu và Mẹ Maria. Bây giờ, hãy ngủ thật ngon trong bình an của Chúa nhé!”", "“Dear child, every time you pray the Rosary, I am here to lead you to Jesus and Mary. Now sleep well in the Lord's peace!”"),
-      ])
+      ], () => EventBus.emit("game-complete")) // all dialogs done: React overlay offers stay / home
     );
   }
 
   private sleep() {
-    this.sleeping = true;
-    this.player.setMovementLock(true);
-    const cam = this.cameras.main;
-    cam.fadeOut(1400, 0, 0, 0);
-    cam.once("camerafadeoutcomplete", () => EventBus.emit("game-complete"));
+    EventBus.emit("game-complete"); // reopen the stay / home choice
   }
 }

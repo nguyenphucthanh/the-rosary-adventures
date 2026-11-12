@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import EventBus from "@/modules/shared/game/EventBus";
 import { useT } from "@/modules/shared/i18n";
-import { resetProgress } from "@/modules/the-rosary-adventures/utils/saveManager";
 
-/** Shown when the Epilogue ends: congratulations + one big button to start over. */
+/** Shown when the Epilogue ends: congratulations + buttons to stay in the room or go home. */
 export default function EndingCongrats() {
   const t = useT();
   const [open, setOpen] = useState(false);
@@ -17,12 +17,6 @@ export default function EndingCongrats() {
   }, []);
 
   if (!open) return null;
-
-  const restart = () => {
-    resetProgress();
-    setOpen(false);
-    EventBus.emit("game-restart");
-  };
 
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-950/95 select-none">
@@ -37,11 +31,17 @@ export default function EndingCongrats() {
         </p>
         <button
           type="button"
-          onClick={restart}
+          onClick={() => setOpen(false)}
           className="retro-btn-gold w-full mt-2 py-5 sm:py-6 font-pixel text-[36px] sm:text-[48px] text-amber-100 active:translate-y-0.5"
         >
-          🔄 {t("CHƠI LẠI TỪ ĐẦU", "PLAY AGAIN FROM THE START")}
+          🛏️ {t("Ở LẠI TRONG PHÒNG", "STAY IN THE ROOM")}
         </button>
+        <Link
+          href="/"
+          className="retro-btn w-full py-5 sm:py-6 font-pixel text-[36px] sm:text-[48px] text-amber-300 active:translate-y-0.5"
+        >
+          🏠 {t("VỀ TRANG CHỦ", "BACK TO HOME")}
+        </Link>
       </div>
     </div>
   );

@@ -196,6 +196,34 @@ const SCENE_TRACKS: Record<string, string> = {
   Stage11SinaiCommandmentsScene: "sinai",
   Stage12GoldenCalfMercyScene: "sorrowful",
   Stage13TabernacleGloryScene: "tabernacle",
+
+  // King David
+  Stage01BethlehemAnointingScene: "wilderness",
+  Stage02RoyalHarpSoothingScene: "creation",
+  Stage03ValleyOfElahGoliathScene: "exodus",
+  Stage04JonathanArrowsScene: "nile",
+  Stage05AdullamSanctuaryScene: "creation",
+  Stage06EnGediMercyScene: "sabbath",
+  Stage07AbigailPeaceScene: "crafting",
+  Stage08SpearAndJugScene: "serpent",
+  Stage09SongOfTheBowScene: "sorrowful",
+  Stage10HebronCoronationScene: "sinai",
+  Stage11GihonSpringZionScene: "crafting",
+  Stage12ArkToJerusalemScene: "tabernacle",
+
+  // Joseph – The Coat of the Sun
+  Stage01DreamSheavesScene: "eden",
+  Stage02RoadToDothanScene: "wilderness",
+  Stage03DryWellScene: "sorrowful",
+  Stage04DesertCaravanScene: "voyage",
+  Stage05PotipharHouseScene: "nile",
+  Stage06OpenDoorScene: "serpent",
+  Stage07PrisonDreamsScene: "sabbath",
+  Stage08PharaohDreamScene: "promise",
+  Stage09GranariesScene: "glorious",
+  Stage10FamineScene: "sorrowful",
+  Stage11SilverCupScene: "sabbath",
+  Stage12GoshenScene: "joyful",
 };
 
 /** Scene key -> track id. undefined = keep whatever is playing (transitions, loading). */
@@ -285,6 +313,34 @@ const AMBIENT: Record<string, Ambient[]> = {
   Stage11SinaiCommandmentsScene: ["wind"],
   Stage12GoldenCalfMercyScene: ["fire", "wind"],
   Stage13TabernacleGloryScene: ["crowd", "wind"],
+
+  // King David
+  Stage01BethlehemAnointingScene: ["birds", "wind"],
+  Stage02RoyalHarpSoothingScene: ["wind"],
+  Stage03ValleyOfElahGoliathScene: ["wind", "crowd"],
+  Stage04JonathanArrowsScene: ["wind", "birds"],
+  Stage05AdullamSanctuaryScene: ["fire", "wind"],
+  Stage06EnGediMercyScene: ["wind"],
+  Stage07AbigailPeaceScene: ["birds", "wind"],
+  Stage08SpearAndJugScene: ["crickets", "wind"],
+  Stage09SongOfTheBowScene: ["wind", "crickets"],
+  Stage10HebronCoronationScene: ["crowd", "wind"],
+  Stage11GihonSpringZionScene: ["wind"],
+  Stage12ArkToJerusalemScene: ["crowd", "wind"],
+
+  // Joseph – The Coat of the Sun
+  Stage01DreamSheavesScene: ["birds", "wind"],
+  Stage02RoadToDothanScene: ["wind", "birds"],
+  Stage03DryWellScene: ["wind"],
+  Stage04DesertCaravanScene: ["wind"],
+  Stage05PotipharHouseScene: ["birds"],
+  Stage06OpenDoorScene: ["fire"],
+  Stage07PrisonDreamsScene: ["wind"],
+  Stage08PharaohDreamScene: ["crowd"],
+  Stage09GranariesScene: ["birds", "crowd"],
+  Stage10FamineScene: ["crowd", "wind"],
+  Stage11SilverCupScene: ["fire"],
+  Stage12GoshenScene: ["birds", "wind"],
 };
 
 /** Scene key -> ambient layers. [] = silence; undefined = keep (transitions, loading). */
@@ -360,6 +416,34 @@ const SURFACE: Record<string, Surface> = {
   Stage11SinaiCommandmentsScene: "stone",
   Stage12GoldenCalfMercyScene: "sand",
   Stage13TabernacleGloryScene: "stone",
+
+  // King David
+  Stage01BethlehemAnointingScene: "grass",
+  Stage02RoyalHarpSoothingScene: "stone",
+  Stage03ValleyOfElahGoliathScene: "sand",
+  Stage04JonathanArrowsScene: "grass",
+  Stage05AdullamSanctuaryScene: "stone",
+  Stage06EnGediMercyScene: "stone",
+  Stage07AbigailPeaceScene: "sand",
+  Stage08SpearAndJugScene: "sand",
+  Stage09SongOfTheBowScene: "stone",
+  Stage10HebronCoronationScene: "stone",
+  Stage11GihonSpringZionScene: "stone",
+  Stage12ArkToJerusalemScene: "stone",
+
+  // Joseph – The Coat of the Sun
+  Stage01DreamSheavesScene: "grass",
+  Stage02RoadToDothanScene: "sand",
+  Stage03DryWellScene: "grass",
+  Stage04DesertCaravanScene: "sand",
+  Stage05PotipharHouseScene: "stone",
+  Stage06OpenDoorScene: "stone",
+  Stage07PrisonDreamsScene: "stone",
+  Stage08PharaohDreamScene: "stone",
+  Stage09GranariesScene: "grass",
+  Stage10FamineScene: "sand",
+  Stage11SilverCupScene: "stone",
+  Stage12GoshenScene: "grass",
 };
 
 /** Floor sound for a scene; stone unless listed. */

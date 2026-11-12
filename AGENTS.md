@@ -67,6 +67,25 @@ All four games are bilingual. The player picks the language in the character dia
 - Speaker plates on the shared dialogue box are translated through `modules/shared/speakers.ts` for the Vietnamese-only names that data files pass in.
 - Scripture references: English uses `Luke 1:26-38`-style, Vietnamese keeps `Lc 1, 26-38`.
 
+## Catholic Bible vocabulary (Vietnamese + English)
+
+This is a Catholic game. Scripture names, book titles and quotes follow the Catholic Vietnamese Bible (Bản Việt ngữ 2011 of the Nhóm Phiên Dịch Các Giờ Kinh Phụng Vụ / Ủy ban Giáo lý Đức tin, used in the Liturgy), **never the Protestant (Tin Lành) translation**. English uses Catholic wording too (NABRE / RSV-CE: "Lord", "Psalms", "Pharaoh", "Israel").
+
+| Use (Công Giáo) | Never (Tin Lành) |
+| --- | --- |
+| Thiên Chúa, Đức Chúa, Chúa | Đức Chúa Trời, Đức Giê-hô-va, Giê-hô-va |
+| Ít-ra-en | Y-sơ-ra-ên, Ysơ-ra-ên |
+| Ai-cập | Ê-díp-tô |
+| Pha-ra-ô | Pha-ra-ôn |
+| Mô-sê, Đa-vít, Gia-cóp, Giuse, Rúp-ben, Si-mê-ôn, Giu-đa, Ben-gia-min, Ra-khen | Môi-se, Đa-vít, Gia-cốp, Giô-sép, Ru-bên, Xi-mê-ôn, Giu-đa, Bên-gia-min, Ra-chên |
+| Sáng Thế (St), Sa-mu-en (Sm), Thánh Vịnh (Tv), Xuất Hành (Xh) | Sáng Thế Ký, Thi Thiên, Xuất Ê-díp-tô Ký |
+| Tội, ơn cứu độ, Thánh Thần, Thiên thần, Hòm Bia Giao Ước | Tội lỗi (as theme), ơn cứu rỗi, Thánh Linh, Thiên sứ, Hòm Giao Ước |
+| Ngôn sứ | Tiên tri |
+
+- Quote Scripture from the Catholic text, with Catholic reference style (`St 37, 3`; English `Genesis 37:3`). If you cannot quote a verse verbatim from memory, paraphrase and mark it `[kiểm lại CGKPV]` in the script — never silently borrow a Protestant wording.
+- Spelling of rarer names (e.g. Pút-ti-phác, Át-xơ-nát, Mít-gian) must be checked against the Catholic text before it ships; keep one spelling across data, scenes and prompts.
+- Catholic reading is welcome where it is traditional and gentle (Giuse as a figure of Jesus, "Hãy đến với ông Giuse" → Eucharist), never polemical.
+
 ## Tone
 
 Vietnamese first (EN supported). Reverent, warm, simple words for children; Scripture quotes cite the reference (e.g. `Lc 1, 26-38`).
