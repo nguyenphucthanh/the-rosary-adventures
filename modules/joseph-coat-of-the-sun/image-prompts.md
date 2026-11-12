@@ -11,20 +11,20 @@ Paste each prompt into an image generator. Each is self-contained (style line in
 
 **Negative prompt (if supported):** smooth gradients, blur, vector, 3D render, photo, text, watermark, outlines, realistic faces, scary, gore, blood, nudity, modern clothing, pagan ritual.
 
-## Progress Checklist (`modules/joseph-coat-of-the-sun/images/`) — 0 / 14
+## Progress Checklist (`modules/joseph-coat-of-the-sun/images/`) — 12 / 15 Completed
 
-- [ ] `cover.png` (`/public/games/joseph-coat-of-the-sun.png`)
-- [ ] `intro-start.png` — Prologue: the coat and the torn map
-- [ ] `intro-1.png` — 1. The Dream of the Sheaves, Hebron
-- [ ] `intro-2.png` — 2. The Road to Shechem and Dothan
-- [ ] `intro-3.png` — 3. The Dry Well at Dothan
-- [ ] `intro-4.png` — 4. The Caravan in the Desert
-- [ ] `intro-5.png` — 5. Potiphar's House
-- [ ] `intro-6.png` — 6. The Corridor of the Open Door
-- [ ] `intro-7.png` — 7. The Prison Window
-- [ ] `intro-8.png` — 8. Pharaoh's Dream of Seven Cows
-- [ ] `intro-9.png` — 9. The Governor and the Granaries
-- [ ] `intro-10.png` — 10. The Famine and the Brothers
+- [x] `cover.png` (`/public/games/joseph-coat-of-the-sun.png`)
+- [x] `intro-start.png` — Prologue: the coat and the torn map
+- [x] `intro-1.png` — 1. The Dream of the Sheaves, Hebron
+- [x] `intro-2.png` — 2. The Road to Shechem and Dothan
+- [x] `intro-3.png` — 3. The Dry Well at Dothan
+- [x] `intro-4.png` — 4. The Caravan in the Desert
+- [x] `intro-5.png` — 5. Potiphar's House
+- [x] `intro-6.png` — 6. The Corridor of the Open Door
+- [x] `intro-7.png` — 7. The Prison Window
+- [x] `intro-8.png` — 8. Pharaoh's Dream of Seven Cows
+- [x] `intro-9.png` — 9. The Governor and the Granaries
+- [x] `intro-10.png` — 10. The Famine and the Brothers
 - [ ] `intro-11.png` — 11. The Silver Cup and Judah's Plea
 - [ ] `intro-12.png` — 12. Reunion in Goshen
 - [ ] `intro-end.png` — Epilogue: Joseph and Jesus
