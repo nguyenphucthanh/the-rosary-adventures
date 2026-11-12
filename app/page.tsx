@@ -29,6 +29,13 @@ const GAMES = [
     image: "/games/noahs-ark.png",
   },
   {
+    href: "/joseph-coat-of-the-sun",
+    title: "Joseph – The Coat of the Sun",
+    blurb: l("Giuse chiếc áo mặt trời: từ giấc mơ ở Hếp-rôn, bị bán sang Ai-cập, ngục tù đến ngôi tể tướng và lời tha thứ, qua 12 màn chơi đa thể loại.", "Joseph and the coat of the sun: from the dreams of Hebron, sold into Egypt and prison, to the governor's seat and forgiveness, in 12 mixed-genre stages."),
+    tags: [l("12 màn chơi", "12 stages"), l("Đa thể loại", "Mixed genres"), l("Sáng Thế", "Genesis")],
+    image: "/games/joseph-coat-of-the-sun.png",
+  },
+  {
     href: "/moses-the-exodus",
     title: "Moses – The Exodus",
     blurb: l("Từ chiếc thúng cói sông Nin đến Mười Điều Răn trên núi Xi-nai qua 13 màn chơi đa thể loại.", "From the basket on the Nile to the Ten Commandments on Mount Sinai in 13 mixed-genre stages."),
@@ -41,13 +48,6 @@ const GAMES = [
     blurb: l("Từ cậu bé chăn chiên ở Bê-lem và tiếng đàn Thánh Vịnh đến ngai vàng Giê-ru-sa-lem qua 12 màn chơi đa thể loại.", "From the shepherd boy of Bethlehem and the Psalms to the throne of Jerusalem in 12 mixed-genre stages."),
     tags: [l("12 màn chơi", "12 stages"), l("Đa thể loại", "Mixed genres"), l("Sa-mu-en", "Samuel")],
     image: "/games/king-david.png",
-  },
-  {
-    href: "/joseph-coat-of-the-sun",
-    title: "Joseph – The Coat of the Sun",
-    blurb: l("Giuse chiếc áo mặt trời: từ giấc mơ ở Hếp-rôn, bị bán sang Ai-cập, ngục tù đến ngôi tể tướng và lời tha thứ, qua 12 màn chơi đa thể loại.", "Joseph and the coat of the sun: from the dreams of Hebron, sold into Egypt and prison, to the governor's seat and forgiveness, in 12 mixed-genre stages."),
-    tags: [l("12 màn chơi", "12 stages"), l("Đa thể loại", "Mixed genres"), l("Sáng Thế", "Genesis")],
-    image: "/games/joseph-coat-of-the-sun.png",
   },
 ];
 
